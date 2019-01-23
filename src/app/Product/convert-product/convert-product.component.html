@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" [(ngModel)]="this.proCodeKey" name="KeySearch" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" (click)='searchProductCode()' type="submit">Search Product</button>
+            </form>
+    </div>
+    <div class="row">
+        
+        <div class="col-sm-6">
+                
+                List of Product assigned on me::
+                <div class="row"  *ngFor="let p of plist">
+                        <div class="col-sm-3">{{p.Name}}</div>
+                        <div class="col-sm-3">{{p.Code}}</div>
+                        <div class="col-sm-3">{{p.Quantity}}</div>
+                        <div class="col-sm-3"><button type="button" class="btn btn-link" (click)="addToSelectList(p)" >select</button></div>
+                </div>
+        </div>
+        <div class="col-sm-6">
+            List of product selected::
+            <div class="row"  *ngFor="let p of selectedlist">
+                    <div class="col-sm-3">{{p.Name}}</div>
+                    <div class="col-sm-3">{{p.Code}}</div>
+                    <div class="col-sm-3">{{p.Quantity}}</div>
+                    <div class="col-sm-3"><button type="button" class="btn btn-link" (click)="addToSelectList(p)" >remove</button></div>
+            </div>
+            
+        </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+
+</div>

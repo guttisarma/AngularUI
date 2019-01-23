@@ -1,0 +1,53 @@
+<div *ngIf="size<10">
+<div class="form-group">
+  <select class="form-control" id="sel1" >
+    <option *ngFor="let optn of multioption">{{optn.Name}}</option>
+  </select>
+</div>
+</div>
+<div *ngIf="size>=10">
+   <!-- Button to Open the Modal -->
+    <form class="form-inline">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" data-toggle="modal" data-target="#myModal" aria-label="Search">
+      </form>
+  
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Select Option</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+                Search here
+            </div>
+            <hr/>
+             <div class="row" *ngFor="let optn of multioption">
+                <div class="col-sm-3">
+                    {{optn.id}}
+                  </div>
+                  <div class="col-sm-6">
+                      {{optn.Name}}
+                  </div>
+             </div>
+
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>   
+</div>

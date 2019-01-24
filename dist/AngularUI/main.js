@@ -959,7 +959,7 @@ var ProductService = /** @class */ (function () {
         this.createdAssigneeProductUrl = 'api/Product/CreatedAssigneeProduct';
         this.assignedProductProductUrl = 'api/Product/AssignedProduct';
         this.convertedProductUrl = 'api/Product/ConvertedProduct';
-        this.registrationUrl = 'http://localhost:55374/api/Product/CreateProduct';
+        this.registrationUrl = 'api/Product/CreateProduct';
     }
     ProductService.prototype.getMockProductList = function (category) {
         if (category == 'Created') {
@@ -1910,7 +1910,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! F:\Proj\Trunk\TradeBulk\Angular UI\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! E:\Jagadeesh\AngularUI.git\trunk\src\main.ts */"./src/main.ts");
 
 
 /***/ })

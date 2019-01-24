@@ -13,7 +13,7 @@ export class ProductService {
   private createdAssigneeProductUrl = 'api/Product/CreatedAssigneeProduct';  
   private assignedProductProductUrl = 'api/Product/AssignedProduct';  
   private convertedProductUrl = 'api/Product/ConvertedProduct';  
-  private registrationUrl='http://localhost:55374/api/Procuduct/CreateProduct';
+  private registrationUrl='api/Product/CreateProduct';
 
   
   constructor( private http: HttpClient) { }

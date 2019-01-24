@@ -1,0 +1,65 @@
+﻿@model TradeBulk_Web.Models.ViewModels.NewProductViewModel
+
+<div>
+    <div class="w3-display-topmiddle">
+        <h2>Product Details</h2>
+    </div>
+    <hr />
+    <div class="align-self-center" id="actionStartDate"></div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuctionDate)
+        </dt>
+
+        <dd>
+            @*<label id="AuctionDate" name="AuctionDate">@Model.AuctionDate</label>
+    <input type="text" id="AuctionDate" name="AuctionDate" value=@Model.AuctionDate/>*@
+            <span id="AuctionDate">@Model.AuctionDate</span>
+            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+@section Scripts {
+
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/Product/Details.js"></script>
+}

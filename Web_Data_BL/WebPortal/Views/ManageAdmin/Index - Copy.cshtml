@@ -1,0 +1,38 @@
+﻿@using  PBVCC.Models.SupportModels.AdminSelectionOptions
+@using System.Web.Mvc
+@model OptionsList[]
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+               { 
+
+<table>
+    <tr>
+        <td>Select Options</td>
+
+        <td>
+            @Html.DropDownList("StudentGender",
+                    new SelectList((string[])@ViewBag.OptionsList),
+                    "Select Gender",
+                    new { @class = "form-control" }) </td>
+        
+    </tr>
+    <tr>
+        <td>
+
+        </td>
+        <td>@Html.DropDownListFor((SubjectModel[])@ViewBag.OptionsList => model.SubjectList, Model.SubjectList) </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input id="Submit1" type="submit" value="search" />
+        </td>
+    </tr>
+</table>
+ }

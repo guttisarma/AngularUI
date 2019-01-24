@@ -1,0 +1,145 @@
+﻿@using  TradeBulk_Web.Models.SupportModels;
+@using System.Web.Mvc;
+@using TradeBulk_Web.Models.ViewModels;
+@model AdminUsersList
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h2>List Of Users</h2>
+
+
+@using (Html.BeginForm())
+{
+
+<label for="SubjectList">Subjects</label>
+
+@Html.DropDownListFor(model => model.Aso.SubjectList, Model.Aso.SubjectList)
+<input id="Submit1" type="submit" value="search" />
+
+     if (Model.lsNURs!=null && Model.lsNURs.Count !=0)
+     {
+     <table class="table table-hover">
+        <tr>
+            <th scope="col" style="word-wrap: break-word">
+                @Html.HiddenFor(model => model.lsNURs[0].ID)
+            </th>
+            <th scope="col" style="word-wrap: break-word">
+                @Html.DisplayNameFor(model => model.lsNURs[0].FirstName)
+            </th>
+            <th scope="col" style="word-wrap: break-word">
+                @Html.DisplayNameFor(model => model.lsNURs[0].MiddleName)
+            </th>
+            <th scope="col" style="word-wrap: break-word">
+                @Html.DisplayNameFor(model => model.lsNURs[0].LastName)
+            </th>
+            <th scope="col" style="word-wrap: break-word">
+                @Html.DisplayNameFor(model => model.lsNURs[0].PhoneNumber)
+            </th>
+            <th scope="col" style="word-wrap: break-word">
+                @Html.DisplayNameFor(model => model.lsNURs[0].Email)
+            </th>
+            <th scope="col" style="word-wrap: break-word">
+                @Html.Label("Date of Birth")
+            </th>
+            <th scope="col" style="word-wrap: break-word">
+                @Html.DisplayNameFor(model => model.lsNURs[0].FullAddress)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.lsNURs[0].AddressProofType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lsNURs[0].AddressID)
+            </th>*@
+            
+            <th>##</th>
+        </tr>
+
+        @foreach (var item in Model.lsNURs)
+        {
+            <tr scope="row">
+                <td style="word-wrap: break-word">
+                    @Html.HiddenFor(modelItem => item.ID)
+                </td>
+                <td style="word-wrap: break-word">
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td style="word-wrap: break-word">
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td style="word-wrap: break-word">
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td style="word-wrap: break-word">
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td style="word-wrap: break-word">
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td style="word-wrap: break-word">
+                    @Html.DisplayFor(modelItem => item.DateofBirth)
+                </td>
+                <td style="word-wrap: break-word">
+                    @*@Html.DisplayText(string.Concat(item.Address1, item.Address2, item.Address3))*@
+                    @Html.DisplayFor(modelItem =>item.FullAddress)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.AddressProofType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddressID)
+                </td>*@
+                
+                <td>
+                    <button type="button" id="btnApproved"  onclick="myFunction(@(item.ID))" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                    </button>
+                    <button type="button" id="btnReject" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-thumbs-down"></span>
+                    </button>
+                        @*@Html.ActionLink("Approve", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Reject", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                        @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+</td>
+            </tr>
+        }
+
+    </table>
+    }
+    else {
+        <div class="container"><span class="text-center">No record Found!</span></div>
+    }
+}
+
+<div id="myModal" class="Popup">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p><b><label id="PopupCaption" value="User Approve Reason" /></b></p>
+        <div class="containerForpopup">
+            @*<form action="/action_page.php">*@
+
+            <div class="row">
+                <div class="col-25">
+                    <label for="lbldescription">Description</label>
+                </div>
+                <div class="col-100">
+                    <input type="text" id="txtdescription" name="txtdescription" placeholder="Your Reason..">
+                </div>
+            </div>
+           
+            <div class="row">
+                <input type="submit" id="PopUpsubmit" name="submit" value="Submit" onclick="btnSubmit('Jagadeesh','sarma')">
+                @*<button id="PopUpsubmit" name="submit" value="Submit" onclick="btnSubmit('Jagadeesh','sarma')"></button>*@
+            </div>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+       
+@section Scripts {
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/ManageAdmin/Index.js"></script>
+}

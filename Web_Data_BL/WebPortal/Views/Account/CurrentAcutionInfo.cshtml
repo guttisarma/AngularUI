@@ -1,0 +1,82 @@
+﻿@model IEnumerable<TradeBulk_BusinessLayer.AuctionInfo>
+
+@{
+    ViewBag.Title = "CurrentAcutionInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <h1>Current Auction :: 12,33,890 Rs.</h1>
+    <div class="row">
+        <div class="col-25">
+            <div class="card-product">
+                <img src="~/Images/camera.PNG" alt="Avatar" style="width:auto;height:auto" >
+                <div class="container-product">
+                    <h4><b>John Doe</b></h4>
+                    <p>Architect & Engineer</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-75" >
+            <div class="w3-top">
+                <div class="w3-bar w3-green">
+                    <input type="text" class="w3-bar-item w3-button w3-right" id="AuctionAmount" placeholder="Search">
+                    <input type="button" class="w3-bar-item w3-button w3-green w3-right" id="submit" onclick="myFunction()" value="Send" />
+                </div>
+            </div>
+                
+                <div class="card example-1 square scrollbar-cyan bordered-cyan">
+
+                    <div class="card-body">
+                        @foreach (var item in Model)
+                        {
+                                    if ((item.PID) % 2 == 0)
+                                    {
+                                <div class="container-auction">
+                                    <div class="head-right"><h3>@Html.DisplayFor(modelItem => item.UserName)</h3></div>
+                                    <h6>Auction Amount</h6>
+                                    <h5>@Html.DisplayFor(modelItem => item.AuctionAmount) Rs..</h5>
+                                    <span class="time-left">@Html.DisplayFor(modelItem => item.TimeStamp)</span>
+                                </div>
+                                    }
+                                    else
+                                    {
+                                <div class="container darker">
+                                    <div class="head-right"><h3>@Html.DisplayFor(modelItem => item.UserName)</h3></div>
+                                    <h6>Auction Amount</h6>
+                                    <h5>@Html.DisplayFor(modelItem => item.AuctionAmount) Rs..</h5>
+                                    <span class="time-left">@Html.DisplayFor(modelItem => item.TimeStamp)</span>
+                                </div>
+                                    }
+                        }
+
+                    </div>
+
+                    @*<div class="row">
+                <div class="col-75">
+                    <br />
+                    <br />
+                    <div class="col-75">
+                        <div class="w3-card">
+                            <input type="text" class="text-center" placeholder="Search">
+                        </div>
+                        </div>
+                    <div class="col-25">
+                        <div class="w3-card">
+                            <input type="button" class="bottom" id="submit" value="Send" />
+                        </div>
+                    </div>
+                    @*</div>
+                </div>
+                    <br />
+                    <br />*@
+
+            </div>
+        </div>
+    </div>
+
+
+    @section Scripts {
+        <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+        <script src="~/Scripts/Account/CurrentAcutionInfo.js"></script>
+        <link href="~/Content/Account/CurrentActionInfo.css" rel="stylesheet" />
+    }
+    

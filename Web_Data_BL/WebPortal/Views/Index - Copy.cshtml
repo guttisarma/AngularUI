@@ -1,0 +1,236 @@
+﻿  
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container">
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="page-header">
+                <h3>Hot Market</h3>
+             </div>
+                <p>
+                    If you want to attract multiple offers on your property right after listing it, staging is probably the number one way to make that happen. In a hot market, buyers need to move quickly and are driven by first impressions and emotions
+                </p>
+                <br />
+                <p>
+                    A seller in a hot market has a better chance of selling a home “as-is” without having to make major updates. Whether you, as a seller, make any significant fixes to the property before listing is best decided through a discussion with your agent to evaluate comparable properties in your neighborhood.
+                </p>
+                @*@Html.ActionLink("Registration", "Registration", "Account");*@
+
+                <button id="btnCreateUser">Create User</button>
+            </div>
+        <div class="col-md-6">
+            <div class="page-header">
+                <h3>Cold Market</h3>
+            </div>
+            <p>
+                In a cold market, an auction gives the power to the buyer and the seller should probably stick to a private sale.
+            </p>
+            <br />
+            <p>
+                A seller in a hot market has a better chance of selling a home “as-is” without having to make major updates. Whether you, as a seller, make any significant fixes to the property before listing is best decided through a discussion with your agent to evaluate comparable properties in your neighborhood.
+            </p>
+            <button id="btnProduct">Create Product</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="myModal" class="Popup" style="display: none;">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Enter User Details ...</p>
+        <div class="containerForpopup">
+            @*<form action="/action_page.php">*@
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="fname">First Name</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="fname" name="firstname" placeholder="Your first name..">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="mname">Middle Name</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="mname" name="middlename" placeholder="Your middle name..">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="lname">Last Name</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                    </div>
+                </div>
+                <div class="row">
+                @* <div class="col-25">
+        <label for="country">Country</label>
+    </div>
+    <div class="col-75">
+        <select id="country" name="country">
+            <option value="australia">Australia</option>
+            <option value="canada">Canada</option>
+            <option value="usa">USA</option>
+        </select>
+    </div>*@
+    </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="dob">Date of Birth</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="Dob" name="Dob" placeholder="Select Date of Birth...">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="Email" name="Email" placeholder="Enter Email ID .." >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="phone">Phone</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="Phone" name="Phone" placeholder="Enter Phone Number .." >
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-25">
+                    <label for="address1">Street and Village</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="address1" name="address1" placeholder="Street and Village ...">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="address2">City and Town</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="address2" name="address2" placeholder="City and Town  .." />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="address3">State and Country</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="address3" name="address3" placeholder="State and Country  ..">
+                </div>
+            </div>
+                <div class="row">
+                    <input type="submit" id="submit" name="submit" value="Submit" onclick="btnSubmit">
+                </div>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+
+
+<div id="myModalProdut" class="Popup" style="display: none;">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" id="Productclose">&times;</span>
+        <p>Enter Product Details ...</p>
+        <div class="containerForpopup">
+            @*<form action="/action_page.php">*@
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="pName">Product Name</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="productname" name="productname" placeholder="Your Product name..">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="price">Price</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="price" name="price" placeholder="Your Product Price..">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="quantity">Quantity</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="quantity" name="quantity" placeholder="Your Product Quantity..">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="producttype">Product Type</label>
+                    </div>
+                    <div class="col-75">
+                        <div id="tableDiv" class="dropdown">
+                            <button id="tableButton" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                Select Product Type
+                                <span class="caret"></span>
+                            </button>
+                            <ul id="producttype" class="dropdown-menu">
+                                <li><a href="#">Inventatory</a></li>
+                                <li><a href="#">Stock</a></li>
+                                <li><a href="#">Marketing</a></li>
+                                <li><a href="#">Others</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+               </div>
+           
+             <div class="col-md-6">
+                 <div class="row">
+                    @*@using (Html.BeginForm("FileUpload", "Home", FormMethod.Post,
+                    new { enctype = "multipart/form-data" }))
+                    {*@
+                        <label for="file">Upload Image:</label>
+                        <input type="file" name="file" id="FileUpload1" style="width: 100%;" multiple/>
+                        @*<input type="submit" value="Upload" class="submit" />
+                    }*@
+                 </div>
+                 <div class="row">
+                     <div class="col-25">
+                         <label for="description">Product Description</label>
+                     </div>
+                     <div class="col-75">
+                         <textarea rows="4" cols="50" id="description" name="description" placeholder="Your Product Description.."></textarea>
+                     </div>
+                 </div>
+             </div>
+                <div class="row">
+                    <input type="submit" id="submitproduct" name="submit" value="Submit" onclick="btnSubmitProduct">
+                </div>
+                @*</form>*@
+            </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/Home/Index.js"></script>
+    }
+   

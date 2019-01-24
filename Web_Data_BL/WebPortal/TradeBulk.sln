@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeBulk_Web", "TradeBulk_Web.csproj", "{94B5C781-1FE6-4328-B9CD-7767F3328355}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F0D43B70-252F-49B0-9FAE-41EFA605CBED} = {F0D43B70-252F-49B0-9FAE-41EFA605CBED}
+		{B2603085-6657-4E69-9AB1-C3291B5246E6} = {B2603085-6657-4E69-9AB1-C3291B5246E6}
+		{77A3758F-EECA-4622-AF1D-E2331A42AB31} = {77A3758F-EECA-4622-AF1D-E2331A42AB31}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeBulk_BusinessLayer", "..\BusinessLayer\TradeBulk_BusinessLayer.csproj", "{F0D43B70-252F-49B0-9FAE-41EFA605CBED}"
+	ProjectSection(ProjectDependencies) = postProject
+		{77A3758F-EECA-4622-AF1D-E2331A42AB31} = {77A3758F-EECA-4622-AF1D-E2331A42AB31}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeBulk_DataLayer", "..\DataLayer\TradeBulk_DataLayer.csproj", "{77A3758F-EECA-4622-AF1D-E2331A42AB31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeBulk_Helper", "..\HelperProject\TradeBulk_Helper.csproj", "{B2603085-6657-4E69-9AB1-C3291B5246E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLNUnitTestProject", "..\BLNUnitTestProject\BLNUnitTestProject.csproj", "{8A7AC265-45F9-4C5A-A0BB-AA8F31FE9D93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94B5C781-1FE6-4328-B9CD-7767F3328355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94B5C781-1FE6-4328-B9CD-7767F3328355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94B5C781-1FE6-4328-B9CD-7767F3328355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94B5C781-1FE6-4328-B9CD-7767F3328355}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0D43B70-252F-49B0-9FAE-41EFA605CBED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0D43B70-252F-49B0-9FAE-41EFA605CBED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0D43B70-252F-49B0-9FAE-41EFA605CBED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0D43B70-252F-49B0-9FAE-41EFA605CBED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77A3758F-EECA-4622-AF1D-E2331A42AB31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A3758F-EECA-4622-AF1D-E2331A42AB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A3758F-EECA-4622-AF1D-E2331A42AB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77A3758F-EECA-4622-AF1D-E2331A42AB31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2603085-6657-4E69-9AB1-C3291B5246E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2603085-6657-4E69-9AB1-C3291B5246E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2603085-6657-4E69-9AB1-C3291B5246E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2603085-6657-4E69-9AB1-C3291B5246E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A7AC265-45F9-4C5A-A0BB-AA8F31FE9D93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A7AC265-45F9-4C5A-A0BB-AA8F31FE9D93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A7AC265-45F9-4C5A-A0BB-AA8F31FE9D93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A7AC265-45F9-4C5A-A0BB-AA8F31FE9D93}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DBCC52CE-2BAB-4B90-9C73-073710124372}
+	EndGlobalSection
+EndGlobal

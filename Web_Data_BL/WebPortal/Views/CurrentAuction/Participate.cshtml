@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "Participate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    @section Scripts {
+           <script>
+            var counter = 0;
+                       
+            var i = setInterval(function () {
+                // do your thing
+                document.getElementById("p2").style.width = counter + 'px';
+                counter++;
+                console.log(counter);
+               
+                if (counter === 535) {
+
+                    clearInterval(i);
+                    alert("Done Good Job" + counter);
+
+                }
+            }, 100);
+           
+            $(function () {
+                debugger;
+                var connection = $.hubConnection();
+                var contosoChatHubProxy = connection.createHubProxy('currentAuctionTickerMini1');
+                function formatStock(stock) {
+                    return $.extend(stock, {
+                        UserName: stock.UserName,
+                        UserAmount: stock.UserAmount
+                    });
+                }
+
+                function init() {
+                    debugger;
+                    contosoChatHubProxy.invoke('getAllAuctions').done(function (Auctions) {
+                        var count = 0;
+                        var auctiontableinstance = document.getElementById('auctionTable');
+                        auctiontableinstance.innerHTML = '<div></div>';
+                        $.each(Auctions, function () {
+                            debugger;
+                            
+                            var stock = formatStock(this);
+                            
+                            if(count%2===0)
+                                var newData = '<div class="col-md-6 col-md-6 success" style="background-color:#ff66a3;align:center">' + stock.UserName + '</div><div class="col-md-6 col-md-6 success" style="background-color:#ff66a3;align:center">' + stock.UserAmount + '</div>';
+                            else if (count % 3 === 0)
+                                var newData = '<div class="col-md-6 col-md-6 success" style="background-color:#ffb3b3;align:center">' + stock.UserName + '</div><div class="col-md-6 col-md-6 success" style="background-color:#ffb3b3;align:center">' + stock.UserAmount + '</div>';
+                            else if (count % 5 === 0)
+                                var newData = '<div class="col-md-6 col-md-6 success" style="background-color:#ccffff;align:center">' + stock.UserName + '</div><div class="col-md-6 col-md-6 success" style="background-color:#ccffff;align:center">' + stock.UserAmount + '</div>';
+                            else if (count % 7 === 0)
+                                var newData = '<div class="col-md-6 col-md-6 success" style="background-color:#e6e6e6;align:center">' + stock.UserName + '</div><div class="col-md-6 col-md-6 success" style="background-color:#e6e6e6;align:center">' + stock.UserAmount + '</div>';
+                            else
+                                var newData = '<div class="col-md-6 col-md-6 success" style="background-color:#ffffb3;align:center">' + stock.UserName + '</div><div class="col-md-6 col-md-6 success" style="background-color:#ffffb3;align:center">' + stock.UserAmount + '</div>';
+                            auctiontableinstance.innerHTML += newData;
+                            count++;
+                        });
+                    });
+               
+                }
+                debugger;
+                connection.start().done(init);
+            });
+
+          
+        </script>
+    }
+<div class="container">
+    <div class="row">
+        <h2>Participate</h2>
+    </div>
+    <div class="row">
+        
+
+            <div class="col-md-3">
+               Product Details 
+
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="progress">
+                        <div id="p2" class="progress-bar progress-bar-striped " role="progressbar" aria-valuenow="100" aria-valuemin="100" aria-valuemax="100" style="width:100%">
+                            <span class="sr-only">70% Complete</span>
+                        </div>
+                        <span>Product will be Sold	</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <span><strong>Submitted Auctions</strong></span>
+                    <div id="auctionTable">
+                        <div class="col-md-6 col-md-6 success" style="background-color:#ff66a3;align:center">
+                            Kamal Hasan
+                        </div>
+                        <div class="col-md-6 col-md-6 success" style="background-color:#ff66a3;align:center">
+                            2,35,500
+                        </div>
+                        <div class="col-md-6 col-md-6 success" style="background-color:#ffb3b3;align:center">
+                            Sudha Hasan
+                        </div>
+                        <div class="col-md-6 col-md-6 success" style="background-color:#ffb3b3;align:center">
+                            2,14,500
+                        </div>
+                        <div class="col-md-6 col-md-6 success" style="background-color:#ccffff;align:center">
+                            Manohar
+                        </div>
+                        <div class="col-md-6 col-md-6 success" style="background-color:#ccffff;align:center">
+                            2,00,500
+                        </div>
+                        <div class="col-md-6 col-md-6 success" style="background-color:#e6e6e6;align:center">
+                            Kamal Hasan
+                        </div>
+                        <div class="col-md-6 col-md-6 success" style="background-color:#e6e6e6;align:center">
+                            1,94,500
+                        </div>
+                        <div class="col-md-6 col-md-6 success" style="background-color:#ffffb3;align:center">
+                            Kamal Hasan
+                        </div>
+                        <div class="col-md-6 col-md-6 success" style="background-color:#ffffb3;align:center">
+                            1,90,000
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <form class="form-inline" action="/action_page.php">
+
+                        <div class="form-group">
+                            
+                            <input type="Text" class="form-control" id="auctionamount" placeholder="Enter Auction Amount" name="auctionamount">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    
+
+</div>

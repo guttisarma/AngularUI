@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b22ff9bccb0040cf9c465cadc7f34c3f" Name="Diagram1">
+        <EntityTypeShape EntityType="TradeBulkModel.AddressType" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.AssignConvertRelation" Width="1.5" PointX="24.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.City" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.Country" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.Document" Width="1.5" PointX="12" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.DocumentType" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.Email" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.EmailType" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.Note" Width="1.5" PointX="12" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.Phone" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.PhoneType" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.Product" Width="1.5" PointX="17.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.ProductAssignment" Width="1.5" PointX="22.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.ProductConvert" Width="1.5" PointX="22.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.ProductState" Width="1.5" PointX="20.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.ProductType" Width="1.5" PointX="15" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.Rating" Width="1.5" PointX="12" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.Role" Width="1.5" PointX="10.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.saleType" Width="1.5" PointX="15" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.State" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserAuctionInfo" Width="1.5" PointX="19.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserDetail" Width="1.5" PointX="9.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserDetailAddress" Width="1.5" PointX="7.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserHierarchy" Width="1.5" PointX="12" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserRole" Width="1.5" PointX="12.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.User" Width="1.5" PointX="7.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserTransac" Width="1.5" PointX="15" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserTransacBroker" Width="1.5" PointX="20.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserTransacState" Width="1.5" PointX="12.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserTransacType" Width="1.5" PointX="12.75" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserType" Width="1.5" PointX="7.5" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeBulkModel.DropDownOnEntity" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="TradeBulkModel.FK_AssignConvertRelation_ProductAssignmentPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_AssignConvertRelation_ProductConvertPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Document_CreatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Document_DocumentTypePID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Document_UpdatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_DocumentPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Email_EmailType" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Email_EmailTypePID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Note_CreatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Note_UpdatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_NotePid" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Phone_PhoneType" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Phone_PhoneTypePID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_CreatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_OwnerPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_ProductTypePID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_RatingPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_salesTypePid" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_UpdatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_ProductPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserAuctionInfo_ProductPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_AssignedUserPid" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_CreatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_UpdatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_ProductState_ProductTypePID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_ProductState_UserTypePId" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Rating_CreatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_Rating_UpdatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_dbo_UserRoles_dbo_Roles_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserAuctionInfo_ManagerUserDetailPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserAuctionInfo_UserDetailPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserDetail_CreatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserDetail_ManagerPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserDetail_UpdatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.Fk_UserDetail_User" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserDetail_UserDetailAddressPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserDetail_UserTypePID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserDetailAddress_UserDetailPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserHierarchy_ManagerUserDetailPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserHierarchy_UserDetailPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserTransac_CreatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserTransac_FromUserPid" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserTransac_ToUserPid" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserTransac_UpdatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserTransacBroker_buyerPid" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserTransacBroker_CreatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserTransacBroker_SalerPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserTransacBroker_UpdatedUserPID" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_dbo_UserRoles_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserTransac_UserTransacStatePid" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserTransac_UserTransacTypePid" ManuallyRouted="false" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserTransacBroker_UserTransacPid" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TradeBulkModel.InlineTranscat" Width="1.5" PointX="22.5" PointY="16.375" />
+        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_ProductPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_TransactionStatePid" />
+        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_UserdetailPID" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserDetailEmail" Width="1.5" PointX="15" PointY="19.875" />
+        <EntityTypeShape EntityType="TradeBulkModel.UserDetailPhone" Width="1.5" PointX="18" PointY="6.875" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserDetailEmail_EmailPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserDetailPhone_PhonePID" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserDetailEmail_UserDetailPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserDetailPhone_UserDetailPID" />
+        <EntityTypeShape EntityType="TradeBulkModel.Address" Width="1.5" PointX="5.375" PointY="3.875" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserDetailAddress_AddressPID" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

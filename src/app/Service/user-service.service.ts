@@ -8,8 +8,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class UserServiceService {
 
-  constructor() { }
+  private UsersUndertaken = 'api/User/UsersUndertaken'; 
+
+  constructor(private http: HttpClient) { }
   getUserbyCode(SearUserCode:string):Observable<User>{
     return of(MockUserList[3])
   }
+  getUnderUsers():Observable<User[]>{
+    return this.http.get<User[]>(this.UsersUndertaken);
+  }
+
 }

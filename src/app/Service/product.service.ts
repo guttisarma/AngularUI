@@ -51,12 +51,35 @@ export class ProductService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-    alert(prod.ProductName);
+    
     return this.http.post(this.registrationUrl,prod,httpOptions).pipe(
       tap((hero: Product) => this.log('added hero w/ id=${hero.id}')),
       catchError(this.handleError<Product>('addHero'))
     );
-  }
+    }
+    
+  public getAssignedProducts():Observable<Product[]>{
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.get<Product[]>(this.assignedProductProductUrl,httpOptions);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /** Log a HeroService message with the MessageService */
     private log(message: string) {
   

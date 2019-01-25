@@ -41,6 +41,38 @@
     
   </div>
   </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <div class="row">
+        <div class="container" *ngIf="lsAssignedProduct !=undefined && lsAssignedProduct.length>0">
+          <div class="row" *ngFor='let pro of lsAssignedProduct'>
+            <div class="col-sm-2">{{pro.Name}}</div> 
+            <div class="col-sm-4">{{pro.Code}}</div>
+            <div class="col-sm-4">{{pro.Quantity}}</div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-trash" ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="container" *ngIf="lsUnderUsers !=undefined && lsUnderUsers.length>0">
+          <div class="row" *ngFor='let user of lsUnderUsers'>
+            <div class="col-sm-2">{{user.Name}}</div> 
+            <div class="col-sm-4">{{user.Code}}</div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-trash" ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
       <div class="col-sm-10">
           <span class="glyphicon glyphicon-remove-sign"></span>

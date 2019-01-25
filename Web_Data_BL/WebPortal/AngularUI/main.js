@@ -500,7 +500,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n  <div class=\"col-sm-6\">\n    <div class=\"row\">\n      <form class=\"form-inline my-2 my-lg-0\">\n        <input class=\"form-control mr-sm-2\" type=\"search\" [(ngModel)]=\"this.proCodeKey\" name=\"KeySearch\" placeholder=\"Search\" aria-label=\"Search\">\n        <button class=\"btn btn-outline-success my-2 my-sm-0\" (click)='searchProductCode()' type=\"submit\">Search Product</button>\n      </form>\n    </div>\n    <div class=\"row\">\n      <div class=\"container\" *ngIf=\"Plist !=undefined && Plist.length>0\">\n        <div class=\"row\" *ngFor='let pro of Plist'>\n          <!-- <div class=\"col-sm-2\">{{pro.Name}}</div> -->\n          <div class=\"col-sm-4\">{{pro.Code}}</div>\n          <div class=\"col-sm-4\">{{pro.Quantity}}</div>\n          <div class=\"col-sm-4\">\n              <span class=\"glyphicon glyphicon-trash\" ></span>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-sm-6\">\n    <div class=\"row\">\n      <form class=\"form-inline my-2 my-lg-0\">\n        <input class=\"form-control mr-sm-2\" type=\"search\" [(ngModel)]=\"this.userCodeKey\" name=\"KeyUserSearch\" placeholder=\"Search\" aria-label=\"Search\">\n        <button class=\"btn btn-outline-success my-2 my-sm-0\" (click)='searchUserCode()' type=\"submit\">Search User</button>\n      </form>\n    </div>\n    <div class=\"row\">\n      <div class=\"container\" *ngIf=\"Ulist !=undefined && Ulist.length>0\">\n        <div class=\"row\" *ngFor='let pro of Ulist'>\n          <div class=\"col-sm-4\">{{pro.Code}}</div>\n          <div class=\"col-sm-4\">{{pro.Name}}</div>\n          <div class=\"col-sm-4\">\n              <span class=\"glyphicon glyphicon-remove-sign\"></span>\n          </div>\n        </div>\n      </div>\n    </div> \n    \n  </div>\n  </div>\n  <div class=\"row\">\n      <div class=\"col-sm-10\">\n          <span class=\"glyphicon glyphicon-remove-sign\"></span>\n      </div>\n      <div class=\"col-sm-2\">\n          <button class=\"btn btn btn-primary\">Preview</button>\n      </div>\n    \n      \n    </div>\n</div>"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n  <div class=\"col-sm-6\">\n    <div class=\"row\">\n      <form class=\"form-inline my-2 my-lg-0\">\n        <input class=\"form-control mr-sm-2\" type=\"search\" [(ngModel)]=\"this.proCodeKey\" name=\"KeySearch\" placeholder=\"Search\" aria-label=\"Search\">\n        <button class=\"btn btn-outline-success my-2 my-sm-0\" (click)='searchProductCode()' type=\"submit\">Search Product</button>\n      </form>\n    </div>\n    <div class=\"row\">\n      <div class=\"container\" *ngIf=\"Plist !=undefined && Plist.length>0\">\n        <div class=\"row\" *ngFor='let pro of Plist'>\n          <!-- <div class=\"col-sm-2\">{{pro.Name}}</div> -->\n          <div class=\"col-sm-4\">{{pro.Code}}</div>\n          <div class=\"col-sm-4\">{{pro.Quantity}}</div>\n          <div class=\"col-sm-4\">\n              <span class=\"glyphicon glyphicon-trash\" ></span>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-sm-6\">\n    <div class=\"row\">\n      <form class=\"form-inline my-2 my-lg-0\">\n        <input class=\"form-control mr-sm-2\" type=\"search\" [(ngModel)]=\"this.userCodeKey\" name=\"KeyUserSearch\" placeholder=\"Search\" aria-label=\"Search\">\n        <button class=\"btn btn-outline-success my-2 my-sm-0\" (click)='searchUserCode()' type=\"submit\">Search User</button>\n      </form>\n    </div>\n    <div class=\"row\">\n      <div class=\"container\" *ngIf=\"Ulist !=undefined && Ulist.length>0\">\n        <div class=\"row\" *ngFor='let pro of Ulist'>\n          <div class=\"col-sm-4\">{{pro.Code}}</div>\n          <div class=\"col-sm-4\">{{pro.Name}}</div>\n          <div class=\"col-sm-4\">\n              <span class=\"glyphicon glyphicon-remove-sign\"></span>\n          </div>\n        </div>\n      </div>\n    </div> \n    \n  </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-sm-6\">\n\n      <div class=\"row\">\n        <div class=\"container\" *ngIf=\"lsAssignedProduct !=undefined && lsAssignedProduct.length>0\">\n          <div class=\"row\" *ngFor='let pro of lsAssignedProduct'>\n            <div class=\"col-sm-2\">{{pro.Name}}</div> \n            <div class=\"col-sm-4\">{{pro.Code}}</div>\n            <div class=\"col-sm-4\">{{pro.Quantity}}</div>\n            <div class=\"col-sm-4\">\n                <span class=\"glyphicon glyphicon-trash\" ></span>\n            </div>\n          </div>\n        </div>\n      </div>\n\n    </div>\n    <div class=\"col-sm-6\">\n      <div class=\"row\">\n        <div class=\"container\" *ngIf=\"lsUnderUsers !=undefined && lsUnderUsers.length>0\">\n          <div class=\"row\" *ngFor='let user of lsUnderUsers'>\n            <div class=\"col-sm-2\">{{user.Name}}</div> \n            <div class=\"col-sm-4\">{{user.Code}}</div>\n            <div class=\"col-sm-4\">\n                <span class=\"glyphicon glyphicon-trash\" ></span>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"row\">\n      <div class=\"col-sm-10\">\n          <span class=\"glyphicon glyphicon-remove-sign\"></span>\n      </div>\n      <div class=\"col-sm-2\">\n          <button class=\"btn btn btn-primary\">Preview</button>\n      </div>\n    \n      \n    </div>\n</div>"
 
 /***/ }),
 
@@ -535,8 +535,12 @@ var AssignProductComponent = /** @class */ (function () {
         this.userService = userService;
         this.Ulist = [];
         this.Plist = [];
+        this.lsAssignedProduct = [];
+        this.lsUnderUsers = [];
     }
     AssignProductComponent.prototype.ngOnInit = function () {
+        this.getAssignedProducts();
+        this.getUnderUsers();
     };
     AssignProductComponent.prototype.searchProductCode = function () {
         var _this = this;
@@ -545,6 +549,14 @@ var AssignProductComponent = /** @class */ (function () {
     AssignProductComponent.prototype.searchUserCode = function () {
         var _this = this;
         this.userService.getUserbyCode(this.userCodeKey).subscribe(function (userlist) { return _this.Ulist.push(userlist); });
+    };
+    AssignProductComponent.prototype.getAssignedProducts = function () {
+        var _this = this;
+        this.productService.getAssignedProducts().subscribe(function (data) { return _this.lsAssignedProduct = data; });
+    };
+    AssignProductComponent.prototype.getUnderUsers = function () {
+        var _this = this;
+        this.userService.getUnderUsers().subscribe(function (data) { return _this.lsUnderUsers = data; });
     };
     AssignProductComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -994,8 +1006,13 @@ var ProductService = /** @class */ (function () {
         var httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
         };
-        alert(prod.ProductName);
         return this.http.post(this.registrationUrl, prod, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (hero) { return _this.log('added hero w/ id=${hero.id}'); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('addHero')));
+    };
+    ProductService.prototype.getAssignedProducts = function () {
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+        };
+        return this.http.get(this.assignedProductProductUrl, httpOptions);
     };
     /** Log a HeroService message with the MessageService */
     ProductService.prototype.log = function (message) {
@@ -1088,6 +1105,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _HelperTs_User__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../HelperTs/User */ "./src/app/HelperTs/User.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1100,17 +1118,23 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UserServiceService = /** @class */ (function () {
-    function UserServiceService() {
+    function UserServiceService(http) {
+        this.http = http;
+        this.UsersUndertaken = 'api/User/UsersUndertaken';
     }
     UserServiceService.prototype.getUserbyCode = function (SearUserCode) {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_HelperTs_User__WEBPACK_IMPORTED_MODULE_1__["MockUserList"][3]);
+    };
+    UserServiceService.prototype.getUnderUsers = function () {
+        return this.http.get(this.UsersUndertaken);
     };
     UserServiceService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
     ], UserServiceService);
     return UserServiceService;
 }());

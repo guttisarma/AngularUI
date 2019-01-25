@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,122 +13,146 @@ using TradeBulk_Web.Authe_AuthoATION;
 
 namespace TradeBulk_Web.Controllers.WebApi
 {
-    // Allow CORS for all origins. (Caution!)
-    public class ProductController : ApiController
+  // Allow CORS for all origins. (Caution!)
+  public class ProductController : ApiController
+  {
+    IProductManagement ipromngmt;
+    long currentUserID = -1;
+    bool isSuccess = false;
+    bool isFakeData;
+    public ProductController()
     {
-        IProductManagement ipromngmt;
-        long currentUserID = -1;
-        bool isSuccess = false;
-        public ProductController()
+      try
+      {
+        isFakeData = Convert.ToBoolean(ConfigurationManager.AppSettings["DummyDataForAPI"]);
+        if (!isFakeData)
         {
-            try
-            {
-                
-                if (ipromngmt == null)
-                {
-                    ipromngmt = new ProductManagement();
-                    currentUserID = 10001;
-                }
-                else
-                currentUserID = ((CustomPrincipal)HttpContext.Current.User).UserId;
-                
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+          if (ipromngmt == null)
+          {
+            ipromngmt = new ProductManagement();
+            currentUserID = 10001;
+          }
+          else
+            currentUserID = ((CustomPrincipal)HttpContext.Current.User).UserId;
         }
-        public ProductController(IProductManagement _ipromngmt=null,long currentUserId=0)
-        {
-            try
-            {
-                ipromngmt = _ipromngmt;
-                if (ipromngmt == null)
-                {
-                    ipromngmt = new ProductManagement();
-                    currentUserId = 10001;
-                }
-                else
-                {
-                    HttpContent requestContent = Request.Content;
-                }
-            }
-            catch (Exception ex)
-            {
+      }
+      catch (Exception ex)
+      {
 
-                throw ex;
-            }
-        }
-        [HttpGet]
-        public List<ProductList> CreatedAssigneeProduct()
-        {
-            List<ProductList> lsProList =ipromngmt.MyProductList(currentUserID);
-            return lsProList;
-        }
-
-        [HttpGet]
-        public List<ProductList> AssignedProduct()
-        {
-            List<ProductList> lsProList =ipromngmt.MyAssignedProductList(currentUserID);
-            return lsProList;
-        }
-
-        [HttpGet]
-        public List<ProductList> ConvertedProduct()
-        {
-            List<ProductList> lsProList=  ipromngmt.MyCovertedProductList(currentUserID);
-            return lsProList;
-        }
-
-        // GET: api/Product
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Product/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        [HttpPost]
-        // POST: api/Product
-        public IHttpActionResult CreateProduct(NewProductViewModel newPro)
-        {
-            isSuccess = false;
-            ipromngmt.CreateProduct(newPro,currentUserID,out isSuccess);
-            if(isSuccess)
-            {
-                var response = new
-                {
-
-                  Success = true,
-                  Message = "Created",
-                };
-                  return Ok(response);
-            }
-            else
-            {
-                  var response = new
-                  {
-
-                    Success = false,
-                    Message = "Retry",
-                  };
-                return Ok(response);
-            }
-        }
-
-        // PUT: api/Product/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Product/5
-        public void Delete(int id)
-        {
-        }
+        throw ex;
+      }
     }
+    public ProductController(IProductManagement _ipromngmt = null, long currentUserId = 0)
+    {
+      try
+      {
+        ipromngmt = _ipromngmt;
+        if (ipromngmt == null)
+        {
+          ipromngmt = new ProductManagement();
+          currentUserId = 10001;
+        }
+        else
+        {
+          HttpContent requestContent = Request.Content;
+        }
+      }
+      catch (Exception ex)
+      {
+
+        throw ex;
+      }
+    }
+    [HttpGet]
+    public List<ProductList> CreatedAssigneeProduct()
+    {
+      List<ProductList> lsProList = ipromngmt.MyProductList(currentUserID);
+      return lsProList;
+    }
+
+    [HttpGet]
+    public List<ProductList> AssignedProduct()
+    {
+      List<ProductList> lsProList;
+      if (!isFakeData)
+      {
+        lsProList = ipromngmt.MyAssignedProductList(currentUserID);
+        return lsProList;
+      }
+      else
+      {
+        ProductList productList = new ProductList();
+        lsProList = productList.giveFakeProductList();
+        return lsProList;
+      }
+
+    }
+
+    [HttpGet]
+    public List<ProductList> ConvertedProduct()
+    {
+      List<ProductList> lsProList;
+      if (!isFakeData)
+      {
+        lsProList = ipromngmt.MyCovertedProductList(currentUserID);
+        return lsProList;
+      }
+      else
+      {
+        ProductList productList = new ProductList();
+        lsProList = productList.giveFakeProductList();
+        return lsProList;
+      }
+    }
+
+    // GET: api/Product
+    public IEnumerable<string> Get()
+    {
+      return new string[] { "value1", "value2" };
+    }
+
+    // GET: api/Product/5
+    public string Get(int id)
+    {
+      return "value";
+    }
+
+    [HttpPost]
+    // POST: api/Product
+    public IHttpActionResult CreateProduct(NewProductViewModel newPro)
+    {
+      isSuccess = false;
+      ipromngmt.CreateProduct(newPro, currentUserID, out isSuccess);
+      if (isSuccess)
+      {
+        var response = new
+        {
+
+          Success = true,
+          Message = "Created",
+        };
+        return Ok(response);
+      }
+      else
+      {
+        var response = new
+        {
+
+          Success = false,
+          Message = "Retry",
+        };
+        return Ok(response);
+      }
+    }
+
+    // PUT: api/Product/5
+    public void Put(int id, [FromBody]string value)
+    {
+    }
+
+    // DELETE: api/Product/5
+    public void Delete(int id)
+    {
+    }
+  }
 }

@@ -1,4 +1,4 @@
-﻿using TradeBulk_DataLayer.AppData;
+using TradeBulk_DataLayer.AppData;
 using TradeBulk_DataLayer;
 using System;
 using System.Collections.Generic;
@@ -294,7 +294,7 @@ namespace TradeBulk_Web.Models.Administrator
                         UserInfo UInfo = new UserInfo();
                         UserDetail user = UserDetailRepository.GetByID(uselist.UserDetailPID);
                         UInfo.Name = user.FirstName + " " + user.LastName;
-                        UInfo.UserCode = user.UserCode;
+                        UInfo.Code = user.UserCode;
                         UInfo.ManagerName = manager.FirstName + " " + manager.LastName;
                         UInfo.ManagerCode = manager.UserCode;
                         lsUserInfo.Add(UInfo);

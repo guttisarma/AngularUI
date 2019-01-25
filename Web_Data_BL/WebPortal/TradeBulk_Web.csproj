@@ -420,8 +420,6 @@
     <Folder Include="Content\Theame\NewFolder1\" />
     <Folder Include="Content\Theame\Theame\NewFolder1\" />
     <Folder Include="Images\Products\" />
-    <Folder Include="Views\ListEdit\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804251648279_initial_migration.resx">

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,6 +17,7 @@ namespace TradeBulk_Web.Controllers.WebApi
     {
         // GET: api/User
         long currentUserPID = -1;
+        bool isSuccess = false;
         public UserController()
         {
             currentUserPID = ((CustomPrincipal)HttpContext.Current.User).UserId;
@@ -58,6 +59,36 @@ namespace TradeBulk_Web.Controllers.WebApi
             UserManagementExten userManagementExten = new UserManagementExten();
             userMgnt.UpdateUserProfile(userManagementExten.AddUserEmail);
 
+        }
+        [HttpGet]
+        public IHttpActionResult UsersUndertaken()
+        {
+
+          isSuccess = false;
+          //Here we need to call Logic for
+          UserManagement userMgnt = new UserManagement(currentUserPID);
+          List<UserInfo>  userInfos= userMgnt.myUsersList();
+          if (isSuccess)
+          {
+            var response = new
+            {
+
+              Success = true,
+              Message = "Created",
+            };
+            return Ok(response);
+          }
+          else
+          {
+            var response = new
+            {
+
+              Success = false,
+              Message = "Retry",
+            };
+            return Ok(response);
+          }
+      
         }
 
         // PUT: api/User/5

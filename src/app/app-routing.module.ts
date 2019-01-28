@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MultiOptionComponent } from './multi-option/multi-option.component';
 import { UserRegistrationComponent } from './User/Registration/user-registration/user-registration.component';
-import { UserProfileComponent } from './User/Profile/user-profile/user-profile.component';
+import { UserProfileComponent } from './User/Profile/user-profile.component';
 import { UserListComponent } from './User/List/user-list/user-list.component';
 import { UserDetailComponent } from './User/Detail/user-detail/user-detail.component';
 import { ProductRegistrationComponent } from './Product/product-registration/product-registration.component';

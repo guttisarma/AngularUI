@@ -1,4 +1,4 @@
-import { Component, OnInit ,Input} from '@angular/core';
+import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
 import {MultiOptionService} from '../Service/multi-option.service';
 import {MultiOption} from '../HelperTs/MultiOption';
 import { from } from 'rxjs';
@@ -14,13 +14,19 @@ export class MultiOptionComponent implements OnInit {
   @Input() category:string;
   multioption:MultiOption[];
   closeResult: string;
+  @Output() seletedOption= new EventEmitter<string>();
+  selectedoption:string;
   size:number;
   constructor(private multiOptionService:MultiOptionService,private modalService: NgbModal) { }
 
   ngOnInit() {
     this.getMultiOptions(this.category);
+    if(this.multioption.length>0)
+    this.selectedoption=this.multioption[0].Name;
   }
-
+  changedSelection(){
+    this.seletedOption.emit(this.selectedoption);
+  }
   getMultiOptions(category:string){
     this.multiOptionService.getMockMultiOption(category).subscribe(data => this.multioption=data);
     this.size=this.multioption.length;

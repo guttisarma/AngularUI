@@ -11,7 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 //import {HttpClientModule} from '@angular/common/http';
 import { MultiOptionComponent } from './multi-option/multi-option.component';
 import { UserRegistrationComponent } from './User/Registration/user-registration/user-registration.component';
-import { UserProfileComponent } from './User/Profile/user-profile/user-profile.component';
+import { UserProfileComponent } from './User/Profile/user-profile.component';
 import { UserListComponent } from './User/List/user-list/user-list.component';
 import { UserDetailComponent } from './User/Detail/user-detail/user-detail.component';
 import { ProductRegistrationComponent } from './Product/product-registration/product-registration.component';
@@ -21,6 +21,7 @@ import { AssignProductComponent } from './Product/assign-product/assign-product.
 import { ConvertProductComponent } from './Product/convert-product/convert-product.component';
 import { HttpClientModule }    from '@angular/common/http';
 import { TransacListComponent } from './Transaction/transac-list/transac-list.component';
+import { AdharFormatPipe } from './custompipes/adhar-format.pipe';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { TransacListComponent } from './Transaction/transac-list/transac-list.co
     ProductDetailComponent,
     AssignProductComponent,
     ConvertProductComponent,
-    TransacListComponent
+    TransacListComponent,
+    AdharFormatPipe
   ],
   imports: [
     NgbModule,

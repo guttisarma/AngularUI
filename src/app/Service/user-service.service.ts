@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {User,MockUserList} from '../HelperTs/User'
+import {User,MockUserList,exAddress,exEmail,exPhone,exUser,MockexAddress, MockexEmail,MockexPhone,MockexUser} from '../HelperTs/User'
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -8,14 +8,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class UserServiceService {
 
-  private UsersUndertaken = 'api/User/UsersUndertaken'; 
-
-  constructor(private http: HttpClient) { }
+  constructor() { }
   getUserbyCode(SearUserCode:string):Observable<User>{
-    return of(MockUserList[3])
+    return of(MockUserList[3]);
   }
-  getUnderUsers():Observable<User[]>{
-    return this.http.get<User[]>(this.UsersUndertaken);
+  getexUser():Observable<exUser>{
+    return of(MockexUser);
   }
-
+  getexAddress():Observable<exAddress>{
+    return of(MockexAddress);
+  }
+  getexEmail():Observable<exEmail>{
+    return of(MockexEmail);
+  }
+  getexPhone():Observable<exPhone>{
+    return of(MockexPhone);
+  }
 }

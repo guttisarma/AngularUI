@@ -1,7 +1,7 @@
 <div *ngIf="size<10">
 <div class="form-group">
-  <select class="form-control" id="sel1" >
-    <option *ngFor="let optn of multioption">{{optn.Name}}</option>
+  <select class="form-control" id="sel1" [(ngModel)]="selectedoption" (change)="changedSelection()" >
+    <option *ngFor="let optn of multioption" >{{optn.Name}}</option>
   </select>
 </div>
 </div>

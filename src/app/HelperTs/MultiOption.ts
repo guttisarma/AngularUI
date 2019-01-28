@@ -6,8 +6,8 @@ export class IMultiOption
 
 export class MultiOption
 {
-    id:String;
-    Name:String;
+    id:string;
+    Name:string;
 }
 export const MockMultiOptionuniqueID:MultiOption[]=[
     {id:'1',Name:'Adhar Number'},

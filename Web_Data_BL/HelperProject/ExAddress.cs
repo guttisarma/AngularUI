@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +15,6 @@ namespace TradeBulk_Helper
         public string strCity { get; set; }
         public string strState { get; set; }
         public string strCountry { get; set; }
-    }
+        public string AddressType { get; set; }
+  }
 }

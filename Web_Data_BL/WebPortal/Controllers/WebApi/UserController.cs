@@ -109,6 +109,15 @@ namespace TradeBulk_Web.Controllers.WebApi
 
     }
 
+    //[HttpGet]
+    //public List<ExPhone> GetExPhones()
+    //{
+    //  UserManagement userMgnt = new UserManagement( currentUserPID);
+    //  UserManagementExten userManagementExten = new UserManagementExten();
+    // List<ExPhone> lsexPhones=  userMgnt.GetUserProfileInfo(userManagementExten.GetUserPhone);
+
+    //}
+
     // PUT: api/User/5
     public void Put(int id, [FromBody]string value)
     {

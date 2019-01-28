@@ -315,6 +315,10 @@ namespace TradeBulk_Web.Models.Administrator
         {
           oprtion(this.UserProfileInfo, this.CurrentUserPID);
         }
-        
+
+        public void GetUserProfileInfo(Func<long,List<IExchangeUserInfo>> oprtion)
+        {
+          oprtion(this.CurrentUserPID);
+        }
     }
 }

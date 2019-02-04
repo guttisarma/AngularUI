@@ -1,0 +1,12 @@
+1)web api routing changes
+	i)We need to apply route constraints for Route-engine
+	ii)URI contains ng_ meams its Angular Route
+	iii)Rest of these Web Api routes
+2)web api athentication(sing in /Sing out funtionality)
+	i)Need to understand Authentication.
+	ii)form authentication
+3)user Profile Web Apis
+	i) User can get Its data which they submitted at sing up
+	ii) They can update Phone,EmailId and communcation address
+4)product web API
+5)transaction related chnages and API expose

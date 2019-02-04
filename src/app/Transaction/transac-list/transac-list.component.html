@@ -1,12 +1,12 @@
 <!-- <div class="container">
-  <div class="row"> 
+  <div class="row top-buffer"> 
     <div class="col-sm-3">ProductCode</div>
     <div class="col-sm-3">Quantity</div>
     <div class="col-sm-3">Amount</div>
     <div class="col-sm-3">Created On</div>
   </div>
   <hr>
-  <div class="row" *ngFor="let t of MyTransactions"> 
+  <div class="row top-buffer" *ngFor="let t of MyTransactions"> 
     <div class="col-sm-3">{{t.ProductCode}}</div>
     <div class="col-sm-3">{{t.Quantity}}</div>
     <div class="col-sm-3">{{t.Amount}}</div>
@@ -15,62 +15,67 @@
 </div> -->
 
 <div id="accordion">
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Pending Transactions {{PendingTransactions.length}}
-        </button>
-      </h5>
-    </div>
-
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-        <div class="container">
-          <div class="row"> 
-            <div class="col-sm-3">ProductCode</div>
-            <div class="col-sm-3">Quantity</div>
-            <div class="col-sm-3">Amount</div>
-            <div class="col-sm-3">Created On</div>
+  
+      <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Pending Transactions {{PendingTransactions.length}}
+              </button>
+            </h5>
           </div>
-          <hr>
-          <div class="row" *ngFor="let t of PendingTransactions"> 
-            <div class="col-sm-3">{{t.ProductCode}}</div>
-            <div class="col-sm-3">{{t.Quantity}}</div>
-            <div class="col-sm-3">{{t.Amount}}</div>
-            <div class="col-sm-3">{{t.CreatedOn}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h5 class="mb-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          Completed Transactions {{CompletedTransactions.length}}
-        </button>
-      </h5>
-    </div>
-
-    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
-      <div class="card-body">
-        <div class="container">
-          <div class="row"> 
-            <div class="col-sm-3">ProductCode</div>
-            <div class="col-sm-3">Quantity</div>
-            <div class="col-sm-3">Amount</div>
-            <div class="col-sm-3">Created On</div>
-          </div>
-          <hr>
-          <div class="row" *ngFor="let t of CompletedTransactions"> 
-            <div class="col-sm-3">{{t.ProductCode}}</div>
-            <div class="col-sm-3">{{t.Quantity}}</div>
-            <div class="col-sm-3">{{t.Amount}}</div>
-            <div class="col-sm-3">{{t.CreatedOn}}</div>
+      
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="container">
+                <div class="row top-buffer"> 
+                  <div class="col-sm-3">ProductCode</div>
+                  <div class="col-sm-3">Quantity</div>
+                  <div class="col-sm-3">Amount</div>
+                  <div class="col-sm-3">Created On</div>
+                </div>
+                <hr>
+                <div class="row" *ngFor="let t of PendingTransactions"> 
+                  <div class="col-sm-3">{{t.ProductCode}}</div>
+                  <div class="col-sm-3">{{t.Quantity}}</div>
+                  <div class="col-sm-3">{{t.Amount}}</div>
+                  <div class="col-sm-3">{{t.CreatedOn}}</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+  
+  
+      <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                Completed Transactions {{CompletedTransactions.length}}
+              </button>
+            </h5>
+          </div>
+      
+          <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+              <div class="container">
+                <div class="row top-buffer"> 
+                  <div class="col-sm-3">ProductCode</div>
+                  <div class="col-sm-3">Quantity</div>
+                  <div class="col-sm-3">Amount</div>
+                  <div class="col-sm-3">Created On</div>
+                </div>
+                <hr>
+                <div class="row" *ngFor="let t of CompletedTransactions"> 
+                  <div class="col-sm-3">{{t.ProductCode}}</div>
+                  <div class="col-sm-3">{{t.Quantity}}</div>
+                  <div class="col-sm-3">{{t.Amount}}</div>
+                  <div class="col-sm-3">{{t.CreatedOn}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
-    </div>
-  </div>
+  
+</div>
 </div>

@@ -457,12 +457,20 @@ var MockTransactionList = [
 /*!**********************************!*\
   !*** ./src/app/HelperTs/User.ts ***!
   \**********************************/
-/*! exports provided: User, MockUserList */
+/*! exports provided: User, exUser, MockexUser, exAddress, MockexAddress, exPhone, MockexPhone, exEmail, MockexEmail, MockUserList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exUser", function() { return exUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MockexUser", function() { return MockexUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exAddress", function() { return exAddress; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MockexAddress", function() { return MockexAddress; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exPhone", function() { return exPhone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MockexPhone", function() { return MockexPhone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exEmail", function() { return exEmail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MockexEmail", function() { return MockexEmail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MockUserList", function() { return MockUserList; });
 var User = /** @class */ (function () {
     function User() {
@@ -470,6 +478,45 @@ var User = /** @class */ (function () {
     return User;
 }());
 
+var exUser = /** @class */ (function () {
+    function exUser() {
+    }
+    return exUser;
+}());
+
+var MockexUser = { strFirstName: "Pranab", strLastName: "Mukharji", strMiddleName: "", dtDateOfBirth: "21-09-2019", strUniqueNumber: "456890901234" };
+var exAddress = /** @class */ (function () {
+    function exAddress() {
+    }
+    return exAddress;
+}());
+
+var MockexAddress = { strAddress1: "Street 1", strAddress2: "Street 2", strAddress3: "Street 3", strCity: "Bangalore", strState: "Karnataka", strCountry: "India", AddressType: "Primary" };
+var exPhone = /** @class */ (function () {
+    //constructor(){}
+    function exPhone(phnumber, isActive) {
+        this.strPhoneNumber = phnumber;
+        this.bIsActive = isActive;
+    }
+    exPhone.isvalidphonenumber = function (number) {
+        if (number.length > 1 && number.length < 12) {
+            if (number.startsWith('9') || number.startsWith('8') || number.startsWith('7') || number.startsWith('6')) {
+                return true;
+            }
+        }
+        return false;
+    };
+    return exPhone;
+}());
+
+var MockexPhone = { strPhoneNumber: "8987065432", bIsActive: true };
+var exEmail = /** @class */ (function () {
+    function exEmail() {
+    }
+    return exEmail;
+}());
+
+var MockexEmail = { strEmailId: "Pranab.Mukharji@gmail.com", bIsActive: true };
 var MockUserList = [
     { Name: 'william', Code: "Will092", ManagerName: 'Acile', ManagerCode: 'Ali232' },
     { Name: 'Ashithosh', Code: "Will092", ManagerName: 'Sandyirish', ManagerCode: 'Ali232' },
@@ -500,7 +547,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n  <div class=\"col-sm-6\">\n    <div class=\"row\">\n      <form class=\"form-inline my-2 my-lg-0\">\n        <input class=\"form-control mr-sm-2\" type=\"search\" [(ngModel)]=\"this.proCodeKey\" name=\"KeySearch\" placeholder=\"Search\" aria-label=\"Search\">\n        <button class=\"btn btn-outline-success my-2 my-sm-0\" (click)='searchProductCode()' type=\"submit\">Search Product</button>\n      </form>\n    </div>\n    <div class=\"row\">\n      <div class=\"container\" *ngIf=\"Plist !=undefined && Plist.length>0\">\n        <div class=\"row\" *ngFor='let pro of Plist'>\n          <!-- <div class=\"col-sm-2\">{{pro.Name}}</div> -->\n          <div class=\"col-sm-4\">{{pro.Code}}</div>\n          <div class=\"col-sm-4\">{{pro.Quantity}}</div>\n          <div class=\"col-sm-4\">\n              <span class=\"glyphicon glyphicon-trash\" ></span>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-sm-6\">\n    <div class=\"row\">\n      <form class=\"form-inline my-2 my-lg-0\">\n        <input class=\"form-control mr-sm-2\" type=\"search\" [(ngModel)]=\"this.userCodeKey\" name=\"KeyUserSearch\" placeholder=\"Search\" aria-label=\"Search\">\n        <button class=\"btn btn-outline-success my-2 my-sm-0\" (click)='searchUserCode()' type=\"submit\">Search User</button>\n      </form>\n    </div>\n    <div class=\"row\">\n      <div class=\"container\" *ngIf=\"Ulist !=undefined && Ulist.length>0\">\n        <div class=\"row\" *ngFor='let pro of Ulist'>\n          <div class=\"col-sm-4\">{{pro.Code}}</div>\n          <div class=\"col-sm-4\">{{pro.Name}}</div>\n          <div class=\"col-sm-4\">\n              <span class=\"glyphicon glyphicon-remove-sign\"></span>\n          </div>\n        </div>\n      </div>\n    </div> \n    \n  </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-sm-6\">\n\n      <div class=\"row\">\n        <div class=\"container\" *ngIf=\"lsAssignedProduct !=undefined && lsAssignedProduct.length>0\">\n          <div class=\"row\" *ngFor='let pro of lsAssignedProduct'>\n            <div class=\"col-sm-2\">{{pro.Name}}</div> \n            <div class=\"col-sm-4\">{{pro.Code}}</div>\n            <div class=\"col-sm-4\">{{pro.Quantity}}</div>\n            <div class=\"col-sm-4\">\n                <span class=\"glyphicon glyphicon-trash\" ></span>\n            </div>\n          </div>\n        </div>\n      </div>\n\n    </div>\n    <div class=\"col-sm-6\">\n      <div class=\"row\">\n        <div class=\"container\" *ngIf=\"lsUnderUsers !=undefined && lsUnderUsers.length>0\">\n          <div class=\"row\" *ngFor='let user of lsUnderUsers'>\n            <div class=\"col-sm-2\">{{user.Name}}</div> \n            <div class=\"col-sm-4\">{{user.Code}}</div>\n            <div class=\"col-sm-4\">\n                <span class=\"glyphicon glyphicon-trash\" ></span>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"row\">\n      <div class=\"col-sm-10\">\n          <span class=\"glyphicon glyphicon-remove-sign\"></span>\n      </div>\n      <div class=\"col-sm-2\">\n          <button class=\"btn btn btn-primary\">Preview</button>\n      </div>\n    \n      \n    </div>\n</div>"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n  <div class=\"col-sm-6\">\n    <div class=\"row\">\n      <form class=\"form-inline my-2 my-lg-0\">\n        <input class=\"form-control mr-sm-2\" type=\"search\" [(ngModel)]=\"this.proCodeKey\" name=\"KeySearch\" placeholder=\"Search\" aria-label=\"Search\">\n        <button class=\"btn btn-outline-success my-2 my-sm-0\" (click)='searchProductCode()' type=\"submit\">Search Product</button>\n      </form>\n    </div>\n    <div class=\"row\">\n      <div class=\"container\" *ngIf=\"Plist !=undefined && Plist.length>0\">\n        <div class=\"row\" *ngFor='let pro of Plist'>\n          <!-- <div class=\"col-sm-2\">{{pro.Name}}</div> -->\n          <div class=\"col-sm-4\">{{pro.Code}}</div>\n          <div class=\"col-sm-4\">{{pro.Quantity}}</div>\n          <div class=\"col-sm-4\">\n              <span class=\"glyphicon glyphicon-trash\" ></span>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-sm-6\">\n    <div class=\"row\">\n      <form class=\"form-inline my-2 my-lg-0\">\n        <input class=\"form-control mr-sm-2\" type=\"search\" [(ngModel)]=\"this.userCodeKey\" name=\"KeyUserSearch\" placeholder=\"Search\" aria-label=\"Search\">\n        <button class=\"btn btn-outline-success my-2 my-sm-0\" (click)='searchUserCode()' type=\"submit\">Search User</button>\n      </form>\n    </div>\n    <div class=\"row\">\n      <div class=\"container\" *ngIf=\"Ulist !=undefined && Ulist.length>0\">\n        <div class=\"row\" *ngFor='let pro of Ulist'>\n          <div class=\"col-sm-4\">{{pro.Code}}</div>\n          <div class=\"col-sm-4\">{{pro.Name}}</div>\n          <div class=\"col-sm-4\">\n              <span class=\"glyphicon glyphicon-remove-sign\"></span>\n          </div>\n        </div>\n      </div>\n    </div> \n    \n  </div>\n  </div>\n  <div class=\"row\">\n      <div class=\"col-sm-10\">\n          <span class=\"glyphicon glyphicon-remove-sign\"></span>\n      </div>\n      <div class=\"col-sm-2\">\n          <button class=\"btn btn btn-primary\">Preview</button>\n      </div>\n    \n      \n    </div>\n</div>"
 
 /***/ }),
 
@@ -535,12 +582,8 @@ var AssignProductComponent = /** @class */ (function () {
         this.userService = userService;
         this.Ulist = [];
         this.Plist = [];
-        this.lsAssignedProduct = [];
-        this.lsUnderUsers = [];
     }
     AssignProductComponent.prototype.ngOnInit = function () {
-        this.getAssignedProducts();
-        this.getUnderUsers();
     };
     AssignProductComponent.prototype.searchProductCode = function () {
         var _this = this;
@@ -549,14 +592,6 @@ var AssignProductComponent = /** @class */ (function () {
     AssignProductComponent.prototype.searchUserCode = function () {
         var _this = this;
         this.userService.getUserbyCode(this.userCodeKey).subscribe(function (userlist) { return _this.Ulist.push(userlist); });
-    };
-    AssignProductComponent.prototype.getAssignedProducts = function () {
-        var _this = this;
-        this.productService.getAssignedProducts().subscribe(function (data) { return _this.lsAssignedProduct = data; });
-    };
-    AssignProductComponent.prototype.getUnderUsers = function () {
-        var _this = this;
-        this.userService.getUnderUsers().subscribe(function (data) { return _this.lsUnderUsers = data; });
     };
     AssignProductComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -971,7 +1006,7 @@ var ProductService = /** @class */ (function () {
         this.createdAssigneeProductUrl = 'api/Product/CreatedAssigneeProduct';
         this.assignedProductProductUrl = 'api/Product/AssignedProduct';
         this.convertedProductUrl = 'api/Product/ConvertedProduct';
-        this.registrationUrl = 'api/Product/CreateProduct';
+        this.registrationUrl = 'http://localhost:55374/api/Procuduct/CreateProduct';
     }
     ProductService.prototype.getMockProductList = function (category) {
         if (category == 'Created') {
@@ -1006,13 +1041,8 @@ var ProductService = /** @class */ (function () {
         var httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
         };
+        alert(prod.ProductName);
         return this.http.post(this.registrationUrl, prod, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (hero) { return _this.log('added hero w/ id=${hero.id}'); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('addHero')));
-    };
-    ProductService.prototype.getAssignedProducts = function () {
-        var httpOptions = {
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
-        };
-        return this.http.get(this.assignedProductProductUrl, httpOptions);
     };
     /** Log a HeroService message with the MessageService */
     ProductService.prototype.log = function (message) {
@@ -1105,7 +1135,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _HelperTs_User__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../HelperTs/User */ "./src/app/HelperTs/User.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1118,23 +1147,29 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var UserServiceService = /** @class */ (function () {
-    function UserServiceService(http) {
-        this.http = http;
-        this.UsersUndertaken = 'api/User/UsersUndertaken';
+    function UserServiceService() {
     }
     UserServiceService.prototype.getUserbyCode = function (SearUserCode) {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_HelperTs_User__WEBPACK_IMPORTED_MODULE_1__["MockUserList"][3]);
     };
-    UserServiceService.prototype.getUnderUsers = function () {
-        return this.http.get(this.UsersUndertaken);
+    UserServiceService.prototype.getexUser = function () {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_HelperTs_User__WEBPACK_IMPORTED_MODULE_1__["MockexUser"]);
+    };
+    UserServiceService.prototype.getexAddress = function () {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_HelperTs_User__WEBPACK_IMPORTED_MODULE_1__["MockexAddress"]);
+    };
+    UserServiceService.prototype.getexEmail = function () {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_HelperTs_User__WEBPACK_IMPORTED_MODULE_1__["MockexEmail"]);
+    };
+    UserServiceService.prototype.getexPhone = function () {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_HelperTs_User__WEBPACK_IMPORTED_MODULE_1__["MockexPhone"]);
     };
     UserServiceService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+        __metadata("design:paramtypes", [])
     ], UserServiceService);
     return UserServiceService;
 }());
@@ -1150,7 +1185,7 @@ var UserServiceService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL1RyYW5zYWN0aW9uL3RyYW5zYWMtbGlzdC90cmFuc2FjLWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = ".top-buffer { margin-top:20px; }\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvVHJhbnNhY3Rpb24vdHJhbnNhYy1saXN0L3RyYW5zYWMtbGlzdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGNBQWMsZ0JBQWdCLEVBQUUiLCJmaWxlIjoic3JjL2FwcC9UcmFuc2FjdGlvbi90cmFuc2FjLWxpc3QvdHJhbnNhYy1saXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudG9wLWJ1ZmZlciB7IG1hcmdpbi10b3A6MjBweDsgfSJdfQ== */"
 
 /***/ }),
 
@@ -1161,7 +1196,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div class=\"container\">\n  <div class=\"row\"> \n    <div class=\"col-sm-3\">ProductCode</div>\n    <div class=\"col-sm-3\">Quantity</div>\n    <div class=\"col-sm-3\">Amount</div>\n    <div class=\"col-sm-3\">Created On</div>\n  </div>\n  <hr>\n  <div class=\"row\" *ngFor=\"let t of MyTransactions\"> \n    <div class=\"col-sm-3\">{{t.ProductCode}}</div>\n    <div class=\"col-sm-3\">{{t.Quantity}}</div>\n    <div class=\"col-sm-3\">{{t.Amount}}</div>\n    <div class=\"col-sm-3\">{{t.CreatedOn}}</div>\n  </div>\n</div> -->\n\n<div id=\"accordion\">\n  <div class=\"card\">\n    <div class=\"card-header\" id=\"headingOne\">\n      <h5 class=\"mb-0\">\n        <button class=\"btn btn-link\" data-toggle=\"collapse\" data-target=\"#collapseOne\" aria-expanded=\"true\" aria-controls=\"collapseOne\">\n          Pending Transactions {{PendingTransactions.length}}\n        </button>\n      </h5>\n    </div>\n\n    <div id=\"collapseOne\" class=\"collapse show\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">\n      <div class=\"card-body\">\n        <div class=\"container\">\n          <div class=\"row\"> \n            <div class=\"col-sm-3\">ProductCode</div>\n            <div class=\"col-sm-3\">Quantity</div>\n            <div class=\"col-sm-3\">Amount</div>\n            <div class=\"col-sm-3\">Created On</div>\n          </div>\n          <hr>\n          <div class=\"row\" *ngFor=\"let t of PendingTransactions\"> \n            <div class=\"col-sm-3\">{{t.ProductCode}}</div>\n            <div class=\"col-sm-3\">{{t.Quantity}}</div>\n            <div class=\"col-sm-3\">{{t.Amount}}</div>\n            <div class=\"col-sm-3\">{{t.CreatedOn}}</div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-header\" id=\"headingTwo\">\n      <h5 class=\"mb-0\">\n        <button class=\"btn btn-link\" data-toggle=\"collapse\" data-target=\"#collapseTwo\" aria-expanded=\"true\" aria-controls=\"collapseTwo\">\n          Completed Transactions {{CompletedTransactions.length}}\n        </button>\n      </h5>\n    </div>\n\n    <div id=\"collapseTwo\" class=\"collapse show\" aria-labelledby=\"headingTwo\" data-parent=\"#accordion\">\n      <div class=\"card-body\">\n        <div class=\"container\">\n          <div class=\"row\"> \n            <div class=\"col-sm-3\">ProductCode</div>\n            <div class=\"col-sm-3\">Quantity</div>\n            <div class=\"col-sm-3\">Amount</div>\n            <div class=\"col-sm-3\">Created On</div>\n          </div>\n          <hr>\n          <div class=\"row\" *ngFor=\"let t of CompletedTransactions\"> \n            <div class=\"col-sm-3\">{{t.ProductCode}}</div>\n            <div class=\"col-sm-3\">{{t.Quantity}}</div>\n            <div class=\"col-sm-3\">{{t.Amount}}</div>\n            <div class=\"col-sm-3\">{{t.CreatedOn}}</div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<!-- <div class=\"container\">\n  <div class=\"row top-buffer\"> \n    <div class=\"col-sm-3\">ProductCode</div>\n    <div class=\"col-sm-3\">Quantity</div>\n    <div class=\"col-sm-3\">Amount</div>\n    <div class=\"col-sm-3\">Created On</div>\n  </div>\n  <hr>\n  <div class=\"row top-buffer\" *ngFor=\"let t of MyTransactions\"> \n    <div class=\"col-sm-3\">{{t.ProductCode}}</div>\n    <div class=\"col-sm-3\">{{t.Quantity}}</div>\n    <div class=\"col-sm-3\">{{t.Amount}}</div>\n    <div class=\"col-sm-3\">{{t.CreatedOn}}</div>\n  </div>\n</div> -->\n\n<div id=\"accordion\">\n  \n      <div class=\"card\">\n          <div class=\"card-header\" id=\"headingOne\">\n            <h5 class=\"mb-0\">\n              <button class=\"btn btn-link\" data-toggle=\"collapse\" data-target=\"#collapseOne\" aria-expanded=\"true\" aria-controls=\"collapseOne\">\n                Pending Transactions {{PendingTransactions.length}}\n              </button>\n            </h5>\n          </div>\n      \n          <div id=\"collapseOne\" class=\"collapse show\" aria-labelledby=\"headingOne\" data-parent=\"#accordion\">\n            <div class=\"card-body\">\n              <div class=\"container\">\n                <div class=\"row top-buffer\"> \n                  <div class=\"col-sm-3\">ProductCode</div>\n                  <div class=\"col-sm-3\">Quantity</div>\n                  <div class=\"col-sm-3\">Amount</div>\n                  <div class=\"col-sm-3\">Created On</div>\n                </div>\n                <hr>\n                <div class=\"row\" *ngFor=\"let t of PendingTransactions\"> \n                  <div class=\"col-sm-3\">{{t.ProductCode}}</div>\n                  <div class=\"col-sm-3\">{{t.Quantity}}</div>\n                  <div class=\"col-sm-3\">{{t.Amount}}</div>\n                  <div class=\"col-sm-3\">{{t.CreatedOn}}</div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n  \n  \n      <div class=\"card\">\n          <div class=\"card-header\" id=\"headingTwo\">\n            <h5 class=\"mb-0\">\n              <button class=\"btn btn-link\" data-toggle=\"collapse\" data-target=\"#collapseTwo\" aria-expanded=\"true\" aria-controls=\"collapseTwo\">\n                Completed Transactions {{CompletedTransactions.length}}\n              </button>\n            </h5>\n          </div>\n      \n          <div id=\"collapseTwo\" class=\"collapse show\" aria-labelledby=\"headingTwo\" data-parent=\"#accordion\">\n            <div class=\"card-body\">\n              <div class=\"container\">\n                <div class=\"row top-buffer\"> \n                  <div class=\"col-sm-3\">ProductCode</div>\n                  <div class=\"col-sm-3\">Quantity</div>\n                  <div class=\"col-sm-3\">Amount</div>\n                  <div class=\"col-sm-3\">Created On</div>\n                </div>\n                <hr>\n                <div class=\"row\" *ngFor=\"let t of CompletedTransactions\"> \n                  <div class=\"col-sm-3\">{{t.ProductCode}}</div>\n                  <div class=\"col-sm-3\">{{t.Quantity}}</div>\n                  <div class=\"col-sm-3\">{{t.Amount}}</div>\n                  <div class=\"col-sm-3\">{{t.CreatedOn}}</div>\n                </div>\n              </div>\n            </div>\n          </div>\n      </div>\n  \n</div>\n\n"
 
 /***/ }),
 
@@ -1349,43 +1384,41 @@ var UserListComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/User/Profile/user-profile/user-profile.component.css":
-/*!**********************************************************************!*\
-  !*** ./src/app/User/Profile/user-profile/user-profile.component.css ***!
-  \**********************************************************************/
+/***/ "./src/app/User/Profile/user-profile.component.css":
+/*!*********************************************************!*\
+  !*** ./src/app/User/Profile/user-profile.component.css ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL1VzZXIvUHJvZmlsZS91c2VyLXByb2ZpbGUvdXNlci1wcm9maWxlLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = ".top-buffer { margin-top:20px; }\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvVXNlci9Qcm9maWxlL3VzZXItcHJvZmlsZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGNBQWMsZ0JBQWdCLEVBQUUiLCJmaWxlIjoic3JjL2FwcC9Vc2VyL1Byb2ZpbGUvdXNlci1wcm9maWxlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudG9wLWJ1ZmZlciB7IG1hcmdpbi10b3A6MjBweDsgfSJdfQ== */"
 
 /***/ }),
 
-/***/ "./src/app/User/Profile/user-profile/user-profile.component.html":
-/*!***********************************************************************!*\
-  !*** ./src/app/User/Profile/user-profile/user-profile.component.html ***!
-  \***********************************************************************/
+/***/ "./src/app/User/Profile/user-profile.component.html":
+/*!**********************************************************!*\
+  !*** ./src/app/User/Profile/user-profile.component.html ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <form class=\"form-horizontal\">\n    <div class=\"row\">\n      <div class=\"col-sm-6\">\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"firstname\">First Name:</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" id=\"firstname\" [(ngModel)]=\"person.firstname\" placeholder=\"Enter First Name\"\n              name=\"first\" readonly>\n          </div>\n        </div>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"middlename\">Middle Name:</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" id=\"middlename\" [(ngModel)]=\"person.middlename\" placeholder=\"Enter Middle Name\"\n              name=\"middle\">\n          </div>\n        </div>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"lastname\">Last Name:</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" id=\"lastname\" [(ngModel)]=\"person.lastname\" placeholder=\"Enter Last Name\"\n              name=\"last\" readonly>\n          </div>\n        </div>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"gender\">Gender:</label>\n          <div class=\"col-sm-8\">\n            <label class=\"radio-inline\"><input type=\"radio\" name=\"optradio\" checked>Male</label>\n            <label class=\"radio-inline\"><input type=\"radio\" name=\"optradio\">Female</label>\n          </div>\n        </div>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"dateofbirth\">Date of Birth:</label>\n          <div class=\"col-sm-8\">\n\n            <form class=\"form-inline\">\n              <div class=\"form-group\">\n                <div class=\"input-group\">\n                  <div class=\"col-sm-8\">\n                    <input class=\"form-control\" placeholder=\"yyyy-mm-dd\" name=\"dp\" [(ngModel)]=\"model\" ngbDatepicker #d=\"ngbDatepicker\"\n                      readonly></div>\n                  <!--  <div class=\"col-sm-4\">\n                    <div class=\"input-group\">\n                      <button class=\"btn btn-outline-primary calendar\" (click)=\"d.toggle()\" type=\"button\"><span class=\"glyphicon glyphicon-th\"></span></button>\n                    </div>\n                  </div> -->\n                </div>\n              </div>\n            </form>\n          </div>\n        </div>\n\n\n        <div class=\"form-group row\">\n          <div class=\"col-sm-4 text-right\">\n            <app-multi-option [category]=\"uniqueID\"></app-multi-option>\n          </div>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" id=\"uniquenumber\" [(ngModel)]=\"person.uniquenumber\" placeholder=\"Enter Unique Number\"\n              name=\"Uniquenumberselection\">\n          </div>\n        </div>\n      </div>\n      <div class=\"col-sm-6\">\n        <div *ngIf=\"selectedImage != null\">\n          <img src=\"{{selectedImage.url}}\" class=\"img-rounded\" alt=\"Upload a pic\" width=\"304\" height=\"236\">\n        </div>\n        <div class=\"row\">\n          <div class=\"col-sm-6\">\n            <input type=\"file\" (change)=\"onFileSelected($event)\" />\n          </div>\n          <div class=\"col-sm-6\">\n            <button type=\"button\" class=\"btn btn-secondary btn-sm\" (click)=\"onUpload()\">Upload</button>\n          </div>\n\n        </div>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-sm-6\">\n        <div class=\"row\">\n          <div class=\"form-group row\">\n            <label class=\"control-label col-sm-4\" for=\"address1\">Type of Details:</label>\n            <div class=\"col-sm-8 text-left\">\n              <app-multi-option [category]=\"AddressType\"></app-multi-option>\n            </div>\n          </div>\n          <div class=\"form-group row\">\n            <label class=\"control-label col-sm-4\" for=\"address1\">Door No & Street:</label>\n            <div class=\"col-sm-8\">\n              <input type=\"text\" class=\"form-control\" id=\"address1\" [(ngModel)]=\"person.address1\" placeholder=\"Door No & Street\"\n                name=\"addressfirst\">\n            </div>\n          </div>\n          <div class=\"form-group row\">\n            <label class=\"control-label col-sm-4\" for=\"address2\">Village & Town:</label>\n            <div class=\"col-sm-8\">\n              <input type=\"text\" class=\"form-control\" id=\"address2\" [(ngModel)]=\"person.address2\" placeholder=\"Village & Town\"\n                name=\"addresssecond\">\n            </div>\n          </div>\n          <div class=\"form-group row\">\n            <label class=\"control-label col-sm-4\" for=\"address3\">District,State & Country:</label>\n            <div class=\"col-sm-8\">\n              <input type=\"text\" class=\"form-control\" id=\"address3\" [(ngModel)]=\"person.address3\" placeholder=\"District,State & Country\"\n                name=\"addressthird\">\n            </div>\n          </div>\n          <div class=\"col-sm-9\"></div>\n          <div class=\"col-sm-3\">\n            <div class=\"form-group\">\n              <div class=\"col-sm-offset-2\">\n                <button type=\"submit\" class=\"btn btn-primary btn-xs\">Add</button>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"col-sm-6\">\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"phonenumber\">Phone Number</label>\n          <div class=\"col-sm-6\">\n            <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"phonumber\" placeholder=\"Enter Phone Number\"\n              name=\"phonenumbername\">\n          </div>\n          <div class=\"col-sm-2\">\n            <button type=\"button\" class=\"btn btn-primary btn-xs\" (click)='addPhone()'>Add</button>\n          </div>\n        </div>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"emailid\">Email ID</label>\n          <div class=\"col-sm-6\">\n            <input type=\"text\" class=\"form-control\" id=\"emailid\" [(ngModel)]=\"emailId\" placeholder=\"Enter Email ID\"\n              name=\"emailidtext\">\n          </div>\n          <div class=\"col-sm-2\">\n            <button type=\"button\" class=\"btn btn-primary btn-xs\" (click)='addEmail()'>Add</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </form>\n</div>"
+module.exports = "<div class=\"container\">\n  <form class=\"form-horizontal\">\n\n    <div class=\"row top-buffer\">\n      <div class=\"col-sm-6\">\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"firstname\">First Name:</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" id=\"firstname\" [(ngModel)]=\"person.strFirstName\" placeholder=\"Enter First Name\"\n              name=\"first\" readonly>\n          </div>\n        </div>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"middlename\">Middle Name:</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" id=\"middlename\" [(ngModel)]=\"person.strMiddleName\" placeholder=\"Enter Middle Name\"\n              name=\"middle\">\n          </div>\n        </div>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"lastname\">Last Name:</label>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" id=\"lastname\" [(ngModel)]=\"person.strLastName\" placeholder=\"Enter Last Name\"\n              name=\"last\" readonly>\n          </div>\n        </div>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"gender\">Gender:</label>\n          <div class=\"col-sm-8\">\n            <label class=\"radio-inline\"><input type=\"radio\" name=\"optradio\" checked>Male</label>\n            <label class=\"radio-inline\"><input type=\"radio\" name=\"optradio\">Female</label>\n          </div>\n        </div>\n        <div class=\"form-group row\">\n          <label class=\"control-label col-sm-4\" for=\"dateofbirth\">Date of Birth:</label>\n          <div class=\"col-sm-8\">\n\n            <form class=\"form-inline\">\n              <div class=\"form-group\">\n                <div class=\"input-group\">\n                  <div class=\"col-sm-8\">\n                    <input class=\"form-control\" placeholder=\"yyyy-mm-dd\" name=\"dp\" [(ngModel)]=\"person.dtDateOfBirth\"\n                      ngbDatepicker #d=\"ngbDatepicker\" readonly></div>\n                  <!--  <div class=\"col-sm-4\">\n                    <div class=\"input-group\">\n                      <button class=\"btn btn-outline-primary calendar\" (click)=\"d.toggle()\" type=\"button\"><span class=\"glyphicon glyphicon-th\"></span></button>\n                    </div>\n                  </div> -->\n                </div>\n              </div>\n            </form>\n          </div>\n        </div>\n\n\n        <div class=\"form-group row\">\n          <div class=\"col-sm-4 text-right\">\n            <app-multi-option [category]=\"uniqueID\"></app-multi-option>\n          </div>\n          <div class=\"col-sm-8\">\n            <input type=\"text\" class=\"form-control\" id=\"uniquenumber\" [(ngModel)]=\"person.strUniqueNumber\" (seletedOption)=\"onSelectionChanged($event)\" placeholder=\"Enter Unique Number\"\n              name=\"Uniquenumberselection\">\n          </div>\n        </div>\n      </div>\n      <div class=\"col-sm-6\">\n        <div *ngIf=\"selectedImage != null\">\n          <img src=\"{{selectedImage.url}}\" class=\"img-rounded\" alt=\"Upload a pic\" width=\"304\" height=\"236\">\n        </div>\n        <div class=\"row top-buffer\">\n          <div class=\"col-sm-6\">\n            <input type=\"file\" (change)=\"onFileSelected($event)\" />\n          </div>\n          <div class=\"col-sm-6\">\n            <button type=\"button\" class=\"btn btn-secondary btn-sm\" (click)=\"onUpload()\">Upload</button>\n          </div>\n\n        </div>\n      </div>\n    </div>\n\n    <div class=\"row top-buffer\">\n      <ngb-tabset type=\"pills\">\n        <ngb-tab title=\"Communication Details\">\n          <ng-template ngbTabContent>\n            <div class=\"row top-buffer\">\n              <div class=\"col-sm-6\">\n                <div class=\"row top-buffer\">\n                  <div class=\"form-group row\">\n                    <label class=\"control-label col-sm-4\" for=\"address1\">Type of Details:</label>\n                    <div class=\"col-sm-8 text-left\">\n                      <app-multi-option [category]=\"AddressType\" (seletedOption)=\"onSelectionChanged($event)\"></app-multi-option>\n                    </div>\n                  </div>\n                  <div class=\"form-group row\">\n                    <label class=\"control-label col-sm-4\" for=\"address1\">Door No & Street:</label>\n                    <div class=\"col-sm-8\">\n                      <input type=\"text\" class=\"form-control\" id=\"address1\" [(ngModel)]=\"address1\" placeholder=\"Door No & Street\"\n                        name=\"addressfirst\">\n                    </div>\n                  </div>\n                  <div class=\"form-group row\">\n                    <label class=\"control-label col-sm-4\" for=\"address2\">Village & Town:</label>\n                    <div class=\"col-sm-8\">\n                      <input type=\"text\" class=\"form-control\" id=\"address2\" [(ngModel)]=\"address2\" placeholder=\"Village & Town\"\n                        name=\"addresssecond\">\n                    </div>\n                  </div>\n                  <div class=\"form-group row\">\n                    <label class=\"control-label col-sm-4\" for=\"address3\">District,State & Country:</label>\n                    <div class=\"col-sm-8\">\n                      <input type=\"text\" class=\"form-control\" id=\"address3\" [(ngModel)]=\"address3\" placeholder=\"District,State & Country\"\n                        name=\"addressthird\">\n                    </div>\n                  </div>\n                  <div class=\"col-sm-9\"></div>\n                  <div class=\"col-sm-3\">\n                    <div class=\"form-group\">\n                      <div class=\"col-sm-offset-2\">\n                        <button type=\"submit\" class=\"btn btn-primary btn-xs\">Add</button>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"col-sm-6\">\n                <div class=\"form-group row\">\n                  <label class=\"control-label col-sm-4\" for=\"phonenumber\">Phone Number</label>\n                  <div class=\"col-sm-6\">\n                    <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"phonumber\" placeholder=\"Enter Phone Number\"\n                      name=\"phonenumbername\">\n                  </div>\n                  <div class=\"col-sm-2\">\n                    <button type=\"button\" class=\"btn btn-primary btn-xs\" (click)='addPhone()'>Add</button>\n                  </div>\n                </div>\n                <div class=\"form-group row\">\n                  <label class=\"control-label col-sm-4\" for=\"emailid\">Email ID</label>\n                  <div class=\"col-sm-6\">\n                    <input type=\"text\" class=\"form-control\" id=\"emailid\" [(ngModel)]=\"emailId\" placeholder=\"Enter Email ID\"\n                      name=\"emailidtext\">\n                  </div>\n                  <div class=\"col-sm-2\">\n                    <button type=\"button\" class=\"btn btn-primary btn-xs\" (click)='addEmail()'>Add</button>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </ng-template>\n        </ngb-tab>\n        <ngb-tab>\n          <ng-template ngbTabTitle>UnderTaken Users</ng-template>\n          <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee\n            squid.\n            <p>Here users list will appreas</p>\n          </ng-template>\n        </ngb-tab>\n\n      </ngb-tabset>\n    </div>\n    \n  </form>\n\n</div>"
 
 /***/ }),
 
-/***/ "./src/app/User/Profile/user-profile/user-profile.component.ts":
-/*!*********************************************************************!*\
-  !*** ./src/app/User/Profile/user-profile/user-profile.component.ts ***!
-  \*********************************************************************/
-/*! exports provided: UserProfileComponent, exUser, exAddress, exPhone, exEmail */
+/***/ "./src/app/User/Profile/user-profile.component.ts":
+/*!********************************************************!*\
+  !*** ./src/app/User/Profile/user-profile.component.ts ***!
+  \********************************************************/
+/*! exports provided: UserProfileComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfileComponent", function() { return UserProfileComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exUser", function() { return exUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exAddress", function() { return exAddress; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exPhone", function() { return exPhone; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exEmail", function() { return exEmail; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_Service_user_service_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/Service/user-service.service */ "./src/app/Service/user-service.service.ts");
+/* harmony import */ var src_app_HelperTs_User__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/HelperTs/User */ "./src/app/HelperTs/User.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1396,71 +1429,71 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var UserProfileComponent = /** @class */ (function () {
-    function UserProfileComponent() {
+    function UserProfileComponent(userService) {
+        this.userService = userService;
         this.uniqueID = 'uniqueID';
         this.AddressType = 'AddressType';
         this.UserList = 'UserList';
-        this.person = new exUser();
-        this.phone = [];
-        this.email = [];
-        this.address = [];
+        this.person = new src_app_HelperTs_User__WEBPACK_IMPORTED_MODULE_2__["exUser"]();
+        this.lsphone = [];
+        this.lsemail = [];
+        this.lsaddress = [];
     }
     UserProfileComponent.prototype.ngOnInit = function () {
+        this.getexUser();
+        this.getexPhone();
+        this.getexAddress();
+        this.getexEmail();
+    };
+    UserProfileComponent.prototype.onSelectionChanged = function (selection) {
+        var i = 0;
+        for (i = 0; i < this.lsaddress.length; ++i) {
+            if (selection == this.lsaddress[i].AddressType) {
+                this.address1 = this.lsaddress[i].strAddress1;
+                this.address2 = this.lsaddress[i].strAddress2;
+                this.address3 = this.lsaddress[i].strAddress3 + ', ' + this.lsaddress[i].strCity +
+                    ', ' + this.lsaddress[i].strState +
+                    ', ' + this.lsaddress[i].strCountry;
+            }
+        }
+    };
+    UserProfileComponent.prototype.getexUser = function () {
+        var _this = this;
+        this.userService.getexUser().subscribe(function (data) { return _this.person = data; });
+    };
+    UserProfileComponent.prototype.getexPhone = function () {
+        var _this = this;
+        this.userService.getexPhone().subscribe(function (data) { return _this.activePhoneNumber = data; });
+    };
+    UserProfileComponent.prototype.getexEmail = function () {
+        var _this = this;
+        this.userService.getexEmail().subscribe(function (data) { return _this.activeEmailId = data; });
+    };
+    UserProfileComponent.prototype.getexAddress = function () {
+        var _this = this;
+        this.userService.getexAddress().subscribe(function (data) { return _this.lsaddress.push(data); });
     };
     UserProfileComponent.prototype.addPhone = function () {
-        if (exPhone.isvalidphonenumber(this.phonumber))
-            this.phone.push(new exPhone(this.phonumber, true));
-        console.log('array length:' + this.phone.length);
+        if (src_app_HelperTs_User__WEBPACK_IMPORTED_MODULE_2__["exPhone"].isvalidphonenumber(this.phonumber))
+            this.lsphone.push(new src_app_HelperTs_User__WEBPACK_IMPORTED_MODULE_2__["exPhone"](this.phonumber, true));
+        console.log('array length:' + this.lsphone.length);
     };
     UserProfileComponent.prototype.addEmail = function () {
-        this.email.push({ 'strEmailId': this.emailId, 'bIsActive': true });
-        console.log('array length:' + this.email.length);
+        this.lsemail.push({ 'strEmailId': this.emailId, 'bIsActive': true });
+        console.log('array length:' + this.lsemail.length);
     };
     UserProfileComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-user-profile',
-            template: __webpack_require__(/*! ./user-profile.component.html */ "./src/app/User/Profile/user-profile/user-profile.component.html"),
-            styles: [__webpack_require__(/*! ./user-profile.component.css */ "./src/app/User/Profile/user-profile/user-profile.component.css")]
+            template: __webpack_require__(/*! ./user-profile.component.html */ "./src/app/User/Profile/user-profile.component.html"),
+            styles: [__webpack_require__(/*! ./user-profile.component.css */ "./src/app/User/Profile/user-profile.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [src_app_Service_user_service_service__WEBPACK_IMPORTED_MODULE_1__["UserServiceService"]])
     ], UserProfileComponent);
     return UserProfileComponent;
-}());
-
-var exUser = /** @class */ (function () {
-    function exUser() {
-    }
-    return exUser;
-}());
-
-var exAddress = /** @class */ (function () {
-    function exAddress() {
-    }
-    return exAddress;
-}());
-
-var exPhone = /** @class */ (function () {
-    //constructor(){}
-    function exPhone(phnumber, isActive) {
-        this.strPhoneNumber = phnumber;
-        this.bIsActive = isActive;
-    }
-    exPhone.isvalidphonenumber = function (number) {
-        if (number.length > 1 && number.length < 12) {
-            if (number.startsWith('9') || number.startsWith('8') || number.startsWith('7') || number.startsWith('6')) {
-                return true;
-            }
-        }
-        return false;
-    };
-    return exPhone;
-}());
-
-var exEmail = /** @class */ (function () {
-    function exEmail() {
-    }
-    return exEmail;
 }());
 
 
@@ -1554,7 +1587,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _User_Registration_user_registration_user_registration_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./User/Registration/user-registration/user-registration.component */ "./src/app/User/Registration/user-registration/user-registration.component.ts");
-/* harmony import */ var _User_Profile_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./User/Profile/user-profile/user-profile.component */ "./src/app/User/Profile/user-profile/user-profile.component.ts");
+/* harmony import */ var _User_Profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./User/Profile/user-profile.component */ "./src/app/User/Profile/user-profile.component.ts");
 /* harmony import */ var _User_List_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./User/List/user-list/user-list.component */ "./src/app/User/List/user-list/user-list.component.ts");
 /* harmony import */ var _User_Detail_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./User/Detail/user-detail/user-detail.component */ "./src/app/User/Detail/user-detail/user-detail.component.ts");
 /* harmony import */ var _Product_product_registration_product_registration_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Product/product-registration/product-registration.component */ "./src/app/Product/product-registration/product-registration.component.ts");
@@ -1583,7 +1616,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 var routes = [
     { path: '\UserRegister', component: _User_Registration_user_registration_user_registration_component__WEBPACK_IMPORTED_MODULE_2__["UserRegistrationComponent"] },
-    { path: '\UserProfile', component: _User_Profile_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__["UserProfileComponent"] },
+    { path: '\UserProfile', component: _User_Profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__["UserProfileComponent"] },
     { path: '\UserList', component: _User_List_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_4__["UserListComponent"] },
     { path: '\UserDetail', component: _User_Detail_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__["UserDetailComponent"] },
     { path: '\ProductRegistration', component: _Product_product_registration_product_registration_component__WEBPACK_IMPORTED_MODULE_6__["ProductRegistrationComponent"] },
@@ -1702,7 +1735,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _multi_option_multi_option_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./multi-option/multi-option.component */ "./src/app/multi-option/multi-option.component.ts");
 /* harmony import */ var _User_Registration_user_registration_user_registration_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./User/Registration/user-registration/user-registration.component */ "./src/app/User/Registration/user-registration/user-registration.component.ts");
-/* harmony import */ var _User_Profile_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./User/Profile/user-profile/user-profile.component */ "./src/app/User/Profile/user-profile/user-profile.component.ts");
+/* harmony import */ var _User_Profile_user_profile_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./User/Profile/user-profile.component */ "./src/app/User/Profile/user-profile.component.ts");
 /* harmony import */ var _User_List_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./User/List/user-list/user-list.component */ "./src/app/User/List/user-list/user-list.component.ts");
 /* harmony import */ var _User_Detail_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./User/Detail/user-detail/user-detail.component */ "./src/app/User/Detail/user-detail/user-detail.component.ts");
 /* harmony import */ var _Product_product_registration_product_registration_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Product/product-registration/product-registration.component */ "./src/app/Product/product-registration/product-registration.component.ts");
@@ -1712,6 +1745,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Product_convert_product_convert_product_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Product/convert-product/convert-product.component */ "./src/app/Product/convert-product/convert-product.component.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _Transaction_transac_list_transac_list_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Transaction/transac-list/transac-list.component */ "./src/app/Transaction/transac-list/transac-list.component.ts");
+/* harmony import */ var _custompipes_adhar_format_pipe__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./custompipes/adhar-format.pipe */ "./src/app/custompipes/adhar-format.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1738,6 +1772,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -1747,7 +1782,7 @@ var AppModule = /** @class */ (function () {
                 _app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"],
                 _multi_option_multi_option_component__WEBPACK_IMPORTED_MODULE_6__["MultiOptionComponent"],
                 _User_Registration_user_registration_user_registration_component__WEBPACK_IMPORTED_MODULE_7__["UserRegistrationComponent"],
-                _User_Profile_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_8__["UserProfileComponent"],
+                _User_Profile_user_profile_component__WEBPACK_IMPORTED_MODULE_8__["UserProfileComponent"],
                 _User_List_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_9__["UserListComponent"],
                 _User_Detail_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_10__["UserDetailComponent"],
                 _Product_product_registration_product_registration_component__WEBPACK_IMPORTED_MODULE_11__["ProductRegistrationComponent"],
@@ -1755,7 +1790,8 @@ var AppModule = /** @class */ (function () {
                 _Product_product_detail_product_detail_component__WEBPACK_IMPORTED_MODULE_13__["ProductDetailComponent"],
                 _Product_assign_product_assign_product_component__WEBPACK_IMPORTED_MODULE_14__["AssignProductComponent"],
                 _Product_convert_product_convert_product_component__WEBPACK_IMPORTED_MODULE_15__["ConvertProductComponent"],
-                _Transaction_transac_list_transac_list_component__WEBPACK_IMPORTED_MODULE_17__["TransacListComponent"]
+                _Transaction_transac_list_transac_list_component__WEBPACK_IMPORTED_MODULE_17__["TransacListComponent"],
+                _custompipes_adhar_format_pipe__WEBPACK_IMPORTED_MODULE_18__["AdharFormatPipe"]
             ],
             imports: [
                 _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbModule"],
@@ -1769,6 +1805,45 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/custompipes/adhar-format.pipe.ts":
+/*!**************************************************!*\
+  !*** ./src/app/custompipes/adhar-format.pipe.ts ***!
+  \**************************************************/
+/*! exports provided: AdharFormatPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdharFormatPipe", function() { return AdharFormatPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var AdharFormatPipe = /** @class */ (function () {
+    function AdharFormatPipe() {
+    }
+    AdharFormatPipe.prototype.transform = function (value, args) {
+        if (value.length == 12)
+            return value.slice(0, 3) + '-' + value.slice(4, 7) + '-' + value.slice(8, 11);
+        else
+            return value;
+    };
+    AdharFormatPipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: 'adharFormat'
+        })
+    ], AdharFormatPipe);
+    return AdharFormatPipe;
 }());
 
 
@@ -1793,7 +1868,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"size<10\">\n<div class=\"form-group\">\n  <select class=\"form-control\" id=\"sel1\" >\n    <option *ngFor=\"let optn of multioption\">{{optn.Name}}</option>\n  </select>\n</div>\n</div>\n<div *ngIf=\"size>=10\">\n   <!-- Button to Open the Modal -->\n    <form class=\"form-inline\">\n        <i class=\"fa fa-search\" aria-hidden=\"true\"></i>\n        <input class=\"form-control form-control-sm ml-3 w-75\" type=\"text\" placeholder=\"Search\" data-toggle=\"modal\" data-target=\"#myModal\" aria-label=\"Search\">\n      </form>\n  \n  <!-- The Modal -->\n  <div class=\"modal\" id=\"myModal\">\n    <div class=\"modal-dialog\">\n      <div class=\"modal-content\">\n  \n        <!-- Modal Header -->\n        <div class=\"modal-header\">\n          <h4 class=\"modal-title\">Select Option</h4>\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n        </div>\n  \n        <!-- Modal body -->\n        <div class=\"modal-body\">\n          <div class=\"container\">\n            <div class=\"row\">\n                Search here\n            </div>\n            <hr/>\n             <div class=\"row\" *ngFor=\"let optn of multioption\">\n                <div class=\"col-sm-3\">\n                    {{optn.id}}\n                  </div>\n                  <div class=\"col-sm-6\">\n                      {{optn.Name}}\n                  </div>\n             </div>\n\n          </div>\n        </div>\n  \n        <!-- Modal footer -->\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button>\n        </div>\n  \n      </div>\n    </div>\n  </div>   \n</div>\n"
+module.exports = "<div *ngIf=\"size<10\">\n<div class=\"form-group\">\n  <select class=\"form-control\" id=\"sel1\" [(ngModel)]=\"selectedoption\" (change)=\"changedSelection()\" >\n    <option *ngFor=\"let optn of multioption\" >{{optn.Name}}</option>\n  </select>\n</div>\n</div>\n<div *ngIf=\"size>=10\">\n   <!-- Button to Open the Modal -->\n    <form class=\"form-inline\">\n        <i class=\"fa fa-search\" aria-hidden=\"true\"></i>\n        <input class=\"form-control form-control-sm ml-3 w-75\" type=\"text\" placeholder=\"Search\" data-toggle=\"modal\" data-target=\"#myModal\" aria-label=\"Search\">\n      </form>\n  \n  <!-- The Modal -->\n  <div class=\"modal\" id=\"myModal\">\n    <div class=\"modal-dialog\">\n      <div class=\"modal-content\">\n  \n        <!-- Modal Header -->\n        <div class=\"modal-header\">\n          <h4 class=\"modal-title\">Select Option</h4>\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n        </div>\n  \n        <!-- Modal body -->\n        <div class=\"modal-body\">\n          <div class=\"container\">\n            <div class=\"row\">\n                Search here\n            </div>\n            <hr/>\n             <div class=\"row\" *ngFor=\"let optn of multioption\">\n                <div class=\"col-sm-3\">\n                    {{optn.id}}\n                  </div>\n                  <div class=\"col-sm-6\">\n                      {{optn.Name}}\n                  </div>\n             </div>\n\n          </div>\n        </div>\n  \n        <!-- Modal footer -->\n        <div class=\"modal-footer\">\n          <button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button>\n        </div>\n  \n      </div>\n    </div>\n  </div>   \n</div>\n"
 
 /***/ }),
 
@@ -1826,9 +1901,15 @@ var MultiOptionComponent = /** @class */ (function () {
     function MultiOptionComponent(multiOptionService, modalService) {
         this.multiOptionService = multiOptionService;
         this.modalService = modalService;
+        this.seletedOption = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
     MultiOptionComponent.prototype.ngOnInit = function () {
         this.getMultiOptions(this.category);
+        if (this.multioption.length > 0)
+            this.selectedoption = this.multioption[0].Name;
+    };
+    MultiOptionComponent.prototype.changedSelection = function () {
+        this.seletedOption.emit(this.selectedoption);
     };
     MultiOptionComponent.prototype.getMultiOptions = function (category) {
         var _this = this;
@@ -1858,6 +1939,10 @@ var MultiOptionComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", String)
     ], MultiOptionComponent.prototype, "category", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], MultiOptionComponent.prototype, "seletedOption", void 0);
     MultiOptionComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-multi-option',
@@ -1934,7 +2019,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\Jagadeesh\AngularUI.git\trunk\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\Proj\Trunk\DipGithut\AngularUI\trunk\src\main.ts */"./src/main.ts");
 
 
 /***/ })

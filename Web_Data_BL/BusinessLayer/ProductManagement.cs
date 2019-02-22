@@ -360,31 +360,42 @@ namespace TradeBulk_BusinessLayer
         /// <param name="lsProduct"></param>
         /// <param name="prodName"></param>
         /// <param name="CurrentUserId"></param>
-        public void ConvertProduct(Dictionary<long,int> lsProduct,string prodName,long CurrentUserId)
+        public void ConvertProduct(Dictionary<long,int> lsProduct,string prodName,long CurrentUserId, out bool isSuccess)
         {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
-            {
-                ProductAssignmentRepository = unitOfWork.GetRepoInstance<ProductAssignment>();
-                IQueryable<ProductAssignment> lspro = ProductAssignmentRepository.GetAllExpressions(x => lsProduct.Keys.Contains(x.ProductAssignmentPID), null, null);
-                ProductConvertRepository = unitOfWork.GetRepoInstance<ProductConvert>();
-                ProductConvert proConvert = new ProductConvert();
-                proConvert.ProductCode = GenProductCode("Convert");//Code
-                proConvert.ConvertedUserPID = CurrentUserId;
-                UserDetail userDetail=lspro.FirstOrDefault<ProductAssignment>().Product.UserDetail;
-                proConvert.OriginalOwnerPID = userDetail.UserdetailPID;
-                ProductConvertRepository.Insert(proConvert);
-                AssignConvertRelationRepository = unitOfWork.GetRepoInstance<AssignConvertRelation>();
-                foreach (var pro in lspro)
-                {
-                    AssignConvertRelation assConRelation=new AssignConvertRelation();
-                    assConRelation.ProductAssignmentPID=pro.ProductAssignmentPID;
-                    assConRelation.ProductConvertPID=proConvert.ProductConvertPID;
-                    AssignConvertRelationRepository.Insert(assConRelation);
-                }
-                unitOfWork.SaveChanges();
-            }
-
+      try
+      {
+        using (UnitOfWork unitOfWork = new UnitOfWork())
+        {
+          ProductAssignmentRepository = unitOfWork.GetRepoInstance<ProductAssignment>();
+          IQueryable<ProductAssignment> lspro = ProductAssignmentRepository.GetAllExpressions(x => lsProduct.Keys.Contains(x.ProductAssignmentPID), null, null);
+          ProductConvertRepository = unitOfWork.GetRepoInstance<ProductConvert>();
+          ProductConvert proConvert = new ProductConvert();
+          proConvert.ProductCode = GenProductCode("Convert");//Code
+          proConvert.ConvertedUserPID = CurrentUserId;
+          UserDetail userDetail = lspro.FirstOrDefault<ProductAssignment>().Product.UserDetail;
+          proConvert.OriginalOwnerPID = userDetail.UserdetailPID;
+          ProductConvertRepository.Insert(proConvert);
+          AssignConvertRelationRepository = unitOfWork.GetRepoInstance<AssignConvertRelation>();
+          foreach (var pro in lspro)
+          {
+            AssignConvertRelation assConRelation = new AssignConvertRelation();
+            assConRelation.ProductAssignmentPID = pro.ProductAssignmentPID;
+            assConRelation.ProductConvertPID = proConvert.ProductConvertPID;
+            AssignConvertRelationRepository.Insert(assConRelation);
+          }
+          unitOfWork.SaveChanges();
+          isSuccess = true;
         }
+
+      }
+      catch (Exception ex)
+      {
+        LogHelper.WriteErrorLog(ex);
+        isSuccess = false;
+      }
+
+
+    }
 
         /// <summary>
         /// To assign List of products into single User
@@ -392,8 +403,13 @@ namespace TradeBulk_BusinessLayer
         /// <param name="lsProduct"></param>
         /// <param name="CurrentUserId"></param>
         /// <param name="AssigneeUserId"></param>
-        public void AssignProduct(Dictionary<long,int> lsProduct, long CurrentUserId,long AssigneeUserId)
+        public void AssignProduct(Dictionary<long,int> lsProduct, long CurrentUserId,long AssigneeUserId, out bool isSuccess)
         {
+
+        try
+      {
+
+     
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
                 ProductRepository = unitOfWork.GetRepoInstance<Product>();
@@ -414,8 +430,15 @@ namespace TradeBulk_BusinessLayer
                     ProductRepository.Update(prdct);
 	            }
                 unitOfWork.SaveChanges();
+                isSuccess = true;
             }
-        }
+      }
+      catch (Exception ex)
+      {
+        LogHelper.WriteErrorLog(ex);
+        isSuccess = false;
+      }
+    }
 
         #endregion
     }

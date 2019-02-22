@@ -63,6 +63,7 @@ namespace TradeBulk_Web.Controllers.WebApi
         throw ex;
       }
     }
+    #region List of products created Assigned and converted
     [HttpGet]
     public List<ProductList> CreatedAssigneeProduct()
     {
@@ -104,19 +105,9 @@ namespace TradeBulk_Web.Controllers.WebApi
         return lsProList;
       }
     }
+    #endregion
 
-    // GET: api/Product
-    public IEnumerable<string> Get()
-    {
-      return new string[] { "value1", "value2" };
-    }
-
-    // GET: api/Product/5
-    public string Get(int id)
-    {
-      return "value";
-    }
-
+    #region Action part for Products
     [HttpPost]
     // POST: api/Product
     public IHttpActionResult CreateProduct(NewProductViewModel newPro)
@@ -127,7 +118,6 @@ namespace TradeBulk_Web.Controllers.WebApi
       {
         var response = new
         {
-
           Success = true,
           Message = "Created",
         };
@@ -137,7 +127,6 @@ namespace TradeBulk_Web.Controllers.WebApi
       {
         var response = new
         {
-
           Success = false,
           Message = "Retry",
         };
@@ -145,14 +134,65 @@ namespace TradeBulk_Web.Controllers.WebApi
       }
     }
 
-    // PUT: api/Product/5
-    public void Put(int id, [FromBody]string value)
+    [HttpPost]
+    public IHttpActionResult AssignProduct(List<AssignProductHelper> lsproducts,long AssignedUserPid)
     {
+      isSuccess = false;
+      Dictionary<long, int> assProd = new Dictionary<long, int>();
+      foreach(var aPro in lsproducts)
+      {
+        assProd.Add(aPro.ProductId, aPro.Count);
+      }
+      ipromngmt.AssignProduct(assProd, currentUserID, AssignedUserPid,out isSuccess);
+      if (isSuccess)
+      {
+        var response = new
+        {
+          Success = true,
+          Message = "Assigned",
+        };
+        return Ok(response);
+      }
+      else
+      {
+        var response = new
+        {
+          Success = false,
+          Message = "Retry",
+        };
+        return Ok(response);
+      }
     }
 
-    // DELETE: api/Product/5
-    public void Delete(int id)
+    [HttpPost]
+    public IHttpActionResult ConvertProduct(List<AssignProductHelper> lsproducts, string NewProductName)
     {
+      isSuccess = false;
+      Dictionary<long, int> conProd = new Dictionary<long, int>();
+      foreach (var aPro in lsproducts)
+      {
+        conProd.Add(aPro.ProductId, aPro.Count);
+      }
+      ipromngmt.ConvertProduct(conProd, NewProductName , currentUserID, out isSuccess);
+      if (isSuccess)
+      {
+        var response = new
+        {
+          Success = true,
+          Message = "Converted",
+        };
+        return Ok(response);
+      }
+      else
+      {
+        var response = new
+        {
+          Success = false,
+          Message = "Retry",
+        };
+        return Ok(response);
+      }
     }
+    #endregion
   }
 }

@@ -1,9 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Http.Routing;
+using TradeBulk_Web.App_Start;
 
 namespace TradeBulk_Web
 {
@@ -19,7 +21,11 @@ namespace TradeBulk_Web
             config.EnableCors(cors);
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
-            config.Routes.MapHttpRoute(
+      var constraintResolver = new DefaultInlineConstraintResolver();
+      constraintResolver.ConstraintMap.Add("AngularRequest", typeof(AngularRequest));
+      //config.MapHttpAttributeRoutes(constraintResolver);
+
+      config.Routes.MapHttpRoute(
                 name: "DefaultActionApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }

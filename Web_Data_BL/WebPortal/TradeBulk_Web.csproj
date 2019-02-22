@@ -321,6 +321,7 @@
     <Content Include="Views\Error\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AngularRequest.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Adminstrator\ManageAdminController.cs" />

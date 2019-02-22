@@ -9,4 +9,12 @@
 	i) User can get Its data which they submitted at sing up
 	ii) They can update Phone,EmailId and communcation address
 4)product web API
+	Create product already there.Need to test 
+	Assign and Convert need to changes done,Angular wise combination is pending.Need to test 
 5)transaction related chnages and API expose
+			1}for creating product we can charge
+			2)For Assigning product we can charge
+			3)for Converting product we can charge
+
+
+

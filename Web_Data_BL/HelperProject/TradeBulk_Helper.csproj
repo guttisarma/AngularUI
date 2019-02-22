@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignProductHelper.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ExAddress.cs" />
     <Compile Include="ExEmail.cs" />

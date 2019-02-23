@@ -103,6 +103,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <Property Name="ProductPID" Type="bigint" />
           <Property Name="Amount" Type="bigint" />
           <Property Name="TransactionStatePid" Type="bigint" />
+          <Property Name="Participant" Type="bigint" />
         </EntityType>
         <EntityType Name="Note">
           <Key>
@@ -2777,6 +2778,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <NavigationProperty Name="Product" Relationship="TradeBulkModel.FK_InlineTranscat_ProductPID" FromRole="InlineTranscat" ToRole="Product" />
           <NavigationProperty Name="UserTransacState" Relationship="TradeBulkModel.FK_InlineTranscat_TransactionStatePid" FromRole="InlineTranscat" ToRole="UserTransacState" />
           <NavigationProperty Name="UserDetail" Relationship="TradeBulkModel.FK_InlineTranscat_UserdetailPID" FromRole="InlineTranscat" ToRole="UserDetail" />
+          <Property Name="Participant" Type="Int64" />
         </EntityType>
         <Association Name="FK_InlineTranscat_ProductPID">
           <End Type="TradeBulkModel.Product" Role="Product" Multiplicity="0..1" />
@@ -3290,6 +3292,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <EntitySetMapping Name="InlineTranscats">
             <EntityTypeMapping TypeName="TradeBulkModel.InlineTranscat">
               <MappingFragment StoreEntitySet="InlineTranscat">
+                <ScalarProperty Name="Participant" ColumnName="Participant" />
                 <ScalarProperty Name="TransactionStatePid" ColumnName="TransactionStatePid" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="ProductPID" ColumnName="ProductPID" />

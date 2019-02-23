@@ -61,6 +61,7 @@
     <Compile Include="InLineTransaction.cs" />
     <Compile Include="Interfaces\IExchangeUserInfo.cs" />
     <Compile Include="Interfaces\IProductManagement.cs" />
+    <Compile Include="Interfaces\ITransactFactory.cs" />
     <Compile Include="ProductList.cs" />
     <Compile Include="CurrentAuction.cs" />
     <Compile Include="LogHelper.cs" />

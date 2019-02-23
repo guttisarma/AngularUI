@@ -63,6 +63,14 @@ namespace TradeBulk_Web.Controllers.WebApi
         throw ex;
       }
     }
+
+    [HttpPost]
+    public NewProductViewModel GetProduct(int ProductId)
+    {
+      NewProductViewModel newProductViewModel= ipromngmt.GetProductbyId(ProductId);
+      return newProductViewModel;
+    }
+
     #region List of products created Assigned and converted
     [HttpGet]
     public List<ProductList> CreatedAssigneeProduct()

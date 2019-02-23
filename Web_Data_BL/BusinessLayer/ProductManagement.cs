@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TradeBulk_Helper;
+using TradeBulk_Helper.Interfaces;
 
 namespace TradeBulk_BusinessLayer
 {
@@ -22,21 +23,27 @@ namespace TradeBulk_BusinessLayer
         GenericRepository<User> UserRepository;
         GenericRepository<UserDetail> UserDetailsRepository;
         GenericRepository<AssignConvertRelation> AssignConvertRelationRepository;
-
-        public ProductManagement()
+        ITransactFactory transactFactory;
+    #region constrator
+    public ProductManagement()
         {
             
 
         }
+    public ProductManagement(ITransactFactory _transactFactory)
+    {
+      transactFactory = _transactFactory;
+    }
+    #endregion
 
-        #region List
+    #region List
 
-        /// <summary>
-        /// Create and Assigned Products will list here
-        /// </summary>
-        /// <param name="currentUserID"></param>
-        /// <returns></returns>
-        public List<ProductList> MyProductList(long currentUserID)
+    /// <summary>
+    /// Create and Assigned Products will list here
+    /// </summary>
+    /// <param name="currentUserID"></param>
+    /// <returns></returns>
+    public List<ProductList> MyProductList(long currentUserID)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
@@ -341,7 +348,9 @@ namespace TradeBulk_BusinessLayer
                         DocumentRepository.Insert(dcment);
                     }
                     unitOfWork.SaveChanges();
-                    isSuccess = true;
+
+          transactFactory.CreateTransac(CurrentUserID, null, prdct.ProductPID, 800);
+          isSuccess = true;
 
                 }
                 //once Product is created we need to create Transact Record

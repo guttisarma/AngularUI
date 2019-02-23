@@ -321,8 +321,11 @@
     <Content Include="Views\Error\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\AngularRequest.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Adminstrator\ManageAdminController.cs" />
     <Compile Include="Controllers\Adminstrator\NewProductController.cs" />
@@ -331,6 +334,7 @@
     <Compile Include="Controllers\CurrentAuctionController.cs" />
     <Compile Include="Controllers\CurrentUser.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\WebApi\InlineTranscatController.cs" />
     <Compile Include="Controllers\ListEditController.cs" />
     <Compile Include="Controllers\ManageAdminController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -365,7 +369,10 @@
     <Compile Include="Models\LoginView.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\Security.cs" />
+    <Compile Include="Models\SupportModels\AccountBindingModels.cs" />
+    <Compile Include="Models\SupportModels\AccountViewModels.cs" />
     <Compile Include="Models\SupportModels\AdminSelectionOptions.cs" />
+    <Compile Include="Models\SupportModels\IdentityModels.cs" />
     <Compile Include="Models\SupportModels\SubjectModel.cs" />
     <Compile Include="Models\ViewModels\AdminUsersList.cs" />
     <Compile Include="Models\ViewModels\ListEditViewModel.cs" />

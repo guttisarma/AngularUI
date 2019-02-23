@@ -19,6 +19,7 @@ namespace TradeBulk_DataLayer.AppData
         public Nullable<long> ProductPID { get; set; }
         public Nullable<long> Amount { get; set; }
         public Nullable<long> TransactionStatePid { get; set; }
+        public Nullable<long> Participant { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual UserTransacState UserTransacState { get; set; }

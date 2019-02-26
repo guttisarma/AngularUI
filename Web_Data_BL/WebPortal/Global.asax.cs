@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using TradeBulk_Web.Authe_AuthoATION;
 using TradeBulk_Web.Models;
 using System;
@@ -19,7 +19,8 @@ namespace TradeBulk_Web
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-        }
+            Bootstrapper.Initialise();
+    }
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {
             HttpCookie authCookie = Request.Cookies["Cookie1"];

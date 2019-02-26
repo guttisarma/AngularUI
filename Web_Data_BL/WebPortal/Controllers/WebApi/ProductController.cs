@@ -20,29 +20,30 @@ namespace TradeBulk_Web.Controllers.WebApi
     long currentUserID = -1;
     bool isSuccess = false;
     bool isFakeData;
-    public ProductController()
-    {
-      try
-      {
-        isFakeData = Convert.ToBoolean(ConfigurationManager.AppSettings["DummyDataForAPI"]);
-        if (!isFakeData)
-        {
-          if (ipromngmt == null)
-          {
-            ipromngmt = new ProductManagement();
-            currentUserID = 10001;
-          }
-          else
-            currentUserID = ((CustomPrincipal)HttpContext.Current.User).UserId;
-        }
-      }
-      catch (Exception ex)
-      {
+    //public ProductController()
+    //{
+    //  try
+    //  {
+    //    isFakeData = Convert.ToBoolean(ConfigurationManager.AppSettings["DummyDataForAPI"]);
+    //    if (!isFakeData)
+    //    {
+    //      if (ipromngmt == null)
+    //      {
+    //        ipromngmt = new ProductManagement();
+    //        currentUserID = 10001;
+    //      }
+    //      else
+    //        currentUserID = ((CustomPrincipal)HttpContext.Current.User).UserId;
+    //    }
+    //  }
+    //  catch (Exception ex)
+    //  {
 
-        throw ex;
-      }
-    }
-    public ProductController(IProductManagement _ipromngmt = null, long currentUserId = 0)
+    //    throw ex;
+    //  }
+    //}
+    //public ProductController(IProductManagement _ipromngmt = null, long currentUserId = 0)
+    public ProductController(IProductManagement _ipromngmt)
     {
       try
       {
@@ -50,7 +51,7 @@ namespace TradeBulk_Web.Controllers.WebApi
         if (ipromngmt == null)
         {
           ipromngmt = new ProductManagement();
-          currentUserId = 10001;
+          currentUserID = 10001;
         }
         else
         {

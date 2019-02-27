@@ -23,7 +23,7 @@ namespace TradeBulk_Web
 
 
       container.RegisterType<IProductManagement, ProductManagement>();
-      container.RegisterType<IHttpController, ProductController>("Product");
+      //container.RegisterType<IHttpController, ProductController>("Product");
 
       // register all your components with the container here
       // it is NOT necessary to register your controllers

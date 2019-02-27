@@ -1,3 +1,4 @@
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,8 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Routing;
+using TradeBulk_BusinessLayer;
+using TradeBulk_Helper;
 using TradeBulk_Web.App_Start;
 
 namespace TradeBulk_Web
@@ -15,14 +18,18 @@ namespace TradeBulk_Web
         {
             config.MapHttpAttributeRoutes();
 
-            string origin = "http://localhost:4200/";
+      var container = new UnityContainer();
+      container.RegisterType<IProductManagement, ProductManagement>(new HierarchicalLifetimeManager());
+      config.DependencyResolver = new UnityResolver(container);
 
-            EnableCorsAttribute cors = new EnableCorsAttribute(origin, "*", "GET,POST");
-            config.EnableCors(cors);
-            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+      //string origin = "http://localhost:4200/";
 
-      var constraintResolver = new DefaultInlineConstraintResolver();
-      constraintResolver.ConstraintMap.Add("AngularRequest", typeof(AngularRequest));
+      //EnableCorsAttribute cors = new EnableCorsAttribute(origin, "*", "GET,POST");
+      //config.EnableCors(cors);
+      //config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+
+      //var constraintResolver = new DefaultInlineConstraintResolver();
+      //constraintResolver.ConstraintMap.Add("AngularRequest", typeof(AngularRequest));
       //config.MapHttpAttributeRoutes(constraintResolver);
 
       config.Routes.MapHttpRoute(

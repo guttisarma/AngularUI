@@ -8,18 +8,18 @@ using Unity.Mvc3;
 
 namespace TradeBulk_Web
 {
-    public static class Bootstrapper
+  public static class Bootstrapper
+  {
+    public static void Initialise()
     {
-        public static void Initialise()
-        {
-            var container = BuildUnityContainer();
+      var container = BuildUnityContainer();
 
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
-        }
+      DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+    }
 
-        private static IUnityContainer BuildUnityContainer()
-        {
-            var container = new UnityContainer();
+    private static IUnityContainer BuildUnityContainer()
+    {
+      var container = new UnityContainer();
 
 
       container.RegisterType<IProductManagement, ProductManagement>();
@@ -31,6 +31,6 @@ namespace TradeBulk_Web
       // e.g. container.RegisterType<ITestService, TestService>();            
 
       return container;
-        }
     }
+  }
 }

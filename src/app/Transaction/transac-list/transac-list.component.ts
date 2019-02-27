@@ -18,15 +18,16 @@ export class TransacListComponent implements OnInit {
     this.getMyTransaction();
   }
   getMyTransaction(){
-     this.transacservice.getMockTransactionList().subscribe(x=>this.MyTransactions=x);
+     this.transacservice.InlineTranscatPending().subscribe(x=>this.MyTransactions=x);
      this.MyTransactions.forEach(
        item=>{
-        if(item.State==1) 
-        {
           this.PendingTransactions.push(item);
-        }
-        if(item.State==2)
-            this.CompletedTransactions.push(item);})
-  }
+  });
+  this.transacservice.InlineTranscatComplete().subscribe(x=>this.MyTransactions=x);
+  this.MyTransactions.forEach(
+    item=>{
+      this.CompletedTransactions.push(item);
+    });
 
+}
 }

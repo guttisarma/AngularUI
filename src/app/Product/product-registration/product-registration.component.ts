@@ -29,7 +29,6 @@ export class ProductRegistrationComponent implements OnInit {
   }
   submit(){
     this.productservice.registration(this.prod).subscribe(x=>this.prod=x);
-    debugger;
   }
 
 }

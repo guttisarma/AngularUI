@@ -68,7 +68,7 @@ namespace TradeBulk_Web.Controllers.WebApi
     [HttpPost]
     public NewProductViewModel GetProduct(int ProductId)
     {
-      NewProductViewModel newProductViewModel= ipromngmt.GetProductbyId(ProductId);
+      NewProductViewModel newProductViewModel = ipromngmt.GetProductbyId(ProductId);
       return newProductViewModel;
     }
 
@@ -130,7 +130,7 @@ namespace TradeBulk_Web.Controllers.WebApi
           Success = true,
           Message = "Created",
         };
-        return Ok(response);
+        return Ok(newPro);
       }
       else
       {
@@ -144,15 +144,15 @@ namespace TradeBulk_Web.Controllers.WebApi
     }
 
     [HttpPost]
-    public IHttpActionResult AssignProduct(List<AssignProductHelper> lsproducts,long AssignedUserPid)
+    public IHttpActionResult AssignProduct(List<AssignProductHelper> lsproducts, long AssignedUserPid)
     {
       isSuccess = false;
       Dictionary<long, int> assProd = new Dictionary<long, int>();
-      foreach(var aPro in lsproducts)
+      foreach (var aPro in lsproducts)
       {
         assProd.Add(aPro.ProductId, aPro.Count);
       }
-      ipromngmt.AssignProduct(assProd, currentUserID, AssignedUserPid,out isSuccess);
+      ipromngmt.AssignProduct(assProd, currentUserID, AssignedUserPid, out isSuccess);
       if (isSuccess)
       {
         var response = new
@@ -182,13 +182,38 @@ namespace TradeBulk_Web.Controllers.WebApi
       {
         conProd.Add(aPro.ProductId, aPro.Count);
       }
-      ipromngmt.ConvertProduct(conProd, NewProductName , currentUserID, out isSuccess);
+      ipromngmt.ConvertProduct(conProd, NewProductName, currentUserID, out isSuccess);
       if (isSuccess)
       {
         var response = new
         {
           Success = true,
           Message = "Converted",
+        };
+        return Ok(response);
+      }
+      else
+      {
+        var response = new
+        {
+          Success = false,
+          Message = "Retry",
+        };
+        return Ok(response);
+      }
+    }
+
+    [HttpPut]
+    public IHttpActionResult UpdateProduct(NewProductViewModel newPro)
+    {
+      isSuccess = false;
+      ipromngmt.CreateProduct(newPro, currentUserID, out isSuccess);
+      if (isSuccess)
+      {
+        var response = new
+        {
+          Success = true,
+          Message = "Created",
         };
         return Ok(response);
       }

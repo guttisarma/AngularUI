@@ -905,7 +905,6 @@ var ProductRegistrationComponent = /** @class */ (function () {
     ProductRegistrationComponent.prototype.submit = function () {
         var _this = this;
         this.productservice.registration(this.prod).subscribe(function (x) { return _this.prod = x; });
-        debugger;
     };
     ProductRegistrationComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1006,7 +1005,7 @@ var ProductService = /** @class */ (function () {
         this.createdAssigneeProductUrl = 'api/Product/CreatedAssigneeProduct';
         this.assignedProductProductUrl = 'api/Product/AssignedProduct';
         this.convertedProductUrl = 'api/Product/ConvertedProduct';
-        this.registrationUrl = 'http://localhost:55374/api/Procuduct/CreateProduct';
+        this.registrationUrl = 'http://localhost:55374/api/Product/CreateProduct';
     }
     ProductService.prototype.getMockProductList = function (category) {
         if (category == 'Created') {
@@ -1091,6 +1090,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_HelperTs_Transactions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/HelperTs/Transactions */ "./src/app/HelperTs/Transactions.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1103,17 +1103,27 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var TransacService = /** @class */ (function () {
-    function TransacService() {
+    function TransacService(http) {
+        this.http = http;
+        this.inlineTranscatGetPendingUrl = 'api/InlineTranscat/GetPending';
+        this.inlineTranscatGetCompleteUrl = 'api/InlineTranscat/GetComplete';
     }
     TransacService.prototype.getMockTransactionList = function () {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(src_app_HelperTs_Transactions__WEBPACK_IMPORTED_MODULE_1__["MockTransactionList"]);
+    };
+    TransacService.prototype.InlineTranscatPending = function () {
+        return this.http.get(this.inlineTranscatGetPendingUrl);
+    };
+    TransacService.prototype.InlineTranscatComplete = function () {
+        return this.http.get(this.inlineTranscatGetCompleteUrl);
     };
     TransacService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
     ], TransacService);
     return TransacService;
 }());

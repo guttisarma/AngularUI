@@ -36,7 +36,6 @@ namespace TradeBulk_DataLayer.AppData
         public virtual DbSet<Note> Notes { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
         public virtual DbSet<PhoneType> PhoneTypes { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductAssignment> ProductAssignments { get; set; }
         public virtual DbSet<ProductConvert> ProductConverts { get; set; }
         public virtual DbSet<ProductState> ProductStates { get; set; }
@@ -61,5 +60,6 @@ namespace TradeBulk_DataLayer.AppData
         public virtual DbSet<UserDetailEmail> UserDetailEmails { get; set; }
         public virtual DbSet<UserDetailPhone> UserDetailPhones { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
     }
 }

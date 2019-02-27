@@ -25,8 +25,8 @@ namespace TradeBulk_DataLayer.AppData
         public Nullable<long> CreatedUserPID { get; set; }
         public Nullable<long> UpdatedUserPID { get; set; }
     
-        public virtual Product Product { get; set; }
         public virtual UserDetail UserDetail { get; set; }
         public virtual UserDetail UserDetail1 { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

@@ -32,9 +32,9 @@ namespace TradeBulk_DataLayer.AppData
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignConvertRelation> AssignConvertRelations { get; set; }
-        public virtual Product Product { get; set; }
         public virtual UserDetail UserDetail { get; set; }
         public virtual UserDetail UserDetail1 { get; set; }
         public virtual UserDetail UserDetail2 { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

@@ -28,9 +28,9 @@ namespace TradeBulk_DataLayer.AppData
         public Nullable<long> CreatedUserPID { get; set; }
         public Nullable<long> UpdatedUserPID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
         public virtual UserDetail UserDetail { get; set; }
         public virtual UserDetail UserDetail1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

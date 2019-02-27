@@ -21,9 +21,6 @@ namespace TradeBulk_DataLayer.AppData
             this.Documents1 = new HashSet<Document>();
             this.Notes = new HashSet<Note>();
             this.Notes1 = new HashSet<Note>();
-            this.Products = new HashSet<Product>();
-            this.Products1 = new HashSet<Product>();
-            this.Products2 = new HashSet<Product>();
             this.ProductAssignments = new HashSet<ProductAssignment>();
             this.ProductAssignments1 = new HashSet<ProductAssignment>();
             this.ProductAssignments2 = new HashSet<ProductAssignment>();
@@ -48,6 +45,9 @@ namespace TradeBulk_DataLayer.AppData
             this.InlineTranscats = new HashSet<InlineTranscat>();
             this.UserDetailEmails = new HashSet<UserDetailEmail>();
             this.UserDetailPhones = new HashSet<UserDetailPhone>();
+            this.Products = new HashSet<Product>();
+            this.Products1 = new HashSet<Product>();
+            this.Products2 = new HashSet<Product>();
         }
     
         public long UserdetailPID { get; set; }
@@ -82,12 +82,6 @@ namespace TradeBulk_DataLayer.AppData
         public virtual ICollection<Note> Notes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Note> Notes1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductAssignment> ProductAssignments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -142,5 +136,11 @@ namespace TradeBulk_DataLayer.AppData
         public virtual ICollection<UserDetailEmail> UserDetailEmails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserDetailPhone> UserDetailPhones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products2 { get; set; }
     }
 }

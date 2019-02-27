@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="TradeBulkModel.Note" Width="1.5" PointX="12" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.Phone" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.PhoneType" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TradeBulkModel.Product" Width="1.5" PointX="17.25" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.ProductAssignment" Width="1.5" PointX="22.5" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.ProductConvert" Width="1.5" PointX="22.5" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.ProductState" Width="1.5" PointX="20.25" PointY="8" IsExpanded="true" />
@@ -42,22 +41,12 @@
         <AssociationConnector Association="TradeBulkModel.FK_Document_CreatedUserPID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Document_DocumentTypePID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Document_UpdatedUserPID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_Product_DocumentPID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Email_EmailType" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Email_EmailTypePID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Note_CreatedUserPID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Note_UpdatedUserPID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_Product_NotePid" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Phone_PhoneType" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Phone_PhoneTypePID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_Product_CreatedUserPID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_Product_OwnerPID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_Product_ProductTypePID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_Product_RatingPID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_Product_salesTypePid" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_Product_UpdatedUserPID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_ProductPID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_UserAuctionInfo_ProductPID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_AssignedUserPid" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_CreatedUserPID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_UpdatedUserPID" ManuallyRouted="false" />
@@ -90,7 +79,6 @@
         <AssociationConnector Association="TradeBulkModel.FK_UserTransac_UserTransacTypePid" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_UserTransacBroker_UserTransacPid" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TradeBulkModel.InlineTranscat" Width="1.5" PointX="22.5" PointY="16.375" />
-        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_ProductPID" />
         <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_TransactionStatePid" />
         <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_UserdetailPID" />
         <EntityTypeShape EntityType="TradeBulkModel.UserDetailEmail" Width="1.5" PointX="15" PointY="19.875" />
@@ -101,6 +89,18 @@
         <AssociationConnector Association="TradeBulkModel.FK_UserDetailPhone_UserDetailPID" />
         <EntityTypeShape EntityType="TradeBulkModel.Address" Width="1.5" PointX="5.375" PointY="3.875" />
         <AssociationConnector Association="TradeBulkModel.FK_UserDetailAddress_AddressPID" />
+        <EntityTypeShape EntityType="TradeBulkModel.Product" Width="1.5" PointX="17.25" PointY="10.375" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_DocumentPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_ProductPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_NotePid" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_CreatedUserPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_OwnerPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_ProductTypePID" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_RatingPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_salesTypePid" />
+        <AssociationConnector Association="TradeBulkModel.FK_Product_UpdatedUserPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_ProductPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_UserAuctionInfo_ProductPID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

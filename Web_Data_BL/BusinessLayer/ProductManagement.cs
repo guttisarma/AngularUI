@@ -30,10 +30,10 @@ namespace TradeBulk_BusinessLayer
             
 
         }
-    public ProductManagement(ITransactFactory _transactFactory)
-    {
-      transactFactory = _transactFactory;
-    }
+    //public ProductManagement(ITransactFactory _transactFactory)
+    //{
+    //  transactFactory = _transactFactory;
+    //}
     #endregion
 
     #region List
@@ -338,6 +338,7 @@ namespace TradeBulk_BusinessLayer
                     prdct.ProductType = ProductTypeRepository.GetByID((long)EProductType.Inventatory);
                     prdct.Quanity = Convert.ToInt32(product.Quantity);
                     ProductRepository.Insert(prdct);
+                    if(product.Documents!=null)
                     foreach (DocumentViewModel Dviewmodel in product.Documents)
                     {
                         Document dcment = new Document();

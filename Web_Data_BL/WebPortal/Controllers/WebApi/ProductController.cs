@@ -55,7 +55,7 @@ namespace TradeBulk_Web.Controllers.WebApi
         }
         else
         {
-          HttpContent requestContent = Request.Content;
+          //HttpContent requestContent = Request.Content;
         }
       }
       catch (Exception ex)

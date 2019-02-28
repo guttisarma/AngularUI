@@ -5,7 +5,7 @@ namespace TradeBulk_Helper.Interfaces
 {
   public interface ITransactFactory
   {
-    void CreateTransac(long actorPID, long? ParticipantPID, long productPID, long amount);
+    void CreateTransac(long actorPID, long? ParticipantPID, long productPID, decimal amount);
     List<InLineTransaction> ListUserInLinePendingTransactions(long currentUserPID);
     List<InLineTransaction> ListUserInLineCompleteTransactions(long currentUserPID);
     bool UpdateInlineTranscat(InLineTransaction inLineTransaction);

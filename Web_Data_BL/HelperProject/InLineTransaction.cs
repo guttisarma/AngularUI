@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +14,7 @@ namespace TradeBulk_Helper
         public Nullable<long> ProductPID { get; set; }
         public String ProductCode { get; set; }
         public String ProductName { get; set; }
-        public Nullable<long> Amount { get; set; }
+        public Nullable<decimal> Amount { get; set; }
         public Nullable<long> TransactionStatePid { get; set; }
     }
 }

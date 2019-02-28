@@ -56,10 +56,10 @@ namespace TradeBulk_DataLayer.AppData
         public virtual DbSet<UserTransacType> UserTransacTypes { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<DropDownOnEntity> DropDownOnEntities { get; set; }
-        public virtual DbSet<InlineTranscat> InlineTranscats { get; set; }
         public virtual DbSet<UserDetailEmail> UserDetailEmails { get; set; }
         public virtual DbSet<UserDetailPhone> UserDetailPhones { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<InlineTranscat> InlineTranscats { get; set; }
     }
 }

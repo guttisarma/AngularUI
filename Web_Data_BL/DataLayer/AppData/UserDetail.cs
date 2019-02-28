@@ -42,12 +42,12 @@ namespace TradeBulk_DataLayer.AppData
             this.UserTransacBrokers1 = new HashSet<UserTransacBroker>();
             this.UserTransacBrokers2 = new HashSet<UserTransacBroker>();
             this.UserTransacBrokers3 = new HashSet<UserTransacBroker>();
-            this.InlineTranscats = new HashSet<InlineTranscat>();
             this.UserDetailEmails = new HashSet<UserDetailEmail>();
             this.UserDetailPhones = new HashSet<UserDetailPhone>();
             this.Products = new HashSet<Product>();
             this.Products1 = new HashSet<Product>();
             this.Products2 = new HashSet<Product>();
+            this.InlineTranscats = new HashSet<InlineTranscat>();
         }
     
         public long UserdetailPID { get; set; }
@@ -131,8 +131,6 @@ namespace TradeBulk_DataLayer.AppData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserTransacBroker> UserTransacBrokers3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InlineTranscat> InlineTranscats { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserDetailEmail> UserDetailEmails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserDetailPhone> UserDetailPhones { get; set; }
@@ -142,5 +140,7 @@ namespace TradeBulk_DataLayer.AppData
         public virtual ICollection<Product> Products1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InlineTranscat> InlineTranscats { get; set; }
     }
 }

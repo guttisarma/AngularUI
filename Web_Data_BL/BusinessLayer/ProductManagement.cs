@@ -351,7 +351,9 @@ namespace TradeBulk_BusinessLayer
             }
           unitOfWork.SaveChanges();
           if (product.Price != null)
-            transactFactory.CreateTransac(CurrentUserID, null, prdct.ProductPID, 800);
+          {
+            transactFactory.CreateTransac(CurrentUserID, null, prdct.ProductPID,(Decimal) prdct.Price);
+          }
           isSuccess = true;
 
         }

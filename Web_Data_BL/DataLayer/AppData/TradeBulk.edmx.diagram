@@ -78,9 +78,6 @@
         <AssociationConnector Association="TradeBulkModel.FK_UserTransac_UserTransacStatePid" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_UserTransac_UserTransacTypePid" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_UserTransacBroker_UserTransacPid" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TradeBulkModel.InlineTranscat" Width="1.5" PointX="22.5" PointY="16.375" />
-        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_TransactionStatePid" />
-        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_UserdetailPID" />
         <EntityTypeShape EntityType="TradeBulkModel.UserDetailEmail" Width="1.5" PointX="15" PointY="19.875" />
         <EntityTypeShape EntityType="TradeBulkModel.UserDetailPhone" Width="1.5" PointX="18" PointY="6.875" />
         <AssociationConnector Association="TradeBulkModel.FK_UserDetailEmail_EmailPID" />
@@ -91,7 +88,6 @@
         <AssociationConnector Association="TradeBulkModel.FK_UserDetailAddress_AddressPID" />
         <EntityTypeShape EntityType="TradeBulkModel.Product" Width="1.5" PointX="17.25" PointY="10.375" />
         <AssociationConnector Association="TradeBulkModel.FK_Product_DocumentPID" />
-        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_ProductPID" />
         <AssociationConnector Association="TradeBulkModel.FK_Product_NotePid" />
         <AssociationConnector Association="TradeBulkModel.FK_Product_CreatedUserPID" />
         <AssociationConnector Association="TradeBulkModel.FK_Product_OwnerPID" />
@@ -101,6 +97,10 @@
         <AssociationConnector Association="TradeBulkModel.FK_Product_UpdatedUserPID" />
         <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_ProductPID" />
         <AssociationConnector Association="TradeBulkModel.FK_UserAuctionInfo_ProductPID" />
+        <EntityTypeShape EntityType="TradeBulkModel.InlineTranscat" Width="1.5" PointX="22.5" PointY="16.5" />
+        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_ProductPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_TransactionStatePid" />
+        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_UserdetailPID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

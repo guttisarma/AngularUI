@@ -101,7 +101,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <Property Name="InlineTranscatPID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserdetailPID" Type="bigint" />
           <Property Name="ProductPID" Type="bigint" />
-          <Property Name="Amount" Type="bigint" />
+          <Property Name="Amount" Type="money" Nullable="false" />
           <Property Name="TransactionStatePid" Type="bigint" />
           <Property Name="Participant" Type="bigint" />
         </EntityType>
@@ -1684,12 +1684,12 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <NavigationProperty Name="UserTransacBrokers1" Relationship="Self.FK_UserTransacBroker_CreatedUserPID" FromRole="UserDetail" ToRole="UserTransacBroker" />
           <NavigationProperty Name="UserTransacBrokers2" Relationship="Self.FK_UserTransacBroker_SalerPID" FromRole="UserDetail" ToRole="UserTransacBroker" />
           <NavigationProperty Name="UserTransacBrokers3" Relationship="Self.FK_UserTransacBroker_UpdatedUserPID" FromRole="UserDetail" ToRole="UserTransacBroker" />
-          <NavigationProperty Name="InlineTranscats" Relationship="TradeBulkModel.FK_InlineTranscat_UserdetailPID" FromRole="UserDetail" ToRole="InlineTranscat" />
           <NavigationProperty Name="UserDetailEmails" Relationship="TradeBulkModel.FK_UserDetailEmail_UserDetailPID" FromRole="UserDetail" ToRole="UserDetailEmail" />
           <NavigationProperty Name="UserDetailPhones" Relationship="TradeBulkModel.FK_UserDetailPhone_UserDetailPID" FromRole="UserDetail" ToRole="UserDetailPhone" />
           <NavigationProperty Name="Products" Relationship="TradeBulkModel.FK_Product_CreatedUserPID" FromRole="UserDetail" ToRole="Product" />
           <NavigationProperty Name="Products1" Relationship="TradeBulkModel.FK_Product_OwnerPID" FromRole="UserDetail" ToRole="Product" />
           <NavigationProperty Name="Products2" Relationship="TradeBulkModel.FK_Product_UpdatedUserPID" FromRole="UserDetail" ToRole="Product" />
+          <NavigationProperty Name="InlineTranscats" Relationship="TradeBulkModel.FK_InlineTranscat_UserdetailPID" FromRole="UserDetail" ToRole="InlineTranscat" />
         </EntityType>
         <EntityType Name="UserDetailAddress">
           <Key>
@@ -2531,15 +2531,6 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             <End Role="UserTransac" EntitySet="UserTransacs" />
             <End Role="UserTransacBroker" EntitySet="UserTransacBrokers" />
           </AssociationSet>
-          <EntitySet Name="InlineTranscats" EntityType="TradeBulkModel.InlineTranscat" />
-          <AssociationSet Name="FK_InlineTranscat_TransactionStatePid" Association="TradeBulkModel.FK_InlineTranscat_TransactionStatePid">
-            <End Role="UserTransacState" EntitySet="UserTransacStates" />
-            <End Role="InlineTranscat" EntitySet="InlineTranscats" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InlineTranscat_UserdetailPID" Association="TradeBulkModel.FK_InlineTranscat_UserdetailPID">
-            <End Role="UserDetail" EntitySet="UserDetails" />
-            <End Role="InlineTranscat" EntitySet="InlineTranscats" />
-          </AssociationSet>
           <EntitySet Name="UserDetailEmails" EntityType="TradeBulkModel.UserDetailEmail" />
           <EntitySet Name="UserDetailPhones" EntityType="TradeBulkModel.UserDetailPhone" />
           <AssociationSet Name="FK_UserDetailEmail_EmailPID" Association="TradeBulkModel.FK_UserDetailEmail_EmailPID">
@@ -2567,10 +2558,6 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <AssociationSet Name="FK_Product_DocumentPID" Association="TradeBulkModel.FK_Product_DocumentPID">
             <End Role="Document" EntitySet="Documents" />
             <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InlineTranscat_ProductPID" Association="TradeBulkModel.FK_InlineTranscat_ProductPID">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="InlineTranscat" EntitySet="InlineTranscats" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_NotePid" Association="TradeBulkModel.FK_Product_NotePid">
             <End Role="Note" EntitySet="Notes" />
@@ -2608,45 +2595,20 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             <End Role="Product" EntitySet="Products" />
             <End Role="UserAuctionInfo" EntitySet="UserAuctionInfoes" />
           </AssociationSet>
+          <EntitySet Name="InlineTranscats" EntityType="TradeBulkModel.InlineTranscat" />
+          <AssociationSet Name="FK_InlineTranscat_ProductPID" Association="TradeBulkModel.FK_InlineTranscat_ProductPID">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="InlineTranscat" EntitySet="InlineTranscats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InlineTranscat_TransactionStatePid" Association="TradeBulkModel.FK_InlineTranscat_TransactionStatePid">
+            <End Role="UserTransacState" EntitySet="UserTransacStates" />
+            <End Role="InlineTranscat" EntitySet="InlineTranscats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InlineTranscat_UserdetailPID" Association="TradeBulkModel.FK_InlineTranscat_UserdetailPID">
+            <End Role="UserDetail" EntitySet="UserDetails" />
+            <End Role="InlineTranscat" EntitySet="InlineTranscats" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="InlineTranscat">
-          <Key>
-            <PropertyRef Name="InlineTranscatPID" />
-          </Key>
-          <Property Name="InlineTranscatPID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserdetailPID" Type="Int64" />
-          <Property Name="ProductPID" Type="Int64" />
-          <Property Name="Amount" Type="Int64" />
-          <Property Name="TransactionStatePid" Type="Int64" />
-          <NavigationProperty Name="UserTransacState" Relationship="TradeBulkModel.FK_InlineTranscat_TransactionStatePid" FromRole="InlineTranscat" ToRole="UserTransacState" />
-          <NavigationProperty Name="UserDetail" Relationship="TradeBulkModel.FK_InlineTranscat_UserdetailPID" FromRole="InlineTranscat" ToRole="UserDetail" />
-          <Property Name="Participant" Type="Int64" />
-          <NavigationProperty Name="Product" Relationship="TradeBulkModel.FK_InlineTranscat_ProductPID" FromRole="InlineTranscat" ToRole="Product" />
-        </EntityType>
-        <Association Name="FK_InlineTranscat_TransactionStatePid">
-          <End Type="TradeBulkModel.UserTransacState" Role="UserTransacState" Multiplicity="0..1" />
-          <End Type="TradeBulkModel.InlineTranscat" Role="InlineTranscat" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserTransacState">
-              <PropertyRef Name="UserTransacStatePID" />
-            </Principal>
-            <Dependent Role="InlineTranscat">
-              <PropertyRef Name="TransactionStatePid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InlineTranscat_UserdetailPID">
-          <End Type="TradeBulkModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
-          <End Type="TradeBulkModel.InlineTranscat" Role="InlineTranscat" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserDetail">
-              <PropertyRef Name="UserdetailPID" />
-            </Principal>
-            <Dependent Role="InlineTranscat">
-              <PropertyRef Name="UserdetailPID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="UserDetailEmail">
           <Key>
             <PropertyRef Name="UserDetailEmailPID" />
@@ -2765,7 +2727,6 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <Property Name="CreatedUserPID" Type="Int64" />
           <Property Name="UpdatedUserPID" Type="Int64" />
           <NavigationProperty Name="Document" Relationship="TradeBulkModel.FK_Product_DocumentPID" FromRole="Product" ToRole="Document" />
-          <NavigationProperty Name="InlineTranscats" Relationship="TradeBulkModel.FK_InlineTranscat_ProductPID" FromRole="Product" ToRole="InlineTranscat" />
           <NavigationProperty Name="Note" Relationship="TradeBulkModel.FK_Product_NotePid" FromRole="Product" ToRole="Note" />
           <NavigationProperty Name="UserDetail" Relationship="TradeBulkModel.FK_Product_CreatedUserPID" FromRole="Product" ToRole="UserDetail" />
           <NavigationProperty Name="UserDetail1" Relationship="TradeBulkModel.FK_Product_OwnerPID" FromRole="Product" ToRole="UserDetail" />
@@ -2775,6 +2736,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <NavigationProperty Name="UserDetail2" Relationship="TradeBulkModel.FK_Product_UpdatedUserPID" FromRole="Product" ToRole="UserDetail" />
           <NavigationProperty Name="ProductAssignments" Relationship="TradeBulkModel.FK_ProductAssignment_ProductPID" FromRole="Product" ToRole="ProductAssignment" />
           <NavigationProperty Name="UserAuctionInfoes" Relationship="TradeBulkModel.FK_UserAuctionInfo_ProductPID" FromRole="Product" ToRole="UserAuctionInfo" />
+          <NavigationProperty Name="InlineTranscats" Relationship="TradeBulkModel.FK_InlineTranscat_ProductPID" FromRole="Product" ToRole="InlineTranscat" />
         </EntityType>
         <Association Name="FK_Product_DocumentPID">
           <End Type="TradeBulkModel.Document" Role="Document" Multiplicity="0..1" />
@@ -2785,18 +2747,6 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="DocumentPID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_InlineTranscat_ProductPID">
-          <End Type="TradeBulkModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="TradeBulkModel.InlineTranscat" Role="InlineTranscat" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductPID" />
-            </Principal>
-            <Dependent Role="InlineTranscat">
-              <PropertyRef Name="ProductPID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2905,6 +2855,56 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Principal>
             <Dependent Role="UserAuctionInfo">
               <PropertyRef Name="ProductPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="InlineTranscat">
+          <Key>
+            <PropertyRef Name="InlineTranscatPID" />
+          </Key>
+          <Property Name="InlineTranscatPID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserdetailPID" Type="Int64" />
+          <Property Name="ProductPID" Type="Int64" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="TransactionStatePid" Type="Int64" />
+          <Property Name="Participant" Type="Int64" />
+          <NavigationProperty Name="Product" Relationship="TradeBulkModel.FK_InlineTranscat_ProductPID" FromRole="InlineTranscat" ToRole="Product" />
+          <NavigationProperty Name="UserTransacState" Relationship="TradeBulkModel.FK_InlineTranscat_TransactionStatePid" FromRole="InlineTranscat" ToRole="UserTransacState" />
+          <NavigationProperty Name="UserDetail" Relationship="TradeBulkModel.FK_InlineTranscat_UserdetailPID" FromRole="InlineTranscat" ToRole="UserDetail" />
+        </EntityType>
+        <Association Name="FK_InlineTranscat_ProductPID">
+          <End Type="TradeBulkModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="TradeBulkModel.InlineTranscat" Role="InlineTranscat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductPID" />
+            </Principal>
+            <Dependent Role="InlineTranscat">
+              <PropertyRef Name="ProductPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InlineTranscat_TransactionStatePid">
+          <End Type="TradeBulkModel.UserTransacState" Role="UserTransacState" Multiplicity="0..1" />
+          <End Type="TradeBulkModel.InlineTranscat" Role="InlineTranscat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTransacState">
+              <PropertyRef Name="UserTransacStatePID" />
+            </Principal>
+            <Dependent Role="InlineTranscat">
+              <PropertyRef Name="TransactionStatePid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InlineTranscat_UserdetailPID">
+          <End Type="TradeBulkModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
+          <End Type="TradeBulkModel.InlineTranscat" Role="InlineTranscat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserDetail">
+              <PropertyRef Name="UserdetailPID" />
+            </Principal>
+            <Dependent Role="InlineTranscat">
+              <PropertyRef Name="UserdetailPID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3262,18 +3262,6 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="InlineTranscats">
-            <EntityTypeMapping TypeName="TradeBulkModel.InlineTranscat">
-              <MappingFragment StoreEntitySet="InlineTranscat">
-                <ScalarProperty Name="Participant" ColumnName="Participant" />
-                <ScalarProperty Name="TransactionStatePid" ColumnName="TransactionStatePid" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="ProductPID" ColumnName="ProductPID" />
-                <ScalarProperty Name="UserdetailPID" ColumnName="UserdetailPID" />
-                <ScalarProperty Name="InlineTranscatPID" ColumnName="InlineTranscatPID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserDetailEmails">
             <EntityTypeMapping TypeName="TradeBulkModel.UserDetailEmail">
               <MappingFragment StoreEntitySet="UserDetailEmail">
@@ -3328,6 +3316,18 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="ProductTypePID" ColumnName="ProductTypePID" />
                 <ScalarProperty Name="ProductPID" ColumnName="ProductPID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InlineTranscats">
+            <EntityTypeMapping TypeName="TradeBulkModel.InlineTranscat">
+              <MappingFragment StoreEntitySet="InlineTranscat">
+                <ScalarProperty Name="Participant" ColumnName="Participant" />
+                <ScalarProperty Name="TransactionStatePid" ColumnName="TransactionStatePid" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ProductPID" ColumnName="ProductPID" />
+                <ScalarProperty Name="UserdetailPID" ColumnName="UserdetailPID" />
+                <ScalarProperty Name="InlineTranscatPID" ColumnName="InlineTranscatPID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

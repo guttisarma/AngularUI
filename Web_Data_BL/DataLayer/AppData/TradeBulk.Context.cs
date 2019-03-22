@@ -61,5 +61,13 @@ namespace TradeBulk_DataLayer.AppData
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<InlineTranscat> InlineTranscats { get; set; }
+        public virtual DbSet<aspnet_Applications> aspnet_Applications { get; set; }
+        public virtual DbSet<aspnet_Membership> aspnet_Membership { get; set; }
+        public virtual DbSet<aspnet_Paths> aspnet_Paths { get; set; }
+        public virtual DbSet<aspnet_PersonalizationAllUsers> aspnet_PersonalizationAllUsers { get; set; }
+        public virtual DbSet<aspnet_PersonalizationPerUser> aspnet_PersonalizationPerUser { get; set; }
+        public virtual DbSet<aspnet_Profile> aspnet_Profile { get; set; }
+        public virtual DbSet<aspnet_Roles> aspnet_Roles { get; set; }
+        public virtual DbSet<aspnet_SchemaVersions> aspnet_SchemaVersions { get; set; }
     }
 }

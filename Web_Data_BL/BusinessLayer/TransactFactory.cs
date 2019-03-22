@@ -10,7 +10,7 @@ using TradeBulk_Helper.Interfaces;
 
 namespace TradeBulk_BusinessLayer
 {
-  class TransactFactory : ITransactFactory
+ public class TransactFactory : ITransactFactory
   {
     GenericRepository<InlineTranscat> InlineTranscatRepository;
     //create a record 

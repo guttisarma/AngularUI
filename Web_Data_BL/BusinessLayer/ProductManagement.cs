@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TradeBulk_Helper;
 using TradeBulk_Helper.Interfaces;
+using System.Linq.Expressions;
 
 namespace TradeBulk_BusinessLayer
 {
@@ -25,15 +26,15 @@ namespace TradeBulk_BusinessLayer
     GenericRepository<AssignConvertRelation> AssignConvertRelationRepository;
     ITransactFactory transactFactory;
     #region constrator
-    public ProductManagement()
-    {
-
-
-    }
-    //public ProductManagement(ITransactFactory _transactFactory)
+    //public ProductManagement()
     //{
-    //  transactFactory = _transactFactory;
+
+
     //}
+    public ProductManagement(ITransactFactory _transactFactory)
+    {
+      transactFactory = _transactFactory;
+    }
     #endregion
 
     #region List
@@ -334,10 +335,12 @@ namespace TradeBulk_BusinessLayer
           prdct.Price = Convert.ToDecimal(product.Price);
           prdct.CreatedOn = DateTime.Now;
           //owner
-          //prdct.Owner = UserRepository.GetByID(CurrentUserID);
+          prdct.OwnerPID = CurrentUserID;//UserRepository.GetByID(CurrentUserID);
+          prdct.CreatedUserPID = CurrentUserID;
           //803 taking input from User not hard corded one
           prdct.ProductType = ProductTypeRepository.GetByID((long)EProductType.Inventatory);
           prdct.Quanity = Convert.ToInt32(product.Quantity);
+          prdct.RemQuantity = Convert.ToInt32(product.Quantity);
           ProductRepository.Insert(prdct);
           if (product.Documents != null)
             foreach (DocumentViewModel Dviewmodel in product.Documents)
@@ -378,7 +381,7 @@ namespace TradeBulk_BusinessLayer
           ProductTypeRepository = unitOfWork.GetRepoInstance<ProductType>();
           DocumentTypeRepository = unitOfWork.GetRepoInstance<DocumentType>();
           UserRepository = unitOfWork.GetRepoInstance<User>();
-          Product oProduct = ProductRepository.GetByID(product.Id);
+          Product oProduct = ProductRepository.GetByID(Convert.ToInt64(product.Id));
           oProduct.UpdatedOn = DateTime.Now;
           oProduct.UpdatedUserPID = CurrentUserID;
           oProduct.Price = Convert.ToDecimal(product.Price);
@@ -419,13 +422,24 @@ namespace TradeBulk_BusinessLayer
         using (UnitOfWork unitOfWork = new UnitOfWork())
         {
           ProductAssignmentRepository = unitOfWork.GetRepoInstance<ProductAssignment>();
-          IQueryable<ProductAssignment> lspro = ProductAssignmentRepository.GetAllExpressions(x => lsProduct.Keys.Contains(x.ProductAssignmentPID), null, null);
+
+          Expression<Func<ProductAssignment, object>> parameter1 = v => v.UserDetail;
+          Expression<Func<ProductAssignment, object>> parameter2 = v => v.Product;
+          //90908
+          //Expression<Func<UserDetailAddress, object>> parameter3 = v => v.Address.Phone;
+          //Expression<Func<UserDetailAddress, object>> parameter4 = v => v.Address.Email;
+          Expression<Func<ProductAssignment, object>>[] parameterArray = new Expression<Func<ProductAssignment, object>>[] { parameter1, parameter2/* ,parameter3, parameter4 */};
+          IQueryable<ProductAssignment> lspro = ProductAssignmentRepository.GetAllExpressions(x => lsProduct.Keys.Contains(x.ProductAssignmentPID), null, parameterArray);
           ProductConvertRepository = unitOfWork.GetRepoInstance<ProductConvert>();
           ProductConvert proConvert = new ProductConvert();
           proConvert.ProductCode = GenProductCode("Convert");//Code
           proConvert.ConvertedUserPID = CurrentUserId;
-          UserDetail userDetail = lspro.FirstOrDefault<ProductAssignment>().Product.UserDetail;
-          proConvert.OriginalOwnerPID = userDetail.UserdetailPID;
+          foreach (ProductAssignment proAssign in lspro)
+          {
+            proConvert.OriginalOwnerPID = proAssign.Product.OwnerPID;
+          }
+          //UserDetail userDetail = lspro.FirstOrDefault<ProductAssignment>().Product.UserDetail;
+          
           ProductConvertRepository.Insert(proConvert);
           AssignConvertRelationRepository = unitOfWork.GetRepoInstance<AssignConvertRelation>();
           foreach (var pro in lspro)

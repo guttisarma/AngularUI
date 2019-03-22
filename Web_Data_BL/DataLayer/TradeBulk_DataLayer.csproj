@@ -63,6 +63,30 @@
     <Compile Include="AppData\AddressType.cs">
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>
+    <Compile Include="AppData\aspnet_Applications.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\aspnet_Membership.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\aspnet_Paths.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\aspnet_PersonalizationAllUsers.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\aspnet_PersonalizationPerUser.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\aspnet_Profile.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\aspnet_Roles.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\aspnet_SchemaVersions.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
     <Compile Include="AppData\AssignConvertRelation.cs">
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>

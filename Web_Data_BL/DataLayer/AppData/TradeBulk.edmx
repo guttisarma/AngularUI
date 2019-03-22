@@ -22,6 +22,97 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="IdNumber" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordFormat" Type="int" Nullable="false" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
+        </EntityType>
+        <EntityType Name="aspnet_Paths">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredPath" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationAllUsers">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PageSettings" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationPerUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PathId" Type="uniqueidentifier" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="PageSettings" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Profile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PropertyNames" Type="ntext" Nullable="false" />
+          <Property Name="PropertyValuesString" Type="ntext" Nullable="false" />
+          <Property Name="PropertyValuesBinary" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredRoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="aspnet_SchemaVersions">
+          <Key>
+            <PropertyRef Name="Feature" />
+            <PropertyRef Name="CompatibleSchemaVersion" />
+          </Key>
+          <Property Name="Feature" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CompatibleSchemaVersion" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsCurrentVersion" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="AssignConvertRelation">
           <Key>
             <PropertyRef Name="AssignConvertRelationPid" />
@@ -389,6 +480,66 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <Property Name="UserTypePID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK__aspnet_Me__Appli__0C85DE4D">
+          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__0E6E26BF">
+          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Paths">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__0F624AF8">
+          <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="1" />
+          <End Role="aspnet_PersonalizationAllUsers" Type="Self.aspnet_PersonalizationAllUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationAllUsers">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__10566F31">
+          <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="0..1" />
+          <End Role="aspnet_PersonalizationPerUser" Type="Self.aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Ro__Appli__1332DBDC">
+          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Roles" Type="Self.aspnet_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Roles">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AssignConvertRelation_ProductAssignmentPID">
           <End Role="ProductAssignment" Type="Self.ProductAssignment" Multiplicity="0..1" />
           <End Role="AssignConvertRelation" Type="Self.AssignConvertRelation" Multiplicity="*" />
@@ -1116,6 +1267,14 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
         <EntityContainer Name="TradeBulkModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AddressType" EntityType="Self.AddressType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_Applications" EntityType="Self.aspnet_Applications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_Membership" EntityType="Self.aspnet_Membership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_Paths" EntityType="Self.aspnet_Paths" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_PersonalizationAllUsers" EntityType="Self.aspnet_PersonalizationAllUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_PersonalizationPerUser" EntityType="Self.aspnet_PersonalizationPerUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_Profile" EntityType="Self.aspnet_Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_Roles" EntityType="Self.aspnet_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_SchemaVersions" EntityType="Self.aspnet_SchemaVersions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssignConvertRelation" EntityType="Self.AssignConvertRelation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
@@ -1159,6 +1318,26 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
     [DropDownOnEntity].[ColumnType] AS [ColumnType]
     FROM [dbo].[DropDownOnEntity] AS [DropDownOnEntity]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__aspnet_Me__Appli__0C85DE4D" Association="Self.FK__aspnet_Me__Appli__0C85DE4D">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__0E6E26BF" Association="Self.FK__aspnet_Pa__Appli__0E6E26BF">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__0F624AF8" Association="Self.FK__aspnet_Pe__PathI__0F624AF8">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationAllUsers" EntitySet="aspnet_PersonalizationAllUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__10566F31" Association="Self.FK__aspnet_Pe__PathI__10566F31">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Ro__Appli__1332DBDC" Association="Self.FK__aspnet_Ro__Appli__1332DBDC">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+          </AssociationSet>
           <AssociationSet Name="FK_AssignConvertRelation_ProductAssignmentPID" Association="Self.FK_AssignConvertRelation_ProductAssignmentPID">
             <End Role="ProductAssignment" EntitySet="ProductAssignment" />
             <End Role="AssignConvertRelation" EntitySet="AssignConvertRelation" />
@@ -2608,6 +2787,34 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             <End Role="UserDetail" EntitySet="UserDetails" />
             <End Role="InlineTranscat" EntitySet="InlineTranscats" />
           </AssociationSet>
+          <EntitySet Name="aspnet_Applications" EntityType="TradeBulkModel.aspnet_Applications" />
+          <EntitySet Name="aspnet_Membership" EntityType="TradeBulkModel.aspnet_Membership" />
+          <EntitySet Name="aspnet_Paths" EntityType="TradeBulkModel.aspnet_Paths" />
+          <EntitySet Name="aspnet_PersonalizationAllUsers" EntityType="TradeBulkModel.aspnet_PersonalizationAllUsers" />
+          <EntitySet Name="aspnet_PersonalizationPerUser" EntityType="TradeBulkModel.aspnet_PersonalizationPerUser" />
+          <EntitySet Name="aspnet_Profile" EntityType="TradeBulkModel.aspnet_Profile" />
+          <EntitySet Name="aspnet_Roles" EntityType="TradeBulkModel.aspnet_Roles" />
+          <EntitySet Name="aspnet_SchemaVersions" EntityType="TradeBulkModel.aspnet_SchemaVersions" />
+          <AssociationSet Name="FK__aspnet_Me__Appli__0C85DE4D" Association="TradeBulkModel.FK__aspnet_Me__Appli__0C85DE4D">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__0E6E26BF" Association="TradeBulkModel.FK__aspnet_Pa__Appli__0E6E26BF">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Ro__Appli__1332DBDC" Association="TradeBulkModel.FK__aspnet_Ro__Appli__1332DBDC">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__0F624AF8" Association="TradeBulkModel.FK__aspnet_Pe__PathI__0F624AF8">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationAllUsers" EntitySet="aspnet_PersonalizationAllUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__10566F31" Association="TradeBulkModel.FK__aspnet_Pe__PathI__10566F31">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="UserDetailEmail">
           <Key>
@@ -2905,6 +3112,167 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Principal>
             <Dependent Role="InlineTranscat">
               <PropertyRef Name="UserdetailPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredApplicationName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Membership" Relationship="TradeBulkModel.FK__aspnet_Me__Appli__0C85DE4D" FromRole="aspnet_Applications" ToRole="aspnet_Membership" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="TradeBulkModel.FK__aspnet_Pa__Appli__0E6E26BF" FromRole="aspnet_Applications" ToRole="aspnet_Paths" />
+          <NavigationProperty Name="aspnet_Roles" Relationship="TradeBulkModel.FK__aspnet_Ro__Appli__1332DBDC" FromRole="aspnet_Applications" ToRole="aspnet_Roles" />
+        </EntityType>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordFormat" Type="Int32" Nullable="false" />
+          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePIN" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordQuestion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordAnswer" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastPasswordChangedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLockoutDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="TradeBulkModel.FK__aspnet_Me__Appli__0C85DE4D" FromRole="aspnet_Membership" ToRole="aspnet_Applications" />
+        </EntityType>
+        <EntityType Name="aspnet_Paths">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="PathId" Type="Guid" Nullable="false" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredPath" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="TradeBulkModel.FK__aspnet_Pa__Appli__0E6E26BF" FromRole="aspnet_Paths" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_PersonalizationAllUsers" Relationship="TradeBulkModel.FK__aspnet_Pe__PathI__0F624AF8" FromRole="aspnet_Paths" ToRole="aspnet_PersonalizationAllUsers" />
+          <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="TradeBulkModel.FK__aspnet_Pe__PathI__10566F31" FromRole="aspnet_Paths" ToRole="aspnet_PersonalizationPerUser" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationAllUsers">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="PathId" Type="Guid" Nullable="false" />
+          <Property Name="PageSettings" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="TradeBulkModel.FK__aspnet_Pe__PathI__0F624AF8" FromRole="aspnet_PersonalizationAllUsers" ToRole="aspnet_Paths" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationPerUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PathId" Type="Guid" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="PageSettings" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="TradeBulkModel.FK__aspnet_Pe__PathI__10566F31" FromRole="aspnet_PersonalizationPerUser" ToRole="aspnet_Paths" />
+        </EntityType>
+        <EntityType Name="aspnet_Profile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="PropertyNames" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyValuesString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyValuesBinary" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="aspnet_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredRoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="TradeBulkModel.FK__aspnet_Ro__Appli__1332DBDC" FromRole="aspnet_Roles" ToRole="aspnet_Applications" />
+        </EntityType>
+        <EntityType Name="aspnet_SchemaVersions">
+          <Key>
+            <PropertyRef Name="Feature" />
+            <PropertyRef Name="CompatibleSchemaVersion" />
+          </Key>
+          <Property Name="Feature" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CompatibleSchemaVersion" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsCurrentVersion" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__aspnet_Me__Appli__0C85DE4D">
+          <End Type="TradeBulkModel.aspnet_Applications" Role="aspnet_Applications" Multiplicity="1" />
+          <End Type="TradeBulkModel.aspnet_Membership" Role="aspnet_Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__0E6E26BF">
+          <End Type="TradeBulkModel.aspnet_Applications" Role="aspnet_Applications" Multiplicity="1" />
+          <End Type="TradeBulkModel.aspnet_Paths" Role="aspnet_Paths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Paths">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Ro__Appli__1332DBDC">
+          <End Type="TradeBulkModel.aspnet_Applications" Role="aspnet_Applications" Multiplicity="1" />
+          <End Type="TradeBulkModel.aspnet_Roles" Role="aspnet_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Roles">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__0F624AF8">
+          <End Type="TradeBulkModel.aspnet_Paths" Role="aspnet_Paths" Multiplicity="1" />
+          <End Type="TradeBulkModel.aspnet_PersonalizationAllUsers" Role="aspnet_PersonalizationAllUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationAllUsers">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__10566F31">
+          <End Type="TradeBulkModel.aspnet_Paths" Role="aspnet_Paths" Multiplicity="0..1" />
+          <End Type="TradeBulkModel.aspnet_PersonalizationPerUser" Role="aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="PathId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3328,6 +3696,104 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
                 <ScalarProperty Name="ProductPID" ColumnName="ProductPID" />
                 <ScalarProperty Name="UserdetailPID" ColumnName="UserdetailPID" />
                 <ScalarProperty Name="InlineTranscatPID" ColumnName="InlineTranscatPID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Applications">
+            <EntityTypeMapping TypeName="TradeBulkModel.aspnet_Applications">
+              <MappingFragment StoreEntitySet="aspnet_Applications">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Membership">
+            <EntityTypeMapping TypeName="TradeBulkModel.aspnet_Membership">
+              <MappingFragment StoreEntitySet="aspnet_Membership">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Paths">
+            <EntityTypeMapping TypeName="TradeBulkModel.aspnet_Paths">
+              <MappingFragment StoreEntitySet="aspnet_Paths">
+                <ScalarProperty Name="LoweredPath" ColumnName="LoweredPath" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_PersonalizationAllUsers">
+            <EntityTypeMapping TypeName="TradeBulkModel.aspnet_PersonalizationAllUsers">
+              <MappingFragment StoreEntitySet="aspnet_PersonalizationAllUsers">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="PageSettings" ColumnName="PageSettings" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_PersonalizationPerUser">
+            <EntityTypeMapping TypeName="TradeBulkModel.aspnet_PersonalizationPerUser">
+              <MappingFragment StoreEntitySet="aspnet_PersonalizationPerUser">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="PageSettings" ColumnName="PageSettings" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Profile">
+            <EntityTypeMapping TypeName="TradeBulkModel.aspnet_Profile">
+              <MappingFragment StoreEntitySet="aspnet_Profile">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="PropertyValuesBinary" ColumnName="PropertyValuesBinary" />
+                <ScalarProperty Name="PropertyValuesString" ColumnName="PropertyValuesString" />
+                <ScalarProperty Name="PropertyNames" ColumnName="PropertyNames" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Roles">
+            <EntityTypeMapping TypeName="TradeBulkModel.aspnet_Roles">
+              <MappingFragment StoreEntitySet="aspnet_Roles">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LoweredRoleName" ColumnName="LoweredRoleName" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_SchemaVersions">
+            <EntityTypeMapping TypeName="TradeBulkModel.aspnet_SchemaVersions">
+              <MappingFragment StoreEntitySet="aspnet_SchemaVersions">
+                <ScalarProperty Name="IsCurrentVersion" ColumnName="IsCurrentVersion" />
+                <ScalarProperty Name="CompatibleSchemaVersion" ColumnName="CompatibleSchemaVersion" />
+                <ScalarProperty Name="Feature" ColumnName="Feature" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

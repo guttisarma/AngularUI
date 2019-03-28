@@ -17,9 +17,9 @@ namespace TradeBulk_DataLayer.AppData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.ProductAssignments = new HashSet<ProductAssignment>();
             this.UserAuctionInfoes = new HashSet<UserAuctionInfo>();
             this.InlineTranscats = new HashSet<InlineTranscat>();
+            this.AssignmentProds = new HashSet<AssignmentProd>();
         }
     
         public long ProductPID { get; set; }
@@ -53,10 +53,10 @@ namespace TradeBulk_DataLayer.AppData
         public virtual saleType saleType { get; set; }
         public virtual UserDetail UserDetail2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductAssignment> ProductAssignments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserAuctionInfo> UserAuctionInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InlineTranscat> InlineTranscats { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssignmentProd> AssignmentProds { get; set; }
     }
 }

@@ -36,8 +36,6 @@ namespace TradeBulk_DataLayer.AppData
         public virtual DbSet<Note> Notes { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
         public virtual DbSet<PhoneType> PhoneTypes { get; set; }
-        public virtual DbSet<ProductAssignment> ProductAssignments { get; set; }
-        public virtual DbSet<ProductConvert> ProductConverts { get; set; }
         public virtual DbSet<ProductState> ProductStates { get; set; }
         public virtual DbSet<ProductType> ProductTypes { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
@@ -60,7 +58,6 @@ namespace TradeBulk_DataLayer.AppData
         public virtual DbSet<UserDetailPhone> UserDetailPhones { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<InlineTranscat> InlineTranscats { get; set; }
         public virtual DbSet<aspnet_Applications> aspnet_Applications { get; set; }
         public virtual DbSet<aspnet_Membership> aspnet_Membership { get; set; }
         public virtual DbSet<aspnet_Paths> aspnet_Paths { get; set; }
@@ -69,5 +66,10 @@ namespace TradeBulk_DataLayer.AppData
         public virtual DbSet<aspnet_Profile> aspnet_Profile { get; set; }
         public virtual DbSet<aspnet_Roles> aspnet_Roles { get; set; }
         public virtual DbSet<aspnet_SchemaVersions> aspnet_SchemaVersions { get; set; }
+        public virtual DbSet<AssignmentProd> AssignmentProds { get; set; }
+        public virtual DbSet<InlineTranscat> InlineTranscats { get; set; }
+        public virtual DbSet<InlineTranscatType> InlineTranscatTypes { get; set; }
+        public virtual DbSet<ProductConvert> ProductConverts { get; set; }
+        public virtual DbSet<ProductAssignment> ProductAssignments { get; set; }
     }
 }

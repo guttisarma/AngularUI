@@ -18,4 +18,52 @@ add constraint FK_InlineTranscat_InlineTranscatType FOREIGN KEY (InlineTranscatT
 Insert InlineTranscatType (Name) values ('Created')
 Insert InlineTranscatType (Name) values ('Assign')
 Insert InlineTranscatType (Name) values ('Convert')
+Alter table InlineTranscat
+Alter column ProductPID BIGINT NULL
+
+Create Table AssignmentProd
+(
+AssignmentProdPID BIGINT IDENTITY(1,1) NOT NULL,
+ProductPID BIGINT NOT NULL,
+Quantity BIGINT ,
+ProductAssignmentPID Bigint
+)
+Alter table AssignmentProd
+ADD Constraint PK_AssignmentProd PRIMARY Key (AssignmentProdPID)
+
+Alter table AssignmentProd
+add constraint FK_AssignmentProd_ProductAssignment FOREIGN KEY (ProductAssignmentPID) References ProductAssignment(ProductAssignmentPID) 
+
+Alter table AssignmentProd
+add constraint FK_AssignmentProd_Product FOREIGN KEY (ProductPID) References Product(ProductPID) 
+
+Alter table ProductAssignment
+add constraint FK_ProductAssignment_AssignmentProd FOREIGN KEY (AssignmentProdPID) References AssignmentProd(AssignmentProdPID) 
+
+Alter table ProductAssignment
+Drop constraint FK_ProductAssignment_ProductPID
+ALter Table ProductAssignment
+Drop column ProductPID
+ALter Table ProductAssignment
+Drop column Quantity
+Alter Table ProductAssignment
+Add AdvanceAmount money null
+Alter Table ProductAssignment
+Add TotalAmount money null
+
+Alter Table ProductConvert
+Add AdvanceAmount money null
+Alter Table ProductConvert
+Add TotalAmount money null
+
+Alter table UserDetail
+Add ProductCreationPer Decimal 
+
+Alter table UserDetail
+Add ProductAssignPer Decimal 
+
+Alter table UserDetail
+Add ProductConvertPer Decimal 
+
+
 --3/22/2019

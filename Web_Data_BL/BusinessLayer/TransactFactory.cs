@@ -15,10 +15,16 @@ namespace TradeBulk_BusinessLayer
     GenericRepository<InlineTranscat> InlineTranscatRepository;
     //create a record 
     //Can update the record
-    public void CreateTransac(long actorPID, long? ParticipantPID, long productPID, decimal amount)
+    public void CreateTransac(long actorPID, long? ParticipantPID, long? productPID, decimal amount, long InlineTranscatTypePID)
     {
       using (UnitOfWork unitOfWork = new UnitOfWork())
       {
+        IQueryable<InlineTranscat> lsinlineTranscat = InlineTranscatRepository.GetAllExpressions(x=>(x.ProductPID==productPID && x.InlineTranscatTypePID== InlineTranscatTypePID),null,null);
+        if(lsinlineTranscat.Count<InlineTranscat>()>0)
+        {
+          UpdateInlineTranscat(lsinlineTranscat.FirstOrDefault<InlineTranscat>(), InlineTranscatTypePID);
+        }
+
         InlineTranscatRepository = unitOfWork.GetRepoInstance<InlineTranscat>();
         InlineTranscat inlineTranscat = new InlineTranscat();
         inlineTranscat.UserdetailPID = actorPID;
@@ -31,7 +37,7 @@ namespace TradeBulk_BusinessLayer
         unitOfWork.SaveChanges();
       }
     }
-    public bool UpdateInlineTranscat(InLineTransaction inLineTransaction)
+    public bool UpdateInlineTranscat(InlineTranscat inLineTransaction, long InlineTranscatTypePID)
     {
       try
       {
@@ -55,16 +61,16 @@ namespace TradeBulk_BusinessLayer
       }
 
     }
-    public List<InLineTransaction> ListUserInLinePendingTransactions(long currentUserPID)
+    public List<InlineTransaction> ListUserInLinePendingTransactions(long currentUserPID)
     {
-      List<InLineTransaction> lsInLineTransactions = new List<InLineTransaction>();
+      List<InlineTransaction> lsInLineTransactions = new List<InlineTransaction>();
       using (UnitOfWork unitOfWork = new UnitOfWork())
       {
         InlineTranscatRepository = unitOfWork.GetRepoInstance<InlineTranscat>();
         IQueryable<InlineTranscat> inlineTranscats = InlineTranscatRepository.GetAllExpressions(x => x.UserdetailPID == currentUserPID, null, null);
         foreach (var inlineTranscat in inlineTranscats)
         {
-          InLineTransaction inLineTransaction = new InLineTransaction();
+          InlineTransaction inLineTransaction = new InlineTransaction();
           inLineTransaction.Amount = inlineTranscat.Amount;
           inLineTransaction.ProductCode = inlineTranscat.Product.Code;
           inLineTransaction.ProductName = inlineTranscat.Product.ProductName;
@@ -77,16 +83,16 @@ namespace TradeBulk_BusinessLayer
       return lsInLineTransactions;
     }
 
-    public List<InLineTransaction> ListUserInLineCompleteTransactions(long currentUserPID)
+    public List<InlineTransaction> ListUserInLineCompleteTransactions(long currentUserPID)
     {
-      List<InLineTransaction> lsInLineTransactions = new List<InLineTransaction>();
+      List<InlineTransaction> lsInLineTransactions = new List<InlineTransaction>();
       using (UnitOfWork unitOfWork = new UnitOfWork())
       {
         InlineTranscatRepository = unitOfWork.GetRepoInstance<InlineTranscat>();
         IQueryable<InlineTranscat> inlineTranscats = InlineTranscatRepository.GetAllExpressions(x => x.UserdetailPID == currentUserPID && x.UserTransacState.Name == "Complete", null, null);
         foreach (var inlineTranscat in inlineTranscats)
         {
-          InLineTransaction inLineTransaction = new InLineTransaction();
+          InlineTransaction inLineTransaction = new InlineTransaction();
           inLineTransaction.Amount = inlineTranscat.Amount;
           inLineTransaction.ProductCode = inlineTranscat.Product.Code;
           inLineTransaction.ProductName = inlineTranscat.Product.ProductName;

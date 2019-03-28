@@ -18,7 +18,7 @@ namespace TradeBulk_DataLayer.AppData
         public Nullable<long> ProductAssignmentPID { get; set; }
         public Nullable<long> ProductConvertPID { get; set; }
     
-        public virtual ProductAssignment ProductAssignment { get; set; }
         public virtual ProductConvert ProductConvert { get; set; }
+        public virtual ProductAssignment ProductAssignment { get; set; }
     }
 }

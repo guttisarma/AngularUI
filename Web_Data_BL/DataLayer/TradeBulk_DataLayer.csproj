@@ -90,6 +90,9 @@
     <Compile Include="AppData\AssignConvertRelation.cs">
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>
+    <Compile Include="AppData\AssignmentProd.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
     <Compile Include="AppData\City.cs">
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>
@@ -112,6 +115,9 @@
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>
     <Compile Include="AppData\InlineTranscat.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\InlineTranscatType.cs">
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>
     <Compile Include="AppData\Note.cs">

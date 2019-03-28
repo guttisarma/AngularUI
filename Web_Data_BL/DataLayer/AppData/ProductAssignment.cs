@@ -18,23 +18,25 @@ namespace TradeBulk_DataLayer.AppData
         public ProductAssignment()
         {
             this.AssignConvertRelations = new HashSet<AssignConvertRelation>();
+            this.AssignmentProds = new HashSet<AssignmentProd>();
         }
     
         public long ProductAssignmentPID { get; set; }
         public string ProductCode { get; set; }
-        public Nullable<int> quantity { get; set; }
         public Nullable<long> AssignedUserPid { get; set; }
-        public Nullable<long> ProductPID { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<long> CreatedUserPID { get; set; }
         public Nullable<long> UpdatedUserPID { get; set; }
+        public Nullable<decimal> AdvanceAmount { get; set; }
+        public Nullable<decimal> TotalAmount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignConvertRelation> AssignConvertRelations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssignmentProd> AssignmentProds { get; set; }
         public virtual UserDetail UserDetail { get; set; }
         public virtual UserDetail UserDetail1 { get; set; }
         public virtual UserDetail UserDetail2 { get; set; }
-        public virtual Product Product { get; set; }
     }
 }

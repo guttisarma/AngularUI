@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using TradeBulk_Helper;
 using TradeBulk_Helper.Interfaces;
 using System.Linq.Expressions;
+using InlineTranscatType = TradeBulk_Helper.InlineTranscatType;
 
 namespace TradeBulk_BusinessLayer
 {
   //8989
   public class ProductManagement : IProductManagement
   {
-
+    #region Declarations
     GenericRepository<Product> ProductRepository;
     GenericRepository<ProductAssignment> ProductAssignmentRepository;
     GenericRepository<ProductConvert> ProductConvertRepository;
@@ -23,8 +24,10 @@ namespace TradeBulk_BusinessLayer
     GenericRepository<DocumentType> DocumentTypeRepository;
     GenericRepository<User> UserRepository;
     GenericRepository<UserDetail> UserDetailsRepository;
+    GenericRepository<AssignmentProd> AssignmentProdRepository;
     GenericRepository<AssignConvertRelation> AssignConvertRelationRepository;
     ITransactFactory transactFactory;
+    #endregion
     #region constrator
     //public ProductManagement()
     //{
@@ -68,17 +71,23 @@ namespace TradeBulk_BusinessLayer
             proResult.IsAssign = false;
             lsProResult.Add(proResult);
           }
+          AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
           foreach (var pro in lsProAss)
           {
-            ProductList proResult = new ProductList();
-            proResult.Code = pro.Product.Code;
-            proResult.Name = pro.Product.ProductName;
-            proResult.Quantity = pro.Product.Quanity;
-            proResult.Description = pro.Product.Description;
-            if (pro.CreatedOn != null)
-              proResult.CreatedOn = ((DateTime)pro.CreatedOn).ToString("dd/MM/yyyy");
-            proResult.IsAssign = false;
-            lsProResult.Add(proResult);
+            IQueryable<AssignmentProd> assignmentProds=  AssignmentProdRepository.GetAllExpressions(x => x.ProductAssignmentPID == pro.ProductAssignmentPID, null, null);
+            foreach (var assignmentProd in assignmentProds)
+            {
+              ProductList proResult = new ProductList();
+              proResult.Code = assignmentProd.Product.Code;
+              proResult.Name = assignmentProd.Product.ProductName;
+              proResult.Quantity = assignmentProd.Product.Quanity;
+              proResult.Description = assignmentProd.Product.Description;
+              if (pro.CreatedOn != null)
+                proResult.CreatedOn = ((DateTime)pro.CreatedOn).ToString("dd/MM/yyyy");
+              proResult.IsAssign = false;
+              lsProResult.Add(proResult);
+            }
+            
           }
           return lsProResult;
         }
@@ -105,20 +114,21 @@ namespace TradeBulk_BusinessLayer
         {
           ProductRepository = unitOfWork.GetRepoInstance<Product>();
           ProductAssignmentRepository = unitOfWork.GetRepoInstance<ProductAssignment>();
-          IQueryable<ProductAssignment> lsProAss = ProductAssignmentRepository.Get(x => x.Product.OwnerPID == currentUserID, null);
+          AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
+          IQueryable<AssignmentProd> lsAssPro = AssignmentProdRepository.Get(x => x.Product.OwnerPID == currentUserID, null);
           List<ProductList> lsProResult = new List<ProductList>();
-          foreach (var pro in lsProAss)
+          foreach (var pro in lsAssPro)
           {
             ProductList proResult = new ProductList();
-            proResult.ParentCode = pro.Product.Code;
-            proResult.Code = pro.ProductCode;
+            proResult.ParentCode = pro.ProductAssignment.ProductCode;
+            proResult.Code = pro.Product.Code;
             //proResult.Name = pro.Product.ProductName;
             proResult.Quantity = pro.Product.Quanity;
             //proResult.Description = pro.Product.Description;//
-            if (pro.CreatedOn != null)
-              proResult.CreatedOn = ((DateTime)pro.CreatedOn).ToString("dd/MM/yyyy");
+            if (pro.ProductAssignment.CreatedOn != null)
+              proResult.CreatedOn = ((DateTime)pro.ProductAssignment.CreatedOn).ToString("dd/MM/yyyy");
             //to whom its assigned
-            proResult.AssignedUser = pro.UserDetail.FirstName + " " + pro.UserDetail.LastName;//need to check which user
+            proResult.AssignedUser = pro.Product.UserDetail.FirstName + " " + pro.Product.UserDetail.LastName;//need to check which user
             lsProResult.Add(proResult);
           }
           return lsProResult;
@@ -355,7 +365,7 @@ namespace TradeBulk_BusinessLayer
           unitOfWork.SaveChanges();
           if (product.Price != null)
           {
-            transactFactory.CreateTransac(CurrentUserID, null, prdct.ProductPID,(Decimal) prdct.Price);
+            transactFactory.CreateTransac(CurrentUserID, null, prdct.ProductPID,(Decimal) prdct.Price,(long)InlineTranscatType.Created);
           }
           isSuccess = true;
 
@@ -397,7 +407,7 @@ namespace TradeBulk_BusinessLayer
             }
           unitOfWork.SaveChanges();
           if (product.Price != null)
-            transactFactory.CreateTransac(CurrentUserID, null, oProduct.ProductPID, 800);
+            transactFactory.CreateTransac(CurrentUserID, null, oProduct.ProductPID, 800, (long)InlineTranscatType.Created);
           isSuccess = true;
         }
 
@@ -424,20 +434,20 @@ namespace TradeBulk_BusinessLayer
           ProductAssignmentRepository = unitOfWork.GetRepoInstance<ProductAssignment>();
 
           Expression<Func<ProductAssignment, object>> parameter1 = v => v.UserDetail;
-          Expression<Func<ProductAssignment, object>> parameter2 = v => v.Product;
+          //Expression<Func<ProductAssignment, object>> parameter2 = v => v.Product;
           //90908
           //Expression<Func<UserDetailAddress, object>> parameter3 = v => v.Address.Phone;
           //Expression<Func<UserDetailAddress, object>> parameter4 = v => v.Address.Email;
-          Expression<Func<ProductAssignment, object>>[] parameterArray = new Expression<Func<ProductAssignment, object>>[] { parameter1, parameter2/* ,parameter3, parameter4 */};
+          Expression<Func<ProductAssignment, object>>[] parameterArray = new Expression<Func<ProductAssignment, object>>[] { parameter1/*, parameter2 ,parameter3, parameter4 */};
           IQueryable<ProductAssignment> lspro = ProductAssignmentRepository.GetAllExpressions(x => lsProduct.Keys.Contains(x.ProductAssignmentPID), null, parameterArray);
           ProductConvertRepository = unitOfWork.GetRepoInstance<ProductConvert>();
           ProductConvert proConvert = new ProductConvert();
           proConvert.ProductCode = GenProductCode("Convert");//Code
           proConvert.ConvertedUserPID = CurrentUserId;
-          foreach (ProductAssignment proAssign in lspro)
-          {
-            proConvert.OriginalOwnerPID = proAssign.Product.OwnerPID;
-          }
+          //foreach (ProductAssignment proAssign in lspro)
+          //{
+          //  proConvert.OriginalOwnerPID = proAssign.Product.OwnerPID;
+          //}
           //UserDetail userDetail = lspro.FirstOrDefault<ProductAssignment>().Product.UserDetail;
           
           ProductConvertRepository.Insert(proConvert);
@@ -451,6 +461,7 @@ namespace TradeBulk_BusinessLayer
           }
           unitOfWork.SaveChanges();
           isSuccess = true;
+          transactFactory.CreateTransac(CurrentUserId, null, null, 0, (long)InlineTranscatType.Convert);
         }
 
       }
@@ -479,23 +490,29 @@ namespace TradeBulk_BusinessLayer
         using (UnitOfWork unitOfWork = new UnitOfWork())
         {
           ProductRepository = unitOfWork.GetRepoInstance<Product>();
+          AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
           IQueryable<Product> lspro = ProductRepository.GetAllExpressions(x => lsProduct.Keys.Contains(x.ProductPID), null, null);
           ProductAssignmentRepository = unitOfWork.GetRepoInstance<ProductAssignment>();
+          ProductAssignment proAssignment = new ProductAssignment();
+          proAssignment.AssignedUserPid = AssigneeUserId;
+          proAssignment.CreatedOn = DateTime.Now;
+          proAssignment.CreatedUserPID = CurrentUserId;
+          proAssignment.ProductCode = GenProductCode("Assign");//newly generated code
+          ProductAssignmentRepository.Insert(proAssignment);
+
           foreach (var pro in lspro)
           {
-            ProductAssignment proAssignment = new ProductAssignment();
-            proAssignment.Product = pro;
-            proAssignment.quantity = lsProduct[pro.ProductPID];
-            proAssignment.AssignedUserPid = AssigneeUserId;
-            proAssignment.CreatedOn = DateTime.Now;
-            proAssignment.CreatedUserPID = CurrentUserId;
-            proAssignment.ProductCode = GenProductCode("Assign");//newly generated code
-            ProductAssignmentRepository.Insert(proAssignment);
+            AssignmentProd assignProduct = new AssignmentProd();
+            assignProduct.Product = pro;
+            assignProduct.Quantity = lsProduct[pro.ProductPID];
+            assignProduct.ProductAssignmentPID = proAssignment.ProductAssignmentPID;
+            AssignmentProdRepository.Insert(assignProduct);
             Product prdct = ProductRepository.GetByID(pro.ProductPID);
             prdct.RemQuantity = (prdct.RemQuantity == 0) ? prdct.Quanity - lsProduct[pro.ProductPID] : prdct.RemQuantity - lsProduct[pro.ProductPID];
             ProductRepository.Update(prdct);
           }
           unitOfWork.SaveChanges();
+          transactFactory.CreateTransac(CurrentUserId, AssigneeUserId,null,0, (long)InlineTranscatType.Assign);
           isSuccess = true;
         }
       }

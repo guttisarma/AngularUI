@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TradeBulk_Helper
 {
-  public  class InLineTransaction
+  public  class InlineTransaction
     {
         public long InlineTranscatPID { get; set; }
         public Nullable<long> UserdetailPID { get; set; }

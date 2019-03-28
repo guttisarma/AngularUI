@@ -16,8 +16,6 @@
         <EntityTypeShape EntityType="TradeBulkModel.Note" Width="1.5" PointX="12" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.Phone" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.PhoneType" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TradeBulkModel.ProductAssignment" Width="1.5" PointX="22.5" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TradeBulkModel.ProductConvert" Width="1.5" PointX="22.5" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.ProductState" Width="1.5" PointX="20.25" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.ProductType" Width="1.5" PointX="15" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.Rating" Width="1.5" PointX="12" PointY="16.75" IsExpanded="true" />
@@ -36,8 +34,6 @@
         <EntityTypeShape EntityType="TradeBulkModel.UserTransacType" Width="1.5" PointX="12.75" PointY="24" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.UserType" Width="1.5" PointX="7.5" PointY="16.125" IsExpanded="true" />
         <EntityTypeShape EntityType="TradeBulkModel.DropDownOnEntity" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="TradeBulkModel.FK_AssignConvertRelation_ProductAssignmentPID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_AssignConvertRelation_ProductConvertPID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Document_CreatedUserPID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Document_DocumentTypePID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Document_UpdatedUserPID" ManuallyRouted="false" />
@@ -47,9 +43,6 @@
         <AssociationConnector Association="TradeBulkModel.FK_Note_UpdatedUserPID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Phone_PhoneType" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Phone_PhoneTypePID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_AssignedUserPid" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_CreatedUserPID" ManuallyRouted="false" />
-        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_UpdatedUserPID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_ProductState_ProductTypePID" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_ProductState_UserTypePId" ManuallyRouted="false" />
         <AssociationConnector Association="TradeBulkModel.FK_Rating_CreatedUserPID" ManuallyRouted="false" />
@@ -95,12 +88,7 @@
         <AssociationConnector Association="TradeBulkModel.FK_Product_RatingPID" />
         <AssociationConnector Association="TradeBulkModel.FK_Product_salesTypePid" />
         <AssociationConnector Association="TradeBulkModel.FK_Product_UpdatedUserPID" />
-        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_ProductPID" />
         <AssociationConnector Association="TradeBulkModel.FK_UserAuctionInfo_ProductPID" />
-        <EntityTypeShape EntityType="TradeBulkModel.InlineTranscat" Width="1.5" PointX="22.5" PointY="16.5" />
-        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_ProductPID" />
-        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_TransactionStatePid" />
-        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_UserdetailPID" />
         <EntityTypeShape EntityType="TradeBulkModel.aspnet_Applications" Width="1.5" PointX="0.75" PointY="25.125" />
         <EntityTypeShape EntityType="TradeBulkModel.aspnet_Membership" Width="1.5" PointX="3" PointY="25" />
         <EntityTypeShape EntityType="TradeBulkModel.aspnet_Paths" Width="1.5" PointX="3" PointY="20.625" />
@@ -114,7 +102,23 @@
         <AssociationConnector Association="TradeBulkModel.FK__aspnet_Ro__Appli__1332DBDC" />
         <AssociationConnector Association="TradeBulkModel.FK__aspnet_Pe__PathI__0F624AF8" />
         <AssociationConnector Association="TradeBulkModel.FK__aspnet_Pe__PathI__10566F31" />
-      </Diagram>
+        <EntityTypeShape EntityType="TradeBulkModel.AssignmentProd" Width="1.5" PointX="15.375" PointY="3.875" />
+        <EntityTypeShape EntityType="TradeBulkModel.InlineTranscat" Width="1.5" PointX="22.5" PointY="12.375" />
+        <EntityTypeShape EntityType="TradeBulkModel.InlineTranscatType" Width="1.5" PointX="20.25" PointY="5" />
+        <EntityTypeShape EntityType="TradeBulkModel.ProductConvert" Width="1.5" PointX="22.5" PointY="16.375" />
+        <AssociationConnector Association="TradeBulkModel.FK_AssignConvertRelation_ProductConvertPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_InlineTranscatType" />
+        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_ProductPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_TransactionStatePid" />
+        <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_UserdetailPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_AssignmentProd_Product" />
+        <EntityTypeShape EntityType="TradeBulkModel.ProductAssignment" Width="1.5" PointX="12" PointY="27" />
+        <AssociationConnector Association="TradeBulkModel.FK_AssignConvertRelation_ProductAssignmentPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_AssignmentProd_ProductAssignment" />
+        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_AssignedUserPid" />
+        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_CreatedUserPID" />
+        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_UpdatedUserPID" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

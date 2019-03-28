@@ -24,6 +24,8 @@ namespace TradeBulk_DataLayer.AppData
         public string ProductCode { get; set; }
         public Nullable<long> ConvertedUserPID { get; set; }
         public Nullable<long> OriginalOwnerPID { get; set; }
+        public Nullable<decimal> AdvanceAmount { get; set; }
+        public Nullable<decimal> TotalAmount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignConvertRelation> AssignConvertRelations { get; set; }

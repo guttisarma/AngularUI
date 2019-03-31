@@ -20,6 +20,7 @@ namespace TradeBulk_DataLayer.AppData
             this.UserAuctionInfoes = new HashSet<UserAuctionInfo>();
             this.InlineTranscats = new HashSet<InlineTranscat>();
             this.AssignmentProds = new HashSet<AssignmentProd>();
+            this.SupportConverteds = new HashSet<SupportConverted>();
         }
     
         public long ProductPID { get; set; }
@@ -58,5 +59,7 @@ namespace TradeBulk_DataLayer.AppData
         public virtual ICollection<InlineTranscat> InlineTranscats { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignmentProd> AssignmentProds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupportConverted> SupportConverteds { get; set; }
     }
 }

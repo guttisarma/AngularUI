@@ -157,6 +157,9 @@
     <Compile Include="AppData\State.cs">
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>
+    <Compile Include="AppData\SupportConverted.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
     <Compile Include="AppData\User.cs">
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>

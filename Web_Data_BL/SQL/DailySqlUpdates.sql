@@ -65,5 +65,24 @@ Add ProductAssignPer Decimal
 Alter table UserDetail
 Add ProductConvertPer Decimal 
 
+ALTER Table AssignmentProd
+ADD RemQuanity BIGINT
 
+create table SupportConverted
+(
+SupportConvertedPID bigint identity(1,1) not null,
+ProductPID bigint not null,
+ProductConvertPID bigint not null,
+QuanityUsed BIGINT
+)
+GO
+Alter table SupportConverted
+Add constraint pk_SupportConverted Primary key (SupportConvertedPID)
+GO
+Alter table SupportConverted
+add constraint FK_SupportConverted_Product FOREIGN KEY (ProductPID) References Product(ProductPID) 
+GO
+Alter table SupportConverted
+add constraint FK_SupportConverted_ProductConvert FOREIGN KEY (ProductConvertPID) References ProductConvert(ProductConvertPID)
+GO
 --3/22/2019

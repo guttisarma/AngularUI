@@ -26,18 +26,19 @@ namespace TradeBulk_BusinessLayer
     GenericRepository<UserDetail> UserDetailsRepository;
     GenericRepository<AssignmentProd> AssignmentProdRepository;
     GenericRepository<AssignConvertRelation> AssignConvertRelationRepository;
-    ITransactFactory transactFactory;
+    GenericRepository<SupportConverted> SupportConvertedRepository;
+    // ITransactFactory transactFactory;
     #endregion
     #region constrator
-    //public ProductManagement()
-    //{
-
-
-    //}
-    public ProductManagement(ITransactFactory _transactFactory)
+    public ProductManagement()
     {
-      transactFactory = _transactFactory;
+
+
     }
+    //public ProductManagement(ITransactFactory _transactFactory)
+    //{
+    //  transactFactory = _transactFactory;
+    //}
     #endregion
 
     #region List
@@ -363,10 +364,10 @@ namespace TradeBulk_BusinessLayer
               DocumentRepository.Insert(dcment);
             }
           unitOfWork.SaveChanges();
-          if (product.Price != null)
-          {
-            transactFactory.CreateTransac(CurrentUserID, null, prdct.ProductPID,(Decimal) prdct.Price,(long)InlineTranscatType.Created);
-          }
+          //if (product.Price != null)
+          //{
+          //  transactFactory.CreateTransac(CurrentUserID, null, prdct.ProductPID,(Decimal) prdct.Price,(long)InlineTranscatType.Created);
+          //}
           isSuccess = true;
 
         }
@@ -406,8 +407,8 @@ namespace TradeBulk_BusinessLayer
               DocumentRepository.Insert(dcment);
             }
           unitOfWork.SaveChanges();
-          if (product.Price != null)
-            transactFactory.CreateTransac(CurrentUserID, null, oProduct.ProductPID, 800, (long)InlineTranscatType.Created);
+          //if (product.Price != null)
+          //  transactFactory.CreateTransac(CurrentUserID, null, oProduct.ProductPID, 800, (long)InlineTranscatType.Created);
           isSuccess = true;
         }
 
@@ -425,43 +426,45 @@ namespace TradeBulk_BusinessLayer
     /// <param name="lsProduct"></param>
     /// <param name="prodName"></param>
     /// <param name="CurrentUserId"></param>
-    public void ConvertProduct(Dictionary<long, int> lsProduct, string prodName, long CurrentUserId, out bool isSuccess)
+    public void ConvertProduct(List<ConvertAssProHelper> lsconvertAssProHelpers, string prodName, Decimal AdvAmount, Decimal TotalAmount, long CurrentUserId, out bool isSuccess)
     {
       try
       {
         using (UnitOfWork unitOfWork = new UnitOfWork())
         {
           ProductAssignmentRepository = unitOfWork.GetRepoInstance<ProductAssignment>();
-
-          Expression<Func<ProductAssignment, object>> parameter1 = v => v.UserDetail;
-          //Expression<Func<ProductAssignment, object>> parameter2 = v => v.Product;
-          //90908
-          //Expression<Func<UserDetailAddress, object>> parameter3 = v => v.Address.Phone;
-          //Expression<Func<UserDetailAddress, object>> parameter4 = v => v.Address.Email;
-          Expression<Func<ProductAssignment, object>>[] parameterArray = new Expression<Func<ProductAssignment, object>>[] { parameter1/*, parameter2 ,parameter3, parameter4 */};
-          IQueryable<ProductAssignment> lspro = ProductAssignmentRepository.GetAllExpressions(x => lsProduct.Keys.Contains(x.ProductAssignmentPID), null, parameterArray);
           ProductConvertRepository = unitOfWork.GetRepoInstance<ProductConvert>();
           ProductConvert proConvert = new ProductConvert();
           proConvert.ProductCode = GenProductCode("Convert");//Code
           proConvert.ConvertedUserPID = CurrentUserId;
-          //foreach (ProductAssignment proAssign in lspro)
-          //{
-          //  proConvert.OriginalOwnerPID = proAssign.Product.OwnerPID;
-          //}
-          //UserDetail userDetail = lspro.FirstOrDefault<ProductAssignment>().Product.UserDetail;
-          
+          proConvert.AdvanceAmount = AdvAmount;
+          proConvert.TotalAmount = TotalAmount;
           ProductConvertRepository.Insert(proConvert);
-          AssignConvertRelationRepository = unitOfWork.GetRepoInstance<AssignConvertRelation>();
-          foreach (var pro in lspro)
+          List<AssProHelper> assProHelpers = new List<AssProHelper>();
+          foreach (var assProHelper in lsconvertAssProHelpers)
           {
-            AssignConvertRelation assConRelation = new AssignConvertRelation();
-            assConRelation.ProductAssignmentPID = pro.ProductAssignmentPID;
-            assConRelation.ProductConvertPID = proConvert.ProductConvertPID;
-            AssignConvertRelationRepository.Insert(assConRelation);
+            Expression<Func<ProductAssignment, object>> parameter1 = v => v.UserDetail;
+            Expression<Func<ProductAssignment, object>>[] parameterArray = new Expression<Func<ProductAssignment, object>>[] { parameter1/*, parameter2 ,parameter3, parameter4 */};
+            IQueryable<ProductAssignment> lspro = ProductAssignmentRepository.GetAllExpressions(x => x.ProductAssignmentPID == assProHelper.AssignProductId, null, parameterArray);
+            ProductConvertRepository = unitOfWork.GetRepoInstance<ProductConvert>();
+
+            AssignConvertRelationRepository = unitOfWork.GetRepoInstance<AssignConvertRelation>();
+            foreach (var pro in lspro)
+            {
+              AssignConvertRelation assConRelation = new AssignConvertRelation();
+              assConRelation.ProductAssignmentPID = pro.ProductAssignmentPID;
+              assConRelation.ProductConvertPID = proConvert.ProductConvertPID;
+              AssignConvertRelationRepository.Insert(assConRelation);
+            }
+            foreach (var proID in assProHelper.lsAssProHelpers)
+            {
+              assProHelpers.Add(new AssProHelper() { ProductId = proID.ProductId, Qunty = proID.Qunty });
+            }
           }
           unitOfWork.SaveChanges();
+          ConvertionComplete(proConvert.ProductConvertPID, assProHelpers,false);
           isSuccess = true;
-          transactFactory.CreateTransac(CurrentUserId, null, null, 0, (long)InlineTranscatType.Convert);
+          //transactFactory.CreateTransac(CurrentUserId, null, null, 0, (long)InlineTranscatType.Convert);
         }
 
       }
@@ -480,13 +483,10 @@ namespace TradeBulk_BusinessLayer
     /// <param name="lsProduct"></param>
     /// <param name="CurrentUserId"></param>
     /// <param name="AssigneeUserId"></param>
-    public void AssignProduct(Dictionary<long, int> lsProduct, long CurrentUserId, long AssigneeUserId, out bool isSuccess)
+    public void AssignProduct(Dictionary<long, int> lsProduct, long CurrentUserId,Decimal AdvAmount,Decimal TotalAmount, long AssigneeUserId, out bool isSuccess)
     {
-
       try
       {
-
-
         using (UnitOfWork unitOfWork = new UnitOfWork())
         {
           ProductRepository = unitOfWork.GetRepoInstance<Product>();
@@ -497,6 +497,8 @@ namespace TradeBulk_BusinessLayer
           proAssignment.AssignedUserPid = AssigneeUserId;
           proAssignment.CreatedOn = DateTime.Now;
           proAssignment.CreatedUserPID = CurrentUserId;
+          proAssignment.AdvanceAmount = AdvAmount;
+          proAssignment.TotalAmount = TotalAmount;
           proAssignment.ProductCode = GenProductCode("Assign");//newly generated code
           ProductAssignmentRepository.Insert(proAssignment);
 
@@ -505,6 +507,7 @@ namespace TradeBulk_BusinessLayer
             AssignmentProd assignProduct = new AssignmentProd();
             assignProduct.Product = pro;
             assignProduct.Quantity = lsProduct[pro.ProductPID];
+            assignProduct.RemQuanity = lsProduct[pro.ProductPID];
             assignProduct.ProductAssignmentPID = proAssignment.ProductAssignmentPID;
             AssignmentProdRepository.Insert(assignProduct);
             Product prdct = ProductRepository.GetByID(pro.ProductPID);
@@ -512,7 +515,7 @@ namespace TradeBulk_BusinessLayer
             ProductRepository.Update(prdct);
           }
           unitOfWork.SaveChanges();
-          transactFactory.CreateTransac(CurrentUserId, AssigneeUserId,null,0, (long)InlineTranscatType.Assign);
+          //transactFactory.CreateTransac(CurrentUserId, AssigneeUserId,null,0, (long)InlineTranscatType.Assign);
           isSuccess = true;
         }
       }
@@ -523,6 +526,61 @@ namespace TradeBulk_BusinessLayer
       }
     }
 
+    public void ConvertionComplete(long ProductConvertPID, List<AssProHelper> assProHelpers,bool directProduct)
+    {
+      if (!directProduct)
+      {
+        using (UnitOfWork unitOfWork = new UnitOfWork())
+        {
+          AssignConvertRelationRepository = unitOfWork.GetRepoInstance<AssignConvertRelation>();
+          AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
+          IQueryable<AssignConvertRelation> lsassignConvertRelations = AssignConvertRelationRepository.GetAllExpressions(x => x.ProductConvertPID == ProductConvertPID, null, null);
+          foreach (var assignConvert in lsassignConvertRelations)
+          {
+            Expression<Func<AssignmentProd, object>> parameter1 = v => v.Product;
+            Expression<Func<AssignmentProd, object>>[] parameterArray = new Expression<Func<AssignmentProd, object>>[] { parameter1/*, parameter2 ,parameter3, parameter4 */};
+
+            IQueryable<AssignmentProd> lsassignmentProds = AssignmentProdRepository.GetAllExpressions(x => x.ProductAssignmentPID == assignConvert.ProductAssignmentPID, null, parameterArray);
+            SupportConvertedRepository = unitOfWork.GetRepoInstance<SupportConverted>();
+            foreach (var assignmentProd in lsassignmentProds)
+            {
+              AssProHelper assProHelper= assProHelpers.Where(x => x.ProductId == assignmentProd.ProductPID).FirstOrDefault<AssProHelper>();
+              if(assProHelper.Qunty>0 && assignmentProd.Quantity>= assProHelper.Qunty)
+              {
+                SupportConverted supportConverted = new SupportConverted();
+                supportConverted.Product = assignmentProd.Product;
+                supportConverted.ProductConvertPID = ProductConvertPID;
+                supportConverted.QuanityUsed = assProHelper.Qunty;
+                SupportConvertedRepository.Insert(supportConverted);
+                assignmentProd.RemQuanity = assignmentProd.Quantity - assProHelper.Qunty;
+                AssignmentProdRepository.Update(assignmentProd);
+              }
+            }
+          }
+          unitOfWork.SaveChanges();
+        }
+      }
+      else
+      {
+        using (UnitOfWork unitOfWork = new UnitOfWork())
+        {
+          ProductRepository = unitOfWork.GetRepoInstance<Product>();
+          foreach (var Prdct in assProHelpers)
+          {
+            Product product = ProductRepository.GetByID(Prdct.ProductId);
+            product.RemQuantity = product.Quanity - Prdct.Qunty;
+            SupportConverted supportConverted = new SupportConverted();
+            supportConverted.Product = product;
+            supportConverted.ProductConvertPID = ProductConvertPID;
+            supportConverted.QuanityUsed = Prdct.Qunty;
+            SupportConvertedRepository.Insert(supportConverted);
+            ProductRepository.Update(product);
+          }
+          unitOfWork.SaveChanges();
+        } 
+        
+      }
+    }
     #endregion
   }
 }

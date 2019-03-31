@@ -18,6 +18,7 @@ namespace TradeBulk_DataLayer.AppData
         public ProductConvert()
         {
             this.AssignConvertRelations = new HashSet<AssignConvertRelation>();
+            this.SupportConverteds = new HashSet<SupportConverted>();
         }
     
         public long ProductConvertPID { get; set; }
@@ -29,5 +30,7 @@ namespace TradeBulk_DataLayer.AppData
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignConvertRelation> AssignConvertRelations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupportConverted> SupportConverteds { get; set; }
     }
 }

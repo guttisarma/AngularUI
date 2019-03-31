@@ -13,8 +13,9 @@ namespace TradeBulk_Helper
         List<NewProductViewModel> GetOnlineProducts(int CurrentPage, int PageSize, out long TotalPages);
         string GenProductCode(string action);
         void CreateProduct(NewProductViewModel product, long CurrentUserID,out bool IsSuccess);
-        void ConvertProduct(Dictionary<long, int> lsProduct, string prodName, long CurrentUserId, out bool IsSuccess);
-        void AssignProduct(Dictionary<long, int> lsProduct, long CurrentUserId, long AssigneeUserId, out bool IsSuccess);
+        void ConvertProduct(List<ConvertAssProHelper> LSconvertAssProHelpers, string prodName, Decimal AdvAmount, Decimal TotalAmount, long CurrentUserId, out bool IsSuccess);
+        void AssignProduct(Dictionary<long, int> lsProduct, long CurrentUserId, Decimal AdvAmount, Decimal TotalAmount, long AssigneeUserId, out bool IsSuccess);
+        void ConvertionComplete(long ProductConvertPID,List<AssProHelper> assProHelper,bool isDirectProduct);
         List<ProductList> MyProductList(long currentUserID);
         List<ProductList> MyAssignedProductList(long currentUserID);
         List<ProductList> MyCovertedProductList(long currentUserID);

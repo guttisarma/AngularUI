@@ -129,6 +129,7 @@
           <Property Name="ProductPID" Type="bigint" Nullable="false" />
           <Property Name="Quantity" Type="bigint" />
           <Property Name="ProductAssignmentPID" Type="bigint" />
+          <Property Name="RemQuanity" Type="bigint" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -343,6 +344,15 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           </Key>
           <Property Name="StatePID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="SupportConverted">
+          <Key>
+            <PropertyRef Name="SupportConvertedPID" />
+          </Key>
+          <Property Name="SupportConvertedPID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductPID" Type="bigint" Nullable="false" />
+          <Property Name="ProductConvertPID" Type="bigint" Nullable="false" />
+          <Property Name="QuanityUsed" Type="bigint" />
         </EntityType>
         <EntityType Name="UserAuctionInfo">
           <Key>
@@ -975,6 +985,30 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SupportConverted_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="SupportConverted" Type="Self.SupportConverted" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductPID" />
+            </Principal>
+            <Dependent Role="SupportConverted">
+              <PropertyRef Name="ProductPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupportConverted_ProductConvert">
+          <End Role="ProductConvert" Type="Self.ProductConvert" Multiplicity="1" />
+          <End Role="SupportConverted" Type="Self.SupportConverted" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductConvert">
+              <PropertyRef Name="ProductConvertPID" />
+            </Principal>
+            <Dependent Role="SupportConverted">
+              <PropertyRef Name="ProductConvertPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserAuctionInfo_ManagerUserDetailPID">
           <End Role="UserDetail" Type="Self.UserDetail" Multiplicity="0..1" />
           <End Role="UserAuctionInfo" Type="Self.UserAuctionInfo" Multiplicity="*" />
@@ -1344,6 +1378,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="saleType" EntityType="Self.saleType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupportConverted" EntityType="Self.SupportConverted" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAuctionInfo" EntityType="Self.UserAuctionInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDetail" EntityType="Self.UserDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDetailAddress" EntityType="Self.UserDetailAddress" Schema="dbo" store:Type="Tables" />
@@ -1522,6 +1557,14 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <AssociationSet Name="FK_Rating_UpdatedUserPID" Association="Self.FK_Rating_UpdatedUserPID">
             <End Role="UserDetail" EntitySet="UserDetail" />
             <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupportConverted_Product" Association="Self.FK_SupportConverted_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="SupportConverted" EntitySet="SupportConverted" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupportConverted_ProductConvert" Association="Self.FK_SupportConverted_ProductConvert">
+            <End Role="ProductConvert" EntitySet="ProductConvert" />
+            <End Role="SupportConverted" EntitySet="SupportConverted" />
           </AssociationSet>
           <AssociationSet Name="FK_UserAuctionInfo_ManagerUserDetailPID" Association="Self.FK_UserAuctionInfo_ManagerUserDetailPID">
             <End Role="UserDetail" EntitySet="UserDetail" />
@@ -2796,6 +2839,15 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             <End Role="UserDetail" EntitySet="UserDetails" />
             <End Role="ProductAssignment" EntitySet="ProductAssignments" />
           </AssociationSet>
+          <EntitySet Name="SupportConverteds" EntityType="TradeBulkModel.SupportConverted" />
+          <AssociationSet Name="FK_SupportConverted_Product" Association="TradeBulkModel.FK_SupportConverted_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="SupportConverted" EntitySet="SupportConverteds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SupportConverted_ProductConvert" Association="TradeBulkModel.FK_SupportConverted_ProductConvert">
+            <End Role="ProductConvert" EntitySet="ProductConverts" />
+            <End Role="SupportConverted" EntitySet="SupportConverteds" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="UserDetailEmail">
           <Key>
@@ -2925,6 +2977,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <NavigationProperty Name="UserAuctionInfoes" Relationship="TradeBulkModel.FK_UserAuctionInfo_ProductPID" FromRole="Product" ToRole="UserAuctionInfo" />
           <NavigationProperty Name="InlineTranscats" Relationship="TradeBulkModel.FK_InlineTranscat_ProductPID" FromRole="Product" ToRole="InlineTranscat" />
           <NavigationProperty Name="AssignmentProds" Relationship="TradeBulkModel.FK_AssignmentProd_Product" FromRole="Product" ToRole="AssignmentProd" />
+          <NavigationProperty Name="SupportConverteds" Relationship="TradeBulkModel.FK_SupportConverted_Product" FromRole="Product" ToRole="SupportConverted" />
         </EntityType>
         <Association Name="FK_Product_DocumentPID">
           <End Type="TradeBulkModel.Document" Role="Document" Multiplicity="0..1" />
@@ -3205,6 +3258,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <Property Name="ProductAssignmentPID" Type="Int64" />
           <NavigationProperty Name="Product" Relationship="TradeBulkModel.FK_AssignmentProd_Product" FromRole="AssignmentProd" ToRole="Product" />
           <NavigationProperty Name="ProductAssignment" Relationship="TradeBulkModel.FK_AssignmentProd_ProductAssignment" FromRole="AssignmentProd" ToRole="ProductAssignment" />
+          <Property Name="RemQuanity" Type="Int64" />
         </EntityType>
         <EntityType Name="InlineTranscat">
           <Key>
@@ -3242,6 +3296,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <Property Name="AdvanceAmount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TotalAmount" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="AssignConvertRelations" Relationship="TradeBulkModel.FK_AssignConvertRelation_ProductConvertPID" FromRole="ProductConvert" ToRole="AssignConvertRelation" />
+          <NavigationProperty Name="SupportConverteds" Relationship="TradeBulkModel.FK_SupportConverted_ProductConvert" FromRole="ProductConvert" ToRole="SupportConverted" />
         </EntityType>
         <Association Name="FK_AssignConvertRelation_ProductConvertPID">
           <End Type="TradeBulkModel.ProductConvert" Role="ProductConvert" Multiplicity="0..1" />
@@ -3391,6 +3446,41 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Principal>
             <Dependent Role="ProductAssignment">
               <PropertyRef Name="UpdatedUserPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SupportConverted">
+          <Key>
+            <PropertyRef Name="SupportConvertedPID" />
+          </Key>
+          <Property Name="SupportConvertedPID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductPID" Type="Int64" Nullable="false" />
+          <Property Name="ProductConvertPID" Type="Int64" Nullable="false" />
+          <Property Name="QuanityUsed" Type="Int64" />
+          <NavigationProperty Name="Product" Relationship="TradeBulkModel.FK_SupportConverted_Product" FromRole="SupportConverted" ToRole="Product" />
+          <NavigationProperty Name="ProductConvert" Relationship="TradeBulkModel.FK_SupportConverted_ProductConvert" FromRole="SupportConverted" ToRole="ProductConvert" />
+        </EntityType>
+        <Association Name="FK_SupportConverted_Product">
+          <End Type="TradeBulkModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="TradeBulkModel.SupportConverted" Role="SupportConverted" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductPID" />
+            </Principal>
+            <Dependent Role="SupportConverted">
+              <PropertyRef Name="ProductPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SupportConverted_ProductConvert">
+          <End Type="TradeBulkModel.ProductConvert" Role="ProductConvert" Multiplicity="1" />
+          <End Type="TradeBulkModel.SupportConverted" Role="SupportConverted" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductConvert">
+              <PropertyRef Name="ProductConvertPID" />
+            </Principal>
+            <Dependent Role="SupportConverted">
+              <PropertyRef Name="ProductConvertPID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3884,6 +3974,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <EntitySetMapping Name="AssignmentProds">
             <EntityTypeMapping TypeName="TradeBulkModel.AssignmentProd">
               <MappingFragment StoreEntitySet="AssignmentProd">
+                <ScalarProperty Name="RemQuanity" ColumnName="RemQuanity" />
                 <ScalarProperty Name="ProductAssignmentPID" ColumnName="ProductAssignmentPID" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ProductPID" ColumnName="ProductPID" />
@@ -3937,6 +4028,16 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
                 <ScalarProperty Name="AssignedUserPid" ColumnName="AssignedUserPid" />
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
                 <ScalarProperty Name="ProductAssignmentPID" ColumnName="ProductAssignmentPID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupportConverteds">
+            <EntityTypeMapping TypeName="TradeBulkModel.SupportConverted">
+              <MappingFragment StoreEntitySet="SupportConverted">
+                <ScalarProperty Name="QuanityUsed" ColumnName="QuanityUsed" />
+                <ScalarProperty Name="ProductConvertPID" ColumnName="ProductConvertPID" />
+                <ScalarProperty Name="ProductPID" ColumnName="ProductPID" />
+                <ScalarProperty Name="SupportConvertedPID" ColumnName="SupportConvertedPID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

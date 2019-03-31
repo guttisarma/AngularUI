@@ -52,7 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssignProductHelper.cs" />
+    <Compile Include="AssProHelper.cs" />
+    <Compile Include="ConvertAssProHelper.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ExAddress.cs" />
     <Compile Include="ExEmail.cs" />

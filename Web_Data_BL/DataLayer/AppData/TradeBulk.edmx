@@ -201,11 +201,11 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           </Key>
           <Property Name="InlineTranscatPID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserdetailPID" Type="bigint" />
+          <Property Name="ProductPID" Type="bigint" />
           <Property Name="Amount" Type="money" Nullable="false" />
           <Property Name="TransactionStatePid" Type="bigint" />
           <Property Name="Participant" Type="bigint" />
           <Property Name="InlineTranscatTypePID" Type="bigint" Nullable="false" />
-          <Property Name="ProductPID" Type="bigint" />
         </EntityType>
         <EntityType Name="InlineTranscatType">
           <Key>
@@ -282,6 +282,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <Property Name="UpdatedUserPID" Type="bigint" />
           <Property Name="AdvanceAmount" Type="money" />
           <Property Name="TotalAmount" Type="money" />
+          <Property Name="AssignmentProdPID" Type="bigint" />
         </EntityType>
         <EntityType Name="ProductConvert">
           <Key>
@@ -513,7 +514,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <Property Name="UserTypePID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK__aspnet_Me__Appli__24E777C3">
+        <Association Name="FK__aspnet_Me__Appli__0C85DE4D">
           <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
           <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="*" />
           <ReferentialConstraint>
@@ -525,7 +526,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__aspnet_Pa__Appli__558AAF1E">
+        <Association Name="FK__aspnet_Pa__Appli__0E6E26BF">
           <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
           <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="*" />
           <ReferentialConstraint>
@@ -537,7 +538,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__aspnet_Pe__PathI__5B438874">
+        <Association Name="FK__aspnet_Pe__PathI__0F624AF8">
           <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="1" />
           <End Role="aspnet_PersonalizationAllUsers" Type="Self.aspnet_PersonalizationAllUsers" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -549,7 +550,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__aspnet_Pe__PathI__5F141958">
+        <Association Name="FK__aspnet_Pe__PathI__10566F31">
           <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="0..1" />
           <End Role="aspnet_PersonalizationPerUser" Type="Self.aspnet_PersonalizationPerUser" Multiplicity="*" />
           <ReferentialConstraint>
@@ -561,7 +562,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__aspnet_Ro__Appli__39E294A9">
+        <Association Name="FK__aspnet_Ro__Appli__1332DBDC">
           <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
           <End Role="aspnet_Roles" Type="Self.aspnet_Roles" Multiplicity="*" />
           <ReferentialConstraint>
@@ -910,6 +911,18 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Principal>
             <Dependent Role="ProductAssignment">
               <PropertyRef Name="AssignedUserPid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductAssignment_AssignmentProd">
+          <End Role="AssignmentProd" Type="Self.AssignmentProd" Multiplicity="0..1" />
+          <End Role="ProductAssignment" Type="Self.ProductAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssignmentProd">
+              <PropertyRef Name="AssignmentProdPID" />
+            </Principal>
+            <Dependent Role="ProductAssignment">
+              <PropertyRef Name="AssignmentProdPID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1402,23 +1415,23 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
     [DropDownOnEntity].[ColumnType] AS [ColumnType]
     FROM [dbo].[DropDownOnEntity] AS [DropDownOnEntity]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__aspnet_Me__Appli__24E777C3" Association="Self.FK__aspnet_Me__Appli__24E777C3">
+          <AssociationSet Name="FK__aspnet_Me__Appli__0C85DE4D" Association="Self.FK__aspnet_Me__Appli__0C85DE4D">
             <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
             <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
           </AssociationSet>
-          <AssociationSet Name="FK__aspnet_Pa__Appli__558AAF1E" Association="Self.FK__aspnet_Pa__Appli__558AAF1E">
+          <AssociationSet Name="FK__aspnet_Pa__Appli__0E6E26BF" Association="Self.FK__aspnet_Pa__Appli__0E6E26BF">
             <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
             <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
           </AssociationSet>
-          <AssociationSet Name="FK__aspnet_Pe__PathI__5B438874" Association="Self.FK__aspnet_Pe__PathI__5B438874">
+          <AssociationSet Name="FK__aspnet_Pe__PathI__0F624AF8" Association="Self.FK__aspnet_Pe__PathI__0F624AF8">
             <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
             <End Role="aspnet_PersonalizationAllUsers" EntitySet="aspnet_PersonalizationAllUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK__aspnet_Pe__PathI__5F141958" Association="Self.FK__aspnet_Pe__PathI__5F141958">
+          <AssociationSet Name="FK__aspnet_Pe__PathI__10566F31" Association="Self.FK__aspnet_Pe__PathI__10566F31">
             <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
             <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
           </AssociationSet>
-          <AssociationSet Name="FK__aspnet_Ro__Appli__39E294A9" Association="Self.FK__aspnet_Ro__Appli__39E294A9">
+          <AssociationSet Name="FK__aspnet_Ro__Appli__1332DBDC" Association="Self.FK__aspnet_Ro__Appli__1332DBDC">
             <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
             <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
           </AssociationSet>
@@ -1532,6 +1545,10 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           </AssociationSet>
           <AssociationSet Name="FK_ProductAssignment_AssignedUserPid" Association="Self.FK_ProductAssignment_AssignedUserPid">
             <End Role="UserDetail" EntitySet="UserDetail" />
+            <End Role="ProductAssignment" EntitySet="ProductAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductAssignment_AssignmentProd" Association="Self.FK_ProductAssignment_AssignmentProd">
+            <End Role="AssignmentProd" EntitySet="AssignmentProd" />
             <End Role="ProductAssignment" EntitySet="ProductAssignment" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductAssignment_CreatedUserPID" Association="Self.FK_ProductAssignment_CreatedUserPID">
@@ -2848,6 +2865,10 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             <End Role="ProductConvert" EntitySet="ProductConverts" />
             <End Role="SupportConverted" EntitySet="SupportConverteds" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProductAssignment_AssignmentProd" Association="TradeBulkModel.FK_ProductAssignment_AssignmentProd">
+            <End Role="AssignmentProd" EntitySet="AssignmentProds" />
+            <End Role="ProductAssignment" EntitySet="ProductAssignments" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="UserDetailEmail">
           <Key>
@@ -3259,6 +3280,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <NavigationProperty Name="Product" Relationship="TradeBulkModel.FK_AssignmentProd_Product" FromRole="AssignmentProd" ToRole="Product" />
           <NavigationProperty Name="ProductAssignment" Relationship="TradeBulkModel.FK_AssignmentProd_ProductAssignment" FromRole="AssignmentProd" ToRole="ProductAssignment" />
           <Property Name="RemQuanity" Type="Int64" />
+          <NavigationProperty Name="ProductAssignments" Relationship="TradeBulkModel.FK_ProductAssignment_AssignmentProd" FromRole="AssignmentProd" ToRole="ProductAssignment" />
         </EntityType>
         <EntityType Name="InlineTranscat">
           <Key>
@@ -3388,6 +3410,8 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <NavigationProperty Name="UserDetail" Relationship="TradeBulkModel.FK_ProductAssignment_AssignedUserPid" FromRole="ProductAssignment" ToRole="UserDetail" />
           <NavigationProperty Name="UserDetail1" Relationship="TradeBulkModel.FK_ProductAssignment_CreatedUserPID" FromRole="ProductAssignment" ToRole="UserDetail" />
           <NavigationProperty Name="UserDetail2" Relationship="TradeBulkModel.FK_ProductAssignment_UpdatedUserPID" FromRole="ProductAssignment" ToRole="UserDetail" />
+          <Property Name="AssignmentProdPID" Type="Int64" />
+          <NavigationProperty Name="AssignmentProd" Relationship="TradeBulkModel.FK_ProductAssignment_AssignmentProd" FromRole="ProductAssignment" ToRole="AssignmentProd" />
         </EntityType>
         <Association Name="FK_AssignConvertRelation_ProductAssignmentPID">
           <End Type="TradeBulkModel.ProductAssignment" Role="ProductAssignment" Multiplicity="0..1" />
@@ -3481,6 +3505,18 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Principal>
             <Dependent Role="SupportConverted">
               <PropertyRef Name="ProductConvertPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductAssignment_AssignmentProd">
+          <End Type="TradeBulkModel.AssignmentProd" Role="AssignmentProd" Multiplicity="0..1" />
+          <End Type="TradeBulkModel.ProductAssignment" Role="ProductAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssignmentProd">
+              <PropertyRef Name="AssignmentProdPID" />
+            </Principal>
+            <Dependent Role="ProductAssignment">
+              <PropertyRef Name="AssignmentProdPID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4019,6 +4055,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <EntitySetMapping Name="ProductAssignments">
             <EntityTypeMapping TypeName="TradeBulkModel.ProductAssignment">
               <MappingFragment StoreEntitySet="ProductAssignment">
+                <ScalarProperty Name="AssignmentProdPID" ColumnName="AssignmentProdPID" />
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
                 <ScalarProperty Name="AdvanceAmount" ColumnName="AdvanceAmount" />
                 <ScalarProperty Name="UpdatedUserPID" ColumnName="UpdatedUserPID" />

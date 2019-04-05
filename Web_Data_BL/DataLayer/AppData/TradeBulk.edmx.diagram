@@ -121,6 +121,7 @@
         <EntityTypeShape EntityType="TradeBulkModel.SupportConverted" Width="1.5" PointX="24.75" PointY="15.625" />
         <AssociationConnector Association="TradeBulkModel.FK_SupportConverted_Product" />
         <AssociationConnector Association="TradeBulkModel.FK_SupportConverted_ProductConvert" />
+        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_AssignmentProd" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

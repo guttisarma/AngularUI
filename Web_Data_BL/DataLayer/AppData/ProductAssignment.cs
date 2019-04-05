@@ -30,6 +30,7 @@ namespace TradeBulk_DataLayer.AppData
         public Nullable<long> UpdatedUserPID { get; set; }
         public Nullable<decimal> AdvanceAmount { get; set; }
         public Nullable<decimal> TotalAmount { get; set; }
+        public Nullable<long> AssignmentProdPID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignConvertRelation> AssignConvertRelations { get; set; }
@@ -38,5 +39,6 @@ namespace TradeBulk_DataLayer.AppData
         public virtual UserDetail UserDetail { get; set; }
         public virtual UserDetail UserDetail1 { get; set; }
         public virtual UserDetail UserDetail2 { get; set; }
+        public virtual AssignmentProd AssignmentProd { get; set; }
     }
 }

@@ -18,73 +18,78 @@ namespace TestDBObjectSaving
       ProductManagement pro = new ProductManagement();
       bool isSuccess = false;
       NewProductViewModel product = new NewProductViewModel();
-      product.ProductName = "Interactive Monitor";
+      product.ProductName = "Interactive Application";
       product.ProductType = "1";
-      product.Quantity = "48";
+      product.Quantity = "450";
       product.Description = "Touch Screen monitor";      
-      //pro.CreateProduct(product, 2,out isSuccess);
+      //pro.CreateProduct(product, 1,out isSuccess);
        isSuccess = false;
 
       NewProductViewModel pros = new NewProductViewModel();
-      pros.ProductName = "KeyBoard";
+      pros.ProductName = "Vitural KeyBoard";
       pros.ProductType = "1";
-      pros.Quantity = "90";
+      pros.Quantity = "900";
       pros.Description = "AutoCorrect Keyboard";
       pros.Price = "4000";
-     // pro.CreateProduct(pros, 2, out isSuccess);
+      //pro.CreateProduct(pros, 1, out isSuccess);
+      isSuccess = false;
 
       NewProductViewModel p1 = new NewProductViewModel();
-      p1.ProductName = "CPU";
+      p1.ProductName = "LED Lights";
       p1.ProductType = "2";
-      p1.Quantity = "56";
+      p1.Quantity = "560";
       p1.Description = "Advance AI Products";
       p1.Price = "40000";
-      //pro.CreateProduct(p1, 2, out isSuccess);
+      //pro.CreateProduct(p1, 1, out isSuccess);
       #endregion
       isSuccess = false;
 
-      //#region Update Product
-      //product.Price = "34540.0";
-      //product.Id = 
-      //product.Description = "Amount Is Updated";
+      #region Update Product
+      product.Price = "34540.0";
+      product.Id =
+      product.Description = "Amount Is Updated";
       //pro.UpdateProduct(product, 1, out isSuccess);
-      //isSuccess = false;
+      isSuccess = false;
 
-      //pros.Price = "6790.0";
-      //pros.Quantity = "90";
-      //product.Id = "30028";
-      //pros.Description = "Here Condition is For every Record having Price should Create InlineTransaction";
+      pros.Price = "6790.0";
+      pros.Quantity = "90";
+      product.Id = "30028";
+      pros.Description = "Here Condition is For every Record having Price should Create InlineTransaction";
       //pro.UpdateProduct(pros, 1, out isSuccess);
-      //isSuccess = false;
+      isSuccess = false;
 
-      //#endregion
+      #endregion
       //#region Assignment Product
+      List<AssProHelper> assProHelpers = new List<AssProHelper>();
       Dictionary<long, int> prodDetails = new Dictionary<long, int>();
-      prodDetails.Add(13, 4);
-      prodDetails.Add(14, 7);
-      prodDetails.Add(15, 8);
-      //pro.AssignProduct(prodDetails, 2, 0, 0, 3, out isSuccess);
+      assProHelpers.Add(new AssProHelper() { ProductId = 50002, Qunty = 84 });
+      assProHelpers.Add(new AssProHelper() { ProductId = 50003, Qunty = 50 });
+      assProHelpers.Add(new AssProHelper() { ProductId = 50004, Qunty = 95 });
+
+
+      pro.AssignProduct(assProHelpers, 1, 0, 0, 3, out isSuccess);
       isSuccess = false;
 
       //#endregion
       //#region Convert Product
+      List<AssProHelper> lsassproHelpers = new List<AssProHelper>() {
+                                                                                  new AssProHelper() { ProductId = 40002, Qunty = 1 },
+                                                                                  new AssProHelper() { ProductId = 40003, Qunty = 2 },
+                                                                                  new AssProHelper() { ProductId = 40004, Qunty = 3 }};
       List<ConvertAssProHelper> convertAssProHelpers = new List<ConvertAssProHelper>();
-      convertAssProHelpers.Add(new ConvertAssProHelper() { AssignProductId = 1, lsAssProHelpers=new List<AssProHelper>() {
-                                                                                  new AssProHelper() { ProductId = 13, Qunty = 1 },
-                                                                                  new AssProHelper() { ProductId = 14, Qunty = 2 },
-                                                                                  new AssProHelper() { ProductId = 15, Qunty = 3 }} });
+      convertAssProHelpers.Add(new ConvertAssProHelper() { AssignProductId = 20002, lsAssProHelpers= lsassproHelpers });
 
-      convertAssProHelpers.Add(new ConvertAssProHelper()
-      {
-        AssignProductId = 1,
-        lsAssProHelpers = new List<AssProHelper>() {
-                                                                                  new AssProHelper() { ProductId = 13, Qunty = 3  },
-                                                                                  new AssProHelper() { ProductId = 14, Qunty = 2  },
-                                                                                  new AssProHelper() { ProductId = 15, Qunty = 1  }}
-      });
+      //convertAssProHelpers.Add(new ConvertAssProHelper()
+      //{
+      //  AssignProductId = 1,
+      //  lsAssProHelpers = new List<AssProHelper>() {
+      //                                                                            new AssProHelper() { ProductId = 13, Qunty = 3  },
+      //                                                                            new AssProHelper() { ProductId = 14, Qunty = 2  },
+      //                                                                            new AssProHelper() { ProductId = 15, Qunty = 1  }}
+      //});
 
-      
-      pro.ConvertProduct(convertAssProHelpers, "EndProd", 0, 0, 3, out isSuccess);
+      pro.ConvertionComplete(20002, lsassproHelpers, false);
+      //pro.ConvertProduct(convertAssProHelpers, "EndProd", 0, 0, 3, out isSuccess);
       //#endregion
     }
   }

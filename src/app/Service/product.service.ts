@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import {ProductList,MockProductList,MockAssProductList,MockConProductList} from '../HelperTs/ProductList';
+import {ProductList,MockProductList,MockAssProductList,MockConProductList, AssignProduct,MockAssignProduct} from '../HelperTs/ProductList';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product} from 'src/app/HelperTs/ProductList';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -21,12 +21,17 @@ export class ProductService {
     if(category=='Created'){
       return of(MockProductList);
     }
-    if(category=='Assigned'){
-      return of(MockAssProductList);
-    }
+    //if(category=='Assigned'){
+      //return of(MockAssignProduct);
+    //}
     if(category=='Converted'){
       return of(MockConProductList);
     }
+  }
+  public getMockAssignedPro(category:string):Observable<AssignProduct[]>{
+    
+      return of(MockAssignProduct);
+    
   }
   public getMockSearchPCode(category:string):Observable<ProductList>{
     return of(MockAssProductList[1]);

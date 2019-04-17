@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from 'src/app/Service/product.service';
-import { ProductList } from 'src/app/HelperTs/ProductList';
+import { ProductList,AssignProduct } from 'src/app/HelperTs/ProductList';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class ProductListComponent implements OnInit {
   IsConvertedclicked:boolean;
 
   MockProductList:ProductList[];
-  MockAssProductList:ProductList[];
+  MockAssignProduct:AssignProduct[];
   MockConProductList:ProductList[];
 
 
@@ -34,7 +34,7 @@ export class ProductListComponent implements OnInit {
     this.IsAssignedclicked=true;
     this.IsCreatedclicked=false;
     this.IsConvertedclicked=false;
-    this.productservice.getMockProductList('Assigned').subscribe(mockproductlist=>this.MockAssProductList=mockproductlist);
+    this.productservice.getMockAssignedPro('Assigned').subscribe(mockproductlist=>this.MockAssignProduct=mockproductlist);
     
   }
   Convertedclicked(){

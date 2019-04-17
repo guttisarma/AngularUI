@@ -492,7 +492,7 @@ namespace TradeBulk_BusinessLayer
         {
           ProductRepository = unitOfWork.GetRepoInstance<Product>();
           AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
-          IQueryable<Product> lspro = ProductRepository.GetAllExpressions(x => lsProduct.Where<AssProHelper>(y=>(y.ProductId==x.ProductPID)).First<AssProHelper>()!=null, null, null);
+          IQueryable<Product> lspro = ProductRepository.GetAllExpressions(x => lsProduct.Select(y=>y.ProductId).Contains(x.ProductPID), null, null);
           bool isvalidOperation = CheckValidOperation(lsProduct);
           if (isvalidOperation)
           {

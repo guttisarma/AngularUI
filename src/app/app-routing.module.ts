@@ -11,17 +11,22 @@ import { ProductDetailComponent } from './Product/product-detail/product-detail.
 import { AssignProductComponent } from './Product/assign-product/assign-product.component';
 import { ConvertProductComponent } from './Product/convert-product/convert-product.component';
 import { TransacListComponent } from './Transaction/transac-list/transac-list.component';
+import { UserInComponent } from './User/SignIn/sign-in/User-in.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DragComponent} from './Product/Dragable_Product/drag/drag.component';
 
 const routes: Routes = [
   {path:'\UserRegister',component:UserRegistrationComponent},
   {path:'\UserProfile',component:UserProfileComponent},
   {path:'\UserList',component:UserListComponent},
   {path:'\UserDetail',component:UserDetailComponent},
+  {path:'\SignIn',component:UserInComponent},
   {path:'\ProductRegistration',component:ProductRegistrationComponent},
   {path:'\ProductList',component:ProductListComponent},
   {path:'\ProductDetail',component:ProductDetailComponent},
   {path:'\AssignProduct',component:AssignProductComponent},
   {path:'\MyTransactions',component:TransacListComponent},
+  {path:'\MyDragProduct',component:DragComponent},
   {path:'\ConvertProduct',component:ConvertProductComponent}
 
 ];

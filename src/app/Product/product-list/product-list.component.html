@@ -79,11 +79,29 @@
   </div>
 </div>
 <div *ngIf='IsAssignedclicked'>
-  <div class="row" *ngFor='let pro of MockAssProductList'>
-    <div class="col-sm-3">{{pro.ParentCode}}</div>
-    <div class="col-sm-3">{{pro.Code}}</div>
-    <div class="col-sm-3">{{pro.Quantity}}</div>
-    <div class="col-sm-3">{{pro.AssignedUserName}}</div>
+  <div class="row" *ngFor='let pro of MockAssignProduct'>
+   
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseTwo">
+            {{pro.AssignProductCode}}
+          </button>
+        </h5>
+      </div>
+    </div>
+	
+	 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        <div class="row" *ngFor='let pro1 of pro.lsProductList'>
+          <div class="col-sm-3">{{pro1.ParentCode}}</div>
+          <div class="col-sm-3">{{pro1.Code}}</div>
+          <div class="col-sm-3">{{pro1.Quantity}}</div>
+          <div class="col-sm-3">{{pro1.AssignedUserName}}</div>
+        </div>
+      </div>
+    </div> 
+
   </div>
 </div>
 <div *ngIf='IsConvertedclicked'>

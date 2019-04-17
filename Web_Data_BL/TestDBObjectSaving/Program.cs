@@ -62,9 +62,9 @@ namespace TestDBObjectSaving
       //#region Assignment Product
       List<AssProHelper> assProHelpers = new List<AssProHelper>();
       Dictionary<long, int> prodDetails = new Dictionary<long, int>();
-      assProHelpers.Add(new AssProHelper() { ProductId = 50002, Qunty = 84 });
-      assProHelpers.Add(new AssProHelper() { ProductId = 50003, Qunty = 50 });
-      assProHelpers.Add(new AssProHelper() { ProductId = 50004, Qunty = 95 });
+      assProHelpers.Add(new AssProHelper() { ProductId = 16, Qunty = 84 });
+      assProHelpers.Add(new AssProHelper() { ProductId = 17, Qunty = 50 });
+      assProHelpers.Add(new AssProHelper() { ProductId = 18, Qunty = 95 });
 
 
       pro.AssignProduct(assProHelpers, 1, 0, 0, 3, out isSuccess);

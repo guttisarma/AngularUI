@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -69,7 +69,8 @@ namespace TradeBulk_DataLayer
         }
 
 
-        public virtual TEntity GetByID(object id)
+   
+    public virtual TEntity GetByID(object id)
         {
             return dbSet.Find(id);
         }

@@ -11,10 +11,14 @@
 4)product web API
 	Create product already there.Need to test 
 	Assign and Convert need to changes done,Angular wise combination is pending.Need to test 
+	Update for the Product also ready.
+
 5)transaction related chnages and API expose
 			1}for creating product we can charge
+				For creating product where Price value updated their we can update
 			2)For Assigning product we can charge
 			3)for Converting product we can charge
+		For list of all Pending ,Complete Transaction can be displayed in angular
 
 
 

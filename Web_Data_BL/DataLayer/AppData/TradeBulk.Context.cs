@@ -70,7 +70,7 @@ namespace TradeBulk_DataLayer.AppData
         public virtual DbSet<InlineTranscat> InlineTranscats { get; set; }
         public virtual DbSet<InlineTranscatType> InlineTranscatTypes { get; set; }
         public virtual DbSet<ProductConvert> ProductConverts { get; set; }
-        public virtual DbSet<ProductAssignment> ProductAssignments { get; set; }
         public virtual DbSet<SupportConverted> SupportConverteds { get; set; }
+        public virtual DbSet<ProductAssignment> ProductAssignments { get; set; }
     }
 }

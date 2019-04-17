@@ -112,16 +112,15 @@
         <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_TransactionStatePid" />
         <AssociationConnector Association="TradeBulkModel.FK_InlineTranscat_UserdetailPID" />
         <AssociationConnector Association="TradeBulkModel.FK_AssignmentProd_Product" />
-        <EntityTypeShape EntityType="TradeBulkModel.ProductAssignment" Width="1.5" PointX="12" PointY="27" />
+        <EntityTypeShape EntityType="TradeBulkModel.SupportConverted" Width="1.5" PointX="24.75" PointY="15.625" />
+        <AssociationConnector Association="TradeBulkModel.FK_SupportConverted_Product" />
+        <AssociationConnector Association="TradeBulkModel.FK_SupportConverted_ProductConvert" />
+        <EntityTypeShape EntityType="TradeBulkModel.ProductAssignment" Width="1.5" PointX="12" PointY="27.375" />
         <AssociationConnector Association="TradeBulkModel.FK_AssignConvertRelation_ProductAssignmentPID" />
         <AssociationConnector Association="TradeBulkModel.FK_AssignmentProd_ProductAssignment" />
         <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_AssignedUserPid" />
         <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_CreatedUserPID" />
         <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_UpdatedUserPID" />
-        <EntityTypeShape EntityType="TradeBulkModel.SupportConverted" Width="1.5" PointX="24.75" PointY="15.625" />
-        <AssociationConnector Association="TradeBulkModel.FK_SupportConverted_Product" />
-        <AssociationConnector Association="TradeBulkModel.FK_SupportConverted_ProductConvert" />
-        <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_AssignmentProd" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

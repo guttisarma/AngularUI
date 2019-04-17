@@ -5,9 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-//import {MatNativeDateModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatNativeDateModule} from '@angular/material';
 //import {HttpClientModule} from '@angular/common/http';
 import { MultiOptionComponent } from './multi-option/multi-option.component';
 import { UserRegistrationComponent } from './User/Registration/user-registration/user-registration.component';
@@ -22,6 +24,9 @@ import { ConvertProductComponent } from './Product/convert-product/convert-produ
 import { HttpClientModule }    from '@angular/common/http';
 import { TransacListComponent } from './Transaction/transac-list/transac-list.component';
 import { AdharFormatPipe } from './custompipes/adhar-format.pipe';
+import { DragComponent } from './Product/Dragable_Product/drag/drag.component';
+import { UserInComponent } from './User/SignIn/sign-in/User-in.component';
+
 
 
 @NgModule({
@@ -38,7 +43,9 @@ import { AdharFormatPipe } from './custompipes/adhar-format.pipe';
     AssignProductComponent,
     ConvertProductComponent,
     TransacListComponent,
-    AdharFormatPipe
+    AdharFormatPipe,
+    DragComponent,
+    UserInComponent
   ],
   imports: [
     NgbModule,
@@ -46,7 +53,9 @@ import { AdharFormatPipe } from './custompipes/adhar-format.pipe';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    //MatNativeDateModule,
+    BrowserAnimationsModule,
+    DragDropModule,
+    MatButtonModule
     //ReactiveFormsModule,
     //MatDatepickerModule,        // <----- import(must)
     //MatNativeDateModule,        // <----- import for date formating(optional)

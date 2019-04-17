@@ -11,7 +11,11 @@ export class ProductList
     ConvertedUser:string;
     OwnerUser:string;
 }
-
+export class AssignProduct
+{
+    AssignProductCode:string;
+    lsProductList:ProductList[];
+}
 
 export class Product{
     constructor(){}
@@ -47,6 +51,13 @@ export const MockProductList:ProductList[]=[
     ParentCode:'',AssignedUserName:'',ConvertedUser:'',OwnerUser:''}
     
 ]
+
+export const MockAssignProduct:AssignProduct[]=[{AssignProductCode:'ASSIGNCODE1',lsProductList:[{Name:'Product 24566',Code:'Pro_code_2351',Quantity:223,Description:'',CreatedOn:'2018-09-08',IsAssign:true,
+ParentCode:'',AssignedUserName:'',ConvertedUser:'',OwnerUser:''},{Name:'Product 3423523',Code:'Pro_code_3461',Quantity:2341,Description:'',CreatedOn:'2018-09-08',IsAssign:true,
+ParentCode:'',AssignedUserName:'',ConvertedUser:'',OwnerUser:''}]},
+                                                {AssignProductCode:'ASSIGNCODE2',lsProductList:[{Name:'Product 24566',Code:'Pro_code_2351',Quantity:223,Description:'',CreatedOn:'2018-09-08',IsAssign:true,
+                                                ParentCode:'',AssignedUserName:'',ConvertedUser:'',OwnerUser:''},{Name:'Product 3423523',Code:'Pro_code_3461',Quantity:2341,Description:'',CreatedOn:'2018-09-08',IsAssign:true,
+                                                ParentCode:'',AssignedUserName:'',ConvertedUser:'',OwnerUser:''}]}]
 
 export const MockAssProductList:ProductList[]=[
     {Name:'Product 1',Code:'Pro_code_1',Quantity:12,Description:'',CreatedOn:'2018-09-08',IsAssign:true,

@@ -14,16 +14,16 @@ namespace TradeBulk_Web.Controllers.WebApi
     ITransactFactory transactFactory;
     long currentUserID = -1;
     // GET api/<controller>
-    public List<InLineTransaction> GetPending()
-    {
-     List<InLineTransaction> lsInlineTransac= transactFactory.ListUserInLinePendingTransactions(currentUserID);
-      return lsInlineTransac;
-    }
-    public List<InLineTransaction> GetComplete()
-    {
-      List<InLineTransaction> lsInlineTransac = transactFactory.ListUserInLineCompleteTransactions(currentUserID);
-      return lsInlineTransac;
-    }
+    //public List<InLineTransaction> GetPending()
+    //{
+    // List<InLineTransaction> lsInlineTransac= transactFactory.ListUserInLinePendingTransactions(currentUserID);
+    //  return lsInlineTransac;
+    //}
+    //public List<InLineTransaction> GetComplete()
+    //{
+    //  List<InLineTransaction> lsInlineTransac = transactFactory.ListUserInLineCompleteTransactions(currentUserID);
+    //  return lsInlineTransac;
+    //}
 
     // GET api/<controller>/5
     public string Get(int id)
@@ -37,10 +37,10 @@ namespace TradeBulk_Web.Controllers.WebApi
     }
 
     // PUT api/<controller>/5
-    public void Put(InLineTransaction inLineTransaction)
-    {
-      transactFactory.UpdateInlineTranscat(inLineTransaction);
-    }
+    //public void Put(InLineTransaction inLineTransaction)
+    //{
+    //  transactFactory.UpdateInlineTranscat(inLineTransaction);
+    //}
 
     // DELETE api/<controller>/5
     public void Delete(int id)

@@ -9,6 +9,7 @@ using System.Web.Http.Routing;
 using TradeBulk_BusinessLayer;
 using TradeBulk_Helper;
 using TradeBulk_Web.App_Start;
+using TradeBulk_Web.MessageHandler;
 
 namespace TradeBulk_Web
 {
@@ -17,10 +18,11 @@ namespace TradeBulk_Web
         public static void Register(HttpConfiguration config)
         {
             config.MapHttpAttributeRoutes();
+      config.MessageHandlers.Add(new TokenValidationHandler());
 
-      var container = new UnityContainer();
-      container.RegisterType<IProductManagement, ProductManagement>(new HierarchicalLifetimeManager());
-      config.DependencyResolver = new UnityResolver(container);
+      //var container = new UnityContainer();
+      //container.RegisterType<IProductManagement, ProductManagement>(new HierarchicalLifetimeManager());
+      //config.DependencyResolver = new UnityResolver(container);
 
       //string origin = "http://localhost:4200/";
 
@@ -37,11 +39,11 @@ namespace TradeBulk_Web
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
 
         }
     }

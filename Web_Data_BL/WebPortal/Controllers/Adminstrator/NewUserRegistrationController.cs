@@ -1,4 +1,4 @@
-﻿using TradeBulk_Helper;
+using TradeBulk_Helper;
 using TradeBulk_Web.Models.Administrator;
 using System;
 using System.Collections.Generic;
@@ -9,6 +9,7 @@ using System.Net.Http.Formatting;
 using System.Web.Http;
 using TradeBulk_Web.Authe_AuthoATION;
 using System.Web;
+using TradeBulk_BusinessLayer;
 
 namespace TradeBulk_Web.Controllers.Adminstrator
 {

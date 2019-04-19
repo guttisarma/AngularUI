@@ -20,28 +20,28 @@ namespace TradeBulk_Web.Controllers.WebApi
     long currentUserID = -1;
     bool isSuccess = false;
     bool isFakeData;
-    //public ProductController()
-    //{
-    //  try
-    //  {
-    //    isFakeData = Convert.ToBoolean(ConfigurationManager.AppSettings["DummyDataForAPI"]);
-    //    if (!isFakeData)
-    //    {
-    //      if (ipromngmt == null)
-    //      {
-    //        ipromngmt = new ProductManagement();
-    //        currentUserID = 10001;
-    //      }
-    //      else
-    //        currentUserID = ((CustomPrincipal)HttpContext.Current.User).UserId;
-    //    }
-    //  }
-    //  catch (Exception ex)
-    //  {
+    public ProductController()
+    {
+      try
+      {
+        isFakeData = Convert.ToBoolean(ConfigurationManager.AppSettings["DummyDataForAPI"]);
+        if (!isFakeData)
+        {
+          if (ipromngmt == null)
+          {
+            ipromngmt = new ProductManagement();
+            currentUserID = 10001;
+          }
+          else
+            currentUserID = ((CustomPrincipal)HttpContext.Current.User).UserId;
+        }
+      }
+      catch (Exception ex)
+      {
 
-    //    throw ex;
-    //  }
-    //}
+        throw ex;
+      }
+    }
     //public ProductController(IProductManagement _ipromngmt = null, long currentUserId = 0)
     public ProductController(IProductManagement _ipromngmt)
     {
@@ -74,6 +74,7 @@ namespace TradeBulk_Web.Controllers.WebApi
 
     #region List of products created Assigned and converted
     [HttpGet]
+    [Authorize]
     public List<ProductList> CreatedAssigneeProduct()
     {
       List<ProductList> lsProList = ipromngmt.MyProductList(currentUserID);
@@ -144,15 +145,17 @@ namespace TradeBulk_Web.Controllers.WebApi
     }
 
     [HttpPost]
-    public IHttpActionResult AssignProduct(List<AssignProductHelper> lsproducts, long AssignedUserPid)
+    public IHttpActionResult AssignProduct(List<AssProHelper> lsproducts, long AssignedUserPid)
     {
       isSuccess = false;
-      Dictionary<long, int> assProd = new Dictionary<long, int>();
+      List<AssProHelper> assProd = new List<AssProHelper>();
       foreach (var aPro in lsproducts)
       {
-        assProd.Add(aPro.ProductId, aPro.Count);
+        assProd.Add(new AssProHelper() { ProductId= aPro.ProductId, Qunty=aPro.Qunty });
       }
-      ipromngmt.AssignProduct(assProd, currentUserID, AssignedUserPid, out isSuccess);
+      Decimal AdvAmount = 0;
+      Decimal TotalAmount = 0;
+      ipromngmt.AssignProduct(assProd, currentUserID, AdvAmount, TotalAmount, AssignedUserPid, out isSuccess);
       if (isSuccess)
       {
         var response = new
@@ -174,15 +177,17 @@ namespace TradeBulk_Web.Controllers.WebApi
     }
 
     [HttpPost]
-    public IHttpActionResult ConvertProduct(List<AssignProductHelper> lsproducts, string NewProductName)
+    public IHttpActionResult ConvertProduct(List<ConvertAssProHelper> lsproducts, string NewProductName)
     {
       isSuccess = false;
-      Dictionary<long, int> conProd = new Dictionary<long, int>();
-      foreach (var aPro in lsproducts)
-      {
-        conProd.Add(aPro.ProductId, aPro.Count);
-      }
-      ipromngmt.ConvertProduct(conProd, NewProductName, currentUserID, out isSuccess);
+      //List<ConvertAssProHelper> conProd = new List<ConvertAssProHelper>();
+      //foreach (var aPro in lsproducts)
+      //{
+      //  conProd.Add(new ConvertAssProHelper() { AssignProductId= aPro.AssignProductId, aPro.Count });
+      //}
+      Decimal AdvAmount=0;
+      Decimal TotalAmount =0;
+      ipromngmt.ConvertProduct(lsproducts, NewProductName,  AdvAmount,  TotalAmount, currentUserID, out isSuccess);
       if (isSuccess)
       {
         var response = new

@@ -75,6 +75,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.JsonWebTokens.5.4.0\lib\net451\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Logging.5.4.0\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IdentityModel.Tokens.5.4.0\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
@@ -107,6 +116,9 @@
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\System.IdentityModel.Tokens.Jwt.5.4.0\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -167,7 +179,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DataLayer\bin\Debug\TradeBulk_DataLayer.dll</HintPath>
     </Reference>
-    <Reference Include="TradeBulk_Helper">
+    <Reference Include="TradeBulk_Helper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\HelperProject\bin\Debug\TradeBulk_Helper.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mvc3, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -379,11 +392,14 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomAuthentication\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Filters\JWTAuthenticationFilter.cs" />
+    <Compile Include="Filters\ResponseDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\UnityResolver.cs" />
+    <Compile Include="MessageHandler\TokenValidationHandler.cs" />
     <Compile Include="Migrations\201804251648279_initial_migration.cs" />
     <Compile Include="Migrations\201804251648279_initial_migration.Designer.cs">
       <DependentUpon>201804251648279_initial_migration.cs</DependentUpon>
@@ -408,6 +424,8 @@
     <Compile Include="Models\SupportModels\SubjectModel.cs" />
     <Compile Include="Models\ViewModels\AdminUsersList.cs" />
     <Compile Include="Models\ViewModels\ListEditViewModel.cs" />
+    <Compile Include="Module\AuthenticationModule.cs" />
+    <Compile Include="Module\JWTAuthenticationIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

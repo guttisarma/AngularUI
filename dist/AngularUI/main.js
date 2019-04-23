@@ -1169,6 +1169,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _HelperTs_User__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../HelperTs/User */ "./src/app/HelperTs/User.ts");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1181,8 +1183,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var UserServiceService = /** @class */ (function () {
-    function UserServiceService() {
+    function UserServiceService(http) {
+        this.http = http;
+        this.registrationUrl = 'http://localhost:55374/api/User/Authenticate';
     }
     UserServiceService.prototype.getUserbyCode = function (SearUserCode) {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_HelperTs_User__WEBPACK_IMPORTED_MODULE_1__["MockUserList"][3]);
@@ -1200,13 +1206,39 @@ var UserServiceService = /** @class */ (function () {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_HelperTs_User__WEBPACK_IMPORTED_MODULE_1__["MockexPhone"]);
     };
     UserServiceService.prototype.validateUser = function (userIn) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])("somestring");
+        var _this = this;
+        //return of("somestring")
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+        };
+        return this.http.post(this.registrationUrl, userIn, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(function (Token) { return _this.log('We got token}'); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError('Login')));
+    };
+    /** Log a HeroService message with the MessageService */
+    UserServiceService.prototype.log = function (message) {
+    };
+    /**
+  * Handle Http operation that failed.
+  * Let the app continue.
+  * @param operation - name of the operation that failed
+  * @param result - optional value to return as the observable result
+  */
+    UserServiceService.prototype.handleError = function (operation, result) {
+        var _this = this;
+        if (operation === void 0) { operation = 'operation'; }
+        return function (error) {
+            // TODO: send the error to remote logging infrastructure
+            console.error(error); // log to console instead
+            // TODO: better job of transforming error for user consumption
+            _this.log(operation + " failed: " + error.message);
+            // Let the app keep running by returning an empty result.
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(result);
+        };
     };
     UserServiceService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
     ], UserServiceService);
     return UserServiceService;
 }());
@@ -1532,7 +1564,7 @@ var UserInComponent = /** @class */ (function () {
     };
     UserInComponent.prototype.SignIn = function () {
         var _this = this;
-        alert(this.userIn.EmailID);
+        alert(this.userIn.Username);
         alert(this.userIn.Password);
         //this.userservice.validateUser(this.userIn).subscribe(temp=>this.token=temp);
         this.userservice.validateUser(this.userIn).subscribe(function (temp) { return _this.router.navigateByUrl('/'); });

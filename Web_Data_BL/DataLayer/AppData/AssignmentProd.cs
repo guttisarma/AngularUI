@@ -14,6 +14,12 @@ namespace TradeBulk_DataLayer.AppData
     
     public partial class AssignmentProd
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AssignmentProd()
+        {
+            this.ProductAssignments = new HashSet<ProductAssignment>();
+        }
+    
         public long AssignmentProdPID { get; set; }
         public long ProductPID { get; set; }
         public Nullable<long> Quantity { get; set; }
@@ -22,5 +28,7 @@ namespace TradeBulk_DataLayer.AppData
     
         public virtual Product Product { get; set; }
         public virtual ProductAssignment ProductAssignment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductAssignment> ProductAssignments { get; set; }
     }
 }

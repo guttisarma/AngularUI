@@ -4,13 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using TradeBulk_Web.Models;
 using System.Linq.Expressions;
 using TradeBulk_BusinessLayer;
 using TradeBulk_Helper;
 using TradeBulk_Helper.Interfaces;
 
-namespace TradeBulk_Web.Models.Administrator
+namespace TradeBulk_BusinessLayer
 {
     public delegate void delUpdate(ExAddress a, long b);
     public class UserManagement
@@ -24,6 +23,10 @@ namespace TradeBulk_Web.Models.Administrator
 
         IExchangeUserInfo UserProfileInfo;
         long CurrentUserPID;
+    public UserManagement()
+    {
+
+    }
         public UserManagement(long currentUserPID)
         {
             this.CurrentUserPID = currentUserPID;
@@ -34,7 +37,28 @@ namespace TradeBulk_Web.Models.Administrator
             this.UserProfileInfo = userInfo;
         }
 
-        public void SaveNewUserDetails(NewUserRegistrationSupport NewUserDeatils)
+        public  bool ValidateUser(string username, string password)
+        {
+          if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+          {
+            return false;
+          }
+
+          using (TradeBulkEntities dbContext = new TradeBulkEntities())
+          {
+            //here is the issue
+            string cipher = Security.Encrypt(password);
+            var user = (from us in dbContext.Users
+                        where string.Compare(username, us.Username, StringComparison.OrdinalIgnoreCase) == 0
+                        && string.Compare(cipher, us.Password, StringComparison.OrdinalIgnoreCase) == 0
+                        && us.IsActive == true
+                        select us).FirstOrDefault();
+
+            return (user != null) ? true : false;
+          }
+        }
+
+    public void SaveNewUserDetails(NewUserRegistrationSupport NewUserDeatils)
         {
             try
             {

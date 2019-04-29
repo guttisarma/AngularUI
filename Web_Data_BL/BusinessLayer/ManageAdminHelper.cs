@@ -1,7 +1,6 @@
-﻿using TradeBulk_Helper;
+using TradeBulk_Helper;
 using TradeBulk_DataLayer;
 using TradeBulk_DataLayer.AppData;
-using TradeBulk_Web.Models.Administrator;
 using System;
 using System.Collections.Generic;
 using System.Linq;

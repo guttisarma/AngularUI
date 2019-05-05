@@ -4,19 +4,33 @@ import {ProductList,MockProductList,MockAssProductList,MockConProductList, Assig
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product} from 'src/app/HelperTs/ProductList';
 import { catchError, map, tap } from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private createdAssigneeProductUrl = 'api/Product/CreatedAssigneeProduct';  
-  private assignedProductProductUrl = 'api/Product/AssignedProduct';  
-  private convertedProductUrl = 'api/Product/ConvertedProduct';  
-  private registrationUrl='http://localhost:55374/api/Product/CreateProduct';
+  private createdAssigneeProductUrl = '/Product/CreatedAssigneeProduct';  
+  private assignedProductProductUrl = '/Product/AssignedProduct';  
+  private convertedProductUrl = '/Product/ConvertedProduct';  
+  private registrationUrl='/Product/CreatedAssigneeProduct';
+    //Environment variable
+    baseURL:String=environment.apiBaseUrl;
 
   
   constructor( private http: HttpClient) { }
+
+  /* public getProductList(category:string):Observable<ProductList[]>{
+    if(category=='Created'){
+      var CreateProdList:ProductList[];
+       this.http.get(this.baseURL+this.createdAssigneeProductUrl).subscribe((res : any[])=>{
+        CreateProdList = res;
+    });
+    return of(CreateProdList);
+    }
+  } */
+
   public getMockProductList(category:string):Observable<ProductList[]>  {
     if(category=='Created'){
       return of(MockProductList);
@@ -42,13 +56,15 @@ export class ProductService {
 
   public getProductList(category:string):Observable<ProductList[]>  {
     if(category=='Created'){
-        return this.http.get<ProductList[]>(this.createdAssigneeProductUrl)
+      alert(this.baseURL+'/Product/CreatedAssigneeProduct');
+      alert('Jagadeesh');
+        return this.http.get<ProductList[]>(this.baseURL+'/Product/CreatedAssigneeProduct');
       }
       if(category=='Assigned'){
-        return this.http.get<ProductList[]>(this.assignedProductProductUrl)
+        return this.http.get<ProductList[]>(this.baseURL+this.assignedProductProductUrl)
       }
       if(category=='Converted'){
-        return this.http.get<ProductList[]>(this.convertedProductUrl)
+        return this.http.get<ProductList[]>(this.baseURL+this.convertedProductUrl)
       }
     }
     
@@ -57,7 +73,7 @@ export class ProductService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     alert(prod.ProductName);
-    return this.http.post(this.registrationUrl,prod,httpOptions).pipe(
+    return this.http.post(this.baseURL+this.registrationUrl,prod,httpOptions).pipe(
       tap((hero: Product) => this.log('added hero w/ id=${hero.id}')),
       catchError(this.handleError<Product>('addHero'))
     );

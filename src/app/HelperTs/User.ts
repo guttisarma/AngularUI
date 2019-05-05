@@ -63,3 +63,8 @@ export const MockUserList:User[]=[
     {Name:'Chetcogambian',Code:"Will092",ManagerName:'Acile',ManagerCode:'Ali232'},
     {Name:'Rapidswiss',Code:"Will092",ManagerName:'Acile',ManagerCode:'Ali232'},
 ]
+export class UserIn
+{
+  Username:string;
+  Password:string;
+}

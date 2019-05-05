@@ -21,11 +21,12 @@ import { ProductListComponent } from './Product/product-list/product-list.compon
 import { ProductDetailComponent } from './Product/product-detail/product-detail.component';
 import { AssignProductComponent } from './Product/assign-product/assign-product.component';
 import { ConvertProductComponent } from './Product/convert-product/convert-product.component';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule ,HTTP_INTERCEPTORS}    from '@angular/common/http';
 import { TransacListComponent } from './Transaction/transac-list/transac-list.component';
 import { AdharFormatPipe } from './custompipes/adhar-format.pipe';
 import { DragComponent } from './Product/Dragable_Product/drag/drag.component';
 import { UserInComponent } from './User/SignIn/sign-in/User-in.component';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 
 
@@ -61,7 +62,7 @@ import { UserInComponent } from './User/SignIn/sign-in/User-in.component';
     //MatNativeDateModule,        // <----- import for date formating(optional)
     //MatMomentDateModule 
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

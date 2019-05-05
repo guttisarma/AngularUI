@@ -27,7 +27,8 @@ export class ProductListComponent implements OnInit {
     this.IsCreatedclicked=true;
     this.IsAssignedclicked=false;
     this.IsConvertedclicked=false;
-    this.productservice.getMockProductList('Created').subscribe(mockproductlist=>this.MockProductList=mockproductlist);
+    alert("Created");
+    this.productservice.getProductList('Created').subscribe(mockproductlist=>this.MockProductList=mockproductlist);
     
   }
   Assignedclicked() {
@@ -41,7 +42,7 @@ export class ProductListComponent implements OnInit {
     this.IsConvertedclicked=true;
     this.IsCreatedclicked=false;
     this.IsAssignedclicked=false;
-    this.productservice.getMockProductList('Converted').subscribe(mockproductlist=>this.MockConProductList=mockproductlist);
+    this.productservice.getProductList('Converted').subscribe(mockproductlist=>this.MockConProductList=mockproductlist);
    
   }
 

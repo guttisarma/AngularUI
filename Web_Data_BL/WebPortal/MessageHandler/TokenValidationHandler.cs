@@ -11,6 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using TradeBulk_Web.Authe_AuthoATION;
 
 namespace TradeBulk_Web.MessageHandler
 {
@@ -60,8 +61,25 @@ namespace TradeBulk_Web.MessageHandler
           IssuerSigningKey = securityKey
         };
         //extract and assign the user of the jwt
-        Thread.CurrentPrincipal = handler.ValidateToken(token, validationParameters, out securityToken);
-        HttpContext.Current.User = handler.ValidateToken(token, validationParameters, out securityToken);
+        System.Security.Claims.ClaimsPrincipal claimsPrincipal= handler.ValidateToken(token, validationParameters, out securityToken);
+        IEnumerable<System.Security.Claims.ClaimsIdentity> claimsIdentities = claimsPrincipal.Identities;
+
+        var x = claimsIdentities.ToList()[0];
+        var y = x.Claims.ToList()[0];
+        var UserID = x.Claims.ToList()[1].Value;
+        //Thread.CurrentPrincipal = new CustomPrincipal(x.Claims.ToList()[0].Value);
+        //Thread.CurrentPrincipal = handler.ValidateToken(token, validationParameters, out securityToken);
+        var sample = handler.ValidateToken(token, validationParameters, out securityToken);
+        //HttpContext.Current.User= new CustomPrincipal(x.Claims.ToList()[0].Value);
+
+        CustomPrincipal principal = new CustomPrincipal(x.Claims.ToList()[0].Value);
+
+        principal.UserId =Convert.ToInt32( x.Claims.ToList()[1].Value);
+        //principal.FirstName = serializeModel.FirstName;
+        //principal.LastName = serializeModel.LastName;
+        //principal.Roles = serializeModel.RoleName.ToArray<string>();
+        HttpContext.Current.User = principal;
+        Thread.CurrentPrincipal = principal;
 
         return base.SendAsync(request, cancellationToken);
       }

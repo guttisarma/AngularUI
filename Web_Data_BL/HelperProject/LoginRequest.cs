@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TradeBulk_Helper.Interfaces
+namespace TradeBulk_Helper
 {
   public class LoginRequest
   {
     public string Username { get; set; }
     public string Password { get; set; }
+
   }
 }

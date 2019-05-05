@@ -37,10 +37,11 @@ namespace TradeBulk_BusinessLayer
             this.UserProfileInfo = userInfo;
         }
 
-        public  bool ValidateUser(string username, string password)
+        public  bool ValidateUser(string username, string password,out long userId)
         {
           if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
           {
+            userId = 0;
             return false;
           }
 
@@ -54,7 +55,10 @@ namespace TradeBulk_BusinessLayer
                         && us.IsActive == true
                         select us).FirstOrDefault();
 
-            return (user != null) ? true : false;
+        var userDetails= dbContext.UserDetails.Where(x => x.UserPID == user.UserId);
+
+        userId = userDetails.FirstOrDefault<UserDetail>().UserdetailPID;
+        return (user != null) ? true : false;
           }
         }
 

@@ -47,7 +47,7 @@ namespace TradeBulk_Web.Controllers.WebApi
       return "value";
     }
     [NonAction]
-    private string createToken(string username)
+    private string createToken(string username,long UserId)
     {
       //Set issued at date
       DateTime issuedAt = DateTime.UtcNow;
@@ -60,7 +60,9 @@ namespace TradeBulk_Web.Controllers.WebApi
       //create a identity and add claims to the user which we want to log in
       ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
       {
-                new Claim(ClaimTypes.Name, username)
+                new Claim("UserName", username),
+
+                new Claim("UserID",UserId.ToString())
             });
 
       const string sec = "401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1";
@@ -92,14 +94,15 @@ namespace TradeBulk_Web.Controllers.WebApi
       //HttpResponseMessage responseMsg = new HttpResponseMessage();
       bool isUsernamePasswordValid = false;
     UserManagement umgnt = new UserManagement();
-    isUsernamePasswordValid= umgnt.ValidateUser(login.Username, login.Password);
+      long UserId = 0;
+    isUsernamePasswordValid= umgnt.ValidateUser(login.Username, login.Password,out UserId);
       isUsernamePasswordValid = true;
       //if (login != null)
       //  isUsernamePasswordValid = loginrequest.Password == "admin" ? true : false;
       // if credentials are valid
     if (isUsernamePasswordValid)
       {
-        string token = createToken(login.Username);
+        string token = createToken(login.Username,UserId);
         //return the token
         return Ok<string>(token);
       }

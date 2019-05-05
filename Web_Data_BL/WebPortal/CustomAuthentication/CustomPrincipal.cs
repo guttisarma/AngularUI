@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -38,6 +38,7 @@ namespace TradeBulk_Web.Authe_AuthoATION
         public CustomPrincipal(string username)
         {
             Identity = new GenericIdentity(username);
+            
         }
     }
 }

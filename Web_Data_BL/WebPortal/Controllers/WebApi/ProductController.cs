@@ -25,7 +25,7 @@ namespace TradeBulk_Web.Controllers.WebApi
       try
       {
         isFakeData = Convert.ToBoolean(ConfigurationManager.AppSettings["DummyDataForAPI"]);
-        if (!isFakeData)
+        if (isFakeData)
         {
           if (ipromngmt == null)
           {
@@ -33,7 +33,11 @@ namespace TradeBulk_Web.Controllers.WebApi
             currentUserID = 10001;
           }
           else
+          {
+            ipromngmt = new ProductManagement();
             currentUserID = ((CustomPrincipal)HttpContext.Current.User).UserId;
+          }
+           
         }
       }
       catch (Exception ex)

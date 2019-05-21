@@ -8,6 +8,7 @@ import { UserDetailComponent } from './User/Detail/user-detail/user-detail.compo
 import { ProductRegistrationComponent } from './Product/product-registration/product-registration.component';
 import { ProductListComponent } from './Product/product-list/product-list.component';
 import { ProductDetailComponent } from './Product/product-detail/product-detail.component';
+import {ProductMgrComponent} from './Product/product-mgr/product-mgr.component';
 import { AssignProductComponent } from './Product/assign-product/assign-product.component';
 import { ConvertProductComponent } from './Product/convert-product/convert-product.component';
 import { TransacListComponent } from './Transaction/transac-list/transac-list.component';
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path:'\AssignProduct',component:AssignProductComponent},
   {path:'\MyTransactions',component:TransacListComponent},
   {path:'\MyDragProduct',component:DragComponent},
-  {path:'\ConvertProduct',component:ConvertProductComponent}
+  {path:'\ConvertProduct',component:ConvertProductComponent},
+  {path:'\ProductCenter',component:ProductMgrComponent},
 
 ];
 

@@ -19,6 +19,7 @@ import { UserDetailComponent } from './User/Detail/user-detail/user-detail.compo
 import { ProductRegistrationComponent } from './Product/product-registration/product-registration.component';
 import { ProductListComponent } from './Product/product-list/product-list.component';
 import { ProductDetailComponent } from './Product/product-detail/product-detail.component';
+import {ProductMgrComponent} from './Product/product-mgr/product-mgr.component';
 import { AssignProductComponent } from './Product/assign-product/assign-product.component';
 import { ConvertProductComponent } from './Product/convert-product/convert-product.component';
 import { HttpClientModule ,HTTP_INTERCEPTORS}    from '@angular/common/http';
@@ -46,6 +47,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
     TransacListComponent,
     AdharFormatPipe,
     DragComponent,
+    ProductMgrComponent,
     UserInComponent
   ],
   imports: [

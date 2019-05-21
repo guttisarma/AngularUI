@@ -68,3 +68,27 @@ export class UserIn
   Username:string;
   Password:string;
 }
+
+export class RegUser
+  {
+    public lRegUserid:number ;
+    public strFirstName:string;
+    public strMiddleName:string
+    public strLastName:string;
+    public strDob:string;
+    public strAdharNumber:string;
+    public bGender:boolean;
+    public lsAddrssUser:AddrssUser[];
+
+  }
+export class AddrssUser
+  {
+    public  iAddressTypeid:number;
+    public  strAddress1:string;
+    public  strAddress2:string;
+    public  strAddress3:string;
+    public  lPhoneid:number;
+    public  strPhone:string;
+    public  lEmailid:number;
+    public  strEmail:string;
+  }

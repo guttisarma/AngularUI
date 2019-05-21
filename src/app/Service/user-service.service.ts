@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {UserIn} from '../../app/HelperTs/User';
+import {RegUser,AddrssUser} from '../HelperTs/User';
 
 @Injectable({
   providedIn: 'root'
@@ -36,21 +37,36 @@ export class UserServiceService {
     };
     alert(this.baseURL+'/User/Authenticate');
     alert(LoginRequest.Username);
-    try{
+    /* try{
       this.http.post('http://localhost:55374/api//User/Authenticate',LoginRequest,httpOptions)
     }catch(ex){
         console.log(ex);
         alert(ex);
-    }
+    } */
 
     return  this.http.post('http://localhost:55374/api//User/Authenticate',LoginRequest,httpOptions).pipe(
         tap((JWT: string) => {
           localStorage.setItem("AuthToken",JWT); 
-          alert(JWT);
-          
+          console.log(JWT);
         }),
         catchError(this.handleError<string>('addHero'))
       );
+  }
+
+  Register(regUser:RegUser):Observable<RegUser>{
+    
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    try{
+      this.http.post('http://localhost:55374/api//User/Registration',regUser,httpOptions).pipe(tap(
+        (regUserResult:RegUser)=>{return regUserResult;}),catchError(this.handleError<string>('')))
+    }catch(ex){
+        console.log(ex);
+        return null;
+    }
+
+   
   }
   /** Log a HeroService message with the MessageService */
   private log(message: string) {

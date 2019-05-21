@@ -61,10 +61,10 @@ export class ProductService {
         return this.http.get<ProductList[]>(this.baseURL+'/Product/CreatedAssigneeProduct');
       }
       if(category=='Assigned'){
-        return this.http.get<ProductList[]>(this.baseURL+this.assignedProductProductUrl)
+        return this.http.get<ProductList[]>(this.baseURL+'/Product/AssignedProduct');
       }
       if(category=='Converted'){
-        return this.http.get<ProductList[]>(this.baseURL+this.convertedProductUrl)
+        return this.http.get<ProductList[]>(this.baseURL+this.convertedProductUrl);
       }
     }
     

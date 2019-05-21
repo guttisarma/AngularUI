@@ -35,7 +35,7 @@ export class ProductListComponent implements OnInit {
     this.IsAssignedclicked=true;
     this.IsCreatedclicked=false;
     this.IsConvertedclicked=false;
-    this.productservice.getMockAssignedPro('Assigned').subscribe(mockproductlist=>this.MockAssignProduct=mockproductlist);
+    //this.productservice.getProductList('Assigned').subscribe(mockproductlist=>this.MockAssignProduct=mockproductlist);
     
   }
   Convertedclicked(){

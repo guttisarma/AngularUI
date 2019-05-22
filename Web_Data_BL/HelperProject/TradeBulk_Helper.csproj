@@ -65,13 +65,19 @@
     <Compile Include="Interfaces\ITransactFactory.cs" />
     <Compile Include="LoginRequest.cs" />
     <Compile Include="LoginResponse.cs" />
-    <Compile Include="ProductList.cs" />
+    <Compile Include="WebAPIhelper\ProductList.cs" />
     <Compile Include="CurrentAuction.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="NewProductViewModel.cs" />
     <Compile Include="NewUserRegistrationSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInfo.cs" />
+    <Compile Include="WebAPIhelper\AddrssUser.cs" />
+    <Compile Include="WebAPIhelper\AssignmentPrdct.cs" />
+    <Compile Include="WebAPIhelper\CreProd.cs" />
+    <Compile Include="WebAPIhelper\ListAssignmentProd.cs" />
+    <Compile Include="WebAPIhelper\Note.cs" />
+    <Compile Include="WebAPIhelper\RegUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

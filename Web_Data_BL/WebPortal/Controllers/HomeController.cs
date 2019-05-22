@@ -72,7 +72,7 @@ namespace TradeBulk_Web.Controllers
                     ProductManagement pMgmt = new ProductManagement();
                     var CurrentUserId = ((TradeBulk_Web.Authe_AuthoATION.CustomPrincipal)HttpContext.User).UserId;
                     bool IsSuccess = false;
-                    pMgmt.CreateProduct(ProductDetails, CurrentUserId,out IsSuccess);
+                    //pMgmt.CreateProduct(ProductDetails, CurrentUserId,out IsSuccess);
                     // Returns message that successfully uploaded  
                     return Json("File Uploaded Successfully!");
                 }

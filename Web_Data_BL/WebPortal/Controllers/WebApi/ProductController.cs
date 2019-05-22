@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using TradeBulk_BusinessLayer;
 using TradeBulk_Helper;
+using TradeBulk_Helper.WebAPIhelper;
 using TradeBulk_Web.Authe_AuthoATION;
 
 namespace TradeBulk_Web.Controllers.WebApi
@@ -81,7 +82,7 @@ namespace TradeBulk_Web.Controllers.WebApi
     [Authorize]
     public List<ProductList> CreatedAssigneeProduct()
     {
-      List<ProductList> lsProList = ipromngmt.MyProductList(currentUserID);
+      List<ProductList> lsProList = ipromngmt.MyCreatedAssignedProduct(currentUserID);
       return lsProList;
     }
 
@@ -122,12 +123,38 @@ namespace TradeBulk_Web.Controllers.WebApi
     #endregion
 
     #region Action part for Products
-    [HttpPost]
+    //[HttpPost]
     // POST: api/Product
-    public IHttpActionResult CreateProduct(NewProductViewModel newPro)
+    //public IHttpActionResult CreateProduct(NewProductViewModel newPro)
+    //{
+    //  isSuccess = false;
+    //  ipromngmt.CreateProduct(newPro, currentUserID, out isSuccess);
+    //  if (isSuccess)
+    //  {
+    //    var response = new
+    //    {
+    //      Success = true,
+    //      Message = "Created",
+    //    };
+    //    return Ok(newPro);
+    //  }
+    //  else
+    //  {
+    //    var response = new
+    //    {
+    //      Success = false,
+    //      Message = "Retry",
+    //    };
+    //    return Ok(response);
+    //  }
+    //}
+
+    [HttpPost]
+    [ActionName("CreateProd")]
+    public IHttpActionResult CreProd(CreProd creProd)
     {
       isSuccess = false;
-      ipromngmt.CreateProduct(newPro, currentUserID, out isSuccess);
+      ipromngmt.CreateProduct(creProd, currentUserID, out isSuccess);
       if (isSuccess)
       {
         var response = new
@@ -135,7 +162,7 @@ namespace TradeBulk_Web.Controllers.WebApi
           Success = true,
           Message = "Created",
         };
-        return Ok(newPro);
+        return Ok(creProd);
       }
       else
       {
@@ -149,17 +176,17 @@ namespace TradeBulk_Web.Controllers.WebApi
     }
 
     [HttpPost]
-    public IHttpActionResult AssignProduct(List<AssProHelper> lsproducts, long AssignedUserPid)
+    public IHttpActionResult AssignProduct(AssignProdToUser assignProdToUser)
     {
       isSuccess = false;
       List<AssProHelper> assProd = new List<AssProHelper>();
-      foreach (var aPro in lsproducts)
+      foreach (var aPro in assignProdToUser.lsproducts)
       {
         assProd.Add(new AssProHelper() { ProductId= aPro.ProductId, Qunty=aPro.Qunty });
       }
       Decimal AdvAmount = 0;
       Decimal TotalAmount = 0;
-      ipromngmt.AssignProduct(assProd, currentUserID, AdvAmount, TotalAmount, AssignedUserPid, out isSuccess);
+      ipromngmt.AssignProduct(assProd, currentUserID, AdvAmount, TotalAmount, assignProdToUser.AssignedUserPid, out isSuccess);
       if (isSuccess)
       {
         var response = new
@@ -216,7 +243,7 @@ namespace TradeBulk_Web.Controllers.WebApi
     public IHttpActionResult UpdateProduct(NewProductViewModel newPro)
     {
       isSuccess = false;
-      ipromngmt.CreateProduct(newPro, currentUserID, out isSuccess);
+     // ipromngmt.CreateProduct(newPro, currentUserID, out isSuccess);
       if (isSuccess)
       {
         var response = new

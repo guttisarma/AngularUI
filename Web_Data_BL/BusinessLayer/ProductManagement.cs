@@ -9,6 +9,7 @@ using TradeBulk_Helper;
 using TradeBulk_Helper.Interfaces;
 using System.Linq.Expressions;
 using InlineTranscatType = TradeBulk_Helper.InlineTranscatType;
+using TradeBulk_Helper.WebAPIhelper;
 
 namespace TradeBulk_BusinessLayer
 {
@@ -49,7 +50,7 @@ namespace TradeBulk_BusinessLayer
     /// </summary>
     /// <param name="currentUserID"></param>
     /// <returns></returns>
-    public List<ProductList> MyProductList(long currentUserID)
+    public List<ProductList> MyCreatedAssignedProduct(long currentUserID)
     {
       using (UnitOfWork unitOfWork = new UnitOfWork())
       {
@@ -328,7 +329,7 @@ namespace TradeBulk_BusinessLayer
     /// </summary>
     /// <param name="product"></param>
     /// <param name="CurrentUserID"></param>
-    public void CreateProduct(NewProductViewModel product, long CurrentUserID, out bool isSuccess)
+    public void CreateProduct(CreProd product, long CurrentUserID, out bool isSuccess)
     {
       try
       {
@@ -341,29 +342,29 @@ namespace TradeBulk_BusinessLayer
           UserRepository = unitOfWork.GetRepoInstance<User>();
           Product prdct = new Product();
 
-          prdct.ProductName = product.ProductName;
+          prdct.ProductName = product.strProdName;
           prdct.Code = GenProductCode("Create");//need to generate
-          prdct.Description = product.Description;
+          prdct.Description = product.strDescription;
           prdct.Price = Convert.ToDecimal(product.Price);
           prdct.CreatedOn = DateTime.Now;
           //owner
           prdct.OwnerPID = CurrentUserID;//UserRepository.GetByID(CurrentUserID);
           prdct.CreatedUserPID = CurrentUserID;
           //803 taking input from User not hard corded one
-          prdct.ProductType = ProductTypeRepository.GetByID((long)EProductType.Inventatory);
-          prdct.Quanity = Convert.ToInt32(product.Quantity);
-          prdct.RemQuantity = Convert.ToInt32(product.Quantity);
+          prdct.ProductType = ProductTypeRepository.GetByID(product.lProducttypeid);
+          prdct.Quanity = Convert.ToInt32(product.lQuantity);
+          prdct.RemQuantity = Convert.ToInt32(product.lQuantity);
           ProductRepository.Insert(prdct);
-          if (product.Documents != null)
-            foreach (DocumentViewModel Dviewmodel in product.Documents)
-            {
-              Document dcment = new Document();
-              dcment.ServerPath = Dviewmodel.DocumentPath;
-              dcment.FileExtension = Dviewmodel.MIMEType;
-              dcment.DocumentType = DocumentTypeRepository.GetByID((long)EDocumentType.ProfilePhoto);
-              dcment.Products.Add(prdct);
-              DocumentRepository.Insert(dcment);
-            }
+          //if (product.Documents != null)
+          //  foreach (DocumentViewModel Dviewmodel in product.Documents)
+          //  {
+          //    Document dcment = new Document();
+          //    dcment.ServerPath = Dviewmodel.DocumentPath;
+          //    dcment.FileExtension = Dviewmodel.MIMEType;
+          //    dcment.DocumentType = DocumentTypeRepository.GetByID((long)EDocumentType.ProfilePhoto);
+          //    dcment.Products.Add(prdct);
+          //    DocumentRepository.Insert(dcment);
+          //  }
           unitOfWork.SaveChanges();
           //if (product.Price != null)
           //{

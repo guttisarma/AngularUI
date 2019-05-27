@@ -1,0 +1,40 @@
+<div class="row">
+  
+  <div class="col-sm-8">
+      <div class="row">
+          <div  class="example-boundary">
+              <div class="example-box" (cdkDropListDropped)="drop($event)" *ngFor="let defaultAction of defaultActions"
+                cdkDragBoundary=".example-boundary" cdkDrag>
+                {{defaultAction}}
+              </div>
+              <div class="example-box"  *ngFor="let newProduct of newProducts"
+                cdkDragBoundary=".example-boundary" (dragEnd)="dragEnd($event)" cdkDrag>
+                {{newProduct}}
+              </div>
+            </div>
+      </div>
+    <div class="row">
+
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="row">
+        Product Name:<input type="text" #newPro (keyup.enter)="AddProduct(newPro.value)">
+    </div>
+    <div class="row">
+      <div class="row">
+          Action Name:<input type="text" #newAction (keyup.enter)="AddAction(newAction.value)">
+      </div>
+      <div class="row">
+        Action Time:<input type="text" #newActionTimer (keyup.enter)="AddActionTimer(newActionTimer.value)">
+      </div>
+      <div class="row">
+        <button (click)='enableAction()'>Enable Action</button>
+      </div>
+
+        
+    </div>
+   
+    <!--(blur)="AddElement(newEle.value); newEle.value='' "-->
+  </div>
+</div>

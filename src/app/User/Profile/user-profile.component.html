@@ -1,0 +1,164 @@
+<div class="container">
+  <form class="form-horizontal">
+
+    <div class="row top-buffer">
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <label class="control-label col-sm-4" for="firstname">First Name:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="firstname" [(ngModel)]="person.strFirstName" placeholder="Enter First Name"
+              name="first" readonly>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="control-label col-sm-4" for="middlename">Middle Name:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="middlename" [(ngModel)]="person.strMiddleName" placeholder="Enter Middle Name"
+              name="middle">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="control-label col-sm-4" for="lastname">Last Name:</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="lastname" [(ngModel)]="person.strLastName" placeholder="Enter Last Name"
+              name="last" readonly>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="control-label col-sm-4" for="gender">Gender:</label>
+          <div class="col-sm-8">
+            <label class="radio-inline"><input type="radio" name="optradio" checked>Male</label>
+            <label class="radio-inline"><input type="radio" name="optradio">Female</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="control-label col-sm-4" for="dateofbirth">Date of Birth:</label>
+          <div class="col-sm-8">
+
+            <form class="form-inline">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="col-sm-8">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="person.dtDateOfBirth"
+                      ngbDatepicker #d="ngbDatepicker" readonly></div>
+                  <!--  <div class="col-sm-4">
+                    <div class="input-group">
+                      <button class="btn btn-outline-primary calendar" (click)="d.toggle()" type="button"><span class="glyphicon glyphicon-th"></span></button>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <div class="col-sm-4 text-right">
+            <app-multi-option [category]="uniqueID"></app-multi-option>
+          </div>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="uniquenumber" [(ngModel)]="person.strUniqueNumber" (seletedOption)="onSelectionChanged($event)" placeholder="Enter Unique Number"
+              name="Uniquenumberselection">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div *ngIf="selectedImage != null">
+          <img src="{{selectedImage.url}}" class="img-rounded" alt="Upload a pic" width="304" height="236">
+        </div>
+        <div class="row top-buffer">
+          <div class="col-sm-6">
+            <input type="file" (change)="onFileSelected($event)" />
+          </div>
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-secondary btn-sm" (click)="onUpload()">Upload</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row top-buffer">
+      <ngb-tabset type="pills">
+        <ngb-tab title="Communication Details">
+          <ng-template ngbTabContent>
+            <div class="row top-buffer">
+              <div class="col-sm-6">
+                <div class="row top-buffer">
+                  <div class="form-group row">
+                    <label class="control-label col-sm-4" for="address1">Type of Details:</label>
+                    <div class="col-sm-8 text-left">
+                      <app-multi-option [category]="AddressType" (seletedOption)="onSelectionChanged($event)"></app-multi-option>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="control-label col-sm-4" for="address1">Door No & Street:</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="address1" [(ngModel)]="address1" placeholder="Door No & Street"
+                        name="addressfirst">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="control-label col-sm-4" for="address2">Village & Town:</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="address2" [(ngModel)]="address2" placeholder="Village & Town"
+                        name="addresssecond">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="control-label col-sm-4" for="address3">District,State & Country:</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="address3" [(ngModel)]="address3" placeholder="District,State & Country"
+                        name="addressthird">
+                    </div>
+                  </div>
+                  <div class="col-sm-9"></div>
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                      <div class="col-sm-offset-2">
+                        <button type="submit" class="btn btn-primary btn-xs">Add</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group row">
+                  <label class="control-label col-sm-4" for="phonenumber">Phone Number</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="phonenumber" [(ngModel)]="phonumber" placeholder="Enter Phone Number"
+                      name="phonenumbername">
+                  </div>
+                  <div class="col-sm-2">
+                    <button type="button" class="btn btn-primary btn-xs" (click)='addPhone()'>Add</button>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="control-label col-sm-4" for="emailid">Email ID</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="emailid" [(ngModel)]="emailId" placeholder="Enter Email ID"
+                      name="emailidtext">
+                  </div>
+                  <div class="col-sm-2">
+                    <button type="button" class="btn btn-primary btn-xs" (click)='addEmail()'>Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle>UnderTaken Users</ng-template>
+          <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee
+            squid.
+            <p>Here users list will appreas</p>
+          </ng-template>
+        </ngb-tab>
+
+      </ngb-tabset>
+    </div>
+    
+  </form>
+
+</div>

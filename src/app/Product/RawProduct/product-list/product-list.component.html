@@ -1,0 +1,14 @@
+
+<div >
+  <div class="row" *ngFor='let pro of ListofProd'>
+    <div class="col-sm-2">{{pro.Name}}</div>
+    <div class="col-sm-2">{{pro.Code}}</div>
+    <div class="col-sm-1">{{pro.Quantity}}</div>
+    <div class="col-sm-1">{{pro.RemQuantity}}</div>
+    <div class="col-sm-2">{{pro.Description}}</div>
+    <div class="col-sm-2">{{pro.CreatedOn}}</div>
+    <div class="col-sm-2">
+      <a [routerLink]="['/ProductDetails',pro.Code]"></a>
+    </div>
+  </div>
+</div>

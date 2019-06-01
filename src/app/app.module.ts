@@ -20,7 +20,7 @@ import { UserDetailComponent } from './User/Detail/user-detail/user-detail.compo
 
 import { HttpClientModule ,HTTP_INTERCEPTORS}    from '@angular/common/http';
 import { TransacListComponent } from './Transaction/transac-list/transac-list.component';
-import { AdharFormatPipe } from './custompipes/adhar-format.pipe';
+//import { AdharFormatPipe } from './custompipes/adhar-format.pipe';
 //import { DragComponent } from './Product/Dragable_Product/drag/drag.component';
 import { UserInComponent } from './User/SignIn/sign-in/User-in.component';
 import { TokenInterceptorService } from './token-interceptor.service';
@@ -39,8 +39,7 @@ import { ProductModule } from './product/product.module';
     UserListComponent,
     UserDetailComponent,
     TransacListComponent,
-    AdharFormatPipe,
-    ProductModule,
+   // AdharFormatPipe,
     //DragComponent,
     //ProductMgrComponent,
     UserInComponent,
@@ -56,8 +55,8 @@ import { ProductModule } from './product/product.module';
     DragDropModule,
     MatButtonModule,
     //ProductRoutingModule,
-    AppRoutingModule,
     ProductModule,
+    AppRoutingModule,
     //ReactiveFormsModule,
     //MatDatepickerModule,        // <----- import(must)
     //MatNativeDateModule,        // <----- import for date formating(optional)

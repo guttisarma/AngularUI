@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'src/environments/environment.PreProd';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent {
   UserList:string='UserList';
   //NewUser person=new NewUser();
   closeResult: string;
+  selectedEnv:string=environment.name;
  
   //person.startDate = new Date(1990, 0, 1);
 }

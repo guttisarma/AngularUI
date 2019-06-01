@@ -9,7 +9,9 @@ import { ConvertProductComponent } from './ConvertProduct/convert-product/conver
 import {DragComponent} from './Dragable_Product/drag/drag.component';
 import { RouterModule } from '@angular/router';
 import {ProductRoutingModule} from './product-routing.module';
-import {ProductService} from './product.service';;
+import {ProductService} from './product.service';import { FormsModule } from '@angular/forms';
+import {AssignedProductListComponent} from './AssignProduct/assigned-product-list/assigned-product-list.component';
+;
 
 @NgModule({
   declarations: [
@@ -17,14 +19,14 @@ import {ProductService} from './product.service';;
     ProductListComponent,
     ProductDetailComponent,
     AssignProductComponent,
+    AssignedProductListComponent,
     ConvertProductComponent,
     DragComponent,
-    ProductMgrComponent,
-    RouterModule
+    ProductMgrComponent
   ],
   imports: [
     CommonModule,
-    ProductService,
+    FormsModule,
     ProductRoutingModule
   ]
 })

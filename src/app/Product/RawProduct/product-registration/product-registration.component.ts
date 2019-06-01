@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../product.service';
 import { Product,Note } from 'src/app/HelperTs/ProductList';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-registration',

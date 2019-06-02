@@ -55,11 +55,13 @@ namespace TradeBulk_Web.MessageHandler
         {
           ValidAudience = "http://localhost:50191",
           ValidIssuer = "http://localhost:50191",
-          ValidateLifetime = true,
+          ValidateLifetime = false,
           ValidateIssuerSigningKey = true,
           LifetimeValidator = this.LifetimeValidator,
-          IssuerSigningKey = securityKey
+          IssuerSigningKey = securityKey,
+          RequireExpirationTime =true
         };
+        
         //extract and assign the user of the jwt
         System.Security.Claims.ClaimsPrincipal claimsPrincipal= handler.ValidateToken(token, validationParameters, out securityToken);
         IEnumerable<System.Security.Claims.ClaimsIdentity> claimsIdentities = claimsPrincipal.Identities;

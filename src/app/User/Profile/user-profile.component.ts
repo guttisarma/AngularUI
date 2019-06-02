@@ -12,6 +12,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService:UserServiceService) { }
   uniqueID:string='uniqueID';
   AddressType:string='AddressType';
+  selectedImage:File;
   UserList:string='UserList';
   phonumber:string;
   emailId:string;
@@ -33,6 +34,12 @@ export class UserProfileComponent implements OnInit {
     this.getexPhone();
     this.getexAddress();
     this.getexEmail();
+  }
+  onFileSelected(select:any){
+
+  }
+  onUpload(){
+
   }
 
 

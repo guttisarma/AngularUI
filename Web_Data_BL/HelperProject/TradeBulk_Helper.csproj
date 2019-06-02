@@ -65,6 +65,7 @@
     <Compile Include="Interfaces\ITransactFactory.cs" />
     <Compile Include="LoginRequest.cs" />
     <Compile Include="LoginResponse.cs" />
+    <Compile Include="WebAPIhelper\AssignProdToUser.cs" />
     <Compile Include="WebAPIhelper\ProductList.cs" />
     <Compile Include="CurrentAuction.cs" />
     <Compile Include="LogHelper.cs" />

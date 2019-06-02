@@ -14,6 +14,24 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(private route:ActivatedRoute,private router:Router,private productservice:ProductService) { }
   prod$:Observable<Product>;
+  proddetail:Product;
+  note:Note={subject:'',comment:''};
+   prod:Product={ProductName:'',ProductCode:'',quantity:0,description:''};
+   selectedImage:File =null;
+ 
+  onFileSelected(event){
+    console.log(event.target.files[0]);
+    this.selectedImage=event.target.files[0];
+    console.log(this.selectedImage.name);
+  }
+  onUpload(){
+    const fd=new FormData();
+    fd.append('image',this.selectedImage,this.selectedImage.name);
+    
+  }
+  submit(){
+    this.productservice.registration(this.prod).subscribe(x=>this.prod=x);
+  }
   ngOnInit() {
     
  this.prod$=this.route.paramMap.pipe(
@@ -21,7 +39,7 @@ export class ProductDetailComponent implements OnInit {
         (params:ParamMap)=>this.productservice.getProdbyCode(params.get('code'))
     )
     )
-
+    //this.proddetail=this.prod$;
   }
 
 }

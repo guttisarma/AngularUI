@@ -12,6 +12,8 @@ export class ConvertProductComponent implements OnInit {
   constructor(private productservice:ProductService) { }
   plist:ProductList[]=[];
   selectedlist:ProductList[]=[];
+  proCodeKey:string;
+  
 
   ngOnInit() {
     this.getAssignedProducts();
@@ -29,6 +31,9 @@ export class ConvertProductComponent implements OnInit {
    this.selectedlist.push(p);
 
 
+  }
+  searchProductCode(){
+    
   }
 
 }

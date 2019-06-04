@@ -86,23 +86,42 @@ namespace TradeBulk_Web.Controllers.WebApi
     public IHttpActionResult Authenticate([FromBody] LoginRequest login)
     {
       var loginResponse = new LoginResponse { };
-      //LoginRequest loginrequest = new LoginRequest { };
-      //loginrequest.Username = login.Username.ToLower();
-      //loginrequest.Password = login.Password;
 
       IHttpActionResult response;
-      //HttpResponseMessage responseMsg = new HttpResponseMessage();
       bool isUsernamePasswordValid = false;
-    UserManagement umgnt = new UserManagement();
+      UserManagement umgnt = new UserManagement();
       long UserId = 0;
-    isUsernamePasswordValid= umgnt.ValidateUser(login.Username, login.Password,out UserId);
+      isUsernamePasswordValid= umgnt.ValidateUser(login.Username, login.Password,out UserId);
       isUsernamePasswordValid = true;
-      //if (login != null)
-      //  isUsernamePasswordValid = loginrequest.Password == "admin" ? true : false;
-      // if credentials are valid
-    if (isUsernamePasswordValid)
+      if (isUsernamePasswordValid)
+        {
+          string token = createToken(login.Username,UserId);
+          //return the token
+          return Ok<string>(token);
+        }
+      else
+        {
+          // if credentials are not valid send unauthorized status code in response
+          loginResponse.responseMsg.StatusCode = HttpStatusCode.Unauthorized;
+          response = ResponseMessage(loginResponse.responseMsg);
+          return response;
+        }
+    }
+
+    [HttpPost]
+    public IHttpActionResult ResetPassword([FromBody] LoginRequest login)
+    {
+      var loginResponse = new LoginResponse { };
+
+      IHttpActionResult response;
+      bool isUsernamePasswordValid = false;
+      UserManagement umgnt = new UserManagement();
+      long UserId = 0;
+      isUsernamePasswordValid = umgnt.ResetPassword(login.Username, login.Password, out UserId);
+      isUsernamePasswordValid = true;
+      if (isUsernamePasswordValid)
       {
-        string token = createToken(login.Username,UserId);
+        string token = createToken(login.Username, UserId);
         //return the token
         return Ok<string>(token);
       }
@@ -113,9 +132,8 @@ namespace TradeBulk_Web.Controllers.WebApi
         response = ResponseMessage(loginResponse.responseMsg);
         return response;
       }
+
     }
-
-
     // POST: api/User
     [HttpPost]
     public void AddAddress(ExAddress exaddress)

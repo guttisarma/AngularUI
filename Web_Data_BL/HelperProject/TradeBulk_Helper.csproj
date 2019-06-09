@@ -79,6 +79,7 @@
     <Compile Include="WebAPIhelper\ListAssignmentProd.cs" />
     <Compile Include="WebAPIhelper\Note.cs" />
     <Compile Include="WebAPIhelper\RegUser.cs" />
+    <Compile Include="WebAPIhelper\WebApiCommonActionResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -36,7 +36,28 @@ namespace TradeBulk_BusinessLayer
       this.CurrentUserPID = currentUserPID;
       this.UserProfileInfo = userInfo;
     }
+    //password is not required 
+    public bool isUserExists(string username, out long userId)
+    {
+      if (string.IsNullOrEmpty(username))
+      {
+        userId = 0;
+        return false;
+      }
 
+      using (TradeBulkEntities dbContext = new TradeBulkEntities())
+      {
+        var user = (from us in dbContext.Users
+                    where string.Compare(username, us.Username, StringComparison.OrdinalIgnoreCase) == 0
+                    && us.IsActive == true
+                    select us).FirstOrDefault();
+
+        var userDetails = dbContext.UserDetails.Where(x => x.UserPID == user.UserId);
+
+        userId = userDetails.FirstOrDefault<UserDetail>().UserdetailPID;
+        return (user != null) ? true : false;
+      }
+    }
     public bool ValidateUser(string username, string password, out long userId)
     {
       if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
@@ -56,7 +77,11 @@ namespace TradeBulk_BusinessLayer
                     select us).FirstOrDefault();
 
         var userDetails = dbContext.UserDetails.Where(x => x.UserPID == user.UserId);
-
+        if(userDetails==null)
+        {
+          userId = 0;
+          return false;
+        }
         userId = userDetails.FirstOrDefault<UserDetail>().UserdetailPID;
         return (user != null) ? true : false;
       }
@@ -82,6 +107,7 @@ namespace TradeBulk_BusinessLayer
           user.Password= Security.Encrypt(password);
           UserRepository.Update(user);
           userId = userFound.First<UserDetail>().UserdetailPID;
+          unitOfWork.SaveChanges();
           return true;
         }
         else

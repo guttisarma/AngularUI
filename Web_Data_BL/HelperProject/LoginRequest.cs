@@ -8,6 +8,7 @@ namespace TradeBulk_Helper
 {
   public class LoginRequest
   {
+    public long UserId { get; set; }
     public string Username { get; set; }
     public string Password { get; set; }
 

@@ -19,7 +19,7 @@ namespace TradeBulk_Web
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            Bootstrapper.Initialise();
+            //Bootstrapper.Initialise();
     }
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {

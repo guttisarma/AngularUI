@@ -47,7 +47,7 @@ namespace TradeBulk_Web.Controllers.WebApi
       return "value";
     }
     [NonAction]
-    private string createToken(string username,long UserId)
+    private string createToken(string username, long UserId)
     {
       //Set issued at date
       DateTime issuedAt = DateTime.UtcNow;
@@ -80,9 +80,9 @@ namespace TradeBulk_Web.Controllers.WebApi
 
       return tokenString;
     }
-  
 
-  [HttpPost]
+
+    [HttpPost]
     public IHttpActionResult Authenticate([FromBody] LoginRequest login)
     {
       var loginResponse = new LoginResponse { };
@@ -91,22 +91,54 @@ namespace TradeBulk_Web.Controllers.WebApi
       bool isUsernamePasswordValid = false;
       UserManagement umgnt = new UserManagement();
       long UserId = 0;
-      isUsernamePasswordValid= umgnt.ValidateUser(login.Username, login.Password,out UserId);
-      isUsernamePasswordValid = true;
+      isUsernamePasswordValid = umgnt.ValidateUser(login.Username, login.Password, out UserId);
       if (isUsernamePasswordValid)
-        {
-          string token = createToken(login.Username,UserId);
-          //return the token
-          return Ok<string>(token);
-        }
+      {
+        string token = createToken(login.Username, UserId);
+        //return the token
+        return Ok<string>(token);
+      }
       else
-        {
-          // if credentials are not valid send unauthorized status code in response
-          loginResponse.responseMsg.StatusCode = HttpStatusCode.Unauthorized;
-          response = ResponseMessage(loginResponse.responseMsg);
-          return response;
-        }
+      {
+        // if credentials are not valid send unauthorized status code in response
+        loginResponse.responseMsg.StatusCode = HttpStatusCode.Unauthorized;
+        response = ResponseMessage(loginResponse.responseMsg);
+        return response;
+      }
     }
+    [HttpPost]
+    public IHttpActionResult IsUserExists([FromBody] LoginRequest login)
+    {
+      var loginResponse = new LoginResponse { };
+      IHttpActionResult response;
+
+      if (string.IsNullOrEmpty(login.Username))
+      {
+        
+        loginResponse.responseMsg.StatusCode = HttpStatusCode.NotFound;
+        response = ResponseMessage(loginResponse.responseMsg);
+        return response;
+      }
+
+      bool isUsernamePasswordValid = false;
+      UserManagement umgnt = new UserManagement();
+      long UserId = 0;
+      isUsernamePasswordValid = umgnt.isUserExists(login.Username, out UserId);
+      if (isUsernamePasswordValid)
+      {
+        //return the token
+        return Ok<string>(UserId.ToString());
+      }
+      else
+      {
+        // if credentials are not valid send unauthorized status code in response
+        loginResponse.responseMsg.StatusCode = HttpStatusCode.Unauthorized;
+        response = ResponseMessage(loginResponse.responseMsg);
+        return response;
+      }
+    }
+
+
 
     [HttpPost]
     public IHttpActionResult ResetPassword([FromBody] LoginRequest login)
@@ -118,12 +150,9 @@ namespace TradeBulk_Web.Controllers.WebApi
       UserManagement umgnt = new UserManagement();
       long UserId = 0;
       isUsernamePasswordValid = umgnt.ResetPassword(login.Username, login.Password, out UserId);
-      isUsernamePasswordValid = true;
       if (isUsernamePasswordValid)
       {
-        string token = createToken(login.Username, UserId);
-        //return the token
-        return Ok<string>(token);
+        return Ok<bool>(isUsernamePasswordValid);
       }
       else
       {
@@ -163,7 +192,7 @@ namespace TradeBulk_Web.Controllers.WebApi
     [HttpGet]
     public List<UserInfo> UsersUndertaken()
     {
-      if(isFakeData)
+      if (isFakeData)
       {
         UserInfo u = new UserInfo();
         var response = new

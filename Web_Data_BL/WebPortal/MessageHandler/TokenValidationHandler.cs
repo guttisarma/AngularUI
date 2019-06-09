@@ -55,11 +55,10 @@ namespace TradeBulk_Web.MessageHandler
         {
           ValidAudience = "http://localhost:50191",
           ValidIssuer = "http://localhost:50191",
-          ValidateLifetime = false,
+          ValidateLifetime = true,
           ValidateIssuerSigningKey = true,
           LifetimeValidator = this.LifetimeValidator,
-          IssuerSigningKey = securityKey,
-          RequireExpirationTime =true
+          IssuerSigningKey = securityKey
         };
         
         //extract and assign the user of the jwt
@@ -69,17 +68,8 @@ namespace TradeBulk_Web.MessageHandler
         var x = claimsIdentities.ToList()[0];
         var y = x.Claims.ToList()[0];
         var UserID = x.Claims.ToList()[1].Value;
-        //Thread.CurrentPrincipal = new CustomPrincipal(x.Claims.ToList()[0].Value);
-        //Thread.CurrentPrincipal = handler.ValidateToken(token, validationParameters, out securityToken);
-        var sample = handler.ValidateToken(token, validationParameters, out securityToken);
-        //HttpContext.Current.User= new CustomPrincipal(x.Claims.ToList()[0].Value);
-
         CustomPrincipal principal = new CustomPrincipal(x.Claims.ToList()[0].Value);
-
         principal.UserId =Convert.ToInt32( x.Claims.ToList()[1].Value);
-        //principal.FirstName = serializeModel.FirstName;
-        //principal.LastName = serializeModel.LastName;
-        //principal.Roles = serializeModel.RoleName.ToArray<string>();
         HttpContext.Current.User = principal;
         Thread.CurrentPrincipal = principal;
 

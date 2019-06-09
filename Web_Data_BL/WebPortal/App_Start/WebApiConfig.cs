@@ -1,4 +1,3 @@
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +9,8 @@ using TradeBulk_BusinessLayer;
 using TradeBulk_Helper;
 using TradeBulk_Web.App_Start;
 using TradeBulk_Web.MessageHandler;
+using Unity;
+using Unity.Lifetime;
 
 namespace TradeBulk_Web
 {
@@ -20,9 +21,9 @@ namespace TradeBulk_Web
             config.MapHttpAttributeRoutes();
       config.MessageHandlers.Add(new TokenValidationHandler());
 
-      //var container = new UnityContainer();
-      //container.RegisterType<IProductManagement, ProductManagement>(new HierarchicalLifetimeManager());
-      //config.DependencyResolver = new UnityResolver(container);
+      var container = new UnityContainer();
+      container.RegisterType<IProductManagement, ProductManagement>(new HierarchicalLifetimeManager());
+      config.DependencyResolver = new UnityResolver(container);
 
       //string origin = "http://localhost:4200/";
 

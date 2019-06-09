@@ -16,7 +16,7 @@ export class ProductDetailComponent implements OnInit {
   prod$:Observable<Product>;
   proddetail:Product;
   note:Note={subject:'',comment:''};
-   prod:Product={ProductName:'',ProductCode:'',quantity:0,description:''};
+   prod:Product;
    selectedImage:File =null;
  
   onFileSelected(event){

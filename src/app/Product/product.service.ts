@@ -12,7 +12,7 @@ import {environment} from '../../environments/environment';
 export class ProductService {
   
   private createdAssigneeProductUrl = '/Product/CreatedAssigneeProduct';  
-  private registrationUrl='/Product/CreatedAssigneeProduct';
+  private registrationUrl='/Product/CreateProd';
     //Environment variable
     baseURL:String=environment.apiBaseUrl;
 
@@ -36,7 +36,7 @@ export class ProductService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-    alert(prod.ProductName);
+    alert(prod.strProdName);
     return this.http.post(this.baseURL+this.registrationUrl,prod,httpOptions).pipe(
       tap((hero: Product) => this.log('added hero w/ id=${hero.id}')),
       catchError(this.handleError<Product>('addHero'))

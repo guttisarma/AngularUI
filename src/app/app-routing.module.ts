@@ -9,6 +9,7 @@ import { TransacListComponent } from './Transaction/transac-list/transac-list.co
 import { UserInComponent } from './User/SignIn/sign-in/User-in.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import { ForgetPasswordComponent } from './User/SignIn/forget-password/forget-password.component';
 
 const routes: Routes = [
   {path:'UserRegister',component:UserRegistrationComponent},
@@ -16,7 +17,7 @@ const routes: Routes = [
   {path:'UserList',component:UserListComponent},
   {path:'UserDetail',component:UserDetailComponent},
   {path:'SignIn',component:UserInComponent},
-  
+  {path:'ForgetPassword',component:ForgetPasswordComponent},
   {path:'MyTransactions',component:TransacListComponent},
 
   {path:'**',component:PageNotFoundComponent},

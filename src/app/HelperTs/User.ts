@@ -65,6 +65,7 @@ export const MockUserList:User[]=[
 ]
 export class UserIn
 {
+  UserId:number;
   Username:string;
   Password:string;
 }

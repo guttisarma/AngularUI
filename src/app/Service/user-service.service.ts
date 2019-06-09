@@ -11,6 +11,30 @@ import {RegUser,AddrssUser} from '../HelperTs/User';
   providedIn: 'root'
 })
 export class UserServiceService {
+  checkUserExists(LoginRequest: UserIn) :Observable<number>{
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    
+    return  this.http.post('http://localhost:55374/api//User/IsUserExists',LoginRequest,httpOptions).pipe(
+        tap((UserId: number) => {
+          return UserId
+        }),
+        catchError(this.handleError<number>('addHero'))
+      );
+  }
+  doreset(LoginRequest: UserIn):Observable<boolean>{
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    
+    return  this.http.post('http://localhost:55374/api//User/ResetPassword',LoginRequest,httpOptions).pipe(
+        tap((isReset: boolean) => {
+          return isReset;
+        }),
+        catchError(this.handleError<boolean>('addHero'))
+      );
+  }
 
   //Environment variable
   baseURL:String=environment.apiBaseUrl;
@@ -35,15 +59,7 @@ export class UserServiceService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-    alert(this.baseURL+'/User/Authenticate');
-    alert(LoginRequest.Username);
-    /* try{
-      this.http.post('http://localhost:55374/api//User/Authenticate',LoginRequest,httpOptions)
-    }catch(ex){
-        console.log(ex);
-        alert(ex);
-    } */
-
+    
     return  this.http.post('http://localhost:55374/api//User/Authenticate',LoginRequest,httpOptions).pipe(
         tap((JWT: string) => {
           localStorage.setItem("AuthToken",JWT); 

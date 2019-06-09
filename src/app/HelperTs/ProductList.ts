@@ -20,10 +20,14 @@ export class AssignProduct
 
 export class Product{
     constructor(){}
-    ProductName:string;
-    ProductCode:string;
-    quantity:number;
-    description:string;
+    iCreProdid:number;
+    strProdName:string;
+    strProdCode:string;
+    lQuantity:number;
+    Price:number;
+    lProducttypeid:number;
+    strDescription:string;
+    lsNotes:Array<Note>;
   }
   
   export class Note{

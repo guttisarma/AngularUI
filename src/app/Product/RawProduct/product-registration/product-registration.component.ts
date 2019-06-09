@@ -14,9 +14,11 @@ export class ProductRegistrationComponent implements OnInit {
 
    }
    note:Note={subject:'',comment:''};
-   prod:Product={ProductName:'',ProductCode:'',quantity:0,description:''};
+   prod:Product=new Product();
+   
    selectedImage:File =null;
   ngOnInit() {
+    
   }
   onFileSelected(event){
     console.log(event.target.files[0]);

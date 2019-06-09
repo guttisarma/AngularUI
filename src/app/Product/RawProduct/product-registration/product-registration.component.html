@@ -6,28 +6,28 @@
         <div class="form-group row">
           <label class="control-label col-sm-4" for="productname">Name:</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" id="productname" [(ngModel)]="prod.ProductName"
+            <input type="text" class="form-control" id="productname" [(ngModel)]="prod.strProdName"
               placeholder="Enter Product Name" name="name">
           </div>
         </div>
         <div class="form-group row">
           <label class="control-label col-sm-4" for="productcode">Code:</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" id="productcode" [(ngModel)]="prod.ProductCode"
+            <input type="text" class="form-control" id="productcode" [(ngModel)]="prod.strProdCode"
               placeholder="Product Code will Generate.." disabled name="productcode">
           </div>
         </div>
         <div class="form-group row">
           <label class="control-label col-sm-4" for="quantity">Quantity:</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" id="quantity" [(ngModel)]="prod.quantity"
+            <input type="text" class="form-control" id="quantity" [(ngModel)]="prod.lQuantity"
               placeholder="Enter Quantity" name="quantity">
           </div>
         </div>
         <div class="form-group row">
           <label class="control-label col-sm-4" for="description">Description:</label>
           <div class="col-sm-8">
-            <textarea row="4" class="form-control" id="description" [(ngModel)]="prod.description"
+            <textarea row="4" class="form-control" id="description" [(ngModel)]="prod.strDescription"
               placeholder="Enter Description" name="description"></textarea>
           </div>
         </div>

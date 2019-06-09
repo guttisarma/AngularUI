@@ -27,6 +27,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
 import { AssignedProductListComponent } from './Product/AssignProduct/assigned-product-list/assigned-product-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProductModule } from './product/product.module';
+import { ForgetPasswordComponent } from './User/SignIn/forget-password/forget-password.component';
 
 
 
@@ -44,7 +45,8 @@ import { ProductModule } from './product/product.module';
     //ProductMgrComponent,
     UserInComponent,
     //AssignedProductListComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ForgetPasswordComponent
   ],
   imports: [
     NgbModule,

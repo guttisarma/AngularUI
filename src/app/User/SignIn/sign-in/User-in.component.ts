@@ -14,13 +14,19 @@ export class UserInComponent implements OnInit {
   constructor(private UserServ:UserServiceService,private router:Router) { }
   SingIn:UserIn=new UserIn();
   baseURL:String=environment.apiBaseUrl;
+  tokenInfo:string;
   ngOnInit() {
     
   }
   onLogin()  {
-    alert(this.baseURL);
-    this.UserServ.login(this.SingIn).subscribe(x=>alert(x));
-    this.router.navigateByUrl('/');
+    this.UserServ.login(this.SingIn).subscribe(token=>{
+      if(token!=undefined)
+      this.router.navigateByUrl('/');
+      else{
+        alert("Username/Password went wrong");
+      }
+    });
+    
   }
 
 }

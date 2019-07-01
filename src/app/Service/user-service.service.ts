@@ -40,6 +40,10 @@ export class UserServiceService {
   baseURL:String=environment.apiBaseUrl;
 
   constructor(private http: HttpClient) { }
+  getMyUsers():Observable<User[]>{
+    return this.http.get<User[]>(this.baseURL+'/User/UsersUndertaken');
+  }
+
   getUserbyCode(SearUserCode:string):Observable<User>{
     return of(MockUserList[3]);
   }

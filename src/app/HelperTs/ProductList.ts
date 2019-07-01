@@ -17,6 +17,14 @@ export class AssignProduct
     AssignProductCode:string;
     lsProductList:ProductList[];
 }
+export class AssProHelper{
+    ProductId:number;
+    Qunty:number;
+}
+export class AssignProdToUser{
+     lsproducts:AssProHelper[];
+     AssignedUserPid:number;
+}
 
 export class Product{
     constructor(){}

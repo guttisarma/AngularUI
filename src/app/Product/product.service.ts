@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import {ProductList,MockProductList,AssignProduct} from '../HelperTs/ProductList';
+import {ProductList,MockProductList,AssignProduct, AssignProdToUser} from '../HelperTs/ProductList';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product} from 'src/app/HelperTs/ProductList';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -13,11 +13,23 @@ export class ProductService {
   
   private createdAssigneeProductUrl = '/Product/CreatedAssigneeProduct';  
   private registrationUrl='/Product/CreateProd';
+  private AssignPronUrl='/Product/CreateProd';
     //Environment variable
     baseURL:String=environment.apiBaseUrl;
 
   
   constructor( private http: HttpClient) { }
+  public submitAssProduct(assProToUser:AssignProdToUser):Observable<boolean>{
+    
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.post(this.baseURL+this.AssignPronUrl,assProToUser,httpOptions).pipe(
+      tap((hero: boolean) => this.log('added hero w/ id=${hero.id}')),
+      catchError(this.handleError<boolean>('addHero'))
+    );
+
+  }
 
   public getMockProductList(category:string):Observable<ProductList[]>  {
     if(category=='Created'){
@@ -31,7 +43,7 @@ export class ProductService {
   public getProductList():Observable<ProductList[]>  {
         return this.http.get<ProductList[]>(this.baseURL+'/Product/CreatedAssigneeProduct');
     }
-    
+  
   public registration(prod:Product):Observable<Product> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })

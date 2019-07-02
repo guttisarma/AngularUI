@@ -11,10 +11,14 @@
       <div class="container" *ngIf="Plist !=undefined && Plist.length>0">
         <div class="row" *ngFor='let pro of Plist'>
           <!-- <div class="col-sm-2">{{pro.Name}}</div> -->
-          <div class="col-sm-4">{{pro.Code}}</div>
-          <div class="col-sm-4">{{pro.Quantity}}</div>
+          <div class="col-sm-4" >
+            {{pro.Code}} 
+            <label  #prodPID>[ {{pro.ProductPID}} ]</label> 
+          </div>
+          <div class="col-sm-4" #prodQuantity>{{pro.Quantity}}</div>
           <div class="col-sm-4">
-              <span class="glyphicon glyphicon-trash" ></span>
+              <!-- <span class="glyphicon glyphicon-trash" ></span> -->
+              <input type="checkbox" class="custom-control-input" id="productCheck" name="selectProduct" (checked)="selectProduct(prodPID,prodQuantity)" >
           </div>
         </div>
       </div>
@@ -30,10 +34,12 @@
     <div class="row">
       <div class="container" *ngIf="Ulist !=undefined && Ulist.length>0">
         <div class="row" *ngFor='let pro of Ulist'>
-          <div class="col-sm-4">{{pro.Code}}</div>
+          <div class="col-sm-4">{{pro.Code}}
+            <label  #UserPID>[ {{pro.UserId}} ]</label> 
+          </div>
           <div class="col-sm-4">{{pro.Name}}</div>
           <div class="col-sm-4">
-              <span class="glyphicon glyphicon-remove-sign"></span>
+            <input type="checkbox" class="custom-control-input" id="userCheck" name="selectUser" (checked)="selectUser(UserPID)" >
           </div>
         </div>
       </div>
@@ -47,7 +53,7 @@
           <span class="glyphicon glyphicon-remove-sign"></span>
       </div>
       <div class="col-sm-2">
-          <button class="btn btn btn-primary" (click)="InfoPopUp()" >Preview</button>
+          <button class="btn btn btn-primary" (click)="OnConformDetails()" >Make Assignment</button>
       </div>
     
       

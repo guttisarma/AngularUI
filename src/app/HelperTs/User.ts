@@ -1,5 +1,6 @@
 export class User
 {
+    UserId:number;
     Name:string;
     Code:string;
     ManagerName:string;

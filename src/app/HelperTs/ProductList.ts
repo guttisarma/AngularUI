@@ -1,5 +1,6 @@
 export class ProductList
 {
+    ProductPID:number;
     Name:string;
     Code:string;
     Quantity:Number;

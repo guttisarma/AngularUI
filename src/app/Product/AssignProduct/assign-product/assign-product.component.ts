@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {ProductService} from '../../product.service';
 import {UserServiceService} from 'src/app/Service/user-service.service';
-import { ProductList,AssignProdToUser,PreviewPopupProList,PreviewPopupAssignment } from 'src/app/HelperTs/ProductList';
+import { ProductList,AssignProdToUser,PreviewPopupProList,PreviewPopupAssignment,AssProHelper } from 'src/app/HelperTs/ProductList';
 import { User} from 'src/app/HelperTs/User';
 
 
@@ -16,21 +16,23 @@ import { User} from 'src/app/HelperTs/User';
 export class AssignProductComponent implements OnInit {
 
   constructor(private productService:ProductService,
-          private userService:UserServiceService,
-          public dialog: MatDialog) { }
+          private userService:UserServiceService) { }
   proCodeKey:string;
   userCodeKey:string;
   Ulist:User[]=[];
   Plist:ProductList[]=[];
   assProToUser:AssignProdToUser;
   isAssignmentCompleted:boolean;
+  selectedprod:AssProHelper[]=[];
+  
   ngOnInit() {
 
     this.productService.getProductList().subscribe(lsProduct=>this.Plist=lsProduct);
     this.userService.getMyUsers().subscribe(lsusers=>this.Ulist=lsusers);
   }
-  InfoPopUp():void{
+  /* InfoPopUp():void{
     alert("User popup appreas here");
+
     const dialogRef = this.dialog.open(PreviewPopup, {
       width: '250px',
       data: {name: this.name, animal: this.animal}
@@ -40,9 +42,27 @@ export class AssignProductComponent implements OnInit {
       console.log('The dialog was closed');
       this.animal = result;
     });
+  } */
+  selectProduct(prodPID:any,prodQuantity:any):void{
+   let aProd=new AssProHelper();
+   aProd.ProductId=prodPID.innerText;
+   aProd.Qunty=prodQuantity.innerText;
+   this.selectedprod.push(aProd);
   }
+  selectUser(UserPID:any):void{
+    this.assProToUser=new AssignProdToUser();
+    this.assProToUser.AssignedUserPid=UserPID;
+    this.assProToUser.lsproducts=this.selectedprod;
+  }
+  
   OnConformDetails(){
     //we need to get assProToUser info from UI
+    if(this.assProToUser.AssignedUserPid==undefined ||this.assProToUser.AssignedUserPid==null ||
+      this.assProToUser.lsproducts.length<=0)
+      {
+        alert("Should select atleast one User & product");
+        return;
+      }
     
     this.productService.submitAssProduct(this.assProToUser).subscribe(isitdone=>this.isAssignmentCompleted=isitdone);
   }
@@ -54,7 +74,7 @@ export class AssignProductComponent implements OnInit {
   }
 }
  //For popup Opening
- @Component({
+ /* @Component({
   selector: 'preview-popup',
   templateUrl: 'preview-popup.html',
 })
@@ -67,3 +87,4 @@ export class PreviewPopup{
     this.dialogRef.close();
   }
 }
+ */

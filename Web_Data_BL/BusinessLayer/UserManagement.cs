@@ -379,6 +379,7 @@ namespace TradeBulk_BusinessLayer
           {
             UserInfo UInfo = new UserInfo();
             UserDetail user = UserDetailRepository.GetByID(uselist.UserDetailPID);
+            UInfo.UserId =(long) uselist.UserDetailPID;
             UInfo.Name = user.FirstName + " " + user.LastName;
             UInfo.Code = user.UserCode;
             UInfo.ManagerName = manager.FirstName + " " + manager.LastName;

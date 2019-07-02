@@ -64,6 +64,7 @@ namespace TradeBulk_BusinessLayer
           foreach (var pro in lsPro)
           {
             ProductList proResult = new ProductList();
+            proResult.ProductPID = pro.ProductPID;
             proResult.Code = pro.Code;
             proResult.Name = pro.ProductName;
             proResult.Quantity = pro.Quanity;
@@ -77,10 +78,11 @@ namespace TradeBulk_BusinessLayer
           AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
           foreach (var pro in lsProAss)
           {
-            IQueryable<AssignmentProd> assignmentProds=  AssignmentProdRepository.GetAllExpressions(x => x.ProductAssignmentPID == pro.ProductAssignmentPID, null, null);
+            IQueryable<AssignmentProd> assignmentProds = AssignmentProdRepository.GetAllExpressions(x => x.ProductAssignmentPID == pro.ProductAssignmentPID, null, null);
             foreach (var assignmentProd in assignmentProds)
             {
               ProductList proResult = new ProductList();
+              proResult.ProductPID = assignmentProd.Product.ProductPID;
               proResult.Code = assignmentProd.Product.Code;
               proResult.Name = assignmentProd.Product.ProductName;
               proResult.Quantity = assignmentProd.Product.Quanity;
@@ -90,7 +92,7 @@ namespace TradeBulk_BusinessLayer
               proResult.IsAssign = false;
               lsProResult.Add(proResult);
             }
-            
+
           }
           return lsProResult;
         }
@@ -464,7 +466,7 @@ namespace TradeBulk_BusinessLayer
             }
           }
           unitOfWork.SaveChanges();
-          ConvertionComplete(proConvert.ProductConvertPID, assProHelpers,false);
+          ConvertionComplete(proConvert.ProductConvertPID, assProHelpers, false);
           isSuccess = true;
           //transactFactory.CreateTransac(CurrentUserId, null, null, 0, (long)InlineTranscatType.Convert);
         }
@@ -485,7 +487,7 @@ namespace TradeBulk_BusinessLayer
     /// <param name="lsProduct"></param>
     /// <param name="CurrentUserId"></param>
     /// <param name="AssigneeUserId"></param>
-    public void AssignProduct(List<AssProHelper> lsProduct, long CurrentUserId,Decimal AdvAmount,Decimal TotalAmount, long AssigneeUserId, out bool isSuccess)
+    public void AssignProduct(List<AssProHelper> lsProduct, long CurrentUserId, Decimal AdvAmount, Decimal TotalAmount, long AssigneeUserId, out bool isSuccess)
     {
       try
       {
@@ -493,7 +495,7 @@ namespace TradeBulk_BusinessLayer
         {
           ProductRepository = unitOfWork.GetRepoInstance<Product>();
           AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
-          IQueryable<Product> lspro = ProductRepository.GetAllExpressions(x => lsProduct.Select(y=>y.ProductId).Contains(x.ProductPID), null, null);
+          IQueryable<Product> lspro = ProductRepository.GetAllExpressions(x => lsProduct.Select(y => y.ProductId).Contains(x.ProductPID), null, null);
           bool isvalidOperation = CheckValidOperation(lsProduct);
           if (isvalidOperation)
           {
@@ -555,55 +557,55 @@ namespace TradeBulk_BusinessLayer
       return isvalidOperation;
     }
 
-    public void ConvertionComplete(long ProductConvertPID, List<AssProHelper> assProHelpers,bool directProduct)
+    public void ConvertionComplete(long ProductConvertPID, List<AssProHelper> assProHelpers, bool directProduct)
     {
       try
       {
 
-     
-      if (!directProduct)
-      {
-        using (UnitOfWork unitOfWork = new UnitOfWork())
+
+        if (!directProduct)
         {
-          AssignConvertRelationRepository = unitOfWork.GetRepoInstance<AssignConvertRelation>();
-          AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
-          IQueryable<AssignConvertRelation> lsassignConvertRelations = AssignConvertRelationRepository.GetAllExpressions(x => x.ProductConvertPID == ProductConvertPID, null, null);
+          using (UnitOfWork unitOfWork = new UnitOfWork())
+          {
+            AssignConvertRelationRepository = unitOfWork.GetRepoInstance<AssignConvertRelation>();
+            AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
+            IQueryable<AssignConvertRelation> lsassignConvertRelations = AssignConvertRelationRepository.GetAllExpressions(x => x.ProductConvertPID == ProductConvertPID, null, null);
             List<long> AssigmentPIDFromRelation = new List<long>();
             foreach (var assignConvert in lsassignConvertRelations)
             {
-              if(assignConvert.ProductAssignmentPID!=null)
-              AssigmentPIDFromRelation.Add((long)assignConvert.ProductAssignmentPID);
+              if (assignConvert.ProductAssignmentPID != null)
+                AssigmentPIDFromRelation.Add((long)assignConvert.ProductAssignmentPID);
             }
             foreach (var assignConvertPID in AssigmentPIDFromRelation)
             {
               Expression<Func<AssignmentProd, object>> parameter1 = v => v.Product;
-            Expression<Func<AssignmentProd, object>>[] parameterArray = new Expression<Func<AssignmentProd, object>>[] { parameter1/*, parameter2 ,parameter3, parameter4 */};
+              Expression<Func<AssignmentProd, object>>[] parameterArray = new Expression<Func<AssignmentProd, object>>[] { parameter1/*, parameter2 ,parameter3, parameter4 */};
 
-            IQueryable<AssignmentProd> lsassignmentProds = AssignmentProdRepository.GetAllExpressions(x => x.ProductAssignmentPID == assignConvertPID, null, parameterArray);
-            SupportConvertedRepository = unitOfWork.GetRepoInstance<SupportConverted>();
-            foreach (var assignmentProd in lsassignmentProds)
-            {
-              AssProHelper assProHelper= assProHelpers.Where(x => x.ProductId == assignmentProd.ProductPID).FirstOrDefault<AssProHelper>();
-              if(assProHelper.Qunty>0 && assignmentProd.Quantity>= assProHelper.Qunty)
+              IQueryable<AssignmentProd> lsassignmentProds = AssignmentProdRepository.GetAllExpressions(x => x.ProductAssignmentPID == assignConvertPID, null, parameterArray);
+              SupportConvertedRepository = unitOfWork.GetRepoInstance<SupportConverted>();
+              foreach (var assignmentProd in lsassignmentProds)
               {
-                SupportConverted supportConverted = new SupportConverted();
-                supportConverted.Product = assignmentProd.Product;
-                supportConverted.ProductConvertPID = ProductConvertPID;
-                supportConverted.QuanityUsed = assProHelper.Qunty;
-                SupportConvertedRepository.Insert(supportConverted);
-                assignmentProd.RemQuanity = assignmentProd.Quantity - assProHelper.Qunty;
-                AssignmentProdRepository.Update(assignmentProd);
+                AssProHelper assProHelper = assProHelpers.Where(x => x.ProductId == assignmentProd.ProductPID).FirstOrDefault<AssProHelper>();
+                if (assProHelper.Qunty > 0 && assignmentProd.Quantity >= assProHelper.Qunty)
+                {
+                  SupportConverted supportConverted = new SupportConverted();
+                  supportConverted.Product = assignmentProd.Product;
+                  supportConverted.ProductConvertPID = ProductConvertPID;
+                  supportConverted.QuanityUsed = assProHelper.Qunty;
+                  SupportConvertedRepository.Insert(supportConverted);
+                  assignmentProd.RemQuanity = assignmentProd.Quantity - assProHelper.Qunty;
+                  AssignmentProdRepository.Update(assignmentProd);
+                }
               }
             }
+            unitOfWork.SaveChanges();
           }
-          unitOfWork.SaveChanges();
         }
-      }
-      else
-      {
-        using (UnitOfWork unitOfWork = new UnitOfWork())
+        else
         {
-          ProductRepository = unitOfWork.GetRepoInstance<Product>();
+          using (UnitOfWork unitOfWork = new UnitOfWork())
+          {
+            ProductRepository = unitOfWork.GetRepoInstance<Product>();
             bool isvalidOperation = CheckValidOperation(assProHelpers);
             if (isvalidOperation)
             {
@@ -619,10 +621,10 @@ namespace TradeBulk_BusinessLayer
                 ProductRepository.Update(product);
               }
             }
-          unitOfWork.SaveChanges();
-        } 
-        
-      }
+            unitOfWork.SaveChanges();
+          }
+
+        }
       }
       catch (Exception ex)
       {

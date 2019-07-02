@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserServiceService} from 'src/app/Service/user-service.service';
-import {User,MockUserList,exAddress,exEmail,exPhone,exUser,MockexAddress, MockexEmail,MockexPhone,MockexUser} from 'src/app/HelperTs/User'
+import {User,exAddress,exEmail,exPhone,exUser,MockexAddress, MockexEmail,MockexPhone,MockexUser} from 'src/app/HelperTs/User'
 
 @Component({
   selector: 'app-user-profile',

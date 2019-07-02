@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import {ProductList,MockProductList,AssignProduct, AssignProdToUser} from '../HelperTs/ProductList';
+import {ProductList,AssignProduct, AssignProdToUser} from '../HelperTs/ProductList';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product} from 'src/app/HelperTs/ProductList';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -31,16 +31,17 @@ export class ProductService {
 
   }
 
-  public getMockProductList(category:string):Observable<ProductList[]>  {
+  /* public getMockProductList(category:string):Observable<ProductList[]>  {
     if(category=='Created'){
       return of(MockProductList);
-    }        
-  }
+    }
+  } */
 
   public getProdbyCode(proCode: string):Observable<Product> {
     return this.http.get<Product>(this.baseURL+'/Product/GetProdbyCode?proCode:'+proCode);
   }  
   public getProductList():Observable<ProductList[]>  {
+    alert(this.baseURL+'/Product/CreatedAssigneeProduct');
         return this.http.get<ProductList[]>(this.baseURL+'/Product/CreatedAssigneeProduct');
     }
   

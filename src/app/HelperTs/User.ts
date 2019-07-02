@@ -56,17 +56,17 @@ export class exEmail
 }
 export const MockexEmail:exEmail={strEmailId:"Pranab.Mukharji@gmail.com",bIsActive:true}
 
-export const MockUserList:User[]=[
+/* export const MockUserList:User[]=[
     {Name:'william',Code:"Will092",ManagerName:'Acile',ManagerCode:'Ali232'},
     {Name:'Ashithosh',Code:"Will092",ManagerName:'Sandyirish',ManagerCode:'Ali232'},
     {Name:'Mohan',Code:"Will092",ManagerName:'Acile',ManagerCode:'Ali232'},
     {Name:'John',Code:"Will092",ManagerName:'Acile',ManagerCode:'Ali232'},
     {Name:'Chetcogambian',Code:"Will092",ManagerName:'Acile',ManagerCode:'Ali232'},
     {Name:'Rapidswiss',Code:"Will092",ManagerName:'Acile',ManagerCode:'Ali232'},
-]
+] */
 export class UserIn
 {
-  UserId:number;
+  UserId: number;
   Username:string;
   Password:string;
 }

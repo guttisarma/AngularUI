@@ -13,12 +13,12 @@
           <!-- <div class="col-sm-2">{{pro.Name}}</div> -->
           <div class="col-sm-4" >
             {{pro.Code}} 
-            <label  #prodPID>[ {{pro.ProductPID}} ]</label> 
+            <label  #prodPID > {{pro.ProductPID}} </label> 
           </div>
           <div class="col-sm-4" #prodQuantity>{{pro.Quantity}}</div>
           <div class="col-sm-4">
               <!-- <span class="glyphicon glyphicon-trash" ></span> -->
-              <input type="checkbox" class="custom-control-input" id="productCheck" name="selectProduct" (checked)="selectProduct(prodPID,prodQuantity)" >
+              <input type="checkbox"  id="productCheck" name="selectProduct" (change)="selectProduct(prodPID,prodQuantity)" >
           </div>
         </div>
       </div>
@@ -35,11 +35,11 @@
       <div class="container" *ngIf="Ulist !=undefined && Ulist.length>0">
         <div class="row" *ngFor='let pro of Ulist'>
           <div class="col-sm-4">{{pro.Code}}
-            <label  #UserPID>[ {{pro.UserId}} ]</label> 
+            <label  #UserPID>{{pro.UserId}} </label> 
           </div>
           <div class="col-sm-4">{{pro.Name}}</div>
           <div class="col-sm-4">
-            <input type="checkbox" class="custom-control-input" id="userCheck" name="selectUser" (checked)="selectUser(UserPID)" >
+            <input type="checkbox"  id="userCheck" name="selectUser" (change)="selectUser(UserPID)" >
           </div>
         </div>
       </div>

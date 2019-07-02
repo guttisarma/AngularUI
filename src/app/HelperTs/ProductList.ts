@@ -52,7 +52,7 @@ export class Product{
     comment:string;
   }
 
-export const MockProductList:ProductList[]=[
+/* export const MockProductList:ProductList[]=[
     {Name:'Product 1',Code:'Pro_code_1',Quantity:12,RemQuantity:89,Description:'',CreatedOn:'2018-09-08',IsAssign:true},
     {Name:'Product 2',Code:'Pro_code_1436',Quantity:64,RemQuantity:89,Description:'',CreatedOn:'2018-09-08',IsAssign:true},
     {Name:'Product 46',Code:'Pro_code_123454',Quantity:45,RemQuantity:89,Description:'',CreatedOn:'2018-09-08',IsAssign:true},
@@ -63,7 +63,7 @@ export const MockProductList:ProductList[]=[
     {Name:'Product 3423523',Code:'Pro_code_3461',Quantity:2341,RemQuantity:89,Description:'',CreatedOn:'2018-09-08',IsAssign:true},
     {Name:'Product 24566',Code:'Pro_code_2351',Quantity:223,RemQuantity:89,Description:'',CreatedOn:'2018-09-08',IsAssign:true}
     
-]
+] */
 
 /* export const MockAssignProduct:AssignProduct[]=[{AssignProductCode:'ASSIGNCODE1',lsProductList:[{Name:'Product 24566',Code:'Pro_code_2351',Quantity:223,Description:'',CreatedOn:'2018-09-08',IsAssign:true,
 ParentCode:'',AssignedUserName:'',ConvertedUser:'',OwnerUser:''},{Name:'Product 3423523',Code:'Pro_code_3461',Quantity:2341,Description:'',CreatedOn:'2018-09-08',IsAssign:true,

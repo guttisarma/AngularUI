@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {User,MockUserList,exAddress,exEmail,exPhone,exUser,MockexAddress, MockexEmail,MockexPhone,MockexUser} from '../HelperTs/User'
+import {User,exAddress,exEmail,exPhone,exUser,MockexAddress, MockexEmail,MockexPhone,MockexUser} from '../HelperTs/User'
 import { Observable, of } from 'rxjs';
 import {environment} from '../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -44,9 +44,9 @@ export class UserServiceService {
     return this.http.get<User[]>(this.baseURL+'/User/UsersUndertaken');
   }
 
-  getUserbyCode(SearUserCode:string):Observable<User>{
+  /* getUserbyCode(SearUserCode:string):Observable<User>{
     return of(MockUserList[3]);
-  }
+  } */
   getexUser():Observable<exUser>{
     return of(MockexUser);
   }

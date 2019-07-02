@@ -25,7 +25,15 @@ export class AssignProdToUser{
      lsproducts:AssProHelper[];
      AssignedUserPid:number;
 }
-
+export class PreviewPopupProList{
+    ProCode:string;
+    ProName:string;
+    ProQuantity:string;
+}
+export class PreviewPopupAssignment{
+    UserName:string;
+   lsppprolist:PreviewPopupProList[];
+}
 export class Product{
     constructor(){}
     iCreProdid:number;

@@ -45,7 +45,7 @@
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         <a class="nav-link" routerLink="/SignIn" *ngIf="!IsUserLogIn" >Sign In</a>
-        <img src="../assets/UserAvatar.png" style="width: 30px;height:35px" class="img-thumbnail" *ngIf="IsUserLogIn" alt="UserImage">
+        <img src="../assets/UserAvatar.png" style="width: 30px;height:35px" class="img-thumbnail" *ngIf="IsUserLogIn" alt="UserImage"(click)="logout()" >
       </form>
     </div>
   </nav> 

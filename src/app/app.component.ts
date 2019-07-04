@@ -25,7 +25,11 @@ export class AppComponent implements OnInit {
       else
       this.IsUserLogIn=false;
 }
-  
+
+logout(){
+  localStorage.setItem("AuthToken",undefined);
+  this.IsUserLogIn=false;
+}
  
   //person.startDate = new Date(1990, 0, 1);
 }

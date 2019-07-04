@@ -20,7 +20,10 @@ export class UserInComponent implements OnInit {
   }
   onLogin()  {
     this.UserServ.login(this.SingIn).subscribe(token=>{
-      if(token!=undefined)
+      if(token=="LoginFailed"){
+        alert("Username/Password went wrong");
+      }
+     else if(token!=undefined)
       this.router.navigateByUrl('/');
       else{
         alert("Username/Password went wrong");

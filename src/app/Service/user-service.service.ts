@@ -69,7 +69,7 @@ export class UserServiceService {
         (JWT: string) => {        localStorage.setItem("AuthToken", JWT);
         console.log(JWT);
       }),
-      catchError(this.handleError<string>('addHero',''))
+      catchError(this.handleError<string>('login','LoginFailed'))
     );
   }
 

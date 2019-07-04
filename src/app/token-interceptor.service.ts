@@ -16,8 +16,8 @@ export class TokenInterceptorService implements HttpInterceptor {
         }
       })
     }
-    else {
-      return next.handle();
+    else{
+    return next.handle(req);
     }
     return next.handle(tokenizedReq);
    

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment.PreProd';
@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.PreProd';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'AngularUI';
   person:Person=new Person();
   uniqueID:string='uniqueID';
@@ -17,6 +17,15 @@ export class AppComponent {
   //NewUser person=new NewUser();
   closeResult: string;
   selectedEnv:string=environment.name;
+  IsUserLogIn:boolean=false;
+
+  ngOnInit() {
+    if(localStorage.getItem("AuthToken")!=undefined || localStorage.getItem("AuthToken")!=null)
+      this.IsUserLogIn=true;
+      else
+      this.IsUserLogIn=false;
+}
+  
  
   //person.startDate = new Date(1990, 0, 1);
 }

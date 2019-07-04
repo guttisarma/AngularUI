@@ -25,7 +25,7 @@ export class UserInComponent implements OnInit {
       else{
         alert("Username/Password went wrong");
       }
-    });
+    },error=>alert(error));
     
   }
 

@@ -76,12 +76,13 @@ namespace TradeBulk_BusinessLayer
                     && us.IsActive == true
                     select us).FirstOrDefault();
 
-        var userDetails = dbContext.UserDetails.Where(x => x.UserPID == user.UserId);
-        if(userDetails==null)
+        
+        if(user == null)
         {
           userId = 0;
           return false;
         }
+        var userDetails = dbContext.UserDetails.Where(x => x.UserPID == user.UserId);
         userId = userDetails.FirstOrDefault<UserDetail>().UserdetailPID;
         return (user != null) ? true : false;
       }

@@ -26,10 +26,14 @@ namespace TradeBulk_Web.Controllers.WebApi
 
     public UserController()
     {
-      isFakeData = Convert.ToBoolean(ConfigurationManager.AppSettings["DummyDataForAPI"]);
-      if (!isFakeData)
+      //if the Requested for Userlogin we should pass it
+      if (!(HttpContext.Current.Request.CurrentExecutionFilePath == @"/api/User/Authenticate"))
       {
-        currentUserPID = ((CustomPrincipal)HttpContext.Current.User).UserId;
+        isFakeData = Convert.ToBoolean(ConfigurationManager.AppSettings["DummyDataForAPI"]);
+        if (!isFakeData)
+        {
+          currentUserPID = ((CustomPrincipal)HttpContext.Current.User).UserId;
+        }
       }
     }
     public IEnumerable<string> Get()
@@ -101,7 +105,8 @@ namespace TradeBulk_Web.Controllers.WebApi
       else
       {
         // if credentials are not valid send unauthorized status code in response
-        loginResponse.responseMsg.StatusCode = HttpStatusCode.Unauthorized;
+        loginResponse.responseMsg = Request.CreateErrorResponse(HttpStatusCode.Unauthorized, new Exception("User/Password wrong"));
+        
         response = ResponseMessage(loginResponse.responseMsg);
         return response;
       }
@@ -114,7 +119,7 @@ namespace TradeBulk_Web.Controllers.WebApi
 
       if (string.IsNullOrEmpty(login.Username))
       {
-        
+
         loginResponse.responseMsg.StatusCode = HttpStatusCode.NotFound;
         response = ResponseMessage(loginResponse.responseMsg);
         return response;

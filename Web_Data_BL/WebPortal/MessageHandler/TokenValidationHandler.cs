@@ -41,7 +41,10 @@ namespace TradeBulk_Web.MessageHandler
         //allow requests with no token - whether a action method needs an authentication can be set with the claimsauthorization attribute
         return base.SendAsync(request, cancellationToken);
       }
-
+      if(token=="null") //this pass is for User Athentication
+      {
+        return base.SendAsync(request, cancellationToken);
+      }
       try
       {
         const string sec = "401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1";
@@ -55,7 +58,7 @@ namespace TradeBulk_Web.MessageHandler
         {
           ValidAudience = "http://localhost:50191",
           ValidIssuer = "http://localhost:50191",
-          ValidateLifetime = true,
+          ValidateLifetime = false,
           ValidateIssuerSigningKey = true,
           LifetimeValidator = this.LifetimeValidator,
           IssuerSigningKey = securityKey

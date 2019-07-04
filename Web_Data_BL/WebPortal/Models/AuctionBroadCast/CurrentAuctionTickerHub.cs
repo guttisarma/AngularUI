@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Collections.Generic;
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
 using TradeBulk_Helper;
 
 namespace TradeBulk_Web.Models.AuctionBroadCast

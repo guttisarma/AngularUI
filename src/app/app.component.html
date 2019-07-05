@@ -1,6 +1,6 @@
 <!-- Nvar Bar Begin-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#"><b>Trade Bulk</b></a>
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">Trade Bulk</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,13 +41,15 @@
           <a class="nav-link" routerLink="/MyDragProduct">Drag Product</a>
          </li>
       </ul>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         <a class="nav-link" routerLink="/SignIn" *ngIf="!IsUserLogIn" >Sign In</a>
         <img src="../assets/UserAvatar.png" style="width: 30px;height:35px" class="img-thumbnail" *ngIf="IsUserLogIn" alt="UserImage"(click)="logout()" >
       </form>
-    </div>
+	</ul>
   </nav> 
 <!-- Nvar Bar Ends-->
 

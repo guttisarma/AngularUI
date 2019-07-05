@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
 }
 
 logout(){
-  localStorage.setItem("AuthToken",undefined);
+  localStorage.setItem("AuthToken",null);
   this.IsUserLogIn=false;
 }
  

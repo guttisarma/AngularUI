@@ -1,5 +1,4 @@
-
-<div >
+<!-- <div >
   <div class="row" *ngFor='let pro of ListofProd'>
     <div class="col-sm-2">{{pro.Name}}</div>
     <div class="col-sm-2">{{pro.Code}}</div>
@@ -11,4 +10,31 @@
       <a [routerLink]="['/ProductDetails',pro.Code]"></a>
     </div>
   </div>
+</div> -->
+
+<div class="container">
+    <table class="table">
+    <thead class="thead-Nav_match">
+      <tr>
+        <th scope="col" >#</th>
+        <th scope="col" >Name</th>
+        <th scope="col" >Code</th>
+        <th scope="col" >Quantity</th>
+        <th scope="col" >Available</th>
+        <th scope="col" >Description</th>
+        <th scope="col" >Created On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let pro of ListofProd'>
+        <th scope="row">1</th>
+        <td>{{pro.Name}}</td>
+        <td>{{pro.Code}}</td>
+        <td>{{pro.Quantity}}</td>
+        <td>{{pro.RemQuantity}}</td>
+        <td>{{pro.Description}}</td>
+        <td>{{pro.CreatedOn}}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -2,6 +2,9 @@ import { Component,OnInit } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment.PreProd';
+import {UserServiceService} from './Service/user-service.service';
+import {Subscription} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +21,17 @@ export class AppComponent implements OnInit {
   closeResult: string;
   selectedEnv:string=environment.name;
   IsUserLogIn:boolean=false;
+  private subscription:Subscription;
+  constructor(private userService:UserServiceService){
+
+  }
 
   ngOnInit() {
+    this.subscription=this.userService.isAutherized().subscribe(text=>{
+      if(text=""){
+        this.IsUserLogIn=true;
+      }
+    })
     if(localStorage.getItem("AuthToken")!=undefined || localStorage.getItem("AuthToken")!=null)
       this.IsUserLogIn=true;
       else

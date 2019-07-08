@@ -8,22 +8,31 @@
       </form>
     </div>
     <div class="row">
-      <div class="container" *ngIf="Plist !=undefined && Plist.length>0">
-        <div class="row" *ngFor='let pro of Plist'>
-          <!-- <div class="col-sm-2">{{pro.Name}}</div> -->
-          <div class="col-sm-4" >
-            {{pro.Code}} 
-            <label  #prodPID > {{pro.ProductPID}} </label> 
-          </div>
-          <div class="col-sm-4" #prodQuantity>{{pro.Quantity}}</div>
-          <div class="col-sm-4">
-              <!-- <span class="glyphicon glyphicon-trash" ></span> -->
-              <input type="checkbox"  id="productCheck" name="selectProduct" (change)="selectProduct(prodPID,prodQuantity)" >
-          </div>
-        </div>
+        <div class="container" *ngIf="Plist !=undefined && Plist.length>0">
+        <table class="table">
+            <thead class="thead-Nav_match">
+              <tr>
+                <th scope="col" >Code</th>
+                <th scope="col" >Quantity</th>
+                <th scope="col" >Select option</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor='let pro of Plist'>              
+                <td>{{pro.Code}}</td>
+                <td>{{pro.Quantity}}</td>
+                <td>
+                    <input type="checkbox"  id="productCheck" name="selectProduct" (change)="selectProduct(prodPID,prodQuantity)" >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div> 
       </div>
-    </div>
   </div>
+  
+  
   <div class="col-sm-6">
     <div class="row">
       <form class="form-inline my-2 my-lg-0">
@@ -33,7 +42,28 @@
     </div>
     <div class="row">
       <div class="container" *ngIf="Ulist !=undefined && Ulist.length>0">
-        <div class="row" *ngFor='let pro of Ulist'>
+
+          <table class="table">
+              <thead class="thead-Nav_match">
+                <tr>
+                  <th scope="col" >Code</th>
+                  <th scope="col" >Name</th>
+                  <th scope="col" >Select option</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let usr of Ulist'>              
+                  <td>{{usr.Code}}</td>
+                  <td>{{usr.Name}}</td>
+                  <td>
+                      <input type="checkbox"  id="userCheck" name="selectUser" (change)="selectUser(UserPID)" >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+  
+
+       <!--  <div class="row" *ngFor='let pro of Ulist'>
           <div class="col-sm-4">{{pro.Code}}
             <label  #UserPID>{{pro.UserId}} </label> 
           </div>
@@ -41,7 +71,7 @@
           <div class="col-sm-4">
             <input type="checkbox"  id="userCheck" name="selectUser" (change)="selectUser(UserPID)" >
           </div>
-        </div>
+        </div> -->
       </div>
     </div> 
     
@@ -54,8 +84,8 @@
       </div>
       <div class="col-sm-2">
           <button class="btn btn btn-primary" (click)="OnConformDetails()" >Make Assignment</button>
-      </div>
-    
-      
-    </div>
+      </div>      
+  </div>
+
 </div>
+  

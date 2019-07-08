@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User, exAddress, exEmail, exPhone, exUser, MockexAddress, MockexEmail, MockexPhone, MockexUser } from '../HelperTs/User'
 import { Observable, of } from 'rxjs';
+import {Subject} from 'rxjs/Subject';
 import { environment } from '../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -11,6 +12,8 @@ import { RegUser, AddrssUser } from '../HelperTs/User';
   providedIn: 'root'
 })
 export class UserServiceService {
+  private subject=new Subject<any>();
+
   checkUserExists(LoginRequest: UserIn): Observable<number> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -68,9 +71,13 @@ export class UserServiceService {
       tap(
         (JWT: string) => {        localStorage.setItem("AuthToken", JWT);
         console.log(JWT);
+        this.subject.next({text:"Authenticated"});
       }),
       catchError(this.handleError<string>('login','LoginFailed'))
     );
+  }
+  isAutherized():Observable<any>{
+    return this.subject.asObservable();
   }
 
   Register(regUser: RegUser): Observable<RegUser> {

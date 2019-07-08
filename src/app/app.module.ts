@@ -28,6 +28,7 @@ import { AssignedProductListComponent } from './Product/AssignProduct/assigned-p
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProductModule } from './product/product.module';
 import { ForgetPasswordComponent } from './User/SignIn/forget-password/forget-password.component';
+import { UserServiceService } from './Service/user-service.service';
 
 
 
@@ -64,7 +65,7 @@ import { ForgetPasswordComponent } from './User/SignIn/forget-password/forget-pa
     //MatNativeDateModule,        // <----- import for date formating(optional)
     //MatMomentDateModule 
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}],
+  providers: [UserServiceService,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

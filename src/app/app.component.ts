@@ -3,8 +3,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment.PreProd';
 import {UserServiceService} from './Service/user-service.service';
-import {Subscription} from 'rxjs/Subscription';
-import { Subscription } from 'rxjs';
+//import {Subscription} from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'app-root',
@@ -21,21 +21,18 @@ export class AppComponent implements OnInit {
   closeResult: string;
   selectedEnv:string=environment.name;
   IsUserLogIn:boolean=false;
-  private subscription:Subscription;
+  //private subscription:Subscription;
   constructor(private userService:UserServiceService){
 
   }
 
   ngOnInit() {
-    this.subscription=this.userService.isAutherized().subscribe(text=>{
-      if(text=""){
-        this.IsUserLogIn=true;
-      }
-    })
+   
     if(localStorage.getItem("AuthToken")!=undefined || localStorage.getItem("AuthToken")!=null)
       this.IsUserLogIn=true;
       else
       this.IsUserLogIn=false;
+      this.userService.cast.subscribe(isauthenticate=>this.IsUserLogIn=isauthenticate);
 }
 
 logout(){

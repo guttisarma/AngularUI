@@ -23,8 +23,10 @@ export class UserInComponent implements OnInit {
       if(token=="LoginFailed"){
         alert("Username/Password went wrong");
       }
-     else if(token!=undefined)
+     else if(token!=undefined && token.length>20){
       this.router.navigateByUrl('/');
+      this.UserServ.VisibleUserOp(true);
+     }
       else{
         alert("Username/Password went wrong");
       }

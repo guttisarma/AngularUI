@@ -19,10 +19,10 @@
             </thead>
             <tbody>
               <tr *ngFor='let pro of Plist'>              
-                <td>{{pro.Code}}</td>
+                <td #pCode>{{pro.Code}}</td>
                 <td>{{pro.Quantity}}</td>
                 <td>
-                    <input type="checkbox"  id="productCheck" name="selectProduct" (change)="selectProduct(prodPID,prodQuantity)" >
+                    <input type="checkbox"  id="productCheck" name="selectProduct" (change)="selectProduct(pCode)" >
                 </td>
               </tr>
             </tbody>
@@ -53,10 +53,10 @@
               </thead>
               <tbody>
                 <tr *ngFor='let usr of Ulist'>              
-                  <td>{{usr.Code}}</td>
+                  <td #UserCode>{{usr.Code}}</td>
                   <td>{{usr.Name}}</td>
                   <td>
-                      <input type="checkbox"  id="userCheck" name="selectUser" (change)="selectUser(UserPID)" >
+                      <input type="checkbox"  id="userCheck" name="selectUser" (change)="selectUser(UserCode)" >
                   </td>
                 </tr>
               </tbody>

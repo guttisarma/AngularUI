@@ -1,0 +1,32 @@
+    <div class="modal-header">
+        <h4 class="modal-title">{{selectedUser}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <table class="table">
+                    <thead class="thead-Nav_match">
+                      <tr>
+                        <th scope="col" >Code</th>
+                        <th scope="col" >Total Quantity</th>
+                        <th scope="col" >Assigned Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor='let pro of selectedProduct'>              
+                        <td>{{pro.Code}}</td>
+                        <td>{{pro.Quantity}}</td>
+                        <td>
+                            <input type="text"  id="AssignedQuantity" name="AssignedQuantity"  >
+                        </td>
+                      </tr>
+                    </tbody>
+            </table>
+            <div class="col-sm-2">
+                    <button class="btn btn btn-primary" (click)="OnConformDetails()" >Make Assignment</button>
+                </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+      </div>

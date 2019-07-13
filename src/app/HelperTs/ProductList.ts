@@ -3,8 +3,9 @@ export class ProductList
     ProductPID:number;
     Name:string;
     Code:string;
-    Quantity:Number;
-    RemQuantity:Number;
+    Quantity:number;
+    RequiredQuantity:number;
+    RemQuantity:number;
     Description:string;
     CreatedOn:string;
     IsAssign:boolean;

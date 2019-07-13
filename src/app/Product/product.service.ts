@@ -13,7 +13,7 @@ export class ProductService {
   
   private createdAssigneeProductUrl = '/Product/CreatedAssigneeProduct';  
   private registrationUrl='/Product/CreateProd';
-  private AssignPronUrl='/Product/CreateProd';
+  private AssignPronUrl='/Product/AssignProduct';
     //Environment variable
     baseURL:String=environment.apiBaseUrl;
 

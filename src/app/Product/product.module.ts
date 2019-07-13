@@ -30,6 +30,6 @@ import {AssignedProductListComponent} from './AssignProduct/assigned-product-lis
     FormsModule,
     ProductRoutingModule
   ],
-  exports:[PreviewPopupComponent]
+  entryComponents:[PreviewPopupComponent]
 })
 export class ProductModule { }

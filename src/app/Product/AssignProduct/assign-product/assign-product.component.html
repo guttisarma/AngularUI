@@ -22,7 +22,7 @@
                 <td #pCode>{{pro.Code}}</td>
                 <td>{{pro.Quantity}}</td>
                 <td>
-                    <input type="checkbox"  id="productCheck" name="selectProduct" (change)="selectProduct(pCode)" >
+                    <input type="checkbox"  id="productCheck" name="selectProduct" (change)="selectProduct(pro)" >
                 </td>
               </tr>
             </tbody>
@@ -56,7 +56,7 @@
                   <td #UserCode>{{usr.Code}}</td>
                   <td>{{usr.Name}}</td>
                   <td>
-                      <input type="checkbox"  id="userCheck" name="selectUser" (change)="selectUser(UserCode)" >
+                      <input type="checkbox"  id="userCheck" name="selectUser" (change)="selectUser(usr)" >
                   </td>
                 </tr>
               </tbody>
@@ -83,7 +83,7 @@
           <span class="glyphicon glyphicon-remove-sign"></span>
       </div>
       <div class="col-sm-2">
-          <button class="btn btn btn-primary" (click)="OnConformDetails()" >Make Assignment</button>
+          <button class="btn btn btn-primary" (click)="OnConformDetails()" >Preview</button>
       </div>      
   </div>
 

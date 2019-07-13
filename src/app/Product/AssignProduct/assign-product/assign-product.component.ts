@@ -7,6 +7,7 @@ import { UserServiceService } from 'src/app/Service/user-service.service';
 import { ProductList, AssignProdToUser, PreviewPopupProList, PreviewPopupAssignment, AssProHelper } from 'src/app/HelperTs/ProductList';
 import { User } from 'src/app/HelperTs/User';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -104,9 +105,10 @@ export class AssignProductComponent implements OnInit {
 @Component({
   selector: 'preview-popup',
   templateUrl: './preview-popup.html',
+  styleUrls: ['./assign-product.component.css']
 })
 export class PreviewPopupComponent {
-  constructor(public activeModal: NgbActiveModal, private proService: ProductService) {
+  constructor(public activeModal: NgbActiveModal, private proService: ProductService,private router: Router) {
 
   }
   @Input() selectedUser: User;
@@ -125,7 +127,9 @@ export class PreviewPopupComponent {
     }
     assProToUser.AssignedUserPid = this.selectedUser.UserId;
     console.log(assProToUser);
-    this.proService.submitAssProduct(assProToUser).subscribe(result => { console.log('Oparation status is ' + result) });
+    this.proService.submitAssProduct(assProToUser).subscribe(result => { 
+      console.log('Oparation status is ' + result)
+    this.router.navigateByUrl('/ProductList') });
   }
 
 

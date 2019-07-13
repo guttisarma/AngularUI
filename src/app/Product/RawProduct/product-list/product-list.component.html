@@ -26,8 +26,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor='let pro of ListofProd'>
-        <th scope="row">1</th>
+      <tr *ngFor='let pro of ListofProd  index as i'>
+        <th scope="row">{{i}}</th>
         <td>{{pro.Name}}</td>
         <td>{{pro.Code}}</td>
         <td>{{pro.Quantity}}</td>

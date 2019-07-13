@@ -41,7 +41,7 @@ export class ProductService {
     return this.http.get<Product>(this.baseURL+'/Product/GetProdbyCode?proCode:'+proCode);
   }  
   public getProductList():Observable<ProductList[]>  {
-    alert(this.baseURL+'/Product/CreatedAssigneeProduct');
+    console.log(this.baseURL+'/Product/CreatedAssigneeProduct');
         return this.http.get<ProductList[]>(this.baseURL+'/Product/CreatedAssigneeProduct');
     }
   
@@ -49,7 +49,7 @@ export class ProductService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-    alert(prod.strProdName);
+    console.log(prod.strProdName);
     return this.http.post(this.baseURL+this.registrationUrl,prod,httpOptions).pipe(
       tap((hero: Product) => this.log('added hero w/ id=${hero.id}')),
       catchError(this.handleError<Product>('addHero'))

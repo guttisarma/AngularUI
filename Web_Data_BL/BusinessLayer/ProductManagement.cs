@@ -61,6 +61,7 @@ namespace TradeBulk_BusinessLayer
           IQueryable<Product> lsPro = ProductRepository.Get(x => x.CreatedUserPID == currentUserID, null);
           IQueryable<ProductAssignment> lsProAss = ProductAssignmentRepository.Get(x => x.AssignedUserPid == currentUserID, null);
           List<ProductList> lsProResult = new List<ProductList>();
+          //Created Products
           foreach (var pro in lsPro)
           {
             ProductList proResult = new ProductList();
@@ -68,7 +69,7 @@ namespace TradeBulk_BusinessLayer
             proResult.Code = pro.Code;
             proResult.Name = pro.ProductName;
             proResult.Quantity = pro.Quanity;
-            proResult.RemQuantity = 0;//Here we have get Remaining 
+            proResult.RemQuantity = pro.RemQuantity==null?0:Convert.ToInt64(pro.RemQuantity);
             proResult.Description = pro.Description;
             if (pro.CreatedOn != null)
               proResult.CreatedOn = ((DateTime)pro.CreatedOn).ToString("dd/MM/yyyy");
@@ -76,6 +77,7 @@ namespace TradeBulk_BusinessLayer
             lsProResult.Add(proResult);
           }
           AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
+          //Assigned Products
           foreach (var pro in lsProAss)
           {
             IQueryable<AssignmentProd> assignmentProds = AssignmentProdRepository.GetAllExpressions(x => x.ProductAssignmentPID == pro.ProductAssignmentPID, null, null);
@@ -85,11 +87,12 @@ namespace TradeBulk_BusinessLayer
               proResult.ProductPID = assignmentProd.Product.ProductPID;
               proResult.Code = assignmentProd.Product.Code;
               proResult.Name = assignmentProd.Product.ProductName;
-              proResult.Quantity = assignmentProd.Product.Quanity;
+              proResult.Quantity =assignmentProd.Quantity==null?0:(long)assignmentProd.Quantity;
+              proResult.RemQuantity = assignmentProd.RemQuanity == null ? 0 : Convert.ToInt64(assignmentProd.RemQuanity);
               proResult.Description = assignmentProd.Product.Description;
               if (pro.CreatedOn != null)
                 proResult.CreatedOn = ((DateTime)pro.CreatedOn).ToString("dd/MM/yyyy");
-              proResult.IsAssign = false;
+              proResult.IsAssign = true;
               lsProResult.Add(proResult);
             }
 
@@ -495,7 +498,7 @@ namespace TradeBulk_BusinessLayer
         {
           ProductRepository = unitOfWork.GetRepoInstance<Product>();
           AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
-          IQueryable<Product> lspro = ProductRepository.GetAllExpressions(x => lsProduct.Select(y => y.ProductId).Contains(x.ProductPID), null, null);
+          //IQueryable<Product> lspro = ProductRepository.GetAllExpressions(x => lsProduct.Select(y => y.ProductId).ToList<long>().Contains(x.ProductPID), null, null);
           bool isvalidOperation = CheckValidOperation(lsProduct);
           if (isvalidOperation)
           {
@@ -503,22 +506,25 @@ namespace TradeBulk_BusinessLayer
             ProductAssignment proAssignment = new ProductAssignment();
             proAssignment.AssignedUserPid = AssigneeUserId;
             proAssignment.CreatedOn = DateTime.Now;
+            proAssignment.UpdatedOn = DateTime.Now;
             proAssignment.CreatedUserPID = CurrentUserId;
             proAssignment.AdvanceAmount = AdvAmount;
             proAssignment.TotalAmount = TotalAmount;
             proAssignment.ProductCode = GenProductCode("Assign");//newly generated code
             ProductAssignmentRepository.Insert(proAssignment);
 
-            foreach (var pro in lspro)
+            foreach (var pro in lsProduct)
             {
-              long Quntity = lsProduct.Where<AssProHelper>(x => x.ProductId == pro.ProductPID).First<AssProHelper>().Qunty;
+              long Quntity = pro.Qunty;
               AssignmentProd assignProduct = new AssignmentProd();
-              assignProduct.Product = pro;
+              Product prdct = ProductRepository.GetByID(pro.ProductId);
+              assignProduct.Product = prdct;
               assignProduct.Quantity = Quntity;
               assignProduct.RemQuanity = Quntity;
               assignProduct.ProductAssignmentPID = proAssignment.ProductAssignmentPID;
               AssignmentProdRepository.Insert(assignProduct);
-              Product prdct = ProductRepository.GetByID(pro.ProductPID);
+              prdct.UpdatedOn = DateTime.Now;
+              prdct.UpdatedUserPID = CurrentUserId;
               prdct.RemQuantity = (prdct.RemQuantity == 0) ? prdct.Quanity - Quntity : prdct.RemQuantity - Quntity;
               ProductRepository.Update(prdct);
             }

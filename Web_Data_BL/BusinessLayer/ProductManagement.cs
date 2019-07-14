@@ -80,6 +80,7 @@ namespace TradeBulk_BusinessLayer
           //Assigned Products
           foreach (var pro in lsProAss)
           {
+
             IQueryable<AssignmentProd> assignmentProds = AssignmentProdRepository.GetAllExpressions(x => x.ProductAssignmentPID == pro.ProductAssignmentPID, null, null);
             foreach (var assignmentProd in assignmentProds)
             {
@@ -93,6 +94,7 @@ namespace TradeBulk_BusinessLayer
               if (pro.CreatedOn != null)
                 proResult.CreatedOn = ((DateTime)pro.CreatedOn).ToString("dd/MM/yyyy");
               proResult.IsAssign = true;
+              proResult.AssignedUser = assignmentProd.ProductAssignment.UserDetail.FirstName;
               lsProResult.Add(proResult);
             }
 

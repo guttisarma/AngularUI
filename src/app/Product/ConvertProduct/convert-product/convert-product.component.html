@@ -1,36 +1,81 @@
 <div class="container">
     <div class="row">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" [(ngModel)]="this.proCodeKey" name="KeySearch" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" (click)='searchProductCode()' type="submit">Search Product</button>
-            </form>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" [(ngModel)]="this.proCodeKey" name="KeySearch"
+                placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" (click)='searchProductCode()' type="submit">Search
+                Product</button>
+        </form>
     </div>
     <div class="row">
-        
         <div class="col-sm-6">
-                
-                List of Product assigned on me::
-                <div class="row"  *ngFor="let p of plist">
-                        <div class="col-sm-3">{{p.Name}}</div>
-                        <div class="col-sm-3">{{p.Code}}</div>
-                        <div class="col-sm-3">{{p.Quantity}}</div>
-                        <div class="col-sm-3"><button type="button" class="btn btn-link" (click)="addToSelectList(p)" >select</button></div>
+            List of Product assigned on me::
+            <div class="row" *ngFor="let apv of assignProView">
+                <div class="row">
+                    <button type="button" class="btn btn-outline-primary" (click)="apv.iscollapse = !apv.iscollapse"
+                        [attr.aria-expanded]="!apv.iscollapse" aria-controls="collapseExample">
+                        {{apv.AssignUser}}
+                    </button>
                 </div>
+                <div id="collapseExample" [ngbCollapse]="apv.iscollapse" class="row">
+                    <div class="row">
+                        <div class="container" *ngIf="apv.lsproduct !=undefined && apv.lsproduct.length>0">
+                            <table class="table">
+                                <thead class="thead-Nav_match">
+                                    <tr>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Select option</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor='let pro of apv.lsproduct'>
+                                        <td #pCode>{{pro.Code}}</td>
+                                        <td>{{pro.Quantity}}</td>
+                                        <td>
+                                            <input type="checkbox" id="productCheck" name="selectProduct"
+                                                (change)="addToSelectList(pro)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-sm-6">
             List of product selected::
-            <div class="row"  *ngFor="let p of selectedlist">
-                    <div class="col-sm-3">{{p.Name}}</div>
-                    <div class="col-sm-3">{{p.Code}}</div>
-                    <div class="col-sm-3">{{p.Quantity}}</div>
-                    <div class="col-sm-3"><button type="button" class="btn btn-link" (click)="addToSelectList(p)" >remove</button></div>
+            <div class="row">
+                <div class="container" *ngIf="selectedlist !=undefined && selectedlist.length>0">
+                    <table class="table">
+                        <thead class="thead-Nav_match">
+                            <tr>
+                                <th scope="col">Code</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Required</th>
+                                <th scope="col">Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let p of selectedlist'>
+                                <td #pCode>{{p.Code}}</td>
+                                <td>{{p.Quantity}}</td>
+                                <td>
+                                    <input type="text" [(ngModel)]="p.RequiredQuantity" />
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-link" (click)="deleteSel(p)">remove</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            
         </div>
-
     </div>
     <div class="row">
-
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Preview</button>
     </div>
 
 </div>

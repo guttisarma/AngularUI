@@ -7,7 +7,7 @@ import { UserServiceService } from 'src/app/Service/user-service.service';
 import { ProductList, AssignProdToUser, PreviewPopupProList, PreviewPopupAssignment, AssProHelper } from 'src/app/HelperTs/ProductList';
 import { User } from 'src/app/HelperTs/User';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -32,40 +32,40 @@ export class AssignProductComponent implements OnInit {
 
   ngOnInit() {
 
-  /*   let p = new ProductList();
-    p.Code = 'p_cre_093';
-    p.Name = 'Pname'
-    p.Description = 'somedescription';
-    p.Quantity = 3450;
-    this.Plist.push(p);
-    let p1 = new ProductList();
-    p1.Code = 'p_cre_095';
-    p1.Name = 'Pname'
-    p1.Description = 'somedescription';
-    p1.Quantity = 3450;
-    this.Plist.push(p1);
-    let p2 = new ProductList();
-    p2.Code = 'p_cre_083';
-    p2.Name = 'Pname'
-    p2.Description = 'somedescription';
-    p2.Quantity = 3450;
-
-    this.Plist.push(p);
-    this.Plist.push(p);
-    p.Code = 'p_cre_193';
-    this.Plist.push(p);
-    p.Code = 'p_cre_063';
-    this.Plist.push(p);
-    p.Code = 'p_cre_067';
-    this.Plist.push(p);
-    p.Code = 'p_cre_793';
-    this.Plist.push(p);
-    let u = new User();
-    u.Code = 'User_1';
-    u.Name = 'UserName';
-    u.ManagerCode = 'Manage1';
-    this.Ulist.push(u);
-    //#mock */
+    /*   let p = new ProductList();
+      p.Code = 'p_cre_093';
+      p.Name = 'Pname'
+      p.Description = 'somedescription';
+      p.Quantity = 3450;
+      this.Plist.push(p);
+      let p1 = new ProductList();
+      p1.Code = 'p_cre_095';
+      p1.Name = 'Pname'
+      p1.Description = 'somedescription';
+      p1.Quantity = 3450;
+      this.Plist.push(p1);
+      let p2 = new ProductList();
+      p2.Code = 'p_cre_083';
+      p2.Name = 'Pname'
+      p2.Description = 'somedescription';
+      p2.Quantity = 3450;
+  
+      this.Plist.push(p);
+      this.Plist.push(p);
+      p.Code = 'p_cre_193';
+      this.Plist.push(p);
+      p.Code = 'p_cre_063';
+      this.Plist.push(p);
+      p.Code = 'p_cre_067';
+      this.Plist.push(p);
+      p.Code = 'p_cre_793';
+      this.Plist.push(p);
+      let u = new User();
+      u.Code = 'User_1';
+      u.Name = 'UserName';
+      u.ManagerCode = 'Manage1';
+      this.Ulist.push(u);
+      //#mock */
     this.productService.getProductList().subscribe(lsProduct => this.Plist = lsProduct);
     this.userService.getMyUsers().subscribe(lsusers => this.Ulist = lsusers);
   }
@@ -108,7 +108,7 @@ export class AssignProductComponent implements OnInit {
   styleUrls: ['./assign-product.component.css']
 })
 export class PreviewPopupComponent {
-  constructor(public activeModal: NgbActiveModal, private proService: ProductService,private router: Router) {
+  constructor(public activeModal: NgbActiveModal, private proService: ProductService, private router: Router) {
 
   }
   @Input() selectedUser: User;
@@ -127,11 +127,10 @@ export class PreviewPopupComponent {
     }
     assProToUser.AssignedUserPid = this.selectedUser.UserId;
     console.log(assProToUser);
-    this.proService.submitAssProduct(assProToUser).subscribe(result => { 
-      console.log('Oparation status is ' + result)
-    this.router.navigateByUrl('/ProductList') });
+    this.proService.submitAssProduct(assProToUser).subscribe(result => {
+      console.log('Oparation status is ' + result);
+      this.activeModal.dismiss('Cross click');
+      this.router.navigateByUrl('/ProductList');
+    });
   }
-
-
-
 }

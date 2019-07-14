@@ -9,14 +9,14 @@
     <thead class="thead-Nav_match">
       <tr>
         <th scope="col">Code</th>
-        <th scope="col">Total Quantity</th>
+        <th scope="col">A.. Quantity</th>
         <th scope="col">Assigned Quantity</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor='let pro of selProduct'>
         <td>{{pro.Code}}</td>
-        <td>{{pro.Quantity}}</td>
+        <td>{{pro.RemQuantity}}</td>
         <td>
           <input type="text"  name="AssignedQuantity" [(ngModel)]="pro.RequiredQuantity">
         </td>

@@ -20,7 +20,7 @@
             <tbody>
               <tr *ngFor='let pro of Plist'>              
                 <td #pCode>{{pro.Code}}</td>
-                <td>{{pro.Quantity}}</td>
+                <td>{{pro.RemQuantity}}</td>
                 <td>
                     <input type="checkbox"  id="productCheck" name="selectProduct" (change)="selectProduct(pro)" >
                 </td>

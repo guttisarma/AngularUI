@@ -4,6 +4,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment.PreProd';
 import {UserServiceService} from './Service/user-service.service';
 //import {Subscription} from 'rxjs/Subscription';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
   selectedEnv:string=environment.name;
   IsUserLogIn:boolean=false;
   //private subscription:Subscription;
-  constructor(private userService:UserServiceService){
+  constructor(private userService:UserServiceService,private router: Router){
 
   }
 
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit {
 logout(){
   localStorage.setItem("AuthToken",null);
   this.IsUserLogIn=false;
+  this.router.navigateByUrl('/SignIn');
 }
  
   //person.startDate = new Date(1990, 0, 1);

@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-sm-6">
             List of Product assigned on me::
-            <div class="row" *ngFor="let apv of assignProView">
+            <!--   <div class="row" *ngFor="let apv of assignProView">
                 <div class="row">
                     <button type="button" class="btn btn-outline-primary" (click)="apv.iscollapse = !apv.iscollapse"
                         [attr.aria-expanded]="!apv.iscollapse" aria-controls="collapseExample">
@@ -42,6 +42,41 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+            <div class="panel-group">
+                <div class="panel" *ngFor="let apv of assignProView index as i ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <button type="button" class="btn btn-link" (click)="ShowRelatedTable(apv)">{{apv.AssignUser}}</button>
+                        </h4>
+                    </div>
+                    <div *ngIf="apv.iscollapse">
+                            <div class="row">
+                                    <div class="container" *ngIf="apv.lsproduct !=undefined && apv.lsproduct.length>0">
+                                        <table class="table">
+                                            <thead class="thead-Nav_match">
+                                                <tr>
+                                                    <th scope="col">Code</th>
+                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Select option</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor='let pro of apv.lsproduct'>
+                                                    <td #pCode>{{pro.Code}}</td>
+                                                    <td>{{pro.Quantity}}</td>
+                                                    <td>
+                                                        <input type="checkbox" id="productCheck" name="selectProduct"
+                                                            (change)="addToSelectList(pro)">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="col-sm-6">
@@ -75,7 +110,10 @@
         </div>
     </div>
     <div class="row">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Preview</button>
+        <div class="float-left">
+                <button class="btn btn-primary active" type="submit">Preview</button>
+        </div>
+        
     </div>
 
 </div>

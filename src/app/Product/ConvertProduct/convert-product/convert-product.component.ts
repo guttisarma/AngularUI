@@ -52,9 +52,16 @@ export class ConvertProductComponent implements OnInit {
       }
     }
     this.selectedlist.push(p);
-
-
   }
+  ShowRelatedTable(apv:AssignProductView){
+    if(apv.iscollapse){
+      apv.iscollapse=false;
+    }else{
+    apv.iscollapse=true;
+    }
+    console.log(apv);
+  }
+
   searchProductCode() {
 
   }

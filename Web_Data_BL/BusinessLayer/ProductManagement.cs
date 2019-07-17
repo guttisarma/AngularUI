@@ -26,6 +26,7 @@ namespace TradeBulk_BusinessLayer
     GenericRepository<User> UserRepository;
     GenericRepository<UserDetail> UserDetailsRepository;
     GenericRepository<AssignmentProd> AssignmentProdRepository;
+    GenericRepository<ProDetailAssignView> ProDetailAssignViewRepository;
     GenericRepository<AssignConvertRelation> AssignConvertRelationRepository;
     GenericRepository<SupportConverted> SupportConvertedRepository;
     // ITransactFactory transactFactory;
@@ -69,7 +70,7 @@ namespace TradeBulk_BusinessLayer
             proResult.Code = pro.Code;
             proResult.Name = pro.ProductName;
             proResult.Quantity = pro.Quanity;
-            proResult.RemQuantity = pro.RemQuantity==null?0:Convert.ToInt64(pro.RemQuantity);
+            proResult.RemQuantity = pro.RemQuantity == null ? 0 : Convert.ToInt64(pro.RemQuantity);
             proResult.Description = pro.Description;
             if (pro.CreatedOn != null)
               proResult.CreatedOn = ((DateTime)pro.CreatedOn).ToString("dd/MM/yyyy");
@@ -88,7 +89,7 @@ namespace TradeBulk_BusinessLayer
               proResult.ProductPID = assignmentProd.Product.ProductPID;
               proResult.Code = assignmentProd.Product.Code;
               proResult.Name = assignmentProd.Product.ProductName;
-              proResult.Quantity =assignmentProd.Quantity==null?0:(long)assignmentProd.Quantity;
+              proResult.Quantity = assignmentProd.Quantity == null ? 0 : (long)assignmentProd.Quantity;
               proResult.RemQuantity = assignmentProd.RemQuanity == null ? 0 : Convert.ToInt64(assignmentProd.RemQuanity);
               proResult.Description = assignmentProd.Product.Description;
               if (pro.CreatedOn != null)
@@ -115,30 +116,26 @@ namespace TradeBulk_BusinessLayer
     public ProductDetails GetProductbyCode(string proCode, long currentUserID)
     {
       ProductDetails pd = new ProductDetails();
+      pd.PDAssignment = new List<ProductDetailAssignment>();
       using (UnitOfWork unitOfWork = new UnitOfWork())
       {
         ProductRepository = unitOfWork.GetRepoInstance<Product>();
-        Product product=  ProductRepository.GetByID(proCode);
+        Product product = ProductRepository.GetAllExpressions(x=>x.Code==proCode,null,null).FirstOrDefault<Product>();
         pd.iCreProdid = product.ProductPID;
         pd.lQuantity = product.Quanity;
-        pd.Price = product.Price==null ? 0 :(decimal)product.Price;
+        pd.Price = product.Price == null ? 0 : (decimal)product.Price;
         pd.strDescription = product.Description;
         pd.strProdName = product.ProductName;
         pd.strProdCode = product.Code;
-        AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
-        IQueryable<AssignmentProd> AProd = AssignmentProdRepository.GetAllExpressions(x => x.ProductPID == pd.iCreProdid, null, null);
+        ProDetailAssignViewRepository = unitOfWork.GetRepoInstance<ProDetailAssignView>();
+        IQueryable<ProDetailAssignView> AProd = ProDetailAssignViewRepository.GetAllExpressions(x => x.ProductPID == pd.iCreProdid, null, null);
         foreach (var AssignProd in AProd)
         {
           ProductDetailAssignment PDAssignment = new ProductDetailAssignment();
-          PDAssignment.Quantity +=AssignProd.Quantity==null?0:(long)AssignProd.Quantity;
-          ProductAssignmentRepository = unitOfWork.GetRepoInstance<ProductAssignment>();
-          var ProAssign = ProductAssignmentRepository.GetAllExpressions(x => x.CreatedUserPID == currentUserID && x.ProductAssignmentPID == AssignProd.ProductAssignmentPID, null, null);
-          foreach (var proAgn in ProAssign)
-          {
-            PDAssignment.AssignProductCode = proAgn.ProductCode;
-            PDAssignment.CreatedOn =(DateTime) proAgn.CreatedOn;
-            PDAssignment.UserName = proAgn.UserDetail.FirstName;
-          }
+          PDAssignment.Quantity += AssignProd.Quantity == null ? 0 : (long)AssignProd.Quantity;
+          PDAssignment.AssignProductCode = AssignProd.Code;
+          PDAssignment.CreatedOn = (DateTime)AssignProd.CreatedOn;
+          PDAssignment.UserName = AssignProd.AssignedUser;
           pd.PDAssignment.Add(PDAssignment);
         }
 
@@ -676,7 +673,7 @@ namespace TradeBulk_BusinessLayer
         //isSuccess = false;
       }
     }
-   
+
 
     #endregion
   }

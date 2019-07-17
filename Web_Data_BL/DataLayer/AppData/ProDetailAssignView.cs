@@ -12,15 +12,12 @@ namespace TradeBulk_DataLayer.AppData
     using System;
     using System.Collections.Generic;
     
-    public partial class AssignmentProd
+    public partial class ProDetailAssignView
     {
-        public long AssignmentProdPID { get; set; }
-        public long ProductPID { get; set; }
         public Nullable<long> Quantity { get; set; }
-        public Nullable<long> ProductAssignmentPID { get; set; }
-        public Nullable<long> RemQuanity { get; set; }
-    
-        public virtual Product Product { get; set; }
-        public virtual ProductAssignment ProductAssignment { get; set; }
+        public string Code { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public long ProductPID { get; set; }
+        public string AssignedUser { get; set; }
     }
 }

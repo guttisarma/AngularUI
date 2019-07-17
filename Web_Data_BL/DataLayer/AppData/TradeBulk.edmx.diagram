@@ -121,6 +121,7 @@
         <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_AssignedUserPid" />
         <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_CreatedUserPID" />
         <AssociationConnector Association="TradeBulkModel.FK_ProductAssignment_UpdatedUserPID" />
+        <EntityTypeShape EntityType="TradeBulkModel.ProDetailAssignView" Width="1.5" PointX="0.75" PointY="15.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

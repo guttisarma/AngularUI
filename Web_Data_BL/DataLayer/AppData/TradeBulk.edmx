@@ -513,6 +513,18 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <Property Name="UserTypePID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TradeBulk.dbo.ProDetailAssignView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProDetailAssignView">
+          <Key>
+            <PropertyRef Name="ProductPID" />
+          </Key>
+          <Property Name="Quantity" Type="bigint" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ProductPID" Type="bigint" Nullable="false" />
+          <Property Name="AssignedUser" Type="nvarchar" MaxLength="513" />
+        </EntityType>
         <Association Name="FK__aspnet_Me__Appli__24E777C3">
           <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
           <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="*" />
@@ -1401,6 +1413,15 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
     [DropDownOnEntity].[DisplayName] AS [DisplayName], 
     [DropDownOnEntity].[ColumnType] AS [ColumnType]
     FROM [dbo].[DropDownOnEntity] AS [DropDownOnEntity]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProDetailAssignView" EntityType="Self.ProDetailAssignView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProDetailAssignView].[Quantity] AS [Quantity], 
+    [ProDetailAssignView].[Code] AS [Code], 
+    [ProDetailAssignView].[CreatedOn] AS [CreatedOn], 
+    [ProDetailAssignView].[ProductPID] AS [ProductPID], 
+    [ProDetailAssignView].[AssignedUser] AS [AssignedUser]
+    FROM [dbo].[ProDetailAssignView] AS [ProDetailAssignView]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__aspnet_Me__Appli__24E777C3" Association="Self.FK__aspnet_Me__Appli__24E777C3">
             <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
@@ -2848,6 +2869,7 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             <End Role="UserDetail" EntitySet="UserDetails" />
             <End Role="ProductAssignment" EntitySet="ProductAssignments" />
           </AssociationSet>
+          <EntitySet Name="ProDetailAssignViews" EntityType="TradeBulkModel.ProDetailAssignView" />
           </EntityContainer>
         <EntityType Name="UserDetailEmail">
           <Key>
@@ -3484,6 +3506,16 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ProDetailAssignView">
+          <Key>
+            <PropertyRef Name="ProductPID" />
+          </Key>
+          <Property Name="Quantity" Type="Int64" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ProductPID" Type="Int64" Nullable="false" />
+          <Property Name="AssignedUser" Type="String" MaxLength="513" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4038,6 +4070,17 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
                 <ScalarProperty Name="AssignedUserPid" ColumnName="AssignedUserPid" />
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
                 <ScalarProperty Name="ProductAssignmentPID" ColumnName="ProductAssignmentPID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProDetailAssignViews">
+            <EntityTypeMapping TypeName="TradeBulkModel.ProDetailAssignView">
+              <MappingFragment StoreEntitySet="ProDetailAssignView">
+                <ScalarProperty Name="AssignedUser" ColumnName="AssignedUser" />
+                <ScalarProperty Name="ProductPID" ColumnName="ProductPID" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

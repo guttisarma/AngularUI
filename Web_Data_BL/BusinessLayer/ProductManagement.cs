@@ -111,6 +111,42 @@ namespace TradeBulk_BusinessLayer
       //return null;
     }
 
+
+    public ProductDetails GetProductbyCode(string proCode, long currentUserID)
+    {
+      ProductDetails pd = new ProductDetails();
+      using (UnitOfWork unitOfWork = new UnitOfWork())
+      {
+        ProductRepository = unitOfWork.GetRepoInstance<Product>();
+        Product product=  ProductRepository.GetByID(proCode);
+        pd.iCreProdid = product.ProductPID;
+        pd.lQuantity = product.Quanity;
+        pd.Price = product.Price==null ? 0 :(decimal)product.Price;
+        pd.strDescription = product.Description;
+        pd.strProdName = product.ProductName;
+        pd.strProdCode = product.Code;
+        AssignmentProdRepository = unitOfWork.GetRepoInstance<AssignmentProd>();
+        IQueryable<AssignmentProd> AProd = AssignmentProdRepository.GetAllExpressions(x => x.ProductPID == pd.iCreProdid, null, null);
+        foreach (var AssignProd in AProd)
+        {
+          ProductDetailAssignment PDAssignment = new ProductDetailAssignment();
+          PDAssignment.Quantity +=AssignProd.Quantity==null?0:(long)AssignProd.Quantity;
+          ProductAssignmentRepository = unitOfWork.GetRepoInstance<ProductAssignment>();
+          var ProAssign = ProductAssignmentRepository.GetAllExpressions(x => x.CreatedUserPID == currentUserID && x.ProductAssignmentPID == AssignProd.ProductAssignmentPID, null, null);
+          foreach (var proAgn in ProAssign)
+          {
+            PDAssignment.AssignProductCode = proAgn.ProductCode;
+            PDAssignment.CreatedOn =(DateTime) proAgn.CreatedOn;
+            PDAssignment.UserName = proAgn.UserDetail.FirstName;
+          }
+          pd.PDAssignment.Add(PDAssignment);
+        }
+
+
+      }
+      return pd;
+    }
+
     /// <summary>
     /// Products which are Assined to other by the users
     /// </summary>
@@ -640,6 +676,7 @@ namespace TradeBulk_BusinessLayer
         //isSuccess = false;
       }
     }
+   
 
     #endregion
   }

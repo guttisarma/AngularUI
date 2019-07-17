@@ -9,7 +9,8 @@ import { ConvertProductComponent } from './ConvertProduct/convert-product/conver
 import {DragComponent} from './Dragable_Product/drag/drag.component';
 import { RouterModule } from '@angular/router';
 import {ProductRoutingModule} from './product-routing.module';
-import {ProductService} from './product.service';import { FormsModule } from '@angular/forms';
+import {ProductService} from './product.service';
+import { FormsModule } from '@angular/forms';
 import {AssignedProductListComponent} from './AssignProduct/assigned-product-list/assigned-product-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 ;

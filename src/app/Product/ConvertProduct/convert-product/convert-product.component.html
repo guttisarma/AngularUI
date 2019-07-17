@@ -97,23 +97,25 @@
                                 <td #pCode>{{p.Code}}</td>
                                 <td>{{p.Quantity}}</td>
                                 <td>
-                                    <input type="text" [(ngModel)]="p.RequiredQuantity" />
+                                    <input type="text"  [(ngModel)]="p.RequiredQuantity" (blur)="Validate(p)" />
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-link" (click)="deleteSel(p)">remove</button>
                                 </td>
                             </tr>
+                            
                         </tbody>
                     </table>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-9"></div>
+                <div class="col-sm-3">
+                        <div class="float-left">
+                                <button class="btn btn-primary active" type="submit" (click)="ShowPopup()">Preview</button>
+                        </div>
+                </div>                
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="float-left">
-                <button class="btn btn-primary active" type="submit">Preview</button>
-        </div>
-        
-    </div>
-
 </div>

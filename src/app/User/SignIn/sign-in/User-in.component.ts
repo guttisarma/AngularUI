@@ -15,10 +15,12 @@ export class UserInComponent implements OnInit {
   SingIn:UserIn=new UserIn();
   baseURL:String=environment.apiBaseUrl;
   tokenInfo:string;
+  IsLoading:boolean;
   ngOnInit() {
     
   }
   onLogin()  {
+    this.IsLoading=true;
     this.UserServ.login(this.SingIn).subscribe(token=>{
       if(token=="LoginFailed"){
         alert("Username/Password went wrong");
@@ -30,6 +32,7 @@ export class UserInComponent implements OnInit {
       else{
         alert("Username/Password went wrong");
       }
+    this.IsLoading=false;
     },error=>alert(error));
     
   }

@@ -86,3 +86,20 @@ Alter table SupportConverted
 add constraint FK_SupportConverted_ProductConvert FOREIGN KEY (ProductConvertPID) References ProductConvert(ProductConvertPID)
 GO
 --3/22/2019
+
+GO
+
+IF NOT EXISTS (select * from  sys.objects where type='v' and name='ProDetailAssignView')
+begin
+
+Declare @SqlText Nvarchar(max);
+set @SqlText='create View ProDetailAssignView As 
+select AssignmentProd.Quantity As Quantity,ProductAssignment.ProductCode As Code,
+ProductAssignment.CreatedOn As CreatedOn,UserDetail.FirstName+'' ''+UserDetail.LastName as AssignedUser  from AssignmentProd 
+inner join ProductAssignment on ProductAssignment.ProductAssignmentPID=AssignmentProd.ProductAssignmentPID
+inner join UserDetail on ProductAssignment.AssignedUserPID =UserDetail.UserdetailPID'
+execute sp_executeSQl @SqlText;
+end
+
+
+--7/17/2019

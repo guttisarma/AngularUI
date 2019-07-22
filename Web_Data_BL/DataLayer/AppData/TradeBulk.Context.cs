@@ -73,5 +73,6 @@ namespace TradeBulk_DataLayer.AppData
         public virtual DbSet<SupportConverted> SupportConverteds { get; set; }
         public virtual DbSet<ProductAssignment> ProductAssignments { get; set; }
         public virtual DbSet<ProDetailAssignView> ProDetailAssignViews { get; set; }
+        public virtual DbSet<ProductConvertView> ProductConvertViews { get; set; }
     }
 }

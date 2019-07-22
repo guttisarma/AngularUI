@@ -129,6 +129,9 @@
     <Compile Include="AppData\PhoneType.cs">
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>
+    <Compile Include="AppData\ProDetailAssignView.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
     <Compile Include="AppData\Product.cs">
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>
@@ -136,6 +139,9 @@
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>
     <Compile Include="AppData\ProductConvert.cs">
+      <DependentUpon>TradeBulk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppData\ProductConvertView.cs">
       <DependentUpon>TradeBulk.tt</DependentUpon>
     </Compile>
     <Compile Include="AppData\ProductState.cs">

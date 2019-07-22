@@ -29,6 +29,7 @@ namespace TradeBulk_BusinessLayer
     GenericRepository<ProDetailAssignView> ProDetailAssignViewRepository;
     GenericRepository<AssignConvertRelation> AssignConvertRelationRepository;
     GenericRepository<SupportConverted> SupportConvertedRepository;
+    GenericRepository<ProductConvertView> ProductConvertViewRepository;
     // ITransactFactory transactFactory;
     #endregion
 
@@ -338,7 +339,37 @@ namespace TradeBulk_BusinessLayer
 
     }
 
+    public List<ProAssgnListCon> MyAssigneeProductList(long currentUserID)
+    {
+      List<ProAssgnListCon> proAssgnListCons = new List<ProAssgnListCon>();
+      try
+      {
+        using (UnitOfWork unitOfWork = new UnitOfWork())
+        {
+          ProductConvertViewRepository = unitOfWork.GetRepoInstance<ProductConvertView>();
+          IQueryable<ProductConvertView> lsProAssgnListCon = ProductConvertViewRepository.GetAllExpressions(x => x.UserPID == currentUserID, null, null, null);
+          foreach (var proALC in lsProAssgnListCon)
+          {
+            ProAssgnListCon proAssgnListCon = new ProAssgnListCon();
+            proAssgnListCon.AssignedUserFullName = proALC.AssignedUserFullName;
+            proAssgnListCon.AssigneeUserFullName = proALC.AssigneeUserFullName;
+            proAssgnListCon.AvailableQuantity = (long)proALC.AvailableQuantity;
+            proAssgnListCon.ProductCode = proALC.ProductCode;
+            proAssgnListCon.ProductName = proALC.ProductName;
+            proAssgnListCon.ProductPID = proALC.ProductPID;
+            proAssgnListCon.UserPID = (long)proALC.UserPID;
+            proAssgnListCons.Add(proAssgnListCon);
+          }
+        }
+      }
+      catch (Exception ex)
+      {
+        LogHelper.WriteErrorLog(ex);
+        //isSuccess = false;
+      }
+          return proAssgnListCons;
 
+    }
     public long getNextPID(string action)
     {
       return 0;

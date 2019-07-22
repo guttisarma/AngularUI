@@ -103,3 +103,27 @@ end
 
 
 --7/17/2019
+GO
+
+IF NOT EXISTS (select * from  sys.objects where type='v' and name='ProductConvertView')
+begin
+
+Declare @SqlText Nvarchar(max);
+set @SqlText='create View ProductConvertView As 
+select 
+AssignedUserPid as UserPID,
+Product.ProductPID as ProductPID,
+UserDetail.FirstName+'' ''+UserDetail.LastName as AssigneeUserFullName, 
+Product.ProductName as ProductName,
+Product.Code as ProductCode,
+AssignmentProd.RemQuanity as AvailableQuantity ,
+CreatedOn.FirstName+'' ''+CreatedOn.LastName as AssignedUserFullName 
+from ProductAssignment 
+inner join AssignmentProd on ProductAssignment.ProductAssignmentPID=AssignmentProd.ProductAssignmentPID
+inner join Product on Product.productPid=AssignmentProd.productPid
+inner join UserDetail on UserDetail.UserDetailPID=AssignedUserPid
+inner join UserDetail as CreatedOn on CreatedOn.UserdetailPID=ProductAssignment.CreatedUserPID'
+execute sp_executeSQl @SqlText;
+end
+
+GO

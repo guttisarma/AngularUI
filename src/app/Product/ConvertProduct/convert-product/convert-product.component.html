@@ -64,7 +64,7 @@
                                             <tbody>
                                                 <tr *ngFor='let pro of apv.lsproduct'>
                                                     <td #pCode>{{pro.Code}}</td>
-                                                    <td>{{pro.Quantity}}</td>
+                                                    <td>{{pro.RemQuantity}}</td>
                                                     <td>
                                                         <input type="checkbox" id="productCheck" name="selectProduct"
                                                             (change)="addToSelectList(pro)">
@@ -95,7 +95,7 @@
                         <tbody>
                             <tr *ngFor='let p of selectedlist'>
                                 <td #pCode>{{p.Code}}</td>
-                                <td>{{p.Quantity}}</td>
+                                <td>{{p.RemQuantity}}</td>
                                 <td>
                                     <input type="text"  [(ngModel)]="p.RequiredQuantity" (blur)="Validate(p)" />
                                 </td>

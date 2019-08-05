@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User, exAddress, exEmail, exPhone, exUser, MockexAddress, MockexEmail, MockexPhone, MockexUser } from '../HelperTs/User'
-import { Observable, of,BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -12,8 +12,8 @@ import { RegUser, AddrssUser } from '../HelperTs/User';
   providedIn: 'root'
 })
 export class UserServiceService {
-  private UserMenu=new BehaviorSubject<boolean>(false);
-  cast=this.UserMenu.asObservable();
+  private UserMenu = new BehaviorSubject<boolean>(false);
+  cast = this.UserMenu.asObservable();
 
   checkUserExists(LoginRequest: UserIn): Observable<number> {
     const httpOptions = {
@@ -40,7 +40,7 @@ export class UserServiceService {
     );
   }
 
-  VisibleUserOp(isvisible){
+  VisibleUserOp(isvisible) {
     this.UserMenu.next(isvisible);
   }
   //Environment variable
@@ -73,29 +73,26 @@ export class UserServiceService {
 
     return this.http.post('http://localhost:55374/api/User/Authenticate', LoginRequest, httpOptions).pipe(
       tap(
-        (JWT: string) => {        localStorage.setItem("AuthToken", JWT);
-        console.log(JWT);
-        
-      }),
-      catchError(this.handleError<string>('login','LoginFailed'))
+        (JWT: string) => {
+          localStorage.setItem("AuthToken", JWT);
+          console.log(JWT);
+        }),
+      catchError(this.handleError<string>('login', 'LoginFailed'))
     );
   }
-  
+
 
   Register(regUser: RegUser): Observable<RegUser> {
-
+    console.log('Register will call server method');
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-    try {
-      this.http.post('http://localhost:55374/api//User/Registration', regUser, httpOptions).pipe(tap(
-        (regUserResult: RegUser) => { return regUserResult; }), catchError(this.handleError<string>('')))
-    } catch (ex) {
-      console.log(ex);
-      return null;
-    }
-
-
+     let ruser=new RegUser();
+   return this.http.post('http://localhost:55374/api//User/Registration', regUser, httpOptions).pipe(
+     tap(
+         (regUserResult: RegUser) => { return regUserResult; }), 
+         catchError(this.handleError<RegUser>('Register',ruser)));
+     
   }
   /** Log a HeroService message with the MessageService */
   private log(message: string) {

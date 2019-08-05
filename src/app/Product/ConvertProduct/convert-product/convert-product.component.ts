@@ -3,6 +3,7 @@ import { ProductList, AssignProductView } from 'src/app/HelperTs/ProductList';
 import { ProductService } from '../../product.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PreviewPopupComponent } from '../../AssignProduct/assign-product/assign-product.component';
+import {User} from '../../../HelperTs/User';
 
 
 @Component({
@@ -12,28 +13,34 @@ import { PreviewPopupComponent } from '../../AssignProduct/assign-product/assign
 })
 export class ConvertProductComponent implements OnInit {
 
-  constructor(private productService: ProductService,private modalService: NgbModal) { }
+  constructor(private productService: ProductService, private modalService: NgbModal) { }
   Plist: ProductList[] = [];
   selectedlist: ProductList[] = [];
   proCodeKey: string;
   public isCollapsed = false;
   assignProView: AssignProductView[] = [];
   ngOnInit() {
-    this.dummyData();
-    let diffUser: any;
-    diffUser = this.Plist.map(x => x.AssignedUserName).filter(function (elem, index, self) {
-      return index === self.indexOf(elem);
-    })
-
-    for (let i = 0; i < diffUser.length; ++i) {
-      let aPV = new AssignProductView();
-      aPV.AssignUser = diffUser[i];
-      aPV.lsproduct = [];
-      aPV.lsproduct.push(...this.Plist.filter(x => x.AssignedUserName === diffUser[i]));
-      console.log(this.assignProView);
-      this.assignProView.push(aPV);
+    //this.dummyData();
+    this.productService.getAssgnConvertView().subscribe(lspro => {
+      this.Plist = lspro;
+      console.log(this.Plist);
+      let diffUser: any;
+      diffUser = this.Plist.map(x => x.AssignedUserName).filter(function (elem, index, self) {
+        return index === self.indexOf(elem);
+      })
+      console.log('diffUser ' + diffUser);
+      for (let i = 0; i < diffUser.length; ++i) {
+        let aPV = new AssignProductView();
+        aPV.AssignUser = diffUser[i];
+        aPV.lsproduct = [];
+        aPV.lsproduct.push(...this.Plist.filter(x => x.AssignedUserName === diffUser[i]));
+        console.log(this.assignProView);
+        this.assignProView.push(aPV);
+      }
+      console.log('this.assignProView ' + this.assignProView);
     }
-    console.log(this.assignProView);
+    );
+
 
     /* this.productService.getProductList().subscribe(lsProduct => {
       this.Plist = lsProduct.filter(x=>{
@@ -49,10 +56,13 @@ export class ConvertProductComponent implements OnInit {
   addToSelectList(p: ProductList) {
 
     for (var i = 0; i < this.assignProView.length - 1; i++) {
-      for (let j = 0; j < this.assignProView[i].lsproduct.length - 1; ++j)
+      for (let j = 0; j < this.assignProView[i].lsproduct.length - 1; ++j){
+        console.log('Code check'+this.assignProView[i].lsproduct[j].Code);
+        console.log('Code check'+p.Code);
         if (this.assignProView[i].lsproduct[j].Code === p.Code) {
           this.assignProView[i].lsproduct.splice(j, 1);
         }
+      }
     }
     this.selectedlist.push(p);
   }
@@ -134,21 +144,21 @@ export class ConvertProductComponent implements OnInit {
     p7.AssignedUserName = 'Sharma';
     this.Plist.push(p7);
   }
-  ShowPopup(){
+  ShowPopup() {
     const modalRef = this.modalService.open(PreviewPopupComponent);
     modalRef.componentInstance.selProduct = [...this.selectedlist];
-    
-
+    let user =new User();
+    user.Name
     modalRef.componentInstance.selectedUser = "someDummyData";
-   console.log( this.selectedlist.filter(x=>x.Quantity<x.RequiredQuantity));
+    console.log(this.selectedlist.filter(x => x.Quantity < x.RequiredQuantity));
   }
-  Validate(P:ProductList){
-    if(P.Quantity>=P.RequiredQuantity){
-      P.Isvalid=true;
+  Validate(P: ProductList) {
+    if (P.Quantity >= P.RequiredQuantity) {
+      P.Isvalid = true;
       console.log('isvalid');
     }
-    else{
-      P.Isvalid=false;
+    else {
+      P.Isvalid = false;
       console.log("isn't valid");
     }
   }

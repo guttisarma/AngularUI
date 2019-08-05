@@ -16,10 +16,13 @@ export class UserRegistrationComponent implements OnInit {
   constructor(private userservice:UserServiceService) { }
 
   ngOnInit() {
+  this.person.lsAddrssUser=[];
+
   }
   onSubmit(){
-
+    console.log('submit button clicked');
     this.person.lsAddrssUser.push(this.addressUser);
+    console.log('submit button clicked');
     this.userservice.Register(this.person).subscribe((reg:RegUser)=>this.person=reg);
   }
 

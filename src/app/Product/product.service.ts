@@ -14,6 +14,7 @@ export class ProductService {
   private createdAssigneeProductUrl = '/Product/CreatedAssigneeProduct';  
   private registrationUrl='/Product/CreateProd';
   private AssignPronUrl='/Product/AssignProduct';
+  private AssignConvertViewUrl='/Product/AssignedProforConversion';
     //Environment variable
     baseURL:String=environment.apiBaseUrl;
 
@@ -36,6 +37,10 @@ export class ProductService {
       return of(MockProductList);
     }
   } */
+
+  public getAssgnConvertView():Observable<ProductList[]>{
+    return this.http.get<ProductList[]>(this.baseURL+this.AssignConvertViewUrl);
+  }
 
   public getProdbyCode(proCode: string):Observable<Product> {
     return this.http.get<Product>(this.baseURL+'/Product/GetProdbyCode?proCode:'+proCode);

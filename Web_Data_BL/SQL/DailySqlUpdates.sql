@@ -3,6 +3,9 @@
 Alter table InlineTranscat
 Alter column Amount money not null
 
+Alter Table ProductAssignment
+add AssignmentProdPID BIGINT NULL
+
 Create table InlineTranscatType
 (
 InlineTranscatTypePID Bigint Identity(1,1) not null,
@@ -126,4 +129,13 @@ inner join UserDetail as CreatedOn on CreatedOn.UserdetailPID=ProductAssignment.
 execute sp_executeSQl @SqlText;
 end
 
+GO
+Insert UserDetail (FirstName,MiddleName,LastName,DateofBirth,IsActive,IsAdmin,IsApproved)
+values('Admin','Admin','Admin','1900-1-1',1,1,1)
+GO
+
+Insert Users (Username,FirstName,LastName,Email,isactive,UserCode,ActivationCode,password)
+values('Admin','Admin','Admin','Admin@admin.in',1,'Admin',newID(),'HuqjUPvrwrb2e6JORAwZ84mbsZZIclGkCz810EWLn9k=')
+
+update UD   set UD.UserPID=u.UserId from Userdetail UD inner join Users U on UD.Firstname=U.FirstName
 GO

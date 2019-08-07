@@ -351,11 +351,11 @@ namespace TradeBulk_BusinessLayer
           foreach (var proALC in lsProAssgnListCon)
           {
             ProAssgnListCon proAssgnListCon = new ProAssgnListCon();
-            proAssgnListCon.AssignedUserFullName = proALC.AssignedUserFullName;
+            proAssgnListCon.AssignedUserName = proALC.AssignedUserFullName;
             proAssgnListCon.AssigneeUserFullName = proALC.AssigneeUserFullName;
-            proAssgnListCon.AvailableQuantity = (long)proALC.AvailableQuantity;
-            proAssgnListCon.ProductCode = proALC.ProductCode;
-            proAssgnListCon.ProductName = proALC.ProductName;
+            proAssgnListCon.RemQuantity = (long)proALC.AvailableQuantity;
+            proAssgnListCon.Code = proALC.ProductCode;
+            proAssgnListCon.Name = proALC.ProductName;
             proAssgnListCon.ProductPID = proALC.ProductPID;
             proAssgnListCon.UserPID = (long)proALC.UserPID;
             proAssgnListCons.Add(proAssgnListCon);

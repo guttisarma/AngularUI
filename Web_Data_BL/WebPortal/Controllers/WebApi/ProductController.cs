@@ -86,6 +86,13 @@ namespace TradeBulk_Web.Controllers.WebApi
     }
 
     [HttpGet]
+    public List<ProAssgnListCon> AssignedProforConversion()
+    {
+      List<ProAssgnListCon> proAssgnListCons = ipromngmt.MyAssigneeProductList(currentUserID);
+      return proAssgnListCons;
+    }
+
+    [HttpGet]
     public List<ProductList> ConvertedProduct()
     {
       List<ProductList> lsProList;

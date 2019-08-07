@@ -27,7 +27,8 @@ namespace TradeBulk_Web.Controllers.WebApi
     public UserController()
     {
       //if the Requested for Userlogin we should pass it
-      if (!(HttpContext.Current.Request.CurrentExecutionFilePath == @"/api/User/Authenticate"))
+      if (!(HttpContext.Current.Request.CurrentExecutionFilePath == @"/api/User/Authenticate" ||
+        HttpContext.Current.Request.CurrentExecutionFilePath == @"/api/User/Registration"))
       {
         isFakeData = Convert.ToBoolean(ConfigurationManager.AppSettings["DummyDataForAPI"]);
         if (!isFakeData)
@@ -119,7 +120,6 @@ namespace TradeBulk_Web.Controllers.WebApi
 
       if (string.IsNullOrEmpty(login.Username))
       {
-
         loginResponse.responseMsg.StatusCode = HttpStatusCode.NotFound;
         response = ResponseMessage(loginResponse.responseMsg);
         return response;
@@ -142,8 +142,25 @@ namespace TradeBulk_Web.Controllers.WebApi
         return response;
       }
     }
-
-
+    [HttpPost]
+    public IHttpActionResult Registration([FromBody] NewUserRegistrationSupport NewUserDetails)
+    {
+      string UserCode=string.Empty;
+      IHttpActionResult response;
+      UserManagement UserRegistrationHelp = new UserManagement();
+      if(!string.IsNullOrEmpty(NewUserDetails.strFirstName))
+      UserRegistrationHelp.SaveNewUserDetails(NewUserDetails,ref UserCode);
+      if(!string.IsNullOrEmpty(UserCode))
+      {
+        response = ResponseMessage(new HttpResponseMessage());
+        return response;
+      }
+      else
+      {
+        return BadRequest("Unable to create New User");
+      }
+      
+    }
 
     [HttpPost]
     public IHttpActionResult ResetPassword([FromBody] LoginRequest login)

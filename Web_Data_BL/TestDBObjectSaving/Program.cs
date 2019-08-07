@@ -13,6 +13,11 @@ namespace TestDBObjectSaving
   {
     static void Main(string[] args)
     {
+
+      ProductManagement pm = new ProductManagement();
+      var result=pm.GetProductbyCode("Pro_Cre_0_172830", 2);
+      return;
+
       #region Create Product
       //ITransactFactory transactFactory = new TransactFactory();
       ProductManagement pro = new ProductManagement();

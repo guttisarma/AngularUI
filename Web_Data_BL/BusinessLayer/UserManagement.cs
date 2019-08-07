@@ -121,7 +121,7 @@ namespace TradeBulk_BusinessLayer
        
     }
 
-    public void SaveNewUserDetails(NewUserRegistrationSupport NewUserDeatils)
+    public void SaveNewUserDetails(NewUserRegistrationSupport NewUserDeatils, ref string UserCode)
     {
       try
       {
@@ -134,10 +134,10 @@ namespace TradeBulk_BusinessLayer
             #region User Details
             UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
             UserDetail newUser = new UserDetail();
-            newUser.FirstName = NewUserDeatils.FirstName;
-            newUser.LastName = NewUserDeatils.LastName;
-            newUser.MiddleName = NewUserDeatils.MiddleName;
-            newUser.DateofBirth = NewUserDeatils.Dob;
+            newUser.FirstName = NewUserDeatils.strFirstName;
+            newUser.LastName = NewUserDeatils.strLastName;
+            newUser.MiddleName = NewUserDeatils.strMiddleName;
+            newUser.DateofBirth = DateTime.Now; //Convert.ToDateTime(NewUserDeatils.strDob);
             //UDA.UserDetail = newUser;
             //newUser.UserDetailAddress.=UDA;
             UserDetailRepository.Insert(newUser);
@@ -192,16 +192,18 @@ namespace TradeBulk_BusinessLayer
 
 
             unitOfWork.SaveChanges();
-
+            UserCode = newUser.UserCode;
           }
           catch (Exception ex)
           {
+            UserCode = string.Empty;
             System.Diagnostics.Debug.WriteLine("System Stack :: " + ex.StackTrace + " System Exception Message :: " + ex.Message);
           }
         }
       }
       catch (Exception ex)
       {
+        UserCode = string.Empty;
         LogHelper.WriteErrorLog(ex);
       }
 

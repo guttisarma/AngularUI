@@ -37,7 +37,7 @@ namespace TradeBulk_Web.Controllers.Adminstrator
         public void Post(NewUserRegistrationSupport NewUserDetails)
         {
             UserManagement UserRegistrationHelp = new UserManagement(this.currentUserID);
-            UserRegistrationHelp.SaveNewUserDetails(NewUserDetails);
+           // UserRegistrationHelp.SaveNewUserDetails(NewUserDetails);
         }
         [Route("api/NewUserRegistration/ApproveUser")]
         [HttpPost]

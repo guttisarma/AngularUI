@@ -43,10 +43,10 @@ namespace TradeBulk_BusinessLayer
                         NUser.ID = User.UserDetailPID.ToString();
                         //90908
                         //NUser.PhoneNumber = User.Address.Phone.Number;
-                        NUser.FirstName = User.UserDetail.FirstName;
-                        NUser.MiddleName = User.UserDetail.MiddleName;
-                        NUser.LastName = User.UserDetail.LastName;
-                        NUser.Dob = User.UserDetail.DateofBirth;//User.UserDetail.DateofBirth.Value.ToString("dd/MM/yyyy");
+                        NUser.strFirstName = User.UserDetail.FirstName;
+                        NUser.strMiddleName = User.UserDetail.MiddleName;
+                        NUser.strLastName = User.UserDetail.LastName;
+                        NUser.strDob =User.UserDetail.DateofBirth.ToString();//User.UserDetail.DateofBirth.Value.ToString("dd/MM/yyyy");
                         ListNewUsers.Add(NUser);
 
                     }
@@ -91,10 +91,10 @@ namespace TradeBulk_BusinessLayer
                         NUser.ID = User.UserDetailPID.ToString();
                         //90908
                         //NUser.PhoneNumber = User.Address.Phone.Number;
-                        NUser.FirstName = User.UserDetail.FirstName;
-                        NUser.MiddleName = User.UserDetail.MiddleName;
-                        NUser.LastName = User.UserDetail.LastName;
-                        NUser.Dob = User.UserDetail.DateofBirth;//User.UserDetail.DateofBirth.Value.ToString("dd/MM/yyyy");
+                        NUser.strFirstName = User.UserDetail.FirstName;
+                        NUser.strMiddleName = User.UserDetail.MiddleName;
+                        NUser.strLastName = User.UserDetail.LastName;
+                        NUser.strDob = User.UserDetail.DateofBirth.ToString();//User.UserDetail.DateofBirth.Value.ToString("dd/MM/yyyy");
                         ListNewUsers.Add(NUser);
 
                     }

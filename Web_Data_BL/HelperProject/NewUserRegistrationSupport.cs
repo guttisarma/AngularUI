@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,11 +11,11 @@ namespace TradeBulk_Helper
     {
         public string ID { get; set; }
         [DisplayName("First Name")]
-        public string FirstName { get; set; }
+        public string strFirstName { get; set; }
         [DisplayName("Middle Name")]
-        public string MiddleName { get; set; }
+        public string strMiddleName { get; set; }
         [DisplayName("Last Name")]
-        public string LastName { get; set; }
+        public string strLastName { get; set; }
         [DisplayName("Phone Number")]
         public string PhoneNumber { get; set; }
         [DisplayName("Email")]
@@ -33,17 +33,17 @@ namespace TradeBulk_Helper
         }
         public string AddressProofType { get; set; }
         public string AddressID { get; set; }
-        public DateTime? Dob { get; set; }
+        public string strDob { get; set; }
         [DisplayName("Date of Birth")]
         public String DateofBirth
         {
             get
             {
-                if (Dob == null)
+                if (strDob == null)
                 {
                     return "";
                 }
-                return ((DateTime)Dob).ToString("dd/MM/yyyy");
+                return (Convert.ToDateTime( strDob).ToString("dd/MM/yyyy"));
             }
         }
 

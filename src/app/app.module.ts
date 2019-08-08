@@ -29,6 +29,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ProductModule } from './product/product.module';
 import { ForgetPasswordComponent } from './User/SignIn/forget-password/forget-password.component';
 import { UserServiceService } from './Service/user-service.service';
+import { UserRestrationV1Component } from './User/Registration/user-restration-v1/user-restration-v1.component';
 
 
 
@@ -47,7 +48,8 @@ import { UserServiceService } from './Service/user-service.service';
     UserInComponent,
     //AssignedProductListComponent,
     PageNotFoundComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    UserRestrationV1Component
   ],
   imports: [
     NgbModule,

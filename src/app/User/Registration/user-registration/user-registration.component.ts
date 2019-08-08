@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {RegUser,AddrssUser} from '../../../HelperTs/User';
-import {UserServiceService}from '../../../Service/user-service.service';
+import { RegUser, AddrssUser } from '../../../HelperTs/User';
+import { UserServiceService } from '../../../Service/user-service.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -9,21 +9,21 @@ import {UserServiceService}from '../../../Service/user-service.service';
 })
 export class UserRegistrationComponent implements OnInit {
 
-  person:RegUser=new RegUser();
-  uniqueID:string='uniqueID';
-  AddressType:string='AddressType';
-  addressUser:AddrssUser=new AddrssUser();
-  constructor(private userservice:UserServiceService) { }
+  person: RegUser = new RegUser();
+  uniqueID: string = 'uniqueID';
+  AddressType: string = 'AddressType';
+  addressUser: AddrssUser = new AddrssUser();
+  constructor(private userservice: UserServiceService) { }
 
   ngOnInit() {
-  this.person.lsAddrssUser=[];
+    this.person.lsAddrssUser = [];
 
   }
-  onSubmit(){
+  onSubmit() {
     console.log('submit button clicked');
     this.person.lsAddrssUser.push(this.addressUser);
     console.log('submit button clicked');
-    this.userservice.Register(this.person).subscribe((reg:RegUser)=>this.person=reg);
+    this.userservice.Register(this.person).subscribe((reg: RegUser) => this.person = reg);
   }
 
 }
@@ -38,5 +38,5 @@ export class UserRegistrationComponent implements OnInit {
 //   address2: string;
 //   address3: string;
 //   phonenumber: string;
-//   emailid: string; 
-//}
+//   emailid: string;
+// }

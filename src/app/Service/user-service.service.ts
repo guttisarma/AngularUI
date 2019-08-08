@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { User, exAddress, exEmail, exPhone, exUser, MockexAddress, MockexEmail, MockexPhone, MockexUser } from '../HelperTs/User'
+import { User, exAddress, exEmail, exPhone, exUser, MockexAddress, MockexEmail, MockexPhone, MockexUser } from '../HelperTs/User';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserIn } from '../../app/HelperTs/User';
 import { RegUser, AddrssUser } from '../HelperTs/User';
-//import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +13,17 @@ import { RegUser, AddrssUser } from '../HelperTs/User';
 export class UserServiceService {
   private UserMenu = new BehaviorSubject<boolean>(false);
   cast = this.UserMenu.asObservable();
+  // Environment variable
+  baseURL: String = environment.apiBaseUrl;
 
   checkUserExists(LoginRequest: UserIn): Observable<number> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post('http://localhost:55374/api//User/IsUserExists', LoginRequest, httpOptions).pipe(
+    return this.http.post('/api//User/IsUserExists', LoginRequest, httpOptions).pipe(
       tap((UserId: number) => {
-        return UserId
+        return UserId;
       }),
       catchError(this.handleError<number>('addHero'))
     );
@@ -32,7 +33,7 @@ export class UserServiceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post('http://localhost:55374/api//User/ResetPassword', LoginRequest, httpOptions).pipe(
+    return this.http.post('/api//User/ResetPassword', LoginRequest, httpOptions).pipe(
       tap((isReset: boolean) => {
         return isReset;
       }),
@@ -43,8 +44,7 @@ export class UserServiceService {
   VisibleUserOp(isvisible) {
     this.UserMenu.next(isvisible);
   }
-  //Environment variable
-  baseURL: String = environment.apiBaseUrl;
+
 
   constructor(private http: HttpClient) { }
   getMyUsers(): Observable<User[]> {
@@ -71,10 +71,10 @@ export class UserServiceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post('http://localhost:55374/api/User/Authenticate', LoginRequest, httpOptions).pipe(
+    return this.http.post('/api/User/Authenticate', LoginRequest, httpOptions).pipe(
       tap(
         (JWT: string) => {
-          localStorage.setItem("AuthToken", JWT);
+          localStorage.setItem('AuthToken', JWT);
           console.log(JWT);
         }),
       catchError(this.handleError<string>('login', 'LoginFailed'))
@@ -87,12 +87,12 @@ export class UserServiceService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-     let ruser=new RegUser();
-   return this.http.post('http://localhost:55374/api//User/Registration', regUser, httpOptions).pipe(
-     tap(
-         (regUserResult: RegUser) => { return regUserResult; }), 
-         catchError(this.handleError<RegUser>('Register',ruser)));
-     
+    let ruser = new RegUser();
+    return this.http.post('/api//User/Registration', regUser, httpOptions).pipe(
+      tap(
+        (regUserResult: RegUser) => { return regUserResult;} ),
+      catchError(this.handleError<RegUser>('Register', ruser)));
+
   }
   /** Log a HeroService message with the MessageService */
   private log(message: string) {

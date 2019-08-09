@@ -49,7 +49,7 @@ namespace TradeBulk_Web.Controllers.Adminstrator
             //Description = form.Get("Description");
             //Id = form.Get("Id");
             UserManagement UserRegistrationHelp = new UserManagement(this.currentUserID);
-            UserRegistrationHelp.ApprovedUser(Description,Id);
+            UserRegistrationHelp.ApproveUser(Description,Id);
         }
 
         // PUT: api/NewUserRegistration/5

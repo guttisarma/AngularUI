@@ -96,21 +96,31 @@ namespace TradeBulk_Web.Controllers.WebApi
       bool isUsernamePasswordValid = false;
       UserManagement umgnt = new UserManagement();
       long UserId = 0;
-      isUsernamePasswordValid = umgnt.ValidateUser(login.Username, login.Password, out UserId);
-      if (isUsernamePasswordValid)
+      try
       {
-        string token = createToken(login.Username, UserId);
-        //return the token
-        return Ok<string>(token);
+        isUsernamePasswordValid = umgnt.ValidateUser(login.Username, login.Password, out UserId);
+        if (isUsernamePasswordValid)
+        {
+          string token = createToken(login.Username, UserId);
+          //return the token
+          return Ok<string>(token);
+        }
+        else
+        {
+          // if credentials are not valid send unauthorized status code in response
+          loginResponse.responseMsg = Request.CreateErrorResponse(HttpStatusCode.Unauthorized, new Exception("User/Password wrong"));
+
+          response = ResponseMessage(loginResponse.responseMsg);
+          return response;
+        }
       }
-      else
+      catch (Exception ex)
       {
-        // if credentials are not valid send unauthorized status code in response
-        loginResponse.responseMsg = Request.CreateErrorResponse(HttpStatusCode.Unauthorized, new Exception("User/Password wrong"));
-        
+        loginResponse.responseMsg = Request.CreateErrorResponse(HttpStatusCode.Unauthorized, new Exception("Some exception "+ex.Message));
+
         response = ResponseMessage(loginResponse.responseMsg);
         return response;
-      }
+      }      
     }
     [HttpPost]
     public IHttpActionResult IsUserExists([FromBody] LoginRequest login)

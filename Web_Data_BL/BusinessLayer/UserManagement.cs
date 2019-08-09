@@ -8,12 +8,14 @@ using System.Linq.Expressions;
 using TradeBulk_BusinessLayer;
 using TradeBulk_Helper;
 using TradeBulk_Helper.Interfaces;
+using TradeBulk_Helper.WebAPIhelper;
 
 namespace TradeBulk_BusinessLayer
 {
   public delegate void delUpdate(ExAddress a, long b);
   public class UserManagement
   {
+    #region Declaration
     GenericRepository<Phone> PhoneRepository;
     GenericRepository<Email> EmailRepository;
     GenericRepository<Address> AddressRepository;
@@ -23,6 +25,9 @@ namespace TradeBulk_BusinessLayer
     GenericRepository<User> UserRepository;
     IExchangeUserInfo UserProfileInfo;
     long CurrentUserPID;
+    #endregion
+
+    #region Constractor
     public UserManagement()
     {
 
@@ -36,6 +41,8 @@ namespace TradeBulk_BusinessLayer
       this.CurrentUserPID = currentUserPID;
       this.UserProfileInfo = userInfo;
     }
+    #endregion
+
     //password is not required 
     public bool isUserExists(string username, out long userId)
     {
@@ -58,6 +65,7 @@ namespace TradeBulk_BusinessLayer
         return (user != null) ? true : false;
       }
     }
+
     public bool ValidateUser(string username, string password, out long userId)
     {
       if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
@@ -76,8 +84,8 @@ namespace TradeBulk_BusinessLayer
                     && us.IsActive == true
                     select us).FirstOrDefault();
 
-        
-        if(user == null)
+
+        if (user == null)
         {
           userId = 0;
           return false;
@@ -101,11 +109,11 @@ namespace TradeBulk_BusinessLayer
         Expression<Func<UserDetail, object>> parameter1 = v => v.User;
         UserRepository = unitOfWork.GetRepoInstance<User>();
         Expression<Func<UserDetail, object>>[] parameterArray = new Expression<Func<UserDetail, object>>[] { parameter1, /*parameter2, parameter3, parameter4 */};
-        IQueryable<UserDetail> userFound=UserDetailRepository.GetAllExpressions(x => x.User.Username == username, null, naProperties: parameterArray);
+        IQueryable<UserDetail> userFound = UserDetailRepository.GetAllExpressions(x => x.User.Username == username, null, naProperties: parameterArray);
         if (userFound.Count<UserDetail>() == 1)
         {
-          User user= UserRepository.GetByID(userFound.First<UserDetail>().User.UserId);
-          user.Password= Security.Encrypt(password);
+          User user = UserRepository.GetByID(userFound.First<UserDetail>().User.UserId);
+          user.Password = Security.Encrypt(password);
           UserRepository.Update(user);
           userId = userFound.First<UserDetail>().UserdetailPID;
           unitOfWork.SaveChanges();
@@ -118,7 +126,7 @@ namespace TradeBulk_BusinessLayer
         }
 
       }
-       
+
     }
 
     public void SaveNewUserDetails(NewUserRegistrationSupport NewUserDeatils, ref string UserCode)
@@ -137,16 +145,25 @@ namespace TradeBulk_BusinessLayer
             newUser.FirstName = NewUserDeatils.strFirstName;
             newUser.LastName = NewUserDeatils.strLastName;
             newUser.MiddleName = NewUserDeatils.strMiddleName;
-            newUser.DateofBirth = DateTime.Now; //Convert.ToDateTime(NewUserDeatils.strDob);
+            DateTime tryDoB;
+            if (!DateTime.TryParse(NewUserDeatils.strDob, out tryDoB))
+            {
+              UserCode = string.Empty;
+              return;
+            }
+            newUser.DateofBirth = tryDoB;
             //UDA.UserDetail = newUser;
             //newUser.UserDetailAddress.=UDA;
             UserDetailRepository.Insert(newUser);
             #endregion
 
             #region Phone
-            ExPhone ePhone = new ExPhone();
-            ePhone.strPhoneNumber = NewUserDeatils.PhoneNumber;
-            userMgmtExt.AddUserPhone(ePhone, newUser.UserdetailPID);
+            if (!string.IsNullOrEmpty(NewUserDeatils.PhoneNumber))
+            {
+              ExPhone ePhone = new ExPhone();
+              ePhone.strPhoneNumber = NewUserDeatils.PhoneNumber;
+              userMgmtExt.AddUserPhone(ePhone, newUser.UserdetailPID);
+            }
 
             //PhoneRepository = unitOfWork.GetRepoInstance<Phone>();
             //Phone phone = new Phone();
@@ -155,9 +172,12 @@ namespace TradeBulk_BusinessLayer
             #endregion
 
             #region Email
-            ExEmail eEmail = new ExEmail();
-            eEmail.strEmailId = NewUserDeatils.Email;
-            userMgmtExt.AddUserEmail(eEmail, newUser.UserdetailPID);
+            if (!string.IsNullOrEmpty(NewUserDeatils.Email))
+            {
+              ExEmail eEmail = new ExEmail();
+              eEmail.strEmailId = NewUserDeatils.Email;
+              userMgmtExt.AddUserEmail(eEmail, newUser.UserdetailPID);
+            }
 
             //EmailRepository = unitOfWork.GetRepoInstance<Email>();
             //Email email = new Email();
@@ -166,11 +186,14 @@ namespace TradeBulk_BusinessLayer
             #endregion
 
             #region Address
-            ExAddress eAddress = new ExAddress();
-            eAddress.strAddress1 = NewUserDeatils.Address1;
-            eAddress.strAddress2 = NewUserDeatils.Address2;
-            eAddress.strAddress3 = NewUserDeatils.Address3;
-            userMgmtExt.AddAddresses(eAddress, newUser.UserdetailPID);
+            if (!string.IsNullOrEmpty(NewUserDeatils.Address1))
+            {
+              ExAddress eAddress = new ExAddress();
+              eAddress.strAddress1 = NewUserDeatils.Address1;
+              eAddress.strAddress2 = NewUserDeatils.Address2;
+              eAddress.strAddress3 = NewUserDeatils.Address3;
+              userMgmtExt.AddAddresses(eAddress, newUser.UserdetailPID);
+            }
 
             //AddressRepository = unitOfWork.GetRepoInstance<Address>();
             //Address Add = new Address();
@@ -209,7 +232,7 @@ namespace TradeBulk_BusinessLayer
 
     }
 
-    public void ApprovedUser(string Description, string Id)
+    public void ApproveUser(string Description, string Id)
     {
       try
       {
@@ -317,6 +340,46 @@ namespace TradeBulk_BusinessLayer
       return Password;
     }
 
+    /// <summary>
+    /// It will list all the pending users based on currentUserID ,If the user is Admin list all the pending users
+    /// if current user is not admin list user only for him
+    /// </summary>
+    /// <param name="currentUserID"></param>
+    public IEnumerable<RegUser> listPendingUserApprovals(long currentUserID)
+    {
+      List<RegUser> lsregUsers = new List<RegUser>();
+      using (UnitOfWork unitOfWork = new UnitOfWork())
+      {
+        UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
+
+        var CurrentUser = UserDetailRepository.GetByID(currentUserID);
+
+        IQueryable<UserDetail> pendingList;
+        //if Curreent user is Admin
+        if (IsAdmin(CurrentUser))
+          pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false), null, null);
+        else
+          //Need to do it for Other users
+          pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false), null, null);
+
+        foreach (var item in pendingList)
+        {
+          RegUser regUser = new RegUser();
+          regUser.strFirstName = item.FirstName;
+          regUser.strLastName = item.LastName;
+          regUser.strDob = item.DateofBirth.ToString();
+          //regUser.bGender =
+          lsregUsers.Add(regUser);
+        }
+      }
+      return lsregUsers;
+    }
+
+    private  bool IsAdmin(UserDetail CurrentUser)
+    {
+      return CurrentUser.IsAdmin == null ? false : (bool)CurrentUser.IsAdmin;
+    }
+
     //Method for Member in group by User /Owner
     public void joinInGroup(string Code, bool byUser, bool byOwner)
     {
@@ -377,12 +440,17 @@ namespace TradeBulk_BusinessLayer
           UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
           UserDetail manager = UserDetailRepository.GetByID(this.CurrentUserPID);
           UserHierarchyRepository = unitOfWork.GetRepoInstance<UserHierarchy>();
-          IQueryable<UserHierarchy> myuserlist = UserHierarchyRepository.GetAllExpressions(x => x.ManagerUserDetailPID == this.CurrentUserPID, null, null);
+          IQueryable<UserHierarchy> myuserlist;
+
+          //if (IsAdmin(manager))
+          //  adminuserlist = UserDetailRepository.GetAllExpressions(x => x.IsActive==true, null, null);
+          //else
+            myuserlist = UserHierarchyRepository.GetAllExpressions(x => x.ManagerUserDetailPID == this.CurrentUserPID, null, null);
           foreach (var uselist in myuserlist)
           {
             UserInfo UInfo = new UserInfo();
             UserDetail user = UserDetailRepository.GetByID(uselist.UserDetailPID);
-            UInfo.UserId =(long) uselist.UserDetailPID;
+            UInfo.UserId = (long)uselist.UserDetailPID;
             UInfo.Name = user.FirstName + " " + user.LastName;
             UInfo.Code = user.UserCode;
             UInfo.ManagerName = manager.FirstName + " " + manager.LastName;

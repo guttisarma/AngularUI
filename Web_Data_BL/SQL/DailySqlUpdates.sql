@@ -139,3 +139,8 @@ values('Admin','Admin','Admin','Admin@admin.in',1,'Admin',newID(),'HuqjUPvrwrb2e
 
 update UD   set UD.UserPID=u.UserId from Userdetail UD inner join Users U on UD.Firstname=U.FirstName
 GO
+
+Alter Table Product 
+Alter column DocumentPID BIGINT NULL
+
+GO

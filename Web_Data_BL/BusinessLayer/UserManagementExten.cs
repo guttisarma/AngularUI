@@ -24,9 +24,10 @@ namespace TradeBulk_BusinessLayer
     {
       try
       {
-        ExPhone phone = (ExPhone)exchangeUserInfo;
+        ExPhone phone = (ExPhone)exchangeUserInfo;        
         using (UnitOfWork unitOfWork = new UnitOfWork())
         {
+          PhoneRepository = unitOfWork.GetRepoInstance<Phone>();
           UserDetailPhoneRepository = unitOfWork.GetRepoInstance<UserDetailPhone>();
           IQueryable<UserDetailPhone> userDetailPhones = UserDetailPhoneRepository.GetAllExpressions(x => x.UserDetailPID == currentUserPID && x.IsActive == true, null, null);
           if (userDetailPhones != null && userDetailPhones.Count<UserDetailPhone>() != 0)
@@ -45,10 +46,11 @@ namespace TradeBulk_BusinessLayer
           udPhone.PhonePID = dbphone.Phonepid;
           udPhone.UserDetailPID = currentUserPID;
           UserDetailPhoneRepository.Insert(udPhone);
+          unitOfWork.SaveChanges();
         }
         return true;
       }
-      catch (Exception)
+      catch (Exception ex)
       {
 
         return false;
@@ -64,6 +66,7 @@ namespace TradeBulk_BusinessLayer
         using (UnitOfWork unitOfWork = new UnitOfWork())
         {
           UserDetailEmailRepository = unitOfWork.GetRepoInstance<UserDetailEmail>();
+          EmailRepository = unitOfWork.GetRepoInstance<Email>();
           IQueryable<UserDetailEmail> userDetailEmails = UserDetailEmailRepository.GetAllExpressions(x => x.UserDetailPID == currentUserPID && x.IsActive == true, null, null);
           if (userDetailEmails != null && userDetailEmails.Count<UserDetailEmail>() != 0)
           {
@@ -81,6 +84,7 @@ namespace TradeBulk_BusinessLayer
           udEmail.EmailPID = dbEmail.EmailTypePID;
           udEmail.UserDetailPID = currentUserPID;
           UserDetailEmailRepository.Insert(udEmail);
+          unitOfWork.SaveChanges();
         }
         return true;
       }
@@ -100,6 +104,7 @@ namespace TradeBulk_BusinessLayer
         using (UnitOfWork unitOfWork = new UnitOfWork())
         {
           UserDetailAddressRepository = unitOfWork.GetRepoInstance<UserDetailAddress>();
+          AddressRepository = unitOfWork.GetRepoInstance<Address>();
           IQueryable<UserDetailAddress> userDetailAddresss = UserDetailAddressRepository.GetAllExpressions(x => x.UserDetailPID == currentUserPID && x.IsActive == true, null, null);
           if (userDetailAddresss != null && userDetailAddresss.Count<UserDetailAddress>() != 0)
           {
@@ -118,6 +123,7 @@ namespace TradeBulk_BusinessLayer
           udAddress.AddressPID = dbAddress.AddressPID;
           udAddress.UserDetailPID = currentUserPID;
           UserDetailAddressRepository.Insert(udAddress);
+          unitOfWork.SaveChanges();
         }
         return true;
       }

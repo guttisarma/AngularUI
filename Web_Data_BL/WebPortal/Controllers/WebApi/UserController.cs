@@ -12,6 +12,7 @@ using System.Web.Http;
 using TradeBulk_BusinessLayer;
 using TradeBulk_Helper;
 using TradeBulk_Helper.Interfaces;
+using TradeBulk_Helper.WebAPIhelper;
 using TradeBulk_Web.Authe_AuthoATION;
 using TradeBulk_Web.Models.Administrator;
 
@@ -86,11 +87,19 @@ namespace TradeBulk_Web.Controllers.WebApi
       return tokenString;
     }
 
+    [HttpPost]
+    public HttpResponseMessage ApproveUser([FromBody] RegUser description)
+    {
+      UserManagement umgnt = new UserManagement();
+      umgnt.ApproveUser(description, description.lRegUserid);
+
+      return Request.CreateResponse(HttpStatusCode.Created);
+    }
 
     [HttpPost]
-    public IHttpActionResult Authenticate([FromBody] LoginRequest login)
+    public HttpResponseMessage Authenticate([FromBody] LoginRequest login)
     {
-      var loginResponse = new LoginResponse { };
+      var loginResponse = new LoginResponse(){ };
 
       IHttpActionResult response;
       bool isUsernamePasswordValid = false;
@@ -103,24 +112,27 @@ namespace TradeBulk_Web.Controllers.WebApi
         {
           string token = createToken(login.Username, UserId);
           //return the token
-          return Ok<string>(token);
+          return Request.CreateResponse(HttpStatusCode.OK, token);
         }
         else
         {
           // if credentials are not valid send unauthorized status code in response
           loginResponse.responseMsg = Request.CreateErrorResponse(HttpStatusCode.Unauthorized, new Exception("User/Password wrong"));
-
           response = ResponseMessage(loginResponse.responseMsg);
-          return response;
+          return Request.CreateResponse(HttpStatusCode.Unauthorized, new Exception("User/Password wrong"));
         }
       }
       catch (Exception ex)
       {
-        loginResponse.responseMsg = Request.CreateErrorResponse(HttpStatusCode.Unauthorized, new Exception("Some exception "+ex.Message));
+        var message = string.Format("Source: " + ex.Source + "  InnerException: " + ex.InnerException + "Message: " + ex.Message);
+        HttpError err = new HttpError(message);
+        return Request.CreateResponse(HttpStatusCode.NotFound, err);
 
-        response = ResponseMessage(loginResponse.responseMsg);
-        return response;
-      }      
+        //loginResponse.responseMsg = Request.CreateErrorResponse(HttpStatusCode.Unauthorized, ex);
+
+        //response = ResponseMessage(loginResponse.responseMsg);
+        //return response;
+      }
     }
     [HttpPost]
     public IHttpActionResult IsUserExists([FromBody] LoginRequest login)
@@ -155,12 +167,12 @@ namespace TradeBulk_Web.Controllers.WebApi
     [HttpPost]
     public IHttpActionResult Registration([FromBody] NewUserRegistrationSupport NewUserDetails)
     {
-      string UserCode=string.Empty;
+      int UserId = 0;
       IHttpActionResult response;
       UserManagement UserRegistrationHelp = new UserManagement();
-      if(!string.IsNullOrEmpty(NewUserDetails.strFirstName))
-      UserRegistrationHelp.SaveNewUserDetails(NewUserDetails,ref UserCode);
-      if(!string.IsNullOrEmpty(UserCode))
+      if (!string.IsNullOrEmpty(NewUserDetails.strFirstName))
+        UserRegistrationHelp.SaveNewUserDetails(ref UserId, NewUserDetails);
+      if (UserId != 0)
       {
         response = ResponseMessage(new HttpResponseMessage());
         return response;
@@ -169,7 +181,7 @@ namespace TradeBulk_Web.Controllers.WebApi
       {
         return BadRequest("Unable to create New User");
       }
-      
+
     }
 
     [HttpPost]
@@ -260,6 +272,14 @@ namespace TradeBulk_Web.Controllers.WebApi
         return userInfos;
       }
 
+    }
+    [HttpGet]
+    public IEnumerable<RegUser> GetUnApprovedUsers()
+    {
+      IEnumerable<RegUser> newUserRegistrationSupports = new List<RegUser>();
+      UserManagement userMgnt = new UserManagement();
+      newUserRegistrationSupports = userMgnt.listPendingUserApprovals(currentUserPID);
+      return newUserRegistrationSupports;
     }
 
     //[HttpGet]

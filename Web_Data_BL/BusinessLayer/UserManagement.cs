@@ -9,6 +9,8 @@ using TradeBulk_BusinessLayer;
 using TradeBulk_Helper;
 using TradeBulk_Helper.Interfaces;
 using TradeBulk_Helper.WebAPIhelper;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace TradeBulk_BusinessLayer
 {
@@ -124,12 +126,10 @@ namespace TradeBulk_BusinessLayer
           userId = 0;
           return false;
         }
-
       }
-
     }
 
-    public void SaveNewUserDetails(NewUserRegistrationSupport NewUserDeatils, ref string UserCode)
+    public void SaveNewUserDetails(ref int UserCode, NewUserRegistrationSupport NewUserDeatils)
     {
       try
       {
@@ -137,6 +137,15 @@ namespace TradeBulk_BusinessLayer
         {
           try
           {
+            DateTime tryDoB;
+            var deDateTime = JsonConvert.DeserializeObject<JsonDate>(NewUserDeatils.strDob);
+            tryDoB = new DateTime(deDateTime.year, deDateTime.month, deDateTime.day);
+            string userGCode = GenerateUserCode(NewUserDeatils.strFirstName, tryDoB);
+            if (ChechUserExistsbyCode(userGCode))
+            {
+              UserCode = 0;
+              return;
+            }
             UserManagementExten userMgmtExt = new UserManagementExten();
 
             #region User Details
@@ -145,16 +154,13 @@ namespace TradeBulk_BusinessLayer
             newUser.FirstName = NewUserDeatils.strFirstName;
             newUser.LastName = NewUserDeatils.strLastName;
             newUser.MiddleName = NewUserDeatils.strMiddleName;
-            DateTime tryDoB;
-            if (!DateTime.TryParse(NewUserDeatils.strDob, out tryDoB))
-            {
-              UserCode = string.Empty;
-              return;
-            }
+            newUser.CreatedOn = DateTime.UtcNow;
             newUser.DateofBirth = tryDoB;
-            //UDA.UserDetail = newUser;
-            //newUser.UserDetailAddress.=UDA;
+            newUser.UserCode = userGCode;
             UserDetailRepository.Insert(newUser);
+
+            unitOfWork.SaveChanges();
+            UserCode = (int)newUser.UserdetailPID;
             #endregion
 
             #region Phone
@@ -211,86 +217,112 @@ namespace TradeBulk_BusinessLayer
             //UDA.Address = Add;
             //UserDetailAddressRepository.Insert(UDA);
             #endregion
-
-
-
-            unitOfWork.SaveChanges();
-            UserCode = newUser.UserCode;
           }
           catch (Exception ex)
           {
-            UserCode = string.Empty;
+            UserCode = 0;
             System.Diagnostics.Debug.WriteLine("System Stack :: " + ex.StackTrace + " System Exception Message :: " + ex.Message);
           }
         }
       }
       catch (Exception ex)
       {
-        UserCode = string.Empty;
+        UserCode = 0;
         LogHelper.WriteErrorLog(ex);
       }
 
     }
 
-    public void ApproveUser(string Description, string Id)
+    private bool ChechUserExistsbyCode(string userGCode)
+    {
+      using (UnitOfWork unitOfWork = new UnitOfWork())
+      {
+        UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
+        IQueryable<UserDetail> userDetails = UserDetailRepository.GetAllExpressions(x => x.UserCode == userGCode, null, null);
+        if (userDetails.Count<UserDetail>() > 0)
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
+    }
+
+    public string GenerateUserCode(string FirstName, DateTime dob)
+    {
+      string totalDob = (dob.Year + dob.Month + dob.Day).ToString();
+      StringBuilder result = new StringBuilder();
+      for (var item = 0; item < FirstName.Length && item < 4; ++item)
+      {
+
+        result.Append(FirstName[item]);
+        result.Append(totalDob[item]);
+      }
+      return result.Remove(0, 1).Append(FirstName[0]).ToString().ToUpper();
+    }
+
+    public void ApproveUser(RegUser Description, long Id)
     {
       try
       {
         using (UnitOfWork unitOfWork = new UnitOfWork())
         {
           GenericRepository<UserDetail> uDetails;
-          GenericRepository<UserDetailAddress> uDetailsAddress;
           long id = Convert.ToInt64(Id);
-          uDetailsAddress = unitOfWork.GetRepoInstance<UserDetailAddress>();
-          Expression<Func<UserDetailAddress, object>> parameter1 = v => v.UserDetail;
-          Expression<Func<UserDetailAddress, object>> parameter2 = v => v.Address;
-          //Expression<Func<UserDetailAddress, object>> parameter3 = v => v.Address.Phone;
-          //Expression<Func<UserDetailAddress, object>> parameter4 = v => v.Address.Email;
-          Expression<Func<UserDetailAddress, object>>[] parameterArray = new Expression<Func<UserDetailAddress, object>>[] { parameter1, parameter2/*, parameter3, parameter4 */};
-          IEnumerable<UserDetailAddress> ListUser = uDetailsAddress.GetAllExpressions(x => (x.UserDetail.IsApproved == null && x.UserDetailPID == id), null, naProperties: parameterArray);
-          string EmailID = "";// ListUser.FirstOrDefault<UserDetailAddress>().Address.Email.ID;
+          //uDetailsAddress = unitOfWork.GetRepoInstance<UserDetailAddress>();
+          //Expression<Func<UserDetailAddress, object>> parameter1 = v => v.UserDetail;
+          //Expression<Func<UserDetailAddress, object>> parameter2 = v => v.Address;
+          ////Expression<Func<UserDetailAddress, object>> parameter3 = v => v.Address.Phone;
+          ////Expression<Func<UserDetailAddress, object>> parameter4 = v => v.Address.Email;
+          //Expression<Func<UserDetailAddress, object>>[] parameterArray = new Expression<Func<UserDetailAddress, object>>[] { parameter1, parameter2/*, parameter3, parameter4 */};
+          //IEnumerable<UserDetailAddress> ListUser = uDetailsAddress.GetAllExpressions(x => (x.UserDetail.IsApproved == null && x.UserDetailPID == id), null, naProperties: parameterArray);
+          //string EmailID = "";// ListUser.FirstOrDefault<UserDetailAddress>().Address.Email.ID;
 
-          if (!isAlreadyExists(unitOfWork, EmailID))
-          {
-            //check for the emil is not already exists
+          //if (!isAlreadyExists(unitOfWork, EmailID))
+          //{
+          //check for the emil is not already exists
 
-            uDetails = unitOfWork.GetRepoInstance<UserDetail>();
+          uDetails = unitOfWork.GetRepoInstance<UserDetail>();
 
-            UserDetail ApprovedUser = uDetails.GetByID(Convert.ToInt64(Id));
-            ApprovedUser.IsActive = true;
-            ApprovedUser.IsApproved = true;
-            ApprovedUser.ApproveReason = Description;
-            ApprovedUser.ApprovedDate = DateTime.Now;
+          UserDetail ApprovedUser = uDetails.GetByID(Convert.ToInt64(Id));
+          ApprovedUser.IsActive = true;
+          ApprovedUser.IsApproved = true;
+          ApprovedUser.ApproveReason = Description.strApprovalReason;
+          ApprovedUser.ApprovedDate = DateTime.Now;
 
-            string strPassword = GenrateRandomPassword();
-            //User will be created here
-            GenericRepository<User> ApprvedUserRepository;
-            ApprvedUserRepository = unitOfWork.GetRepoInstance<User>();
+          string strPassword = GenrateRandomPassword();
+          //User will be created here
+          GenericRepository<User> ApprvedUserRepository;
+          UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
+          ApprvedUserRepository = unitOfWork.GetRepoInstance<User>();
 
-            User user = new User();
-            user.FirstName = ApprovedUser.FirstName;
-            user.Email = EmailID;
-            user.ActivationCode = Guid.NewGuid();
-            user.IsActive = true;
-            user.LastName = ApprovedUser.LastName;
-            user.Password = Security.Encrypt(strPassword);
-            GenericRepository<Role> rolesrepo = unitOfWork.GetRepoInstance<Role>();
-            //user.Roles = rolesrepo.GetAllExpressions(x => x.RoleId == 2, null, null, null).ToList<Role>();//Customer Role i being assigned
-            string CrypticInfo = new string((Convert.ToInt64(DateTime.Now.ToString("yyyy")) + ApprovedUser.UserdetailPID).ToString().Substring(0, 3).Reverse().ToArray());
-            user.Username = ApprovedUser.FirstName.Substring(0, 4).ToUpper() + CrypticInfo;
-            CrypticInfo = string.Empty;
-            CrypticInfo = new string((Convert.ToInt64(((DateTime)ApprovedUser.DateofBirth).ToString("yyyy")) + ApprovedUser.UserdetailPID).ToString().Substring(0, 3).Reverse().ToArray());
-            user.UserCode = ApprovedUser.FirstName.Substring(0, 4).ToUpper() + CrypticInfo;
-            ApprovedUser.User = user;
-            ApprvedUserRepository.Insert(user);
+          User user = new User();
+          user.FirstName = ApprovedUser.FirstName;
+          user.Email = Description.Email;
+          user.ActivationCode = Guid.NewGuid();
+          user.IsActive = true;
+          user.LastName = ApprovedUser.LastName;
+          user.Password = Security.Encrypt(strPassword);
+          GenericRepository<Role> rolesrepo = unitOfWork.GetRepoInstance<Role>();
+          //user.Roles = rolesrepo.GetAllExpressions(x => x.RoleId == 2, null, null, null).ToList<Role>();//Customer Role i being assigned
+          string CrypticInfo = new string((Convert.ToInt64(DateTime.Now.ToString("yyyy")) + ApprovedUser.UserdetailPID).ToString().Substring(0, 3).Reverse().ToArray());
+          user.Username = ApprovedUser.FirstName.Substring(0, 4).ToUpper() + CrypticInfo;
+          //CrypticInfo = string.Empty;
+          //CrypticInfo = new string((Convert.ToInt64(((DateTime)ApprovedUser.DateofBirth).ToString("yyyy")) + ApprovedUser.UserdetailPID).ToString().Substring(0, 3).Reverse().ToArray());
+          user.UserCode = GenerateUserCode(ApprovedUser.FirstName, (DateTime)ApprovedUser.DateofBirth);// ApprovedUser.FirstName.Substring(0, 4).ToUpper() + CrypticInfo;
+          ApprovedUser.User = user;
+          UserDetailRepository.Update(ApprovedUser);
+          ApprvedUserRepository.Insert(user);
 
 
-            unitOfWork.SaveChanges();
-            //Password will be generated here
-            //SendEmail(ToAddress,UserName,Password);
-            //Mail will be send from here
+          unitOfWork.SaveChanges();
+          //Password will be generated here
+          //SendEmail(ToAddress,UserName,Password);
+          //Mail will be send from here
 
-          }
+          //}
         }
       }
       catch (Exception ex)
@@ -357,25 +389,28 @@ namespace TradeBulk_BusinessLayer
         IQueryable<UserDetail> pendingList;
         //if Curreent user is Admin
         if (IsAdmin(CurrentUser))
-          pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false), null, null);
+          pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false ), null, null);
         else
           //Need to do it for Other users
           pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false), null, null);
 
+
+        //((System.Data.Entity.Infrastructure.DbQuery<TradeBulk_DataLayer.AppData.UserDetail>)pendingList).Sql+=
         foreach (var item in pendingList)
         {
           RegUser regUser = new RegUser();
+          regUser.lRegUserid = item.UserdetailPID;
           regUser.strFirstName = item.FirstName;
           regUser.strLastName = item.LastName;
           regUser.strDob = item.DateofBirth.ToString();
-          //regUser.bGender =
+          regUser.UserCode = item.UserCode;
           lsregUsers.Add(regUser);
         }
       }
       return lsregUsers;
     }
 
-    private  bool IsAdmin(UserDetail CurrentUser)
+    private bool IsAdmin(UserDetail CurrentUser)
     {
       return CurrentUser.IsAdmin == null ? false : (bool)CurrentUser.IsAdmin;
     }
@@ -445,7 +480,7 @@ namespace TradeBulk_BusinessLayer
           //if (IsAdmin(manager))
           //  adminuserlist = UserDetailRepository.GetAllExpressions(x => x.IsActive==true, null, null);
           //else
-            myuserlist = UserHierarchyRepository.GetAllExpressions(x => x.ManagerUserDetailPID == this.CurrentUserPID, null, null);
+          myuserlist = UserHierarchyRepository.GetAllExpressions(x => x.ManagerUserDetailPID == this.CurrentUserPID, null, null);
           foreach (var uselist in myuserlist)
           {
             UserInfo UInfo = new UserInfo();

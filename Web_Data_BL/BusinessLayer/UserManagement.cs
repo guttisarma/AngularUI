@@ -377,7 +377,7 @@ namespace TradeBulk_BusinessLayer
     /// if current user is not admin list user only for him
     /// </summary>
     /// <param name="currentUserID"></param>
-    public IEnumerable<RegUser> listPendingUserApprovals(long currentUserID)
+    public IEnumerable<RegUser> listPendingUserApprovals(long currentUserID,bool isUnApproved)
     {
       List<RegUser> lsregUsers = new List<RegUser>();
       using (UnitOfWork unitOfWork = new UnitOfWork())
@@ -388,11 +388,18 @@ namespace TradeBulk_BusinessLayer
 
         IQueryable<UserDetail> pendingList;
         //if Curreent user is Admin
-        if (IsAdmin(CurrentUser))
-          pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false ), null, null);
+        if (isUnApproved)
+        {
+          if (IsAdmin(CurrentUser))
+            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false), null, null);
+          else
+            //Need to do it for Other users
+            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false), null, null);
+        }
         else
-          //Need to do it for Other users
-          pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false), null, null);
+        {
+            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true && x.CreatedUserPID==currentUserID), null, null);
+        }
 
 
         //((System.Data.Entity.Infrastructure.DbQuery<TradeBulk_DataLayer.AppData.UserDetail>)pendingList).Sql+=

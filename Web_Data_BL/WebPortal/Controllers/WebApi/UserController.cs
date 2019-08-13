@@ -278,7 +278,16 @@ namespace TradeBulk_Web.Controllers.WebApi
     {
       IEnumerable<RegUser> newUserRegistrationSupports = new List<RegUser>();
       UserManagement userMgnt = new UserManagement();
-      newUserRegistrationSupports = userMgnt.listPendingUserApprovals(currentUserPID);
+      newUserRegistrationSupports = userMgnt.listPendingUserApprovals(currentUserPID,true);
+      return newUserRegistrationSupports;
+    }
+
+    [HttpGet]
+    public IEnumerable<RegUser> GetUserList()
+    {
+      IEnumerable<RegUser> newUserRegistrationSupports = new List<RegUser>();
+      UserManagement userMgnt = new UserManagement();
+      newUserRegistrationSupports = userMgnt.listPendingUserApprovals(currentUserPID,false);
       return newUserRegistrationSupports;
     }
 

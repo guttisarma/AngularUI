@@ -45,7 +45,9 @@ export class UserServiceService {
     this.UserMenu.next(isvisible);
   }
 
-
+  getUserList(): Observable<RegUser[]> {
+    return this.http.get<RegUser[]>(this.baseURL + '/User/GetUserList');
+  }
   constructor(private http: HttpClient) { }
   getMyUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseURL + '/User/UsersUndertaken');
@@ -90,7 +92,7 @@ export class UserServiceService {
     let ruser = new RegUser();
     return this.http.post('/api//User/Registration', regUser, httpOptions).pipe(
       tap(
-        (regUserResult: RegUser) => { return regUserResult;} ),
+        (regUserResult: RegUser) => { return regUserResult; }),
       catchError(this.handleError<RegUser>('Register', ruser)));
 
   }

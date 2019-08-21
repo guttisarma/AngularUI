@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
     <div class="card card-signin my-5">
-      <div *ngIf="IsLoading">
+      <div *ngIf="IsLoading && IsCreated ">
         <div class="lds-css">
           <div class="lds-gear">
             <div>
@@ -44,6 +44,7 @@
           <hr class="my-4">
           <div class="custom-control custom-checkbox mb-3">
             <a routerLink='/UserRegister' class="text-center">Create New</a>
+            <button class="btn btn-sm" (click)="create()" >Create</button>
           </div>
           <button class="btn btn-sm btn-google btn-block text-uppercase" type="submit"><i
               class="fab fa-google mr-2"></i> Sign in with Google</button>
@@ -52,7 +53,7 @@
         </form>
       </div>
       <div class="card-body" *ngIf="!IsCreated">
-
+          <app-user-restration-v1></app-user-restration-v1>
       </div>
     </div>
   </div>

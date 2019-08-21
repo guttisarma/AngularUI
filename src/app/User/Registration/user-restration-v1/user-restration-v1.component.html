@@ -1,5 +1,54 @@
 <div class="container">
-  <div class="row">
-      Name:<input type="text" >
+  <h3 class="card-title text-center"><b>New User</b></h3>
+  <div class="form-group row">
+    <label class="control-label " for="firstname">First Name:</label>
+    <input type="text" class="form-control" id="firstname" [(ngModel)]="person.strFirstName"
+      placeholder="Enter First Name" name="first" required>
   </div>
+  <div class="form-group row">
+    <label class="control-label" for="lastname">Last Name:</label>
+    <input type="text" class="form-control" id="lastname" [(ngModel)]="person.strLastName" placeholder="Enter Last Name"
+      name="last" required>
+  </div>
+  <div class="form-group row">
+    <label class="control-label" for="dateofbirth">Date of Birth:</label>
+    <form class="form-inline">
+      <div class="form-group">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="person.strDob" ngbDatepicker
+            #d="ngbDatepicker" required>
+          <div class="input-group">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><span
+                class="glyphicon glyphicon-th">Click</span></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="form-group row">
+    <label class="control-label" for="gender">Gender: </label>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="gender" id="male" [value]="true"  [(ngModel)]="person.bGender" checked>
+      <label class="form-check-label" for="inlineRadio1">Male</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="gender" id="female" [value]="false" [(ngModel)]="person.bGender">
+      <label class="form-check-label" for="inlineRadio2">Female</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="address" id="phonenumber" [value]="true" [(ngModel)]="checkCommAdd" checked>
+      <label class="form-check-label" for="inlineRadio1">Phone number</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="address" id="email" [value]="false" [(ngModel)]="checkCommAdd">
+      <label class="form-check-label" for="inlineRadio2">Email</label>
+    </div>
+    <input type="text" class="form-control" id="phonenumber" [(ngModel)]="address.strPhone" *ngIf="checkCommAdd"
+      placeholder="Enter Phone Number" name="phonenumbername" required>
+    <input type="text" class="form-control" id="email" [(ngModel)]="address.strEmail" *ngIf="!checkCommAdd"
+      placeholder="Enter Email Number" name="emailname" required>
+  </div>
+  <button type="submit" class="btn btn-default" (click)="onSubmit()">Submit</button>
 </div>

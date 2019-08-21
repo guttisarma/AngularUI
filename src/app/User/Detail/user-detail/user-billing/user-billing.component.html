@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="card bg-light">
+        <div class="card-header">
+          <div class="form-group row">
+            <div class="col-sm-12 text-middle">
+              <label class="control-label" for="Billing">Billing Details</label>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!--Address1-->
+          <div class="form-group row">
+            <div class="col-sm-6 text-left">
+              <label class="control-label" for="CreationPer">Creation Precentage</label>
+            </div>
+            <div class="col-sm-6 text-left">
+              <input type="text" class="form-control" id="CreationPer" [(ngModel)]="billingdetails.CreationPer"
+                placeholder="percentage" name="CreationPer" required>
+            </div>
+          </div>
+          <!--Address2-->
+          <div class="form-group row">
+            <div class="col-sm-6 text-left">
+              <label class="control-label" for="AssignPer">Assign percentage</label>
+            </div>
+            <div class="col-sm-6 text-left">
+              <input type="text" class="form-control" id="AssignPer" [(ngModel)]="billingdetails.AssignPer"
+                placeholder="percentage" name="AssignPer" required>
+            </div>
+          </div>
+          <!--Address3-->
+          <div class="form-group row">
+            <div class="col-sm-6 text-left">
+              <label class="control-label" for="ConvertPer">Conversion percentage:</label>
+            </div>
+            <div class="col-sm-6 text-left">
+              <input type="text" class="form-control" id="ConvertPer" [(ngModel)]="billingdetails.ConvertPer"
+                placeholder="percentage" name="ConvertPer" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="clo-sm-6"></div>
+            <div class="clo-sm-6">
+              <button class="btn btn-success btn-sm" (click)="Submit()">Set as default</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

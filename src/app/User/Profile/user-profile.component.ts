@@ -57,7 +57,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getexUser(){
-    this.userService.getexUser().subscribe(data=>this.person=data);
+    //this.userService.getexUser().subscribe(data=>this.person=data);
   }
   getexPhone(){
     this.userService.getexPhone().subscribe(data=>this.activePhoneNumber=data);

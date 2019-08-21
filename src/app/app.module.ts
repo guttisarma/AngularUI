@@ -30,6 +30,9 @@ import { ProductModule } from './product/product.module';
 import { ForgetPasswordComponent } from './User/SignIn/forget-password/forget-password.component';
 import { UserServiceService } from './Service/user-service.service';
 import { UserRestrationV1Component } from './User/Registration/user-restration-v1/user-restration-v1.component';
+import { PendingUsersComponent } from './User/pending-users/pending-users.component';
+import { UserAddressComponent } from './User/Detail/user-detail/user-address/user-address.component';
+import { UserBillingComponent } from './User/Detail/user-detail/user-billing/user-billing.component';
 
 
 
@@ -49,7 +52,10 @@ import { UserRestrationV1Component } from './User/Registration/user-restration-v
     //AssignedProductListComponent,
     PageNotFoundComponent,
     ForgetPasswordComponent,
-    UserRestrationV1Component
+    UserRestrationV1Component,
+    PendingUsersComponent,
+    UserAddressComponent,
+    UserBillingComponent
   ],
   imports: [
     NgbModule,

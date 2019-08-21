@@ -1,0 +1,22 @@
+<table class="table">
+  <thead class="thead-Nav_match">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Date of Birth</th>
+      <th scope="col">User Code</th>
+      <th scope="col">Commun.. ID</th>
+      <th scope="col">Approve</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let per of person  index as i">
+      <td>{{i+1}}</td>
+      <td>{{per.strFirstName}}</td>
+      <td>{{per.strDob}}</td>
+      <td>{{per.UserCode}}</td>
+      <td>{{per.PhoneNumber}}</td>
+      <td><button (click)="ApproveUser(per)">Approve</button></td>
+    </tr>
+  </tbody>
+</table>

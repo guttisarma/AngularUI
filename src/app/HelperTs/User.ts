@@ -65,16 +65,20 @@ export class UserIn {
   Password: string;
 }
 
-export class RegUser {
-  public lRegUserid: number;
-  public strFirstName: string;
-  public strMiddleName: string
-  public strLastName: string;
-  public strDob: string;
-  public strAdharNumber: string;
-  public bGender: boolean;
-  public lsAddrssUser: AddrssUser[];
-
+export class RegUser
+  {
+    public lRegUserid:number ;
+    public strFirstName:string;
+    public strMiddleName:string
+    public strLastName:string;
+    public strDob:string;
+    public strAdharNumber:string;
+    public strApprovalReason:string;
+    public bGender:boolean;
+    public PhoneNumber:string;
+    public Email:string;
+    public lsAddrssUser:AddrssUser[];
+    public UserCode:string;
 }
 export class AddrssUser {
   public iAddressTypeid: number;

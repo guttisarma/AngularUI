@@ -1,3 +1,72 @@
-<p>
-  user-detail works!
-</p>
+<div class="container">
+  <div class="row profile">
+    <div class="col-md-3">
+      <div class="profile-sidebar">
+        <!-- SIDEBAR USERPIC -->
+        <div class="profile-userpic">
+          <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg"
+            class="img-responsive" alt="">
+        </div>
+        <!-- END SIDEBAR USERPIC -->
+        <!-- SIDEBAR USER TITLE -->
+        <div class="profile-usertitle">
+          <div class="profile-usertitle-name">
+            {{userDetails.strFirstName }} {{ userDetails.strLastName}}
+          </div>
+          <!--  <div class="profile-usertitle-job">
+            Developer
+          </div> -->
+        </div>
+        <!-- END SIDEBAR USER TITLE -->
+        <!-- SIDEBAR BUTTONS -->
+        <div class="profile-userbuttons">
+          <button type="button" class="btn btn-default btn-sm">Upload</button>
+          <button type="button" class="btn btn-success btn-sm">Submit</button>
+        </div>
+        <!-- END SIDEBAR BUTTONS -->
+        <!-- SIDEBAR MENU -->
+        <div class="profile-usermenu">
+          <ul>
+            <li class="active">
+              <button type="button" class="btn btn-link" (click)="changeDetail(1)">Overview</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-link" (click)="changeDetail(2)">Account Settings</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-link" (click)="changeDetail(3)">User List</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-link" (click)="changeDetail(4)">Billing Settings</button>
+            </li>
+          </ul>
+        </div>
+        <!-- END MENU -->
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="profile-content">
+
+        <div *ngIf="userSelection==0">
+          <div class="card">
+            <div class="card-header">
+              User Details
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">First Name :: {{this.userDetails.strFirstName}}</li>
+              <li class="list-group-item">Last Name :: {{this.userDetails.strLastName}}</li>
+              <li class="list-group-item">Date of Birth ::{{this.userDetails.strDob}} </li>
+              <li class="list-group-item">Email :: {{this.userDetails.Email}} </li>
+              <li class="list-group-item">Phone Number :: {{this.userDetails.PhoneNumber}} </li>
+              <li class="list-group-item">User Code ::{{this.userDetails.UserCode}} </li>
+            </ul>
+          </div>
+        </div>
+
+        <app-user-list *ngIf="userSelection==3"></app-user-list>
+        <app-user-address *ngIf="userSelection==1"></app-user-address>
+        <app-user-billing *ngIf="userSelection==4"></app-user-billing>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="container">
+
+  <div class="card bg-light">
+    <div class="card-header">
+      <div class="form-group row">
+        <div class="col-sm-6 text-left">
+          <label class="control-label" for="address1">Type of Details:</label>
+        </div>
+        <div class="col-sm-6 text-left">
+          <app-multi-option [category]="AddressType"></app-multi-option>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <!--Address1-->
+      <div class="form-group row">
+        <div class="col-sm-6 text-left">
+          <label class="control-label" for="address1">Door No & Street:</label>
+        </div>
+        <div class="col-sm-6 text-left">
+          <input type="text" class="form-control" id="address1" [(ngModel)]="addressUser.strAddress1"
+            placeholder="Door No & Street" name="addressfirst" required>
+        </div>
+      </div>
+      <!--Address2-->
+      <div class="form-group row">
+        <div class="col-sm-6 text-left">
+          <label class="control-label" for="address2">Village & Town:</label>
+        </div>
+        <div class="col-sm-6 text-left">
+          <input type="text" class="form-control" id="address2" [(ngModel)]="addressUser.strAddress2"
+            placeholder="Village & Town" name="addresssecond" required>
+        </div>
+      </div>
+      <!--Address3-->
+      <div class="form-group row">
+        <div class="col-sm-6 text-left">
+          <label class="control-label" for="address3">District,State & Country:</label>
+        </div>
+        <div class="col-sm-6 text-left">
+          <input type="text" class="form-control" id="address3" [(ngModel)]="addressUser.strAddress3"
+            placeholder="District,State & Country" name="addressthird" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="clo-sm-6"></div>
+        <div class="clo-sm-6">
+          <button class="btn btn-success btn-sm" (click)="AddAddrees()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card bg-light mb-3">
+        <div class="card-header">
+          <div class="form-group row">
+            <div class="col-sm-6 text-left">
+              <label class="control-label" for="address1">Type of Details:</label>
+            </div>
+            <div class="col-sm-6 text-left">
+              <app-multi-option [category]="AddressType"></app-multi-option>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!--Phone number-->
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Phone Number" aria-label="Phone Number" [(ngModel)]="addressUser.strPhone"
+              aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" (click)="AddPhone()">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card bg-light mb-3">
+        <div class="card-header">
+          <div class="form-group row">
+            <div class="col-sm-6 text-left">
+              <label class="control-label" for="address1">Type of Details:</label>
+            </div>
+            <div class="col-sm-6 text-left">
+              <app-multi-option [category]="AddressType"></app-multi-option>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!--Email Id-->
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Email ID" aria-label="Email ID" [(ngModel)]="addressUser.strEmail"
+              aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" (click)="AddEmail()">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Submit-->
+  <!-- <div class="col-sm-9"></div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8">
+          <button type="submit" class="btn btn-default" (click)="onSubmit()">Submit</button>
+        </div>
+      </div>
+    </div> -->
+
+</div>

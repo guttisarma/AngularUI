@@ -8,6 +8,11 @@ export class Transaction {
     State: Number;
     OperationType: Number;
 }
+export class BillingDetails {
+    ConvertPer: number;
+    AssignPer: number;
+    CreationPer: number;
+}
 
 export const MockTransactionList: Transaction[] = [
     { ProductName: '', ProductCode: 'Pro_Cre_0', Quantity: 9, Amount: 99, CreatedOn: '12-20-2019', State: 1, OperationType: 2 },

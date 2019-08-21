@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { User, exAddress, exEmail, exPhone, exUser, MockexAddress, MockexEmail, MockexPhone, MockexUser } from '../HelperTs/User';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, from } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserIn } from '../../app/HelperTs/User';
 import { RegUser, AddrssUser } from '../HelperTs/User';
+import { BillingDetails } from '../HelperTs/Transactions';
 
 @Injectable({
   providedIn: 'root'
@@ -21,19 +22,26 @@ export class UserServiceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post('/api//User/IsUserExists', LoginRequest, httpOptions).pipe(
+    return this.http.post(this.baseURL + '/User/IsUserExists', LoginRequest, httpOptions).pipe(
       tap((UserId: number) => {
         return UserId;
       }),
       catchError(this.handleError<number>('addHero'))
     );
   }
+  ApproveUser(person: RegUser) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.post(this.baseURL + '/User/ApproveUser', person, httpOptions);
+
+  }
   doreset(LoginRequest: UserIn): Observable<boolean> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post('/api//User/ResetPassword', LoginRequest, httpOptions).pipe(
+    return this.http.post(this.baseURL + '/User/ResetPassword', LoginRequest, httpOptions).pipe(
       tap((isReset: boolean) => {
         return isReset;
       }),
@@ -52,12 +60,66 @@ export class UserServiceService {
   getMyUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseURL + '/User/UsersUndertaken');
   }
+  AddPhoneNo(address: AddrssUser): Observable<boolean> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
 
+    return this.http.post(this.baseURL + '/User/AddPhone', address, httpOptions).pipe(
+      tap((isReset: boolean) => {
+        return isReset;
+      }),
+      catchError(this.handleError<boolean>('addHero'))
+    );
+
+  }
+  UpdateBillingValues(billingdetail: BillingDetails): Observable<boolean> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    console.log(billingdetail);
+    debugger;
+    return this.http.post(this.baseURL + '/User/AddBillingDetails', billingdetail, httpOptions).pipe(
+      tap((isReset: boolean) => {
+        return isReset;
+      }),
+      catchError(this.handleError<boolean>('addHero'))
+    );
+
+  }
+
+  AddEmail(address: AddrssUser): Observable<boolean> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.post(this.baseURL + '/User/AddEmail', address, httpOptions).pipe(
+      tap((isReset: boolean) => {
+        return isReset;
+      }),
+      catchError(this.handleError<boolean>('addHero'))
+    );
+
+  }
+
+  AddAddress(address: AddrssUser): Observable<boolean> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.post(this.baseURL + '/User/AddAddress', address, httpOptions).pipe(
+      tap((isReset: boolean) => {
+        return isReset;
+      }),
+      catchError(this.handleError<boolean>('addHero'))
+    );
+
+  }
   /* getUserbyCode(SearUserCode:string):Observable<User>{
     return of(MockUserList[3]);
   } */
-  getexUser(): Observable<exUser> {
-    return of(MockexUser);
+  getexUser(): Observable<RegUser> {
+    return this.http.get<RegUser>(this.baseURL + '/User/GetUserDetail');
   }
   getexAddress(): Observable<exAddress> {
     return of(MockexAddress);
@@ -73,7 +135,7 @@ export class UserServiceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post('/api/User/Authenticate', LoginRequest, httpOptions).pipe(
+    return this.http.post(this.baseURL + '/User/Authenticate', LoginRequest, httpOptions).pipe(
       tap(
         (JWT: string) => {
           localStorage.setItem('AuthToken', JWT);
@@ -83,6 +145,12 @@ export class UserServiceService {
     );
   }
 
+  GetUnApprovedUsers(): Observable<RegUser[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.get<RegUser[]>(this.baseURL + '/User/GetUnApprovedUsers');
+  }
 
   Register(regUser: RegUser): Observable<RegUser> {
     console.log('Register will call server method');
@@ -90,7 +158,7 @@ export class UserServiceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     let ruser = new RegUser();
-    return this.http.post('/api//User/Registration', regUser, httpOptions).pipe(
+    return this.http.post(this.baseURL + '/User/Registration', regUser, httpOptions).pipe(
       tap(
         (regUserResult: RegUser) => { return regUserResult; }),
       catchError(this.handleError<RegUser>('Register', ruser)));

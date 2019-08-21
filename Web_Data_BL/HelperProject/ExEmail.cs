@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +9,7 @@ namespace TradeBulk_Helper
 {
     public class ExEmail: IExchangeUserInfo
     {
-        public string strEmailId { get; set; }
+        public string strEmail { get; set; }
         public bool bIsActive { get; set; }
     }
 }

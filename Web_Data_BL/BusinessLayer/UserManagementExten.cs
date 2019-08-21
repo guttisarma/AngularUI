@@ -38,7 +38,7 @@ namespace TradeBulk_BusinessLayer
             }
           }
           Phone dbphone = new Phone();
-          dbphone.Number = phone.strPhoneNumber;
+          dbphone.Number = phone.strPhone;
           dbphone.IsActive = true;
           PhoneRepository.Insert(dbphone);
           UserDetailPhone udPhone = new UserDetailPhone();
@@ -76,12 +76,12 @@ namespace TradeBulk_BusinessLayer
             }
           }
           Email dbEmail = new Email();
-          dbEmail.ID = email.strEmailId;
+          dbEmail.ID = email.strEmail;
           dbEmail.IsActive = true;
           EmailRepository.Insert(dbEmail);
           UserDetailEmail udEmail = new UserDetailEmail();
           udEmail.IsActive = true;
-          udEmail.EmailPID = dbEmail.EmailTypePID;
+          udEmail.EmailPID = dbEmail.EmailPid;
           udEmail.UserDetailPID = currentUserPID;
           UserDetailEmailRepository.Insert(udEmail);
           unitOfWork.SaveChanges();
@@ -146,7 +146,7 @@ namespace TradeBulk_BusinessLayer
           foreach (var item in userDetailPhones)
           {
             ExPhone exphone = new ExPhone();
-            exphone.strPhoneNumber = item.Phone.Number;
+            exphone.strPhone = item.Phone.Number;
             lsExPhones.Add(exphone);
           }
         }
@@ -172,7 +172,7 @@ namespace TradeBulk_BusinessLayer
           foreach (var item in userDetailEmails)
           {
             ExEmail exEmail = new ExEmail();
-            exEmail.strEmailId = item.Email.ID;
+            exEmail.strEmail = item.Email.ID;
             lsExEmails.Add(exEmail);
           }
         }

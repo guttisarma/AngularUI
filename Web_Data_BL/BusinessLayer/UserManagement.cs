@@ -25,6 +25,8 @@ namespace TradeBulk_BusinessLayer
     GenericRepository<UserHierarchy> UserHierarchyRepository;
     GenericRepository<UserDetail> UserDetailRepository;
     GenericRepository<User> UserRepository;
+    GenericRepository<UserDetailPhone> UserDetailPhoneRepository;
+    GenericRepository<UserDetailEmail> UserDetailEmailRepository;
     IExchangeUserInfo UserProfileInfo;
     long CurrentUserPID;
     #endregion
@@ -167,7 +169,7 @@ namespace TradeBulk_BusinessLayer
             if (!string.IsNullOrEmpty(NewUserDeatils.PhoneNumber))
             {
               ExPhone ePhone = new ExPhone();
-              ePhone.strPhoneNumber = NewUserDeatils.PhoneNumber;
+              ePhone.strPhone = NewUserDeatils.PhoneNumber;
               userMgmtExt.AddUserPhone(ePhone, newUser.UserdetailPID);
             }
 
@@ -181,7 +183,7 @@ namespace TradeBulk_BusinessLayer
             if (!string.IsNullOrEmpty(NewUserDeatils.Email))
             {
               ExEmail eEmail = new ExEmail();
-              eEmail.strEmailId = NewUserDeatils.Email;
+              eEmail.strEmail = NewUserDeatils.Email;
               userMgmtExt.AddUserEmail(eEmail, newUser.UserdetailPID);
             }
 
@@ -231,6 +233,71 @@ namespace TradeBulk_BusinessLayer
         LogHelper.WriteErrorLog(ex);
       }
 
+    }
+
+
+    public void UpdateBillingInfo(BillingDetails billingDetails)
+    {
+      using (UnitOfWork unitOfWork = new UnitOfWork())
+      {
+        UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
+        UserDetail userDetail= UserDetailRepository.GetByID(CurrentUserPID);
+        userDetail.ProductCreationPer =Convert.ToDecimal( billingDetails.CreationPer);
+        userDetail.ProductAssignPer = billingDetails.AssignPer;
+        userDetail.ProductConvertPer = billingDetails.ConvertPer;
+        UserDetailRepository.Update(userDetail);
+        unitOfWork.SaveChanges();
+      }
+    }
+    public RegUser GetUserDeails()
+    {
+      RegUser regUser = new RegUser();
+      try
+      {
+        using (UnitOfWork unitOfWork = new UnitOfWork())
+        {
+          UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
+          UserDetail userDetail = UserDetailRepository.GetByID(CurrentUserPID);
+          regUser.strFirstName = userDetail.FirstName;
+          regUser.strLastName = userDetail.LastName;
+
+          regUser.strDob = ((DateTime)userDetail.DateofBirth).ToString("mm/dd/yyyy");
+          regUser.UserCode = userDetail.UserCode;
+          regUser.PhoneNumber = ExtractPhoneNumber(unitOfWork, userDetail.UserdetailPID);
+          regUser.Email = ExtractEmailID(unitOfWork, userDetail.UserdetailPID);
+          return regUser;
+        }
+      }
+      catch (Exception ex)
+      {
+        LogHelper.WriteErrorLog(ex);
+        return regUser;
+      }
+      
+    }
+
+    private string ExtractPhoneNumber(UnitOfWork unitOfWork, long UserdetailPID)
+    {
+      UserDetailPhoneRepository = unitOfWork.GetRepoInstance<UserDetailPhone>();
+      Expression<Func<UserDetailPhone, object>> parameter1 = v => v.Phone;
+      Expression<Func<UserDetailPhone, object>>[] parameterArray = new Expression<Func<UserDetailPhone, object>>[] { parameter1, /*parameter2, parameter3, parameter4 */};
+      IEnumerable<UserDetailPhone> userDetailPhones = UserDetailPhoneRepository.GetAllExpressions(x => x.UserDetailPID == UserdetailPID  && x.IsActive==true, null, parameterArray);
+      if (userDetailPhones != null && userDetailPhones.Count<UserDetailPhone>() > 0)
+        return userDetailPhones.FirstOrDefault<UserDetailPhone>().Phone.Number;
+      else
+        return string.Empty;
+    }
+
+    private string ExtractEmailID(UnitOfWork unitOfWork, long UserdetailPID)
+    {
+      UserDetailEmailRepository = unitOfWork.GetRepoInstance<UserDetailEmail>();
+      Expression<Func<UserDetailEmail, object>> parameter1 = v => v.Email;
+      Expression<Func<UserDetailEmail, object>>[] parameterArray = new Expression<Func<UserDetailEmail, object>>[] { parameter1, /*parameter2, parameter3, parameter4 */};
+      IEnumerable<UserDetailEmail> userDetailEmails = UserDetailEmailRepository.GetAllExpressions(x => x.UserDetailPID == UserdetailPID && x.IsActive==true, null, parameterArray);
+      if (userDetailEmails != null && userDetailEmails.Count<UserDetailEmail>() > 0)
+        return userDetailEmails.FirstOrDefault<UserDetailEmail>().Email.ID;
+      else
+        return string.Empty;
     }
 
     private bool ChechUserExistsbyCode(string userGCode)
@@ -377,7 +444,7 @@ namespace TradeBulk_BusinessLayer
     /// if current user is not admin list user only for him
     /// </summary>
     /// <param name="currentUserID"></param>
-    public IEnumerable<RegUser> listPendingUserApprovals(long currentUserID,bool isUnApproved)
+    public IEnumerable<RegUser> listPendingUserApprovals(long currentUserID, bool isUnApproved)
     {
       List<RegUser> lsregUsers = new List<RegUser>();
       using (UnitOfWork unitOfWork = new UnitOfWork())
@@ -398,7 +465,7 @@ namespace TradeBulk_BusinessLayer
         }
         else
         {
-            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true && x.CreatedUserPID==currentUserID), null, null);
+          pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true && x.CreatedUserPID == currentUserID), null, null);
         }
 
 

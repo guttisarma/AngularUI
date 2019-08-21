@@ -15,6 +15,6 @@ namespace TradeBulk_Helper
         public string strCity { get; set; }
         public string strState { get; set; }
         public string strCountry { get; set; }
-        public string AddressType { get; set; }
+        public long AddressType { get; set; }
   }
 }

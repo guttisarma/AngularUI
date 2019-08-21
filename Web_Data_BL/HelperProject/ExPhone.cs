@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +9,7 @@ namespace TradeBulk_Helper
 {
     public class ExPhone: IExchangeUserInfo
     {
-        public string strPhoneNumber { get; set; }
+        public string strPhone { get; set; }
         public bool bIsActive { get; set; }
     }
 }

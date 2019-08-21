@@ -13,7 +13,7 @@ namespace TradeBulk_Helper.WebAPIhelper
     public string strMiddleName { get; set; }
     public string strLastName { get; set; }
     public string strDob { get; set; }
-    public string Phonenumber { get; set; }
+    public string PhoneNumber { get; set; }
     public string Email { get; set; }
     public string UserCode { get; set; }
     public string strAdharNumber { get; set; }

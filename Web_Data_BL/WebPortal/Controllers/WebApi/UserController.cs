@@ -226,11 +226,19 @@ namespace TradeBulk_Web.Controllers.WebApi
     }
 
     [HttpPost]
-    public void AddEmail(ExPhone exEmail)
+    public void AddEmail(ExEmail exEmail)
     {
       UserManagement userMgnt = new UserManagement(exEmail, currentUserPID);
       UserManagementExten userManagementExten = new UserManagementExten();
       userMgnt.UpdateUserProfile(userManagementExten.AddUserEmail);
+
+    }
+
+    [HttpPost]
+    public void AddBillingDetails(BillingDetails billingdetails)
+    {
+      UserManagement userMgnt = new UserManagement(currentUserPID);
+      userMgnt.UpdateBillingInfo(billingdetails);
 
     }
     [HttpGet]
@@ -281,6 +289,13 @@ namespace TradeBulk_Web.Controllers.WebApi
       newUserRegistrationSupports = userMgnt.listPendingUserApprovals(currentUserPID,true);
       return newUserRegistrationSupports;
     }
+    [HttpGet]
+    public  RegUser GetUserDetail()
+    {
+      UserManagement userMgnt = new UserManagement(currentUserPID);
+      RegUser regUser=  userMgnt.GetUserDeails();
+      return regUser;
+    }
 
     [HttpGet]
     public IEnumerable<RegUser> GetUserList()
@@ -311,3 +326,4 @@ namespace TradeBulk_Web.Controllers.WebApi
     }
   }
 }
+;

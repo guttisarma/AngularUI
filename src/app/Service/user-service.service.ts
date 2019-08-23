@@ -22,7 +22,7 @@ export class UserServiceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post(this.baseURL + '/User/IsUserExists', LoginRequest, httpOptions).pipe(
+    return this.http.post(this.baseURL + '/unauthenticuser/IsUserExists', LoginRequest, httpOptions).pipe(
       tap((UserId: number) => {
         return UserId;
       }),
@@ -41,7 +41,7 @@ export class UserServiceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post(this.baseURL + '/User/ResetPassword', LoginRequest, httpOptions).pipe(
+    return this.http.post(this.baseURL + '/unauthenticuser/ResetPassword', LoginRequest, httpOptions).pipe(
       tap((isReset: boolean) => {
         return isReset;
       }),
@@ -78,7 +78,6 @@ export class UserServiceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     console.log(billingdetail);
-    debugger;
     return this.http.post(this.baseURL + '/User/AddBillingDetails', billingdetail, httpOptions).pipe(
       tap((isReset: boolean) => {
         return isReset;
@@ -135,7 +134,7 @@ export class UserServiceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post(this.baseURL + '/User/Authenticate', LoginRequest, httpOptions).pipe(
+    return this.http.post(this.baseURL + '/UnAuthenticUser/Authenticate', LoginRequest, httpOptions).pipe(
       tap(
         (JWT: string) => {
           localStorage.setItem('AuthToken', JWT);
@@ -158,7 +157,7 @@ export class UserServiceService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     let ruser = new RegUser();
-    return this.http.post(this.baseURL + '/User/Registration', regUser, httpOptions).pipe(
+    return this.http.post(this.baseURL + '/unauthenticuser/Registration', regUser, httpOptions).pipe(
       tap(
         (regUserResult: RegUser) => { return regUserResult; }),
       catchError(this.handleError<RegUser>('Register', ruser)));

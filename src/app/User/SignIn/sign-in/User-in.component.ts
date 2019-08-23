@@ -16,21 +16,24 @@ export class UserInComponent implements OnInit {
   baseURL: String = environment.apiBaseUrl;
   tokenInfo: string;
   IsLoading: boolean;
+  IsCreated: boolean;
   ngOnInit() {
-
+    this.IsCreated = true;
+  }
+  create() {
+    this.IsCreated = false;
+    this.IsLoading = true;
   }
   onLogin() {
     this.IsLoading = true;
     this.UserServ.login(this.SingIn).subscribe(token => {
-      if (token == "LoginFailed") {
-        alert("Username/Password went wrong");
-      }
-      else if (token != undefined && token.length > 20) {
+      if (token === 'LoginFailed') {
+        alert('Username/Password went wrong');
+      }      else if (token !== undefined && token.length > 20) {
         this.router.navigateByUrl('/');
         this.UserServ.VisibleUserOp(true);
-      }
-      else {
-        alert("Username/Password went wrong");
+      }      else {
+        alert('Username/Password went wrong');
       }
       this.IsLoading = false;
     }, error => alert(error));

@@ -11,6 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http;
 using TradeBulk_Web.Authe_AuthoATION;
 
 namespace TradeBulk_Web.MessageHandler
@@ -34,17 +35,28 @@ namespace TradeBulk_Web.MessageHandler
     {
       HttpStatusCode statusCode;
       string token;
+      List<string> ignoreURLAuthentication = new List<string>();
+      ignoreURLAuthentication.Add(@"/api/unauthenticuser/authenticate");
+      ignoreURLAuthentication.Add(@"/api/unauthenticuser/registration");
+      ignoreURLAuthentication.Add(@"/api/unauthenticuser/isuserexists");
+      ignoreURLAuthentication.Add(@"/api/unauthenticuser/resetpassword");
+
       //determine whether a jwt exists or not
       if (!TryRetrieveToken(request, out token))
       {
-        statusCode = HttpStatusCode.Unauthorized;
         //allow requests with no token - whether a action method needs an authentication can be set with the claimsauthorization attribute
-        return base.SendAsync(request, cancellationToken);
+        if (ignoreURLAuthentication.Contains(request.RequestUri.LocalPath.ToLower()))
+          return base.SendAsync(request, cancellationToken);
+        else
+        {
+          statusCode = HttpStatusCode.Unauthorized;
+          return Task<HttpResponseMessage>.Factory.StartNew(() => new HttpResponseMessage(statusCode) { });
+        }
       }
-      if(token=="null") //this pass is for User Athentication
-      {
-        return base.SendAsync(request, cancellationToken);
-      }
+      //if (token == "null") //this pass is for User Athentication
+      //{
+      //  return base.SendAsync(request, cancellationToken);
+      //}
       try
       {
         const string sec = "401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1";
@@ -63,16 +75,16 @@ namespace TradeBulk_Web.MessageHandler
           LifetimeValidator = this.LifetimeValidator,
           IssuerSigningKey = securityKey
         };
-        
+
         //extract and assign the user of the jwt
-        System.Security.Claims.ClaimsPrincipal claimsPrincipal= handler.ValidateToken(token, validationParameters, out securityToken);
+        System.Security.Claims.ClaimsPrincipal claimsPrincipal = handler.ValidateToken(token, validationParameters, out securityToken);
         IEnumerable<System.Security.Claims.ClaimsIdentity> claimsIdentities = claimsPrincipal.Identities;
 
         var x = claimsIdentities.ToList()[0];
         var y = x.Claims.ToList()[0];
         var UserID = x.Claims.ToList()[1].Value;
         CustomPrincipal principal = new CustomPrincipal(x.Claims.ToList()[0].Value);
-        principal.UserId =Convert.ToInt32( x.Claims.ToList()[1].Value);
+        principal.UserId = Convert.ToInt32(x.Claims.ToList()[1].Value);
         HttpContext.Current.User = principal;
         Thread.CurrentPrincipal = principal;
 

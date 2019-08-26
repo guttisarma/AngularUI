@@ -11,6 +11,7 @@ using TradeBulk_Helper.Interfaces;
 using TradeBulk_Helper.WebAPIhelper;
 using Newtonsoft.Json;
 using System.Text;
+using System.IO;
 
 namespace TradeBulk_BusinessLayer
 {
@@ -157,6 +158,7 @@ namespace TradeBulk_BusinessLayer
             newUser.LastName = NewUserDeatils.strLastName;
             newUser.MiddleName = NewUserDeatils.strMiddleName;
             newUser.CreatedOn = DateTime.UtcNow;
+            newUser.UpdatedOn = DateTime.UtcNow;
             newUser.DateofBirth = tryDoB;
             newUser.UserCode = userGCode;
             UserDetailRepository.Insert(newUser);
@@ -234,7 +236,20 @@ namespace TradeBulk_BusinessLayer
       }
 
     }
+    public void UpdateUserPic(string PicPath,string PicIMGType)
+    {
+      using (UnitOfWork unitOfWork = new UnitOfWork())
+      {
+        UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
+        UserDetail userDetail = UserDetailRepository.GetByID(CurrentUserPID);
+        userDetail.PicPath = PicPath;
+        userDetail.PicIMGType = PicIMGType;
+        UserDetailRepository.Update(userDetail);
+        unitOfWork.SaveChanges();
 
+      }
+
+    }
 
     public void UpdateBillingInfo(BillingDetails billingDetails)
     {
@@ -364,21 +379,23 @@ namespace TradeBulk_BusinessLayer
           GenericRepository<User> ApprvedUserRepository;
           UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
           ApprvedUserRepository = unitOfWork.GetRepoInstance<User>();
-
+          string UserCode= GenerateUserCode(ApprovedUser.FirstName, (DateTime)ApprovedUser.DateofBirth);
           User user = new User();
           user.FirstName = ApprovedUser.FirstName;
           user.Email = Description.Email;
           user.ActivationCode = Guid.NewGuid();
           user.IsActive = true;
           user.LastName = ApprovedUser.LastName;
+          user.CreatedOn = DateTime.UtcNow;
+          user.UpdatedOn = DateTime.UtcNow;
           user.Password = Security.Encrypt(strPassword);
           GenericRepository<Role> rolesrepo = unitOfWork.GetRepoInstance<Role>();
           //user.Roles = rolesrepo.GetAllExpressions(x => x.RoleId == 2, null, null, null).ToList<Role>();//Customer Role i being assigned
           string CrypticInfo = new string((Convert.ToInt64(DateTime.Now.ToString("yyyy")) + ApprovedUser.UserdetailPID).ToString().Substring(0, 3).Reverse().ToArray());
-          user.Username = ApprovedUser.FirstName.Substring(0, 4).ToUpper() + CrypticInfo;
+          user.Username = UserCode;//ApprovedUser.FirstName.Substring(0, 4).ToUpper() + CrypticInfo;
           //CrypticInfo = string.Empty;
           //CrypticInfo = new string((Convert.ToInt64(((DateTime)ApprovedUser.DateofBirth).ToString("yyyy")) + ApprovedUser.UserdetailPID).ToString().Substring(0, 3).Reverse().ToArray());
-          user.UserCode = GenerateUserCode(ApprovedUser.FirstName, (DateTime)ApprovedUser.DateofBirth);// ApprovedUser.FirstName.Substring(0, 4).ToUpper() + CrypticInfo;
+          user.UserCode = UserCode;// ApprovedUser.FirstName.Substring(0, 4).ToUpper() + CrypticInfo;
           ApprovedUser.User = user;
           UserDetailRepository.Update(ApprovedUser);
           ApprvedUserRepository.Insert(user);

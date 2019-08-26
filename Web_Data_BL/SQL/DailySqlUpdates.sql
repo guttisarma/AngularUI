@@ -144,3 +144,11 @@ Alter Table Product
 Alter column DocumentPID BIGINT NULL
 
 GO
+--8/26/2019
+Alter table UserDetail
+Add PicPath Nvarchar(max) null
+
+Alter table UserDetail
+Add PicIMGType Nvarchar(max) null
+
+GO

@@ -399,6 +399,8 @@ warning 6002: The table/view 'TradeBulk.dbo.DropDownOnEntity' does not have a pr
           <Property Name="ProductCreationPer" Type="decimal" Precision="18" Scale="0" />
           <Property Name="ProductAssignPer" Type="decimal" Precision="18" Scale="0" />
           <Property Name="ProductConvertPer" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PicPath" Type="nvarchar(max)" />
+          <Property Name="PicIMGType" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="UserDetailAddress">
           <Key>
@@ -1990,6 +1992,8 @@ warning 6002: The table/view 'TradeBulk.dbo.ProductConvertView' does not have a 
           <NavigationProperty Name="ProductAssignments" Relationship="TradeBulkModel.FK_ProductAssignment_AssignedUserPid" FromRole="UserDetail" ToRole="ProductAssignment" />
           <NavigationProperty Name="ProductAssignments1" Relationship="TradeBulkModel.FK_ProductAssignment_CreatedUserPID" FromRole="UserDetail" ToRole="ProductAssignment" />
           <NavigationProperty Name="ProductAssignments2" Relationship="TradeBulkModel.FK_ProductAssignment_UpdatedUserPID" FromRole="UserDetail" ToRole="ProductAssignment" />
+          <Property Name="PicPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PicIMGType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           </EntityType>
         <EntityType Name="UserDetailAddress">
           <Key>
@@ -3744,6 +3748,8 @@ warning 6002: The table/view 'TradeBulk.dbo.ProductConvertView' does not have a 
           <EntitySetMapping Name="UserDetails">
             <EntityTypeMapping TypeName="TradeBulkModel.UserDetail">
               <MappingFragment StoreEntitySet="UserDetail">
+                <ScalarProperty Name="PicIMGType" ColumnName="PicIMGType" />
+                <ScalarProperty Name="PicPath" ColumnName="PicPath" />
                 <ScalarProperty Name="ProductConvertPer" ColumnName="ProductConvertPer" />
                 <ScalarProperty Name="ProductAssignPer" ColumnName="ProductAssignPer" />
                 <ScalarProperty Name="ProductCreationPer" ColumnName="ProductCreationPer" />

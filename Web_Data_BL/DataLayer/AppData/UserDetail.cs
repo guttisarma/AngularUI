@@ -76,6 +76,8 @@ namespace TradeBulk_DataLayer.AppData
         public Nullable<decimal> ProductCreationPer { get; set; }
         public Nullable<decimal> ProductAssignPer { get; set; }
         public Nullable<decimal> ProductConvertPer { get; set; }
+        public string PicPath { get; set; }
+        public string PicIMGType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Document> Documents { get; set; }

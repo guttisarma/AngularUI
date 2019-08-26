@@ -40,10 +40,10 @@ namespace TradeBulk_Web.MessageHandler
       ignoreURLAuthentication.Add(@"/api/unauthenticuser/registration");
       ignoreURLAuthentication.Add(@"/api/unauthenticuser/isuserexists");
       ignoreURLAuthentication.Add(@"/api/unauthenticuser/resetpassword");
-
       //determine whether a jwt exists or not
       if (!TryRetrieveToken(request, out token))
       {
+        
         //allow requests with no token - whether a action method needs an authentication can be set with the claimsauthorization attribute
         if (ignoreURLAuthentication.Contains(request.RequestUri.LocalPath.ToLower()))
           return base.SendAsync(request, cancellationToken);
@@ -53,10 +53,10 @@ namespace TradeBulk_Web.MessageHandler
           return Task<HttpResponseMessage>.Factory.StartNew(() => new HttpResponseMessage(statusCode) { });
         }
       }
-      //if (token == "null") //this pass is for User Athentication
-      //{
-      //  return base.SendAsync(request, cancellationToken);
-      //}
+      if (token == "null" && ignoreURLAuthentication.Contains(request.RequestUri.LocalPath.ToLower())) //this pass is for User Athentication
+      {
+        return base.SendAsync(request, cancellationToken);
+      }
       try
       {
         const string sec = "401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1";

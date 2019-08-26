@@ -6,6 +6,7 @@
         <div class="profile-userpic">
           <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg"
             class="img-responsive" alt="">
+            <input type="file" style="display: none" (change)="onFileChanged($event)" #fileInput>
         </div>
         <!-- END SIDEBAR USERPIC -->
         <!-- SIDEBAR USER TITLE -->
@@ -20,8 +21,8 @@
         <!-- END SIDEBAR USER TITLE -->
         <!-- SIDEBAR BUTTONS -->
         <div class="profile-userbuttons">
-          <button type="button" class="btn btn-default btn-sm">Upload</button>
-          <button type="button" class="btn btn-success btn-sm">Submit</button>
+          <button type="button" class="btn btn-default btn-sm" (click)="fileInput.click()">Upload</button>
+          <button type="button" class="btn btn-success btn-sm" (click)="uploadProfilePic()">Submit</button>
         </div>
         <!-- END SIDEBAR BUTTONS -->
         <!-- SIDEBAR MENU -->
@@ -45,28 +46,68 @@
       </div>
     </div>
     <div class="col-md-9">
-      <div class="profile-content">
+        <div class="profile-content">
 
-        <div *ngIf="userSelection==0">
-          <div class="card">
-            <div class="card-header">
-              User Details
+          <div *ngIf="userSelection==0">
+            <div class="card">
+              <div class="card-header">
+                <p class='pagetitle'>User Details</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <div class="col-sm-6">
+                    <b>First Name :</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{this.userDetails.strFirstName}}
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="col-sm-6"><b>Last Name : </b></div>
+                  <div class="col-sm-6">
+                    {{this.userDetails.strLastName}}
+                  </div>
+
+                </li>
+                <li class="list-group-item">
+                  <div class="col-sm-6">
+                    <b>Date of Birth :</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{this.userDetails.strDob}}
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="col-sm-6"><b>Email : </b></div>
+                  <div class="col-sm-6">
+                    {{this.userDetails.Email}}
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="col-sm-6">
+                    <b>Phone Number : </b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{this.userDetails.PhoneNumber}}
+                  </div>
+
+                </li>
+                <li class="list-group-item">
+                  <div class="col-sm-6">
+                    <b>User Code :</b>
+                  </div>
+                  <div class="col-sm-6">
+                    {{this.userDetails.UserCode}}
+                  </div>
+                </li>
+              </ul>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">First Name :: {{this.userDetails.strFirstName}}</li>
-              <li class="list-group-item">Last Name :: {{this.userDetails.strLastName}}</li>
-              <li class="list-group-item">Date of Birth ::{{this.userDetails.strDob}} </li>
-              <li class="list-group-item">Email :: {{this.userDetails.Email}} </li>
-              <li class="list-group-item">Phone Number :: {{this.userDetails.PhoneNumber}} </li>
-              <li class="list-group-item">User Code ::{{this.userDetails.UserCode}} </li>
-            </ul>
           </div>
-        </div>
 
-        <app-user-list *ngIf="userSelection==3"></app-user-list>
-        <app-user-address *ngIf="userSelection==1"></app-user-address>
-        <app-user-billing *ngIf="userSelection==4"></app-user-billing>
-      </div>
+          <app-user-list *ngIf="userSelection==3"></app-user-list>
+          <app-user-address *ngIf="userSelection==1"></app-user-address>
+          <app-user-billing *ngIf="userSelection==4"></app-user-billing>
+        </div>      
     </div>
   </div>
 </div>

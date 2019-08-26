@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegUser, AddrssUser } from '../../HelperTs/User';
 import { UserServiceService } from '../../Service/user-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pending-users',
@@ -9,7 +10,7 @@ import { UserServiceService } from '../../Service/user-service.service';
 })
 export class PendingUsersComponent implements OnInit {
 
-  constructor(private userserviceservice: UserServiceService) { }
+  constructor(private userserviceservice: UserServiceService, private router: Router) { }
   person: RegUser[] = [];
 
   ngOnInit() {
@@ -36,6 +37,9 @@ export class PendingUsersComponent implements OnInit {
   }
   ApproveUser(person: RegUser) {
     this.userserviceservice.ApproveUser(person).subscribe(
-      x=>this.userserviceservice.GetUnApprovedUsers().subscribe(per => this.person = per));
+      x => this.userserviceservice.GetUnApprovedUsers().subscribe(per => this.person = per));
+  }
+  CreateNewUser() {
+    this.router.navigateByUrl('/UserRegister');
   }
 }

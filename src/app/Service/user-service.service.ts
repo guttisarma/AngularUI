@@ -150,6 +150,17 @@ export class UserServiceService {
     };
     return this.http.get<RegUser[]>(this.baseURL + '/User/GetUnApprovedUsers');
   }
+  UpdateProfilePic(picDetails: any): Observable<boolean> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.post(this.baseURL + '/User/UpdateProfilePic', picDetails, httpOptions).pipe(
+      tap(
+        (Response: boolean) => {
+          return Response;
+        }),
+      catchError(this.handleError<boolean>('false', false)));
+  }
 
   Register(regUser: RegUser): Observable<RegUser> {
     console.log('Register will call server method');

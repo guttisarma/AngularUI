@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from '../../product.service';
-import { ProductList,AssignProduct } from 'src/app/HelperTs/ProductList';
+import { ProductService } from '../../product.service';
+import { ProductList, AssignProduct } from 'src/app/HelperTs/ProductList';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,20 +11,19 @@ import { ProductList,AssignProduct } from 'src/app/HelperTs/ProductList';
 })
 export class ProductListComponent implements OnInit {
 
-  constructor(private productservice:ProductService) { }
-  
-  ListofProd:ProductList[];
-  
+  constructor(private productservice: ProductService,private router:Router) { }
 
+  ListofProd: ProductList[];
 
   ngOnInit() {
     this.Createdclicked();
   }
 
-  Createdclicked(){
-   
-    this.productservice.getProductList().subscribe(lsProduct=>this.ListofProd=lsProduct);
-    
+  Createdclicked() {
+    this.productservice.getProductList().subscribe(lsProduct => this.ListofProd = lsProduct);
+  }
+  CreateNewPro(){
+    this.router.navigateByUrl('/ProductRegistration');
   }
   /*Assignedclicked() {
     this.IsAssignedclicked=true;

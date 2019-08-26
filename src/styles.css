@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+.navbar{
+    background-color: rgb(54, 11, 102);
+}
+.navbar-brand{
+    color:  rgb(54, 11, 102);
+}
+.nav-link{
+    color:  rgb(237, 251, 241);
+}
+a[_ngcontent-c0] {
+
+    color:  rgb(237, 251, 241)
+
+}
+.thead-Nav_match{
+    background-color:rgb(54, 11, 102);
+    text-decoration-color: rgb(237, 251, 241);
+}
+.thead-Nav_match.tr.th{
+    color:  rgb(237, 251, 241);
+}
+.table thead th{
+    color:  rgb(237, 251, 241);
+}
+.pagetitle{
+    color: rgb(54, 11, 102);
+    text-align: center;
+    font-size: large;
+    font-family: Arial, Helvetica, sans-serif;
+}

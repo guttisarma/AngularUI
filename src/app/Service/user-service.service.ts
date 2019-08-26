@@ -150,11 +150,10 @@ export class UserServiceService {
     };
     return this.http.get<RegUser[]>(this.baseURL + '/User/GetUnApprovedUsers');
   }
-  UpdateProfilePic(picDetails: any): Observable<boolean> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-    return this.http.post(this.baseURL + '/User/UpdateProfilePic', picDetails, httpOptions).pipe(
+  UpdateProfilePic(selectedFile: File): Observable<boolean> {
+    const uploadData = new FormData();
+    uploadData.append('myFile', selectedFile, selectedFile.name);
+    return this.http.post(this.baseURL + '/User/UpdateProfilePic', uploadData).pipe(
       tap(
         (Response: boolean) => {
           return Response;

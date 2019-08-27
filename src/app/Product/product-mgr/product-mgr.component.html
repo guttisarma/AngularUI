@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="class">
+  <!-- <div class="class">
     <ul class="nav justify-content-center">
       <li class="nav-item">
         <a class="nav-link " routerLink="/ProductRegistration">Create Product</a>
@@ -16,33 +16,52 @@
       <li class="nav-item">
         <a class="nav-link " routerLink="/ConvertProduct">Convert Product</a>
       </li>
-      <!--  <li class="nav-item">
-              <a class="nav-link " routerLink="/ProductList">Converted Product List</a>
-          </li> -->
     </ul>
-  </div>
-  <div class="row"> 
+  </div> -->
+  <div class="row">
     <div class="col-sm-6">
-      Selected List:: 
-      <div class="form-group">
-        <select class="form-control" id="sel1" [(ngModel)]="selectedoption" (change)="changedSelection()" >
-          <option *ngFor="let optn of multioption" >{{optn.Name}}</option>
-        </select>
+      <div class="form-group row">
+        <label class="control-label col-sm-4" for="lastname">Selected List::</label>
+        <div class="col-sm-8">
+          <select class="form-control" id="sel1" [(ngModel)]="selectedoption" (change)="changedSelection()">
+            <option *ngFor="let optn of multioption">{{optn.Name}}</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="col-sm-2">
-      <button class="glyphicon glyphicon-plus">Create New</button>
+      <button class="btn info" (click)="Create(1)">Create New</button>
     </div>
     <div class="col-sm-2">
-      <button class="glyphicon glyphicon-indent-left">Assign</button>
+      <button class="btn info" (click)="Create(2)">Assign</button>
     </div>
     <div class="col-sm-2">
-      <button class="glyphicon glyphicon-random" >Convert</button>
+      <button class="btn info" (click)="Create(3)">Convert</button>
     </div>
   </div>
-  
-  <div class="row">     
+
+  <div class="row">
+    <div *ngIf="Createnum==1">
+      <app-product-registration></app-product-registration>
+    </div>
+    <div *ngIf="Createnum==2">
+      <app-assign-product></app-assign-product>
+    </div>
+    <div *ngIf="Createnum==3">
+      <app-convert-product></app-convert-product>
+    </div>
+    <div *ngIf="Createnum==4">
+      <app-product-list></app-product-list>
+    </div>
+    <div *ngIf="Createnum==5">
+      <app-assigned-product-list></app-assigned-product-list>
+    </div>
+    <div *ngIf="Createnum==6">
+      <app-assigned-product-list></app-assigned-product-list>
+    </div>
   </div>
+
+
   <!-- <div class="row">
 <div class="col-md-4">
   <a routerLink="/ProductRegistration">Create Product</a> ||

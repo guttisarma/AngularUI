@@ -18,6 +18,7 @@ namespace TradeBulk_Helper.WebAPIhelper
     public string UserCode { get; set; }
     public string strAdharNumber { get; set; }
     public string strApprovalReason { get; set; }
+    public string strRelativePicUrl { get; set; }
     public bool bGender { get; set; }
     public List<AddrssUser> lsAddrssUser { get; set; }
 

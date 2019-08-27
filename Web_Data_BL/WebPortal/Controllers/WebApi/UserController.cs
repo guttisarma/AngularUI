@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -53,11 +54,12 @@ namespace TradeBulk_Web.Controllers.WebApi
     }
 
     [HttpPost]
-    public HttpResponseMessage UpdateProfilePic()
+    public string UpdateProfilePic()
     {
       Dictionary<string, object> dict = new Dictionary<string, object>();
       var httpRequest = HttpContext.Current.Request;
-
+      string aviodCollision=string.Empty;
+      string extension = string.Empty;
       foreach (string file in httpRequest.Files)
       {
         HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
@@ -68,14 +70,15 @@ namespace TradeBulk_Web.Controllers.WebApi
           int MaxContentLength = 1024 * 1024 * 1; //Size = 1 MB  
           IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
           var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
-          var extension = ext.ToLower();
+          extension = ext.ToLower();
           if (!AllowedFileExtensions.Contains(extension))
           {
 
             var message = string.Format("Please Upload image of type .jpg,.gif,.png.");
 
             dict.Add("error", message);
-            return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
+            //return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
+            return string.Empty;
           }
           else if (postedFile.ContentLength > MaxContentLength)
           {
@@ -83,25 +86,40 @@ namespace TradeBulk_Web.Controllers.WebApi
             var message = string.Format("Please Upload a file upto 1 mb.");
 
             dict.Add("error", message);
-            return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
+            //return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
+            return string.Empty;
           }
           else
           {
-            var filePath = HttpContext.Current.Server.MapPath("~/Userimage/" + postedFile.FileName + extension);
-            postedFile.SaveAs(filePath);
+            aviodCollision = SaveImgInDirectory(postedFile, extension);
             UserManagement userMgnt = new UserManagement(currentUserPID);
-            userMgnt.UpdateUserPic("~/Userimage/" + postedFile.FileName, extension);
+            userMgnt.UpdateUserPic("/AngularUI/assets/UserImage/" + postedFile.FileName.Split('.')[0] + "_" + aviodCollision, extension);
           }
         }
 
-        var message1 = string.Format("Image Updated Successfully.");
-        return Request.CreateErrorResponse(HttpStatusCode.Created, message1); ;
+        var message1 = string.Format("/AngularUI/assets/UserImage/" + postedFile.FileName.Split('.')[0] + "_" + aviodCollision+ extension);
+        //return Request.CreateErrorResponse(HttpStatusCode.Created, message1); ;
+        return message1;
       }
       var res = string.Format("Please Upload a image.");
       dict.Add("error", res);
-      return Request.CreateResponse(HttpStatusCode.NotFound, dict);
+      //return Request.CreateResponse(HttpStatusCode.NotFound, dict);
+      return string.Empty;
 
     }
+
+    private static string SaveImgInDirectory(HttpPostedFile postedFile, string extension)
+    {
+      string aviodCollision = Guid.NewGuid().ToString().ToString();      
+      if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/AngularUI/assets/UserImage/")))
+      {
+        Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/AngularUI/assets/UserImage/"));
+      }
+      var filePath = HttpContext.Current.Server.MapPath("~/AngularUI/assets/UserImage/" + postedFile.FileName.Split('.')[0] + "_" + aviodCollision + extension);
+      postedFile.SaveAs(filePath);
+      return aviodCollision;
+    }
+
     // POST: api/User
     [HttpPost]
     public void AddAddress(ExAddress exaddress)

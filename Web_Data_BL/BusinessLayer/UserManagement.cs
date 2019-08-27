@@ -276,10 +276,11 @@ namespace TradeBulk_BusinessLayer
           regUser.strFirstName = userDetail.FirstName;
           regUser.strLastName = userDetail.LastName;
 
-          regUser.strDob = ((DateTime)userDetail.DateofBirth).ToString("mm/dd/yyyy");
+          regUser.strDob = ((DateTime)userDetail.DateofBirth).ToString("MM/dd/yyyy");
           regUser.UserCode = userDetail.UserCode;
           regUser.PhoneNumber = ExtractPhoneNumber(unitOfWork, userDetail.UserdetailPID);
           regUser.Email = ExtractEmailID(unitOfWork, userDetail.UserdetailPID);
+          regUser.strRelativePicUrl = userDetail.PicPath + userDetail.PicIMGType;
           return regUser;
         }
       }

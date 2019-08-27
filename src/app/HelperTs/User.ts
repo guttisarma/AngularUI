@@ -76,6 +76,7 @@ export class RegUser
     public strApprovalReason:string;
     public bGender:boolean;
     public PhoneNumber:string;
+	public strRelativePicUrl:string;
     public Email:string;
     public lsAddrssUser:AddrssUser[];
     public UserCode:string;

@@ -1,29 +1,49 @@
-<div class="container" >
+<div class="container">
   <div class="class">
-      <ul class="nav justify-content-center">
-          <li class="nav-item">
-            <a class="nav-link " routerLink="/ProductRegistration">Create Product</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link " routerLink="/ProductList">Created Product List</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link " routerLink="/AssignProduct">Assign Product</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link " routerLink="/ProductList">Assigned Product List</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link " routerLink="/ConvertProduct">Convert Product</a>
-          </li>
-         <!--  <li class="nav-item">
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link " routerLink="/ProductRegistration">Create Product</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink="/ProductList">Created Product List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink="/AssignProduct">Assign Product</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink="/ProductList">Assigned Product List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " routerLink="/ConvertProduct">Convert Product</a>
+      </li>
+      <!--  <li class="nav-item">
               <a class="nav-link " routerLink="/ProductList">Converted Product List</a>
           </li> -->
-        </ul>
-
-
+    </ul>
   </div>
-<!-- <div class="row">
+  <div class="row"> 
+    <div class="col-sm-6">
+      Selected List:: 
+      <div class="form-group">
+        <select class="form-control" id="sel1" [(ngModel)]="selectedoption" (change)="changedSelection()" >
+          <option *ngFor="let optn of multioption" >{{optn.Name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <button class="glyphicon glyphicon-plus">Create New</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="glyphicon glyphicon-indent-left">Assign</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="glyphicon glyphicon-random" >Convert</button>
+    </div>
+  </div>
+  
+  <div class="row">     
+  </div>
+  <!-- <div class="row">
 <div class="col-md-4">
   <a routerLink="/ProductRegistration">Create Product</a> ||
   <a routerLink="/ProductList">Created Product List</a>

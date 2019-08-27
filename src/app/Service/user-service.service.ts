@@ -150,15 +150,21 @@ export class UserServiceService {
     };
     return this.http.get<RegUser[]>(this.baseURL + '/User/GetUnApprovedUsers');
   }
-  UpdateProfilePic(selectedFile: File): Observable<boolean> {
+  UpdateProfilePic(selectedFile: File): Observable<string> {
     const uploadData = new FormData();
     uploadData.append('myFile', selectedFile, selectedFile.name);
     return this.http.post(this.baseURL + '/User/UpdateProfilePic', uploadData).pipe(
       tap(
-        (Response: boolean) => {
-          return Response;
+        (Response: string) => {
+			console.log('Response :'+Response);
+			console.log(Response);
+			let url:string;
+			url='\\AngularUI\\assets\\UserImage\\Hydrangeas_ebe922dd-39ff-4bb6-8b70-cb4ac78.jpg';
+			console.log(url);
+			console.log('I am returning string');
+          return url;
         }),
-      catchError(this.handleError<boolean>('false', false)));
+      catchError(this.handleError<string>('false', "Some Error")));
   }
 
   Register(regUser: RegUser): Observable<RegUser> {

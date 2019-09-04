@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
     <div class="card card-signin my-5">
+      <button class="btn btn-light" *ngIf="!IsCreated" (click)="ShowBack()">Back</button>
       <div *ngIf="IsLoading && IsCreated ">
         <div class="lds-css">
           <div class="lds-gear">
@@ -38,13 +39,13 @@
             <label class="custom-control-label" for="customCheck1">Remember password</label>
             <br />
             <a routerLink='/ForgetPassword'>Forget Password</a>
+            <button class="btn btn-link" (click)="create()" >Create</button>
           </div>
           <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="onLogin()">Sign
             in</button>
           <hr class="my-4">
           <div class="custom-control custom-checkbox mb-3">
-            <a routerLink='/UserRegister' class="text-center">Create New</a>
-            <button class="btn btn-sm" (click)="create()" >Create</button>
+            
           </div>
           <button class="btn btn-sm btn-google btn-block text-uppercase" type="submit"><i
               class="fab fa-google mr-2"></i> Sign in with Google</button>

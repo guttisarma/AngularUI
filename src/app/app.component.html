@@ -1,26 +1,28 @@
 <!-- Nvar Bar Begin-->
 <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="#">Trade Bulk</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!--Mock-->
-      <ul class="navbar-nav mr-auto" *ngIf="IsUserLogIn">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/UserDetail">User Profile <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/MyTransactions">My Transactions</a>
-        </li>
-<!--         <li class="nav-item">
-          <a class="nav-link" routerLink="/ProductList">My Products</a>
-        </li> -->
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/ProductCenter">Product Center</a>
-        </li>
-    <!--     <li class="nav-item dropdown">
+  <a class="navbar-brand" href="#">Trade Bulk</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!--Mock-->
+    <ul class="navbar-nav mr-auto" *ngIf="IsUserLogIn">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/UserDetail">User Profile <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/MyTransactions">My Transactions</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/ProductCenter">Product Center</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/UserList">My Users</a>
+      </li>
+      <!--     <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Product
           </a>
@@ -30,50 +32,49 @@
             <a class="dropdown-item" routerLink="/ConvertProduct">Converted</a>
           </div>
         </li> -->
-<!--         <li class="nav-item">
+      <!--         <li class="nav-item">
          <a class="nav-link disabled" href="#">Disabled</a>
           <a class="nav-link" routerLink="#">Online Products</a> 
         </li> -->
-       <!--  <li class="nav-item">
+      <!--  <li class="nav-item">
           <a class="nav-link" routerLink="/UserRegister">Sign Up</a>
          </li>
          <li class="nav-item">          
           <a class="nav-link" routerLink="/MyDragProduct">Drag Product</a>
          </li> -->
-      </ul>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        <a class="nav-link" routerLink="/SignIn" *ngIf="!IsUserLogIn" >Sign In</a>
-        <img src="../assets/UserAvatar.png" style="width: 30px;height:35px" class="img-thumbnail" *ngIf="IsUserLogIn" alt="UserImage"(click)="logout()" >
-      </form>
-	</ul>
-  </nav> 
+    </ul>
+  </div>
+  <ul class="nav navbar-nav navbar-right">
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <a class="nav-link" routerLink="/SignIn" *ngIf="!IsUserLogIn">Sign In</a>
+      <img src="../assets/UserAvatar.png" style="width: 30px;height:35px" class="img-thumbnail" *ngIf="IsUserLogIn"
+        alt="UserImage" (click)="logout()">
+    </form>
+  </ul>
+</nav>
 <!-- Nvar Bar Ends-->
 
 
-<div class="container"> 
-     <div class="row"> 
-       <div class="col-sm-1">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-1">
 
-        </div> 
-        <!-- <app-multi-option [category]="UserList" ></app-multi-option> -->
-        <div class="col-sm-10"> 
-          <router-outlet></router-outlet>
-        </div> 
-      
-       <div class="col-sm-1">
-        
-      </div>
     </div>
-  </div> 
-  
+    <!-- <app-multi-option [category]="UserList" ></app-multi-option> -->
+    <div class="col-sm-10">
+      <router-outlet></router-outlet>
+    </div>
 
-  <footer class="footer">
-       <!--foote_bottom_ul_amrc ends here-->
-    <p class="text-center">Copyright @2019 | Designed With by <a href="#">Trade Bulk</a></p>    
-    </footer>
+    <div class="col-sm-1">
+
+    </div>
+  </div>
+</div>
 
 
+<footer class="footer">
+  <!--foote_bottom_ul_amrc ends here-->
+  <p class="text-center">Copyright @2019 | Designed With by <a href="#">Trade Bulk</a></p>
+</footer>

@@ -40,6 +40,9 @@
             <li>
               <button type="button" class="btn btn-link" (click)="changeDetail(4)">Billing Settings</button>
             </li>
+            <li>
+                <button type="button" class="btn btn-link" (click)="changeDetail(5)">Pending Users</button>
+              </li>
           </ul>
         </div>
         <!-- END MENU -->
@@ -107,6 +110,7 @@
           <app-user-list *ngIf="userSelection==3"></app-user-list>
           <app-user-address *ngIf="userSelection==1"></app-user-address>
           <app-user-billing *ngIf="userSelection==4"></app-user-billing>
+          <app-pending-users  *ngIf="userSelection==5"></app-pending-users>
         </div>      
     </div>
   </div>

@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserIn } from '../../app/HelperTs/User';
-import { RegUser, AddrssUser } from '../HelperTs/User';
+import { RegUser, AddrssUser,UserView } from '../HelperTs/User';
 import { BillingDetails } from '../HelperTs/Transactions';
 
 @Injectable({
@@ -52,9 +52,25 @@ export class UserServiceService {
   VisibleUserOp(isvisible) {
     this.UserMenu.next(isvisible);
   }
+  JoinUnderGiveUser(UserCode:string){
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    console.log(UserCode);
+    return this.http.post(this.baseURL + '/User/JointoGivenUser/'+ UserCode, httpOptions).pipe(
+      tap((isReset: boolean) => {
+        return isReset;
+      }),
+      catchError(this.handleError<boolean>('addHero'))
+    );
 
-  getUserList(): Observable<RegUser[]> {
-    return this.http.get<RegUser[]>(this.baseURL + '/User/GetUserList');
+  }
+  getUserList(Response:UserView): Observable<RegUser[]> {
+    console.log(Response.valueOf());
+    return this.http.get<RegUser[]>(this.baseURL + '/User/GetUserList/'+Response.valueOf());
+  }
+  SearchNameCodeUser(): Observable<RegUser[]> {
+    return this.http.get<RegUser[]>(this.baseURL + '/User/SearchNameCodeUser');
   }
   constructor(private http: HttpClient) { }
   getMyUsers(): Observable<User[]> {

@@ -65,21 +65,20 @@ export class UserIn {
   Password: string;
 }
 
-export class RegUser
-  {
-    public lRegUserid:number ;
-    public strFirstName:string;
-    public strMiddleName:string
-    public strLastName:string;
-    public strDob:string;
-    public strAdharNumber:string;
-    public strApprovalReason:string;
-    public bGender:boolean;
-    public PhoneNumber:string;
-	public strRelativePicUrl:string;
-    public Email:string;
-    public lsAddrssUser:AddrssUser[];
-    public UserCode:string;
+export class RegUser {
+  public lRegUserid: number;
+  public strFirstName: string;
+  public strMiddleName: string
+  public strLastName: string;
+  public strDob: string;
+  public strAdharNumber: string;
+  public strApprovalReason: string;
+  public bGender: boolean;
+  public PhoneNumber: string;
+  public strRelativePicUrl: string;
+  public Email: string;
+  public lsAddrssUser: AddrssUser[];
+  public UserCode: string;
 }
 export class AddrssUser {
   public iAddressTypeid: number;
@@ -90,4 +89,13 @@ export class AddrssUser {
   public strPhone: string;
   public lEmailid: number;
   public strEmail: string;
+}
+
+export enum UserView {
+  PendingApproval = 1,
+  Approaved = 2,
+  ManagersOnly = 3,
+  ActiveUsers = 4,
+  InActiveUsers = 5,
+  All=6
 }

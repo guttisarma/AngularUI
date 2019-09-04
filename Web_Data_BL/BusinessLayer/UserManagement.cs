@@ -161,6 +161,7 @@ namespace TradeBulk_BusinessLayer
             newUser.UpdatedOn = DateTime.UtcNow;
             newUser.DateofBirth = tryDoB;
             newUser.UserCode = userGCode;
+            newUser.IsActive = true;
             UserDetailRepository.Insert(newUser);
 
             unitOfWork.SaveChanges();
@@ -236,7 +237,7 @@ namespace TradeBulk_BusinessLayer
       }
 
     }
-    public void UpdateUserPic(string PicPath,string PicIMGType)
+    public void UpdateUserPic(string PicPath, string PicIMGType)
     {
       using (UnitOfWork unitOfWork = new UnitOfWork())
       {
@@ -256,8 +257,8 @@ namespace TradeBulk_BusinessLayer
       using (UnitOfWork unitOfWork = new UnitOfWork())
       {
         UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
-        UserDetail userDetail= UserDetailRepository.GetByID(CurrentUserPID);
-        userDetail.ProductCreationPer =Convert.ToDecimal( billingDetails.CreationPer);
+        UserDetail userDetail = UserDetailRepository.GetByID(CurrentUserPID);
+        userDetail.ProductCreationPer = Convert.ToDecimal(billingDetails.CreationPer);
         userDetail.ProductAssignPer = billingDetails.AssignPer;
         userDetail.ProductConvertPer = billingDetails.ConvertPer;
         UserDetailRepository.Update(userDetail);
@@ -289,7 +290,7 @@ namespace TradeBulk_BusinessLayer
         LogHelper.WriteErrorLog(ex);
         return regUser;
       }
-      
+
     }
 
     private string ExtractPhoneNumber(UnitOfWork unitOfWork, long UserdetailPID)
@@ -297,7 +298,7 @@ namespace TradeBulk_BusinessLayer
       UserDetailPhoneRepository = unitOfWork.GetRepoInstance<UserDetailPhone>();
       Expression<Func<UserDetailPhone, object>> parameter1 = v => v.Phone;
       Expression<Func<UserDetailPhone, object>>[] parameterArray = new Expression<Func<UserDetailPhone, object>>[] { parameter1, /*parameter2, parameter3, parameter4 */};
-      IEnumerable<UserDetailPhone> userDetailPhones = UserDetailPhoneRepository.GetAllExpressions(x => x.UserDetailPID == UserdetailPID  && x.IsActive==true, null, parameterArray);
+      IEnumerable<UserDetailPhone> userDetailPhones = UserDetailPhoneRepository.GetAllExpressions(x => x.UserDetailPID == UserdetailPID && x.IsActive == true, null, parameterArray);
       if (userDetailPhones != null && userDetailPhones.Count<UserDetailPhone>() > 0)
         return userDetailPhones.FirstOrDefault<UserDetailPhone>().Phone.Number;
       else
@@ -309,7 +310,7 @@ namespace TradeBulk_BusinessLayer
       UserDetailEmailRepository = unitOfWork.GetRepoInstance<UserDetailEmail>();
       Expression<Func<UserDetailEmail, object>> parameter1 = v => v.Email;
       Expression<Func<UserDetailEmail, object>>[] parameterArray = new Expression<Func<UserDetailEmail, object>>[] { parameter1, /*parameter2, parameter3, parameter4 */};
-      IEnumerable<UserDetailEmail> userDetailEmails = UserDetailEmailRepository.GetAllExpressions(x => x.UserDetailPID == UserdetailPID && x.IsActive==true, null, parameterArray);
+      IEnumerable<UserDetailEmail> userDetailEmails = UserDetailEmailRepository.GetAllExpressions(x => x.UserDetailPID == UserdetailPID && x.IsActive == true, null, parameterArray);
       if (userDetailEmails != null && userDetailEmails.Count<UserDetailEmail>() > 0)
         return userDetailEmails.FirstOrDefault<UserDetailEmail>().Email.ID;
       else
@@ -380,7 +381,7 @@ namespace TradeBulk_BusinessLayer
           GenericRepository<User> ApprvedUserRepository;
           UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
           ApprvedUserRepository = unitOfWork.GetRepoInstance<User>();
-          string UserCode= GenerateUserCode(ApprovedUser.FirstName, (DateTime)ApprovedUser.DateofBirth);
+          string UserCode = GenerateUserCode(ApprovedUser.FirstName, (DateTime)ApprovedUser.DateofBirth);
           User user = new User();
           user.FirstName = ApprovedUser.FirstName;
           user.Email = Description.Email;
@@ -470,7 +471,6 @@ namespace TradeBulk_BusinessLayer
         UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
 
         var CurrentUser = UserDetailRepository.GetByID(currentUserID);
-
         IQueryable<UserDetail> pendingList;
         //if Curreent user is Admin
         if (isUnApproved)
@@ -483,7 +483,7 @@ namespace TradeBulk_BusinessLayer
         }
         else
         {
-          pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true && x.CreatedUserPID == currentUserID), null, null);
+          pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true), null, null);
         }
 
 
@@ -501,6 +501,78 @@ namespace TradeBulk_BusinessLayer
       }
       return lsregUsers;
     }
+
+    public IEnumerable<RegUser> UserList(long currentUserID, UserView userResponse)
+    {
+      List<RegUser> lsregUsers = new List<RegUser>();
+      using (UnitOfWork unitOfWork = new UnitOfWork())
+      {
+        UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
+
+        var CurrentUser = UserDetailRepository.GetByID(currentUserID);
+        IQueryable<UserDetail> pendingList = null;
+        //if Curreent user is Admin
+        switch (userResponse)
+        {
+          case UserView.PendingApproval:
+            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == false || x.IsApproved == null), null, null);
+            break;
+          case UserView.Approaved:
+            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true), null, null);
+            break;
+          case UserView.ManagersOnly:
+            UserHierarchyRepository = unitOfWork.GetRepoInstance<UserHierarchy>();
+            List<long> lsUserDetailPID = new List<long>();
+            IQueryable<UserHierarchy> lsUH = UserHierarchyRepository.GetAllExpressions(null, null, null);
+            foreach (var item in lsUH)
+            {
+              lsUserDetailPID.Add((long)item.ManagerUserDetailPID);
+            }
+
+            pendingList = UserDetailRepository.GetAllExpressions(x => lsUserDetailPID.Contains(x.UserdetailPID), null, null);
+            break;
+          case UserView.ActiveUsers:
+            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsActive == true), null, null);
+            break;
+          case UserView.InActiveUsers:
+            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsActive == false || x.IsActive == null), null, null);
+            break;
+          case UserView.All:
+            pendingList = UserDetailRepository.GetAllExpressions(null, null, null);
+            break;
+          default:
+            break;
+        }
+
+        //if (isUnApproved)
+        //{
+        //  if (IsAdmin(CurrentUser))
+        //    pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false), null, null);
+        //  else
+        //    //Need to do it for Other users
+        //    pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false), null, null);
+        //}
+        //else
+        //{
+        //  pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true), null, null);
+        //}
+
+
+        if (pendingList != null)
+          foreach (var item in pendingList)
+          {
+            RegUser regUser = new RegUser();
+            regUser.lRegUserid = item.UserdetailPID;
+            regUser.strFirstName = item.FirstName;
+            regUser.strLastName = item.LastName;
+            regUser.strDob = item.DateofBirth.ToString();
+            regUser.UserCode = item.UserCode;
+            lsregUsers.Add(regUser);
+          }
+      }
+      return lsregUsers;
+    }
+
 
     private bool IsAdmin(UserDetail CurrentUser)
     {

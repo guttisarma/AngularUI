@@ -38,7 +38,7 @@ namespace TradeBulk_Web.Controllers.WebApi
     public IHttpActionResult ResetPassword([FromBody] LoginRequest login)
     {
       var loginResponse = new LoginResponse { };
-
+      loginResponse.responseMsg = new HttpResponseMessage();
       IHttpActionResult response;
       bool isUsernamePasswordValid = false;
       UserManagement umgnt = new UserManagement();

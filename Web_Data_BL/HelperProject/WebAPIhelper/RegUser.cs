@@ -23,5 +23,13 @@ namespace TradeBulk_Helper.WebAPIhelper
     public List<AddrssUser> lsAddrssUser { get; set; }
 
   }
-
+  public enum UserView
+  {
+    PendingApproval = 1,
+    Approaved = 2,
+    ManagersOnly = 3,
+    ActiveUsers = 4,
+    InActiveUsers = 5,
+    All = 6
+  }
 }

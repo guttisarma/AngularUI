@@ -43,7 +43,7 @@ namespace TradeBulk_Web.Controllers.WebApi
     {
       return "value";
     }
-   
+
     [HttpPost]
     public HttpResponseMessage ApproveUser([FromBody] RegUser description)
     {
@@ -58,7 +58,7 @@ namespace TradeBulk_Web.Controllers.WebApi
     {
       Dictionary<string, object> dict = new Dictionary<string, object>();
       var httpRequest = HttpContext.Current.Request;
-      string aviodCollision=string.Empty;
+      string aviodCollision = string.Empty;
       string extension = string.Empty;
       foreach (string file in httpRequest.Files)
       {
@@ -97,7 +97,7 @@ namespace TradeBulk_Web.Controllers.WebApi
           }
         }
 
-        var message1 = string.Format("/AngularUI/assets/UserImage/" + postedFile.FileName.Split('.')[0] + "_" + aviodCollision+ extension);
+        var message1 = string.Format("/AngularUI/assets/UserImage/" + postedFile.FileName.Split('.')[0] + "_" + aviodCollision + extension);
         //return Request.CreateErrorResponse(HttpStatusCode.Created, message1); ;
         return message1;
       }
@@ -110,7 +110,7 @@ namespace TradeBulk_Web.Controllers.WebApi
 
     private static string SaveImgInDirectory(HttpPostedFile postedFile, string extension)
     {
-      string aviodCollision = Guid.NewGuid().ToString().ToString();      
+      string aviodCollision = Guid.NewGuid().ToString().ToString();
       if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/AngularUI/assets/UserImage/")))
       {
         Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/AngularUI/assets/UserImage/"));
@@ -129,7 +129,7 @@ namespace TradeBulk_Web.Controllers.WebApi
       userMgnt.UpdateUserProfile(userManagementExten.AddAddresses);
 
     }
-        
+
     [HttpPost]
     public void AddPhone(ExPhone exPhone)
     {
@@ -154,6 +154,14 @@ namespace TradeBulk_Web.Controllers.WebApi
       userMgnt.UpdateBillingInfo(billingdetails);
 
     }
+
+    [HttpPost]
+    public void JointoGivenUser(string id)
+    {
+      UserManagement userManagement = new UserManagement(currentUserPID);
+      userManagement.joinInGroup(id, true, false);
+    }
+
     [HttpGet]
     public List<UserInfo> UsersUndertaken()
     {
@@ -188,26 +196,30 @@ namespace TradeBulk_Web.Controllers.WebApi
     {
       IEnumerable<RegUser> newUserRegistrationSupports = new List<RegUser>();
       UserManagement userMgnt = new UserManagement();
-      newUserRegistrationSupports = userMgnt.listPendingUserApprovals(currentUserPID,true);
+      newUserRegistrationSupports = userMgnt.listPendingUserApprovals(currentUserPID, true);
       return newUserRegistrationSupports;
     }
     [HttpGet]
-    public  RegUser GetUserDetail()
+    public RegUser GetUserDetail()
     {
       UserManagement userMgnt = new UserManagement(currentUserPID);
-      RegUser regUser=  userMgnt.GetUserDeails();
+      RegUser regUser = userMgnt.GetUserDeails();
       return regUser;
     }
 
+    #region UserList
     [HttpGet]
-    public IEnumerable<RegUser> GetUserList()
+    public IEnumerable<RegUser> GetUserList(int id = 2)
     {
       IEnumerable<RegUser> newUserRegistrationSupports = new List<RegUser>();
       UserManagement userMgnt = new UserManagement();
-      newUserRegistrationSupports = userMgnt.listPendingUserApprovals(currentUserPID,false);
+      newUserRegistrationSupports = userMgnt.UserList(currentUserPID, (UserView)id);
       return newUserRegistrationSupports;
     }
-    
+
+
+    #endregion
+
     // PUT: api/User/5
     public void Put(int id, [FromBody]string value)
     {

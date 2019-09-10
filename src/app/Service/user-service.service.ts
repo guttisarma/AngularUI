@@ -145,18 +145,19 @@ export class UserServiceService {
   getexPhone(): Observable<exPhone> {
     return of(MockexPhone);
   }
-  login(LoginRequest: UserIn): Observable<string> {
+  login(LoginRequest: UserIn): Observable<RegUser> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
     return this.http.post(this.baseURL + '/UnAuthenticUser/Authenticate', LoginRequest, httpOptions).pipe(
       tap(
-        (JWT: string) => {
-          localStorage.setItem('AuthToken', JWT);
-          console.log(JWT);
+        (regUser: RegUser) => {
+          localStorage.setItem('AuthToken', regUser.token);
+          localStorage.setItem('LoggedUserDetails',JSON.stringify(regUser) );
+          console.log(regUser);
         }),
-      catchError(this.handleError<string>('login', 'LoginFailed'))
+      catchError(this.handleError<RegUser>('login',new RegUser() ))
     );
   }
 

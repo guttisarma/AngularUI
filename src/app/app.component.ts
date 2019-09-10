@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment.PreProd';
 import { UserServiceService } from './Service/user-service.service';
 //import {Subscription} from 'rxjs/Subscription';
 import { Router } from '@angular/router';
+import { RegUser } from './HelperTs/User';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
   closeResult: string;
   selectedEnv: string = environment.name;
   IsUserLogIn: boolean = false;
+  regUser: RegUser;
   // private subscription:Subscription;
   constructor(private userService: UserServiceService, private router: Router) {
 
@@ -32,11 +34,22 @@ export class AppComponent implements OnInit {
       this.IsUserLogIn = true;
     else
       this.IsUserLogIn = false;
-    this.userService.cast.subscribe(isauthenticate => this.IsUserLogIn = isauthenticate);
+      this.regUser=new RegUser();
+    this.userService.cast.subscribe(isauthenticate => {
+      this.IsUserLogIn = isauthenticate;
+      
+      if (localStorage.getItem('LoggedUserDetails') != undefined && localStorage.getItem('LoggedUserDetails')!=null) {
+        console.log('It entered here');
+        this.regUser = JSON.parse(localStorage.getItem('LoggedUserDetails'));
+        this.IsUserLogIn = true;
+      }
+    });
+    console.log('this.IsUserLogIn ' +this.IsUserLogIn);
   }
 
   logout() {
     localStorage.setItem('AuthToken', null);
+    localStorage.setItem('LoggedUserDetails', null);
     this.IsUserLogIn = false;
     this.router.navigateByUrl('/SignIn');
   }

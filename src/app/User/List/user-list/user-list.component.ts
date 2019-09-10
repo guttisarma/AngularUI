@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RegUser, UserView } from 'src/app/HelperTs/User';
 import { UserServiceService } from '../../../Service/user-service.service';
 import { MultiOption } from '../../../HelperTs/MultiOption'
+import { element } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-user-list',
@@ -18,38 +19,54 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.buttonlable = "Change View";
     console.log('ngOnInit() is called');
-    this.userservice.getUserList(UserView.All).subscribe(lsper => this.lsperson = lsper);
+    this.userservice.getUserList(UserView.All).subscribe(lsper => {
+      this.lsperson = lsper;
+      console.log('Total records' + this.lsperson.length);
+      this.lsperson.forEach(element => {
+        console.log("FirstName "+element.strFirstName + ' CreatingDate ' +element.strCreatedOn+ ' Dod ' + element.strDob);
+      });
+    } );
   }
   searchWithkey() {
     console.log(this.searchNameCode);
-    this.lsperson=[];
+    this.lsperson = [];
     this.userservice.SearchNameCodeUser().subscribe(lsper => this.lsperson = lsper);
   }
   pendingusers() {
-    this.lsperson=[];
-    this.buttonlable ="Pending Approval";
+    this.lsperson = [];
+    this.buttonlable = "Pending Approval";
     console.log('pendingusers() is called');
-    this.userservice.getUserList(UserView.PendingApproval).subscribe(lsper => this.lsperson = lsper);
+    this.userservice.getUserList(UserView.PendingApproval).subscribe(lsper => {this.lsperson = lsper;
+      console.log('Total records' + this.lsperson.length);
+    });
   }
   approvedusers() {
-    this.lsperson=[];
-    this.buttonlable ="Approved";
-    this.userservice.getUserList(UserView.Approaved).subscribe(lsper => this.lsperson = lsper);
+    this.lsperson = [];
+    this.buttonlable = "Approved";
+    this.userservice.getUserList(UserView.Approaved).subscribe(lsper => {this.lsperson = lsper;
+      console.log('Total records' + this.lsperson.length);
+    });
   }
   managerusers() {
-    this.lsperson=[];
-    this.buttonlable ="Managers Only";
-    this.userservice.getUserList(UserView.ManagersOnly).subscribe(lsper => this.lsperson = lsper);
+    this.lsperson = [];
+    this.buttonlable = "Managers Only";
+    this.userservice.getUserList(UserView.ManagersOnly).subscribe(lsper => {this.lsperson = lsper;
+      console.log('Total records' + this.lsperson.length);
+    });
   }
   activeusers() {
-    this.lsperson=[];
-    this.buttonlable ="Active Users";
-    this.userservice.getUserList(UserView.ActiveUsers).subscribe(lsper => this.lsperson = lsper);
+    this.lsperson = [];
+    this.buttonlable = "Active Users";
+    this.userservice.getUserList(UserView.ActiveUsers).subscribe(lsper => {this.lsperson = lsper;
+      console.log('Total records' + this.lsperson.length);
+    });
   }
   inactiveusers() {
-    this.lsperson=[];
-    this.buttonlable ="In Active Users";
-    this.userservice.getUserList(UserView.InActiveUsers).subscribe(lsper => this.lsperson = lsper);
+    this.lsperson = [];
+    this.buttonlable = "In Active Users";
+    this.userservice.getUserList(UserView.InActiveUsers).subscribe(lsper => {this.lsperson = lsper;
+      console.log('Total records' + this.lsperson.length);
+    });
   }
 
 }

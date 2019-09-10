@@ -48,10 +48,24 @@
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      <a class="nav-link" routerLink="/SignIn" *ngIf="!IsUserLogIn">Sign In</a>
-      <img src="../assets/UserAvatar.png" style="width: 30px;height:35px" class="img-thumbnail" *ngIf="IsUserLogIn"
-        alt="UserImage" (click)="logout()">
     </form>
+    <a class="nav-link" routerLink="/SignIn" *ngIf="!IsUserLogIn"> <div class="ShortText">Sing In</div></a>
+    <!-- <img src="../assets/UserAvatar.png" style="width: 30px;height:35px" class="img-thumbnail" *ngIf="IsUserLogIn"
+      alt="UserImage" (click)="logout()"> -->
+
+    <li class="nav-item dropdown" *ngIf="IsUserLogIn">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <div class="ShortText"> {{regUser.strFirstName +' '+regUser.strLastName}}</div>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" routerLink="/UserDetail">My Details</a>
+        <a class="dropdown-item" routerLink="/UserList">My Users List</a>
+        <button type="button" class="btn btn-default btn-sm" (click)="logout()">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </button>
+      </div>
+    </li>
   </ul>
 </nav>
 <!-- Nvar Bar Ends-->

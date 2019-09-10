@@ -33,8 +33,9 @@
           <th scope="col">#</th>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
-          <th scope="col">Date of birth</th>
-          <th scope="col">Phone number</th>
+          <th scope="col">DOB</th>
+          <th scope="col">Phone No</th>
+          <th scope="col">Code</th>
           <th scope="col">Email Id</th>
           <th scope="col">Created On</th>
         </tr>
@@ -45,9 +46,10 @@
           <td>{{pro.strFirstName}}</td>
           <td>{{pro.strLastName}}</td>
           <td>{{pro.strDob | date: 'dd/MM/yyyy' }}</td>
-          <td>{{pro.Phonenumber}}</td>
+          <td>{{pro.PhoneNumber}}</td>
+          <td>{{pro.UserCode}}</td>
           <td>{{pro.Email}}</td>
-          <td>button for some oparation</td>
+          <td>{{pro.strCreatedOn | date: 'dd/MM/yyyy' }}</td>
         </tr>
       </tbody>
     </table>

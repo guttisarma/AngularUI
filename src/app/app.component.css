@@ -5,7 +5,15 @@ a{
     color:#28a745;
 }
  */
-
+ .dropdown-menu {
+    background-color:rgb(54, 11, 102);
+ }
+ .ShortText{
+     white-space: nowrap;
+     width: 80px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
 
 
 

@@ -79,6 +79,9 @@ export class RegUser {
   public Email: string;
   public lsAddrssUser: AddrssUser[];
   public UserCode: string;
+  public UserTypePID:number;
+  public token:string;
+  public strCreatedOn:string;
 }
 export class AddrssUser {
   public iAddressTypeid: number;

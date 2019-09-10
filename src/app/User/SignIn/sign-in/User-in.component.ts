@@ -22,11 +22,12 @@ export class UserInComponent implements OnInit {
   }
   onLogin() {
     this.IsLoading = true;
-    this.UserServ.login(this.SingIn).subscribe(token => {
-      if (token == "LoginFailed") {
+    this.UserServ.login(this.SingIn).subscribe(regUser => {
+      if (regUser.token == "LoginFailed") {
         alert("Username/Password went wrong");
       }
-      else if (token != undefined && token.length > 20) {
+      else if (regUser.token!= undefined && regUser.token.length > 20) {
+        //here length> 20 for no reason can be correct later
         this.router.navigateByUrl('/');
         this.UserServ.VisibleUserOp(true);
       }

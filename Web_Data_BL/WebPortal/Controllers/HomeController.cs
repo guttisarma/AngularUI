@@ -71,7 +71,9 @@ namespace TradeBulk_Web.Controllers
 
                     ProductManagement pMgmt = new ProductManagement();
                     var CurrentUserId = ((TradeBulk_Web.Authe_AuthoATION.CustomPrincipal)HttpContext.User).UserId;
+#pragma warning disable CS0219 // The variable 'IsSuccess' is assigned but its value is never used
                     bool IsSuccess = false;
+#pragma warning restore CS0219 // The variable 'IsSuccess' is assigned but its value is never used
                     //pMgmt.CreateProduct(ProductDetails, CurrentUserId,out IsSuccess);
                     // Returns message that successfully uploaded  
                     return Json("File Uploaded Successfully!");

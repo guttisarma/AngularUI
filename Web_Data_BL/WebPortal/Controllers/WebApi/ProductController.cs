@@ -20,7 +20,9 @@ namespace TradeBulk_Web.Controllers.WebApi
     IProductManagement ipromngmt;
     long currentUserID = -1;
     bool isSuccess = false;
+#pragma warning disable CS0649 // Field 'ProductController.isFakeData' is never assigned to, and will always have its default value false
     bool isFakeData;
+#pragma warning restore CS0649 // Field 'ProductController.isFakeData' is never assigned to, and will always have its default value false
     
     public ProductController(IProductManagement _ipromngmt)
     {

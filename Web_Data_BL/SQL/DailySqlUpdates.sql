@@ -152,3 +152,10 @@ Alter table UserDetail
 Add PicIMGType Nvarchar(max) null
 
 GO
+Set IDENTITY_INSERT  dbo.UserType ON
+Insert UserType (UserTypePID,Name) values (1,'Admin')
+Insert UserType (UserTypePID,Name) values (2,'Manager')
+Insert UserType (UserTypePID,Name) values (3,'NormalUser')
+Set IDENTITY_INSERT  dbo.UserType OFF
+GO
+

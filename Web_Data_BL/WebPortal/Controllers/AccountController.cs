@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +10,9 @@ using System.Web.Security;
 using TradeBulk_Web.Authe_AuthoATION;
 using TradeBulk_Web.Migrations;
 using TradeBulk_Web.Models;
+#pragma warning disable CS0246 // The type or namespace name 'TradeBulk_DataLayer' could not be found (are you missing a using directive or an assembly reference?)
 using TradeBulk_DataLayer.AppData;
+#pragma warning restore CS0246 // The type or namespace name 'TradeBulk_DataLayer' could not be found (are you missing a using directive or an assembly reference?)
 using TradeBulk_BusinessLayer;
 
 namespace TradeBulk_Web.Controllers
@@ -235,7 +237,9 @@ namespace TradeBulk_Web.Controllers
                     smtp.Send(message);
 
                 }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
                 catch(Exception ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
                 {
                     //Exception need to resolved.
                 }
@@ -260,7 +264,9 @@ namespace TradeBulk_Web.Controllers
 
                 return View(lsAuction);
             }
+#pragma warning disable CS0162 // Unreachable code detected
             return View();
+#pragma warning restore CS0162 // Unreachable code detected
         }
     }
 }

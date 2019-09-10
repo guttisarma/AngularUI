@@ -10,7 +10,9 @@ namespace TradeBulk_Web.Controllers
 {
     public class AuctionApiController : ApiController
     {
+#pragma warning disable CS0169 // The field 'AuctionApiController.CUser' is never used
         private CurrentUser CUser;
+#pragma warning restore CS0169 // The field 'AuctionApiController.CUser' is never used
         public AuctionApiController()
         {
             //int UserId = ((TradeBulk_Web.Authe_AuthoATION.CustomPrincipal)((System.Web.HttpContext)Context).User).UserId;

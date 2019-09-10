@@ -25,6 +25,7 @@ namespace TradeBulk_BusinessLayer
     GenericRepository<UserDetailAddress> UserDetailAddressRepository;
     GenericRepository<UserHierarchy> UserHierarchyRepository;
     GenericRepository<UserDetail> UserDetailRepository;
+    GenericRepository<TradeBulk_DataLayer.AppData.UserType> UserTypeRepository;
     GenericRepository<User> UserRepository;
     GenericRepository<UserDetailPhone> UserDetailPhoneRepository;
     GenericRepository<UserDetailEmail> UserDetailEmailRepository;
@@ -78,6 +79,31 @@ namespace TradeBulk_BusinessLayer
         userId = 0;
         return false;
       }
+      #region this part is like a patch for sqlserve
+      try
+      {
+        using (TradeBulkEntities dbContext = new TradeBulkEntities())
+        {
+          int count = dbContext.UserTypes.Count();
+          if (count != 3)
+          {
+            int noOfRowInserted = dbContext.Database.ExecuteSqlCommand(@"Set IDENTITY_INSERT  dbo.UserType ON
+                                                                       Insert UserType (UserTypePID,Name) values (1,'Admin')
+                                                                       Insert UserType (UserTypePID,Name) values (2,'Manager')
+                                                                       Insert UserType (UserTypePID,Name) values (3,'NormalUser')
+                                                                       Set IDENTITY_INSERT  dbo.UserType OFF");
+          }
+
+        }
+
+      }
+      catch (Exception ex)
+      {
+
+        throw new Exception("My patch is failed",ex);
+      }
+
+      #endregion
 
       using (TradeBulkEntities dbContext = new TradeBulkEntities())
       {
@@ -272,6 +298,8 @@ namespace TradeBulk_BusinessLayer
       {
         using (UnitOfWork unitOfWork = new UnitOfWork())
         {
+
+
           UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
           UserDetail userDetail = UserDetailRepository.GetByID(CurrentUserPID);
           regUser.strFirstName = userDetail.FirstName;
@@ -279,6 +307,7 @@ namespace TradeBulk_BusinessLayer
 
           regUser.strDob = ((DateTime)userDetail.DateofBirth).ToString("MM/dd/yyyy");
           regUser.UserCode = userDetail.UserCode;
+          regUser.UserTypePID = userDetail.UserTypePID == null ? 3 : (int)userDetail.UserTypePID;
           regUser.PhoneNumber = ExtractPhoneNumber(unitOfWork, userDetail.UserdetailPID);
           regUser.Email = ExtractEmailID(unitOfWork, userDetail.UserdetailPID);
           regUser.strRelativePicUrl = userDetail.PicPath + userDetail.PicIMGType;
@@ -511,14 +540,15 @@ namespace TradeBulk_BusinessLayer
 
         var CurrentUser = UserDetailRepository.GetByID(currentUserID);
         IQueryable<UserDetail> pendingList = null;
+        Func<IQueryable<UserDetail>, IOrderedQueryable<UserDetail>> orderBy = (x => x.OrderBy(y => y.CreatedOn));
         //if Curreent user is Admin
         switch (userResponse)
         {
           case UserView.PendingApproval:
-            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == false || x.IsApproved == null), null, null);
+            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == false || x.IsApproved == null), orderBy, null);
             break;
           case UserView.Approaved:
-            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true), null, null);
+            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true), orderBy, null);
             break;
           case UserView.ManagersOnly:
             UserHierarchyRepository = unitOfWork.GetRepoInstance<UserHierarchy>();
@@ -529,16 +559,16 @@ namespace TradeBulk_BusinessLayer
               lsUserDetailPID.Add((long)item.ManagerUserDetailPID);
             }
 
-            pendingList = UserDetailRepository.GetAllExpressions(x => lsUserDetailPID.Contains(x.UserdetailPID), null, null);
+            pendingList = UserDetailRepository.GetAllExpressions(x => lsUserDetailPID.Contains(x.UserdetailPID), orderBy, null);
             break;
           case UserView.ActiveUsers:
-            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsActive == true), null, null);
+            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsActive == true), orderBy, null);
             break;
           case UserView.InActiveUsers:
-            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsActive == false || x.IsActive == null), null, null);
+            pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsActive == false || x.IsActive == null), orderBy, null);
             break;
           case UserView.All:
-            pendingList = UserDetailRepository.GetAllExpressions(null, null, null);
+            pendingList = UserDetailRepository.GetAllExpressions(null, orderBy, null);
             break;
           default:
             break;
@@ -556,10 +586,12 @@ namespace TradeBulk_BusinessLayer
         //{
         //  pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true), null, null);
         //}
-
+        int pageSize = 10;
+        int pageNumber = 1;
 
         if (pendingList != null)
-          foreach (var item in pendingList)
+          // IQueryable<UserDetail> userDetails= pendingList.Skip(pageSize * pageNumber).Take(pageSize);
+          foreach (var item in pendingList.Skip(pageSize * pageNumber).Take(pageSize))
           {
             RegUser regUser = new RegUser();
             regUser.lRegUserid = item.UserdetailPID;
@@ -567,6 +599,9 @@ namespace TradeBulk_BusinessLayer
             regUser.strLastName = item.LastName;
             regUser.strDob = item.DateofBirth.ToString();
             regUser.UserCode = item.UserCode;
+            regUser.PhoneNumber = ExtractPhoneNumber(unitOfWork, item.UserdetailPID);
+            regUser.Email = ExtractEmailID(unitOfWork, item.UserdetailPID);
+            regUser.strCreatedOn = item.CreatedOn == null ? "" : ((DateTime)item.CreatedOn).ToString("yyyy/MM/dd");
             lsregUsers.Add(regUser);
           }
       }
@@ -599,6 +634,7 @@ namespace TradeBulk_BusinessLayer
             UserDetailRepository = unitOfWork.GetRepoInstance<UserDetail>();
             UserDetail currentUser = UserDetailRepository.GetByID(this.CurrentUserPID);
             currentUser.ManagerPID = ownerId;
+            currentUser.UserTypePID = (long)TradeBulk_Helper.WebAPIhelper.UserType.Manager;
             UserDetailRepository.Update(currentUser);
             unitOfWork.SaveChanges();
           }

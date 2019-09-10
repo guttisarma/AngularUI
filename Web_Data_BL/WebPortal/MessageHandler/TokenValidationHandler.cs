@@ -90,11 +90,15 @@ namespace TradeBulk_Web.MessageHandler
 
         return base.SendAsync(request, cancellationToken);
       }
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
       catch (SecurityTokenValidationException e)
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
       {
         statusCode = HttpStatusCode.Unauthorized;
       }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
       catch (Exception ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
       {
         statusCode = HttpStatusCode.InternalServerError;
       }

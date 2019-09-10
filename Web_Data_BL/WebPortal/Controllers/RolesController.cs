@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -8,13 +8,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TradeBulk_Web.Authe_AuthoATION;
+#pragma warning disable CS0246 // The type or namespace name 'TradeBulk_DataLayer' could not be found (are you missing a using directive or an assembly reference?)
 using TradeBulk_DataLayer.AppData;
+#pragma warning restore CS0246 // The type or namespace name 'TradeBulk_DataLayer' could not be found (are you missing a using directive or an assembly reference?)
 
 namespace TradeBulk_Web.Controllers
 {
     public class RolesController : Controller
     {
+#pragma warning disable CS0246 // The type or namespace name 'TradeBulkEntities' could not be found (are you missing a using directive or an assembly reference?)
         private TradeBulkEntities db = new TradeBulkEntities();
+#pragma warning restore CS0246 // The type or namespace name 'TradeBulkEntities' could not be found (are you missing a using directive or an assembly reference?)
 
         // GET: Roles
         public async Task<ActionResult> Index()
@@ -48,7 +52,9 @@ namespace TradeBulk_Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+#pragma warning disable CS0246 // The type or namespace name 'Role' could not be found (are you missing a using directive or an assembly reference?)
         public async Task<ActionResult> Create([Bind(Include = "RoleId,RoleName")] Role role)
+#pragma warning restore CS0246 // The type or namespace name 'Role' could not be found (are you missing a using directive or an assembly reference?)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +86,9 @@ namespace TradeBulk_Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+#pragma warning disable CS0246 // The type or namespace name 'Role' could not be found (are you missing a using directive or an assembly reference?)
         public async Task<ActionResult> Edit([Bind(Include = "RoleId,RoleName")] Role role)
+#pragma warning restore CS0246 // The type or namespace name 'Role' could not be found (are you missing a using directive or an assembly reference?)
         {
             if (ModelState.IsValid)
             {

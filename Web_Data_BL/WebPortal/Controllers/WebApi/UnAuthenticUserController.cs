@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Web.Http;
 using TradeBulk_BusinessLayer;
 using TradeBulk_Helper;
+using TradeBulk_Helper.WebAPIhelper;
 
 namespace TradeBulk_Web.Controllers.WebApi
 {
@@ -102,9 +103,13 @@ namespace TradeBulk_Web.Controllers.WebApi
         isUsernamePasswordValid = umgnt.ValidateUser(login.Username, login.Password, out UserId);
         if (isUsernamePasswordValid)
         {
-          string token = createtoken(login.Username, UserId);
+          umgnt = new UserManagement(UserId);
+          RegUser regUser = umgnt.GetUserDeails();
+
+          regUser.token= createtoken(login.Username, UserId);
+          
           //return the token
-          return Request.CreateResponse(HttpStatusCode.OK, token);
+          return Request.CreateResponse(HttpStatusCode.OK, regUser);
         }
         else
         {

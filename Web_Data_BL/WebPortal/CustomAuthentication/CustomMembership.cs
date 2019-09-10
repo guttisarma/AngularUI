@@ -1,5 +1,7 @@
-﻿using TradeBulk_Web.Authe_AuthoATION;
+using TradeBulk_Web.Authe_AuthoATION;
+#pragma warning disable CS0246 // The type or namespace name 'TradeBulk_DataLayer' could not be found (are you missing a using directive or an assembly reference?)
 using TradeBulk_DataLayer.AppData;
+#pragma warning restore CS0246 // The type or namespace name 'TradeBulk_DataLayer' could not be found (are you missing a using directive or an assembly reference?)
 using TradeBulk_Web.Models;
 using System;
 using System.Collections.Generic;

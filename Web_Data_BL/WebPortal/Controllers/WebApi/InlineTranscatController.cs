@@ -11,8 +11,12 @@ namespace TradeBulk_Web.Controllers.WebApi
 {
   public class InlineTranscatController : ApiController
   {
+#pragma warning disable CS0169 // The field 'InlineTranscatController.transactFactory' is never used
     ITransactFactory transactFactory;
+#pragma warning restore CS0169 // The field 'InlineTranscatController.transactFactory' is never used
+#pragma warning disable CS0414 // The field 'InlineTranscatController.currentUserID' is assigned but its value is never used
     long currentUserID = -1;
+#pragma warning restore CS0414 // The field 'InlineTranscatController.currentUserID' is assigned but its value is never used
     // GET api/<controller>
     //public List<InLineTransaction> GetPending()
     //{

@@ -65,9 +65,9 @@ export class UserServiceService {
     );
 
   }
-  getUserList(Response:UserView): Observable<RegUser[]> {
+  getUserList(Response:UserView,pageNumber:number): Observable<RegUser[]> {
     console.log(Response.valueOf());
-    return this.http.get<RegUser[]>(this.baseURL + '/User/GetUserList/'+Response.valueOf());
+    return this.http.get<RegUser[]>(this.baseURL + '/User/GetUserList/?id='+Response.valueOf()+'&pageNumber='+pageNumber);
   }
   SearchNameCodeUser(): Observable<RegUser[]> {
     return this.http.get<RegUser[]>(this.baseURL + '/User/SearchNameCodeUser');

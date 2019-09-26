@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'UserRegister', component: UserRegistrationComponent },
   { path: 'UserProfile', component: UserProfileComponent },
   { path: 'UserList', component: UserListComponent },
-  { path: 'UserDetail', component: UserDetailComponent },
+  { path: 'UserDetail', component: UserDetailComponent,canDeactivate:['checkFormDirty'] },
   { path: 'SignIn', component: UserInComponent },
   { path: 'ForgetPassword', component: ForgetPasswordComponent },
   { path: 'MyTransactions', component: TransacListComponent },

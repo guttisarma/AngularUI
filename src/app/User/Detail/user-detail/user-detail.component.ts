@@ -14,6 +14,7 @@ export class UserDetailComponent implements OnInit {
   userDetails: RegUser;
   selectedFile: File;
   profilePic: string;
+  IsDirty: boolean;
   ngOnInit() {
     this.userDetails = new RegUser();
     this.userservice.getexUser().subscribe(user => {

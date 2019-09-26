@@ -73,7 +73,12 @@ import { UserBillingComponent } from './User/Detail/user-detail/user-billing/use
     //MatNativeDateModule,        // <----- import for date formating(optional)
     //MatMomentDateModule 
   ],
-  providers: [UserServiceService,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true}],
+  providers: [UserServiceService,{provide:HTTP_INTERCEPTORS,useClass:TokenInterceptorService,multi:true},
+  {provide:'checkFormDirty',useValue:checkUserDetails}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export function checkUserDetails(component:UserDetailComponent){
+  return window.confirm("You have not saved changes, Do you wish Discard?");
+  
+}

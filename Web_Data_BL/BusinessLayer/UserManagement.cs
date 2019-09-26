@@ -531,7 +531,7 @@ namespace TradeBulk_BusinessLayer
       return lsregUsers;
     }
 
-    public IEnumerable<RegUser> UserList(long currentUserID, UserView userResponse)
+    public IEnumerable<RegUser> UserList(long currentUserID, UserView userResponse,int pageNumber)
     {
       List<RegUser> lsregUsers = new List<RegUser>();
       using (UnitOfWork unitOfWork = new UnitOfWork())
@@ -587,7 +587,7 @@ namespace TradeBulk_BusinessLayer
         //  pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true), null, null);
         //}
         int pageSize = 10;
-        int pageNumber = 1;
+        
 
         if (pendingList != null)
           // IQueryable<UserDetail> userDetails= pendingList.Skip(pageSize * pageNumber).Take(pageSize);

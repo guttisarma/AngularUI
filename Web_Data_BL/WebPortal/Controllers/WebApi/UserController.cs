@@ -209,11 +209,11 @@ namespace TradeBulk_Web.Controllers.WebApi
 
     #region UserList
     [HttpGet]
-    public IEnumerable<RegUser> GetUserList(int id = 2)
+    public IEnumerable<RegUser> GetUserList(int id,int pageNumber)
     {
       IEnumerable<RegUser> newUserRegistrationSupports = new List<RegUser>();
       UserManagement userMgnt = new UserManagement();
-      newUserRegistrationSupports = userMgnt.UserList(currentUserPID, (UserView)id);
+      newUserRegistrationSupports = userMgnt.UserList(currentUserPID, (UserView)id, pageNumber);
       return newUserRegistrationSupports;
     }
 

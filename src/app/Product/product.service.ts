@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import {ProductList,AssignProduct, AssignProdToUser} from '../HelperTs/ProductList';
+import {ProductList,AssignProduct, AssignProdToUser,ConvertToPro} from '../HelperTs/ProductList';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product} from 'src/app/HelperTs/ProductList';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -14,6 +14,7 @@ export class ProductService {
   private createdAssigneeProductUrl = '/Product/CreatedAssigneeProduct';  
   private registrationUrl='/Product/CreateProd';
   private AssignPronUrl='/Product/AssignProduct';
+  private ConvertPronUrl='/Product/ConvertProduct';
   private AssignConvertViewUrl='/Product/AssignedProforConversion';
     //Environment variable
     baseURL:String=environment.apiBaseUrl;
@@ -31,7 +32,17 @@ export class ProductService {
     );
 
   }
+  public submitConProduct(conToPro:ConvertToPro):Observable<boolean>{
+    
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.post(this.baseURL+this.ConvertPronUrl,conToPro,httpOptions).pipe(
+      tap((hero: boolean) => this.log('added hero w/ id=${hero.id}')),
+      catchError(this.handleError<boolean>('addHero'))
+    );
 
+  }
   /* public getMockProductList(category:string):Observable<ProductList[]>  {
     if(category=='Created'){
       return of(MockProductList);

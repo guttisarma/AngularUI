@@ -79,32 +79,6 @@ namespace TradeBulk_BusinessLayer
         userId = 0;
         return false;
       }
-      #region this part is like a patch for sqlserve
-      try
-      {
-        using (TradeBulkEntities dbContext = new TradeBulkEntities())
-        {
-          int count = dbContext.UserTypes.Count();
-          if (count != 3)
-          {
-            int noOfRowInserted = dbContext.Database.ExecuteSqlCommand(@"Set IDENTITY_INSERT  dbo.UserType ON
-                                                                       Insert UserType (UserTypePID,Name) values (1,'Admin')
-                                                                       Insert UserType (UserTypePID,Name) values (2,'Manager')
-                                                                       Insert UserType (UserTypePID,Name) values (3,'NormalUser')
-                                                                       Set IDENTITY_INSERT  dbo.UserType OFF");
-          }
-
-        }
-
-      }
-      catch (Exception ex)
-      {
-
-        throw new Exception("My patch is failed",ex);
-      }
-
-      #endregion
-
       using (TradeBulkEntities dbContext = new TradeBulkEntities())
       {
         //here is the issue
@@ -591,7 +565,7 @@ namespace TradeBulk_BusinessLayer
 
         if (pendingList != null)
           // IQueryable<UserDetail> userDetails= pendingList.Skip(pageSize * pageNumber).Take(pageSize);
-          foreach (var item in pendingList.Skip(pageSize * pageNumber).Take(pageSize))
+          foreach (var item in pendingList.Skip(pageSize * (pageNumber-1)).Take(pageSize))
           {
             RegUser regUser = new RegUser();
             regUser.lRegUserid = item.UserdetailPID;

@@ -68,6 +68,7 @@
     <Compile Include="LoginResponse.cs" />
     <Compile Include="WebAPIhelper\AssignProdToUser.cs" />
     <Compile Include="WebAPIhelper\BillingDetails.cs" />
+    <Compile Include="WebAPIhelper\ConvertToPro.cs" />
     <Compile Include="WebAPIhelper\ProAssgnListCon.cs" />
     <Compile Include="WebAPIhelper\ProductList.cs" />
     <Compile Include="CurrentAuction.cs" />

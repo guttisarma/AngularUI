@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductList, AssignProductView } from 'src/app/HelperTs/ProductList';
+import { ProductList, AssignProductView, ConvertToPro, ConvertAssProHelper,AssProHelper } from 'src/app/HelperTs/ProductList';
 import { ProductService } from '../../product.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PreviewPopupComponent } from '../../AssignProduct/assign-product/assign-product.component';
-import {User} from '../../../HelperTs/User';
+import { User } from '../../../HelperTs/User';
 
 
 @Component({
@@ -17,6 +17,7 @@ export class ConvertProductComponent implements OnInit {
   Plist: ProductList[] = [];
   selectedlist: ProductList[] = [];
   proCodeKey: string;
+  ProdName: string;
   public isCollapsed = false;
   assignProView: AssignProductView[] = [];
   ngOnInit() {
@@ -38,15 +39,7 @@ export class ConvertProductComponent implements OnInit {
         this.assignProView.push(aPV);
       }
       console.log('this.assignProView ' + this.assignProView);
-    }
-    );
-
-
-    /* this.productService.getProductList().subscribe(lsProduct => {
-      this.Plist = lsProduct.filter(x=>{
-        return x.AssignedUserName;
-      });
-    }); */
+    });
   }
   deleteSel(p: ProductList) {
     this.selectedlist = this.selectedlist.filter(ele => {
@@ -56,9 +49,9 @@ export class ConvertProductComponent implements OnInit {
   addToSelectList(p: ProductList) {
 
     for (var i = 0; i < this.assignProView.length - 1; i++) {
-      for (let j = 0; j < this.assignProView[i].lsproduct.length - 1; ++j){
-        console.log('Code check'+this.assignProView[i].lsproduct[j].Code);
-        console.log('Code check'+p.Code);
+      for (let j = 0; j < this.assignProView[i].lsproduct.length - 1; ++j) {
+        console.log('Code check' + this.assignProView[i].lsproduct[j].Code);
+        console.log('Code check' + p.Code);
         if (this.assignProView[i].lsproduct[j].Code === p.Code) {
           this.assignProView[i].lsproduct.splice(j, 1);
         }
@@ -147,10 +140,31 @@ export class ConvertProductComponent implements OnInit {
   ShowPopup() {
     const modalRef = this.modalService.open(PreviewPopupComponent);
     modalRef.componentInstance.selProduct = [...this.selectedlist];
-    let user =new User();
+    let user = new User();
     user.Name
     modalRef.componentInstance.selectedUser = "someDummyData";
     console.log(this.selectedlist.filter(x => x.Quantity < x.RequiredQuantity));
+  }
+  ConverProduct() {
+    let conTpPro: ConvertToPro = new ConvertToPro();
+    conTpPro.NewProductName = this.ProdName;
+    let conAssPro: ConvertAssProHelper[] = [];
+    this.selectedlist.forEach(element => {
+      let temp=new ConvertAssProHelper();
+      temp.AssignProductId=element.ProductAssignmentPID;
+      temp.lsAssProHelpers.push(new AssProHelper())
+      conAssPro.push(temp);
+    });
+    conAssPro.forEach(element => {
+      element.lsAssProHelpers=[];
+let temp=new AssProHelper();
+temp.ProductId
+      element.lsAssProHelpers.push()
+      
+    });
+    conTpPro.lsconassproducts = conAssPro;
+
+    this.productService.submitConProduct(conTpPro).subscribe();
   }
   Validate(P: ProductList) {
     if (P.Quantity >= P.RequiredQuantity) {

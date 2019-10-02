@@ -21,5 +21,6 @@ namespace TradeBulk_DataLayer.AppData
         public string ProductCode { get; set; }
         public Nullable<long> AvailableQuantity { get; set; }
         public string AssignedUserFullName { get; set; }
+        public long ProductAssignmentPID { get; set; }
     }
 }

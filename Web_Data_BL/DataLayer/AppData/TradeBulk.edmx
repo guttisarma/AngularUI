@@ -531,9 +531,11 @@ warning 6002: The table/view 'TradeBulk.dbo.ProDetailAssignView' does not have a
 warning 6002: The table/view 'TradeBulk.dbo.ProductConvertView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ProductConvertView">
           <Key>
+            <PropertyRef Name="ProductAssignmentPID" />
             <PropertyRef Name="ProductPID" />
             <PropertyRef Name="ProductName" />
           </Key>
+          <Property Name="ProductAssignmentPID" Type="bigint" Nullable="false" />
           <Property Name="UserPID" Type="bigint" />
           <Property Name="ProductPID" Type="bigint" Nullable="false" />
           <Property Name="AssigneeUserFullName" Type="nvarchar" MaxLength="513" />
@@ -1442,6 +1444,7 @@ warning 6002: The table/view 'TradeBulk.dbo.ProductConvertView' does not have a 
           </EntitySet>
           <EntitySet Name="ProductConvertView" EntityType="Self.ProductConvertView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [ProductConvertView].[ProductAssignmentPID] AS [ProductAssignmentPID], 
     [ProductConvertView].[UserPID] AS [UserPID], 
     [ProductConvertView].[ProductPID] AS [ProductPID], 
     [ProductConvertView].[AssigneeUserFullName] AS [AssigneeUserFullName], 
@@ -3551,6 +3554,7 @@ warning 6002: The table/view 'TradeBulk.dbo.ProductConvertView' does not have a 
           <Key>
             <PropertyRef Name="ProductPID" />
             <PropertyRef Name="ProductName" />
+            <PropertyRef Name="ProductAssignmentPID" />
           </Key>
           <Property Name="UserPID" Type="Int64" />
           <Property Name="ProductPID" Type="Int64" Nullable="false" />
@@ -3559,6 +3563,7 @@ warning 6002: The table/view 'TradeBulk.dbo.ProductConvertView' does not have a 
           <Property Name="ProductCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AvailableQuantity" Type="Int64" />
           <Property Name="AssignedUserFullName" Type="String" MaxLength="513" FixedLength="false" Unicode="true" />
+          <Property Name="ProductAssignmentPID" Type="Int64" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4133,6 +4138,7 @@ warning 6002: The table/view 'TradeBulk.dbo.ProductConvertView' does not have a 
           <EntitySetMapping Name="ProductConvertViews">
             <EntityTypeMapping TypeName="TradeBulkModel.ProductConvertView">
               <MappingFragment StoreEntitySet="ProductConvertView">
+                <ScalarProperty Name="ProductAssignmentPID" ColumnName="ProductAssignmentPID" />
                 <ScalarProperty Name="AssignedUserFullName" ColumnName="AssignedUserFullName" />
                 <ScalarProperty Name="AvailableQuantity" ColumnName="AvailableQuantity" />
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />

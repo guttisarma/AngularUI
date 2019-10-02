@@ -9,7 +9,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 import { MultiOptionComponent } from './multi-option/multi-option.component';
 import { UserRegistrationComponent } from './User/Registration/user-registration/user-registration.component';
 import { UserProfileComponent } from './User/Profile/user-profile.component';
@@ -63,6 +63,7 @@ import { UserBillingComponent } from './User/Detail/user-detail/user-billing/use
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxPaginationModule,
     DragDropModule,
     MatButtonModule,
     //ProductRoutingModule,

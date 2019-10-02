@@ -13,6 +13,7 @@ export class ProductList {
     ConvertedUser: string;
     OwnerUser: string;
     Isvalid: Boolean;
+    ProductAssignmentPID:number;
 }
 
 /* export class ProductDetails {
@@ -48,6 +49,14 @@ export class AssignProdToUser {
     lsproducts: AssProHelper[];
     AssignedUserPid: number;
 }
+export class ConvertAssProHelper {
+    AssignProductId: number;
+    lsAssProHelpers: AssProHelper[];
+}
+export class ConvertToPro {
+    lsconassproducts: ConvertAssProHelper[];
+    NewProductName: string;
+}
 export class PreviewPopupProList {
     ProCode: string;
     ProName: string;
@@ -77,6 +86,7 @@ export class Note {
     comment: string;
 }
 export class AssignProductView {
+    AssignmentPID: number;
     AssignUser: string;
     lsproduct: ProductList[];
     iscollapse: boolean;

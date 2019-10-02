@@ -15,5 +15,6 @@ namespace TradeBulk_Helper.WebAPIhelper
     public string Code { get; set; }
     public long RemQuantity { get; set; }
     public string AssignedUserName { get; set; }
+    public long? ProductAssignmentPID { get; set; }
   }
 }

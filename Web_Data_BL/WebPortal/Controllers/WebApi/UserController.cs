@@ -159,7 +159,7 @@ namespace TradeBulk_Web.Controllers.WebApi
     public void JointoGivenUser(string id)
     {
       UserManagement userManagement = new UserManagement(currentUserPID);
-      userManagement.joinInGroup(id, true, false);
+      userManagement.joinInGroup(id, false, true);
     }
 
     [HttpGet]

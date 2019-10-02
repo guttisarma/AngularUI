@@ -198,7 +198,7 @@ namespace TradeBulk_Web.Controllers.WebApi
     }
 
     [HttpPost]
-    public IHttpActionResult ConvertProduct(List<ConvertAssProHelper> lsproducts, string NewProductName)
+    public IHttpActionResult ConvertProduct(ConvertToPro convertToPro)
     {
       isSuccess = false;
       //List<ConvertAssProHelper> conProd = new List<ConvertAssProHelper>();
@@ -208,7 +208,7 @@ namespace TradeBulk_Web.Controllers.WebApi
       //}
       Decimal AdvAmount=0;
       Decimal TotalAmount =0;
-      ipromngmt.ConvertProduct(lsproducts, NewProductName,  AdvAmount,  TotalAmount, currentUserID, out isSuccess);
+      ipromngmt.ConvertProduct(convertToPro.lsconassproducts, convertToPro.NewProductName,  AdvAmount,  TotalAmount, currentUserID, out isSuccess);
       if (isSuccess)
       {
         var response = new

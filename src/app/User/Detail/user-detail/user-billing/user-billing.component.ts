@@ -18,6 +18,12 @@ export class UserBillingComponent implements OnInit {
     this.userservice.UpdateBillingValues(this.billingdetails).subscribe(x => console.log(x));
   }
   managerJoinCode() {
-    this.userservice.JoinUnderGiveUser(this.ManagerUserCode).subscribe();
+    if (this.ManagerUserCode!= undefined || this.ManagerUserCode!=''){
+    this.userservice.JoinUnderGiveUser(this.ManagerUserCode).subscribe(()=>{
+      alert("Add under you");
+      this.ManagerUserCode='';
+    }
+    );
+  }
   }
 }

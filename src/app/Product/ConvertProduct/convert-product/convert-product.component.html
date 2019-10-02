@@ -76,7 +76,6 @@
                                 </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="col-sm-6">
@@ -109,13 +108,22 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-9"></div>
-                <div class="col-sm-3">
+                <div class="col-sm-9">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Product Name" aria-label="Product Name" [(ngModel)]="ProdName"
+                          aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" type="button" (click)="ConverProduct()">Create New Product</button>
+                        </div>
+                      </div>
+                </div>
+                <!-- <div class="col-sm-3">
                         <div class="float-left">
                                 <button class="btn btn-primary active" type="submit" (click)="ShowPopup()">Preview</button>
                         </div>
-                </div>                
-            </div>
+                </div>  -->    
+                
+            </div>           
         </div>
     </div>
 </div>

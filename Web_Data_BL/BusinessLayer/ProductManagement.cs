@@ -353,6 +353,7 @@ namespace TradeBulk_BusinessLayer
             ProAssgnListCon proAssgnListCon = new ProAssgnListCon();
             proAssgnListCon.AssignedUserName = proALC.AssignedUserFullName;
             proAssgnListCon.AssigneeUserFullName = proALC.AssigneeUserFullName;
+            proAssgnListCon.ProductAssignmentPID = proALC.ProductAssignmentPID;
             proAssgnListCon.RemQuantity = (long)proALC.AvailableQuantity;
             proAssgnListCon.Code = proALC.ProductCode;
             proAssgnListCon.Name = proALC.ProductName;

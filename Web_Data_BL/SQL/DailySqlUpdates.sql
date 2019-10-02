@@ -114,6 +114,7 @@ begin
 Declare @SqlText Nvarchar(max);
 set @SqlText='create View ProductConvertView As 
 select 
+ProductAssignment.ProductAssignmentPID as ProductAssignmentPID,
 AssignedUserPid as UserPID,
 Product.ProductPID as ProductPID,
 UserDetail.FirstName+'' ''+UserDetail.LastName as AssigneeUserFullName, 

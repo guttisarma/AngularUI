@@ -26,7 +26,7 @@ export class UserInComponent implements OnInit {
       if (regUser.token == "LoginFailed") {
         alert("Username/Password went wrong");
       }
-      else if (regUser.token!= undefined && regUser.token.length > 20) {
+      else if (regUser.token != undefined && regUser.token.length > 20) {
         //here length> 20 for no reason can be correct later
         this.router.navigateByUrl('/');
         this.UserServ.VisibleUserOp(true);
@@ -38,13 +38,13 @@ export class UserInComponent implements OnInit {
     }, error => alert(error));
 
   }
-  create(){
-    this.IsCreated=false;
-    this.IsLoading=true;
+  create() {
+    this.IsCreated = false;
+    this.IsLoading = true;
   }
-  ShowBack(){
-    this.IsCreated=true;
-    this.IsLoading=false;
+  ShowBack() {
+    this.IsCreated = true;
+    this.IsLoading = false;
   }
 
 }

@@ -3,7 +3,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment.PreProd';
 import { UserServiceService } from './Service/user-service.service';
-//import {Subscription} from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 import { RegUser } from './HelperTs/User';
 
@@ -30,28 +29,41 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (localStorage.getItem('AuthToken') != undefined || localStorage.getItem('AuthToken') != null)
+    if (sessionStorage.getItem('AuthToken') != undefined || sessionStorage.getItem('AuthToken') != null) {
       this.IsUserLogIn = true;
-    else
+    } else {
       this.IsUserLogIn = false;
-      this.regUser=new RegUser();
+    }
+    console.log(this.IsUserLogIn);
+    this.regUser = new RegUser();
     this.userService.cast.subscribe(isauthenticate => {
       this.IsUserLogIn = isauthenticate;
-      
-      if (localStorage.getItem('LoggedUserDetails') != undefined && localStorage.getItem('LoggedUserDetails')!=null) {
+
+      if (sessionStorage.getItem('LoggedUserDetails') != undefined && sessionStorage.getItem('LoggedUserDetails') != null) {
         console.log('It entered here');
-        this.regUser = JSON.parse(localStorage.getItem('LoggedUserDetails'));
+        this.regUser = JSON.parse(sessionStorage.getItem('LoggedUserDetails'));
         this.IsUserLogIn = true;
+        const navBarColor = document.getElementById('navbar_id');
+        navBarColor.style.backgroundColor = '#360B66';
+        const footerColor = document.getElementById('footer_id');
+        footerColor.style.backgroundColor = '#360B66';
       }
     });
-    console.log('this.IsUserLogIn ' +this.IsUserLogIn);
+    /*  this.IsUserLogIn = true;
+     console.log('this.IsUserLogIn ' + this.IsUserLogIn); */
+
   }
 
+
   logout() {
-    localStorage.setItem('AuthToken', null);
-    localStorage.setItem('LoggedUserDetails', null);
+    sessionStorage.setItem('AuthToken', null);
+    sessionStorage.setItem('LoggedUserDetails', null);
     this.IsUserLogIn = false;
     this.router.navigateByUrl('/SignIn');
+    const navBarColor = document.getElementById('navbar_id');
+        navBarColor.style.backgroundColor = '#999999';
+        const footerColor = document.getElementById('footer_id');
+        footerColor.style.backgroundColor = '#999999';
   }
   // person.startDate = new Date(1990, 0, 1);
 }

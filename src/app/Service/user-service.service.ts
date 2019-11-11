@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserIn } from '../../app/HelperTs/User';
-import { RegUser, AddrssUser,UserView } from '../HelperTs/User';
+import { RegUser, AddrssUser, UserView } from '../HelperTs/User';
 import { BillingDetails } from '../HelperTs/Transactions';
 
 @Injectable({
@@ -52,12 +52,12 @@ export class UserServiceService {
   VisibleUserOp(isvisible) {
     this.UserMenu.next(isvisible);
   }
-  JoinUnderGiveUser(UserCode:string){
+  JoinUnderGiveUser(UserCode: string) {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     console.log(UserCode);
-    return this.http.post(this.baseURL + '/User/JointoGivenUser/'+ UserCode, httpOptions).pipe(
+    return this.http.post(this.baseURL + '/User/JointoGivenUser/' + UserCode, httpOptions).pipe(
       tap((isReset: boolean) => {
         return isReset;
       }),
@@ -65,9 +65,9 @@ export class UserServiceService {
     );
 
   }
-  getUserList(Response:UserView,pageNumber:number): Observable<RegUser[]> {
+  getUserList(Response: UserView, pageNumber: number): Observable<RegUser[]> {
     console.log(Response.valueOf());
-    return this.http.get<RegUser[]>(this.baseURL + '/User/GetUserList/?id='+Response.valueOf()+'&pageNumber='+pageNumber);
+    return this.http.get<RegUser[]>(this.baseURL + '/User/GetUserList/?id=' + Response.valueOf() + '&pageNumber=' + pageNumber);
   }
   SearchNameCodeUser(): Observable<RegUser[]> {
     return this.http.get<RegUser[]>(this.baseURL + '/User/SearchNameCodeUser');
@@ -153,11 +153,11 @@ export class UserServiceService {
     return this.http.post(this.baseURL + '/UnAuthenticUser/Authenticate', LoginRequest, httpOptions).pipe(
       tap(
         (regUser: RegUser) => {
-          localStorage.setItem('AuthToken', regUser.token);
-          localStorage.setItem('LoggedUserDetails',JSON.stringify(regUser) );
+          sessionStorage.setItem('AuthToken', regUser.token);
+          sessionStorage.setItem('LoggedUserDetails', JSON.stringify(regUser));
           console.log(regUser);
         }),
-      catchError(this.handleError<RegUser>('login',new RegUser() ))
+      catchError(this.handleError<RegUser>('login', new RegUser()))
     );
   }
 
@@ -173,12 +173,12 @@ export class UserServiceService {
     return this.http.post(this.baseURL + '/User/UpdateProfilePic', uploadData).pipe(
       tap(
         (Response: string) => {
-			console.log('Response :'+Response);
-			console.log(Response);
-			let url:string;
-			url='\\AngularUI\\assets\\UserImage\\Hydrangeas_ebe922dd-39ff-4bb6-8b70-cb4ac78.jpg';
-			console.log(url);
-			console.log('I am returning string');
+          console.log('Response :' + Response);
+          console.log(Response);
+          let url: string;
+          url = '\\AngularUI\\assets\\UserImage\\Hydrangeas_ebe922dd-39ff-4bb6-8b70-cb4ac78.jpg';
+          console.log(url);
+          console.log('I am returning string');
           return url;
         }),
       catchError(this.handleError<string>('false', "Some Error")));

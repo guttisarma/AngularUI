@@ -9,10 +9,10 @@ export class TokenInterceptorService implements HttpInterceptor {
   constructor() { }
   intercept(req, next) {
     let tokenizedReq: any;
-    if (localStorage.getItem("AuthToken") != undefined|| localStorage.getItem("AuthToken") != null) {
+    if (sessionStorage.getItem("AuthToken") != undefined|| sessionStorage.getItem("AuthToken") != null) {
       tokenizedReq = req.clone({
         setHeaders: {
-          Authorization: 'Bearer ' + localStorage.getItem("AuthToken")
+          Authorization: 'Bearer ' + sessionStorage.getItem("AuthToken")
         }
       })
     }

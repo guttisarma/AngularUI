@@ -12,7 +12,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ForgetPasswordComponent } from './User/SignIn/forget-password/forget-password.component';
 
 const routes: Routes = [
-  { path: 'UserRegister', component: UserRegistrationComponent },
+  { path: 'UserRegister', component: UserRegistrationComponent, canDeactivate: ['IsProductGetDirty'] },
   { path: 'UserProfile', component: UserProfileComponent },
   { path: 'UserList', component: UserListComponent },
   { path: 'UserDetail', component: UserDetailComponent,canDeactivate:['checkFormDirty'] },

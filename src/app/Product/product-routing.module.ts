@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 
 
 const prodRoute=[
-  {path:'ProductRegistration',component:ProductRegistrationComponent},
+  { path:'ProductRegistration',component:ProductRegistrationComponent,CanDeactivate:['IsProductGetDirty']},
   {path:'ProductList',component:ProductListComponent},
   {path:'ProductDetail',component:ProductDetailComponent},
   {path:'AssignProduct',component:AssignProductComponent},  
@@ -24,7 +24,9 @@ const prodRoute=[
     CommonModule,RouterModule.forChild(prodRoute)
   ],
   exports:[RouterModule]
+  
 })
 export class ProductRoutingModule { 
   
 }
+

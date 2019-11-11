@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 .navbar{
-    background-color: rgb(54, 11, 102);
+    background-color: rgb(255, 112, 77);
 }
 .navbar-brand{
-    color:  rgb(54, 11, 102);
+    
 }
 .nav-link{
     color:  rgb(237, 251, 241);
@@ -28,4 +28,37 @@ a[_ngcontent-c0] {
     text-align: center;
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 22px;
+    width: 100%;
+    background-color: rgb(255, 112, 77);
+    color: #28a745;
+    text-align: center;
+ }
+
+.loader{
+	display:block;
+	width:40px;
+	height:40px;
+	border:10px solid #ccccff;
+	border-radius:50%;
+	border-top: 10px solid #AAAAFF;
+	animation: spin;
+	animation-iteration-count:infinite;
+	animation-duration:1s;
+	animation-timing-function:linear;
+}
+@keyframes spin{
+	from{
+		transform:rotateZ(0deg);
+	}
+	to{
+		transform:rotateZ(359deg);
+	}
 }

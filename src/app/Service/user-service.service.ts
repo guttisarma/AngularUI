@@ -12,7 +12,7 @@ import { BillingDetails } from '../HelperTs/Transactions';
   providedIn: 'root'
 })
 export class UserServiceService {
-  private UserMenu = new BehaviorSubject<boolean>(false);
+  public UserMenu = new BehaviorSubject<boolean>(false);
   cast = this.UserMenu.asObservable();
   // Environment variable
   baseURL: String = environment.apiBaseUrl;
@@ -181,7 +181,7 @@ export class UserServiceService {
           console.log('I am returning string');
           return url;
         }),
-      catchError(this.handleError<string>('false', "Some Error")));
+      catchError(this.handleError<string>('false', 'Some Error')));
   }
 
   Register(regUser: RegUser): Observable<RegUser> {
@@ -189,7 +189,7 @@ export class UserServiceService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-    let ruser = new RegUser();
+    const ruser = new RegUser();
     return this.http.post(this.baseURL + '/unauthenticuser/Registration', regUser, httpOptions).pipe(
       tap(
         (regUserResult: RegUser) => { return regUserResult; }),

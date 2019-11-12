@@ -66,7 +66,7 @@ export class AssignProductComponent implements OnInit {
       u.ManagerCode = 'Manage1';
       this.Ulist.push(u);
       //#mock */
-    this.productService.getProductList().subscribe(lsProduct => this.Plist = lsProduct);
+    this.productService.getProductList(1).subscribe(lsProduct => this.Plist = lsProduct);
     this.userService.getMyUsers().subscribe(lsusers => this.Ulist = lsusers);
   }
 

@@ -56,9 +56,9 @@ export class ProductService {
   public getProdbyCode(proCode: string):Observable<Product> {
     return this.http.get<Product>(this.baseURL+'/Product/GetProdbyCode?proCode:'+proCode);
   }  
-  public getProductList():Observable<ProductList[]>  {
+  public getProductList(pageNumber:number):Observable<ProductList[]>  {
     console.log(this.baseURL+'/Product/CreatedAssigneeProduct');
-        return this.http.get<ProductList[]>(this.baseURL+'/Product/CreatedAssigneeProduct');
+        return this.http.get<ProductList[]>(this.baseURL+'/Product/CreatedAssigneeProduct/'+pageNumber);
     }
   
   public registration(prod:Product):Observable<Product> {

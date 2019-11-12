@@ -11,35 +11,33 @@ import { Router } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
 
-  constructor(private productservice: ProductService,private router:Router) { }
+  constructor(private productservice: ProductService, private router: Router) { }
 
   ListofProd: ProductList[];
+  pageNumber: number;
 
   ngOnInit() {
-    this.Createdclicked();
+    this.pageNumber = 1;
+    this.GetListFromServer(this.pageNumber);
   }
 
-  Createdclicked() {
-    this.productservice.getProductList().subscribe(lsProduct => this.ListofProd = lsProduct);
+  ChangePageNumber() {
+    console.log('page is changed :' + this.pageNumber)
+    this.GetListFromServer(this.pageNumber);
+
   }
-  CreateNewPro(){
+
+  NextPageNumber() {
+    this.pageNumber += 1;
+    console.log('page is changed :' + this.pageNumber)
+    this.GetListFromServer(this.pageNumber);
+  }
+  GetListFromServer(pageNo:number) {
+    this.productservice.getProductList(pageNo).subscribe(lsProduct => this.ListofProd = lsProduct);
+  }
+  CreateNewPro() {
     this.router.navigateByUrl('/ProductRegistration');
   }
-  /*Assignedclicked() {
-    this.IsAssignedclicked=true;
-    this.IsCreatedclicked=false;
-    this.IsConvertedclicked=false;
-    //this.productservice.getProductList('Assigned').subscribe(mockproductlist=>this.MockAssignProduct=mockproductlist);
-    
-  }
-  Convertedclicked(){
-    this.IsConvertedclicked=true;
-    this.IsCreatedclicked=false;
-    this.IsAssignedclicked=false;
-    this.productservice.getProductList('Converted').subscribe(mockproductlist=>this.MockConProductList=mockproductlist);
-   
-  }*/
-
 }
 
 

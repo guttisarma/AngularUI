@@ -13,7 +13,7 @@ import {ProductService} from './product.service';
 import { FormsModule } from '@angular/forms';
 import {AssignedProductListComponent} from './AssignProduct/assigned-product-list/assigned-product-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-//import { ProductRegistrationV1Component } from './RawProduct/prouct-registration-v1/product-registration-v1/product-registration-v1.component';
+import { ProductRegistrationV1Component } from './RawProduct/prouct-registration-v1/product-registration-v1/product-registration-v1.component';
 ;
 
 @NgModule({
@@ -26,8 +26,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ConvertProductComponent,
     DragComponent,
     PreviewPopupComponent,
-    ProductMgrComponent/* ,
-    ProductRegistrationV1Component */
+    ProductMgrComponent,
+    ProductRegistrationV1Component 
   ],
   imports: [
     CommonModule,

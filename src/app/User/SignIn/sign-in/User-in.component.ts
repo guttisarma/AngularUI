@@ -23,16 +23,14 @@ export class UserInComponent implements OnInit {
   onLogin() {
     this.IsLoading = true;
     this.UserServ.login(this.SingIn).subscribe(regUser => {
-      if (regUser.token == "LoginFailed") {
-        alert("Username/Password went wrong");
-      }
-      else if (regUser.token != undefined && regUser.token.length > 20) {
-        //here length> 20 for no reason can be correct later
-        this.router.navigateByUrl('/');
+      if (regUser.token === 'LoginFailed') {
+        alert('Username/Password went wrong');
+      } else if (regUser.token !== undefined && regUser.token.length > 20) {
+        // here length> 20 for no reason can be correct later
+        this.router.navigateByUrl('/UserProfile');
         this.UserServ.VisibleUserOp(true);
-      }
-      else {
-        alert("Username/Password went wrong");
+      } else {
+        alert('Username/Password went wrong');
       }
       this.IsLoading = false;
     }, error => alert(error));

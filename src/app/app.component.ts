@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment.PreProd';
@@ -15,21 +15,21 @@ import { RegUser } from './HelperTs/User';
 export class AppComponent implements OnInit {
   title = 'AngularUI';
   person: Person = new Person();
-  uniqueID: string = 'uniqueID';
-  AddressType: string = 'AddressType';
-  UserList: string = 'UserList';
+  uniqueID: String = 'uniqueID';
+  AddressType: String = 'AddressType';
+  UserList: String = 'UserList';
   // NewUser person=new NewUser();
   closeResult: string;
   selectedEnv: string = environment.name;
-  IsUserLogIn: boolean = false;
+  IsUserLogIn: Boolean = false;
   regUser: RegUser;
   // private subscription:Subscription;
-  constructor(private userService: UserServiceService, private router: Router) {
+  constructor(private userService: UserServiceService, private router: Router, private cdRef:ChangeDetectorRef) {
 
   }
 
   ngOnInit() {
-    if (sessionStorage.getItem('AuthToken') != undefined || sessionStorage.getItem('AuthToken') != null) {
+    if (sessionStorage.getItem('AuthToken') !== undefined || sessionStorage.getItem('AuthToken') != null) {
       this.IsUserLogIn = true;
     } else {
       this.IsUserLogIn = false;
@@ -38,20 +38,20 @@ export class AppComponent implements OnInit {
     this.regUser = new RegUser();
     this.userService.cast.subscribe(isauthenticate => {
       this.IsUserLogIn = isauthenticate;
-
-      if (sessionStorage.getItem('LoggedUserDetails') != undefined && sessionStorage.getItem('LoggedUserDetails') != null) {
+      console.log('It entered here about to logout');
+      if (sessionStorage.getItem('LoggedUserDetails') !== undefined && sessionStorage.getItem('LoggedUserDetails') != null) {
         console.log('It entered here');
         this.regUser = JSON.parse(sessionStorage.getItem('LoggedUserDetails'));
-        this.IsUserLogIn = true;
+        // this.IsUserLogIn = true;
         const navBarColor = document.getElementById('navbar_id');
         navBarColor.style.backgroundColor = '#360B66';
         const footerColor = document.getElementById('footer_id');
         footerColor.style.backgroundColor = '#360B66';
+        this.cdRef.detectChanges();
       }
     });
-    /*  this.IsUserLogIn = true;
-     console.log('this.IsUserLogIn ' + this.IsUserLogIn); */
-
+   /*  this.IsUserLogIn = true;
+    console.log('this.IsUserLogIn ' + this.IsUserLogIn); */
   }
 
 
@@ -61,9 +61,9 @@ export class AppComponent implements OnInit {
     this.IsUserLogIn = false;
     this.router.navigateByUrl('/SignIn');
     const navBarColor = document.getElementById('navbar_id');
-        navBarColor.style.backgroundColor = '#999999';
-        const footerColor = document.getElementById('footer_id');
-        footerColor.style.backgroundColor = '#999999';
+    navBarColor.style.backgroundColor = '#999999';
+    const footerColor = document.getElementById('footer_id');
+    footerColor.style.backgroundColor = '#999999';
   }
   // person.startDate = new Date(1990, 0, 1);
 }

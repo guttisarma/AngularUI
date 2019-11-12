@@ -33,15 +33,17 @@ export class ProductDetailComponent implements OnInit {
     this.productservice.registration(this.prod).subscribe(x => this.prod = x);
   }
   ngOnInit() {
-
+  console.log('Product detail entered here');
     this.prod$ = this.route.paramMap.pipe(
       switchMap(
         (params: ParamMap) => this.productservice.getProdbyCode(params.get('code'))
       )
     )
+    console.log('Product detail end here');
+
     //this.proddetail=this.prod$;
     
-    this.proddetail=this.dummydata() ;
+    //this.proddetail=this.dummydata() ;
     console.log(this.proddetail);
   }
 

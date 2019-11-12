@@ -30,7 +30,7 @@
         <tr *ngFor='let pro of ListofProd  index as i'>
           <th scope="row">{{i+1}}</th>
           <td>{{pro.Name}}</td>
-          <td>{{pro.Code}}</td>
+          <td><a [routerLink]="['/ProductDetail',pro.Code]">{{pro.Code}}</a></td>
           <td>{{pro.Quantity}}</td>
           <td>{{pro.RemQuantity}}</td>
           <td>{{pro.Description}}</td>

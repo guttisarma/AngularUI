@@ -13,6 +13,7 @@
         <div class="form-group row">
           <label class="control-label col-sm-4" for="productcode">Code:</label>
           <div class="col-sm-8">
+            <span >{{prod.strProdCode |  async}}</span>
             <input type="text" class="form-control input-sm" id="productcode" [(ngModel)]="proddetail.strProdCode"
               placeholder="Product Code will Generate.." disabled name="productcode">
           </div>
@@ -102,30 +103,5 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row">
-        <h5>Notes::</h5>
-      </div>
-    <div class="row"> 
-      
-            <div class="col-sm-4">
-            <label class="control-label col-sm-4" for="subject">Subject:</label>
-            </div>
-            <div class="col-sm-8">
-              <input type="text" class="form-control input-sm" id="subject" [(ngModel)]="note.subject" placeholder="Enter Subject" name="subject" >
-            </div>
-        
-        
-          <div class="col-sm-4">
-            <label class="control-label col-sm-4" for="comment">Comment:</label>
-          </div>
-          <div class="col-sm-8">
-            <textarea class="form-control input-sm" rows="5" id="comment" [(ngModel)]="note.comment" placeholder="Enter comment..." name="comment"></textarea>
-          </div>
-          
-        
-    </div> -->
-
   </form>
-
-
 </div>

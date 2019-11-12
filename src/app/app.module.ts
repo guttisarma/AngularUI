@@ -33,7 +33,7 @@ import { UserRestrationV1Component } from './User/Registration/user-restration-v
 import { PendingUsersComponent } from './User/pending-users/pending-users.component';
 import { UserAddressComponent } from './User/Detail/user-detail/user-address/user-address.component';
 import { UserBillingComponent } from './User/Detail/user-detail/user-billing/user-billing.component';
-import { LogDiregtoryDetailComponent } from './log-diregtory-detail/log-diregtory-detail.component';
+// import { LogDiregtoryDetailComponent } from './log-diregtory-detail/log-diregtory-detail.component';
 
 
 
@@ -56,8 +56,8 @@ import { LogDiregtoryDetailComponent } from './log-diregtory-detail/log-diregtor
     UserRestrationV1Component,
     PendingUsersComponent,
     UserAddressComponent,
-    UserBillingComponent,
-    LogDiregtoryDetailComponent
+    UserBillingComponent/* ,
+    LogDiregtoryDetailComponent */
   ],
   imports: [
     NgbModule,

@@ -1,4 +1,4 @@
-﻿using TradeBulk_DataLayer.AppData;
+using TradeBulk_DataLayer.AppData;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Metadata.Edm;

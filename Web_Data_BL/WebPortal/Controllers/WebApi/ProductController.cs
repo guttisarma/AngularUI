@@ -47,6 +47,7 @@ namespace TradeBulk_Web.Controllers.WebApi
     }
 
     [HttpGet]
+    [ActionName("GetProdbyCode")]
     public ProductDetails GetProduct(string ProCode)
     {
       ProductDetails product = ipromngmt.GetProductbyCode(ProCode, currentUserID);
@@ -63,9 +64,9 @@ namespace TradeBulk_Web.Controllers.WebApi
     #region List of products created Assigned and converted
     [HttpGet]
     [Authorize]
-    public List<ProductList> CreatedAssigneeProduct(int pageNumber)
+    public List<ProductList> CreatedAssigneeProduct(int Id)
     {
-      List<ProductList> lsProList = ipromngmt.MyCreatedAssignedProduct(currentUserID, pageNumber);
+      List<ProductList> lsProList = ipromngmt.MyCreatedAssignedProduct(currentUserID, Id);
       return lsProList;
     }
 

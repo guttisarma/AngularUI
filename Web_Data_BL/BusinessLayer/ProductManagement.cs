@@ -62,7 +62,8 @@ namespace TradeBulk_BusinessLayer
         {
           ProductRepository = unitOfWork.GetRepoInstance<Product>();
           ProductAssignmentRepository = unitOfWork.GetRepoInstance<ProductAssignment>();
-          IQueryable<Product> lsPro = ProductRepository.Get(x => x.CreatedUserPID == currentUserID, null);
+          Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = (x => x.OrderBy(y => y.CreatedOn));
+          IQueryable<Product> lsPro = ProductRepository.Get(filter:x => x.CreatedUserPID == currentUserID, orderBy: orderBy);
           IQueryable<ProductAssignment> lsProAss = ProductAssignmentRepository.Get(x => x.AssignedUserPid == currentUserID, null);
           List<ProductList> lsProResult = new List<ProductList>();
           //Created Products

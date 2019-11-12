@@ -18,7 +18,7 @@ namespace TradeBulk_Helper
     void ConvertProduct(List<ConvertAssProHelper> LSconvertAssProHelpers, string prodName, Decimal AdvAmount, Decimal TotalAmount, long CurrentUserId, out bool IsSuccess);
     void AssignProduct(List<AssProHelper> lsProduct, long CurrentUserId, Decimal AdvAmount, Decimal TotalAmount, long AssigneeUserId, out bool IsSuccess);
     void ConvertionComplete(long ProductConvertPID, List<AssProHelper> assProHelper, bool isDirectProduct);
-    List<ProductList> MyCreatedAssignedProduct(long currentUserID);
+    List<ProductList> MyCreatedAssignedProduct(long currentUserID,int pageNumber);
     List<ProductList> MyAssignedProductList(long currentUserID);
     List<ProAssgnListCon> MyAssigneeProductList(long currentUserID);
     List<ProductList> MyCovertedProductList(long currentUserID);

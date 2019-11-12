@@ -63,9 +63,9 @@ namespace TradeBulk_Web.Controllers.WebApi
     #region List of products created Assigned and converted
     [HttpGet]
     [Authorize]
-    public List<ProductList> CreatedAssigneeProduct()
+    public List<ProductList> CreatedAssigneeProduct(int pageNumber)
     {
-      List<ProductList> lsProList = ipromngmt.MyCreatedAssignedProduct(currentUserID);
+      List<ProductList> lsProList = ipromngmt.MyCreatedAssignedProduct(currentUserID, pageNumber);
       return lsProList;
     }
 

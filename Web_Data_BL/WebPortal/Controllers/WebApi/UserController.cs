@@ -196,14 +196,14 @@ namespace TradeBulk_Web.Controllers.WebApi
     {
       IEnumerable<RegUser> newUserRegistrationSupports = new List<RegUser>();
       UserManagement userMgnt = new UserManagement();
-      newUserRegistrationSupports = userMgnt.listPendingUserApprovals(currentUserPID, true);
+      newUserRegistrationSupports = userMgnt.listPendingUserApprovals(currentUserPID,true);
       return newUserRegistrationSupports;
     }
     [HttpGet]
-    public RegUser GetUserDetail()
+    public  RegUser GetUserDetail()
     {
       UserManagement userMgnt = new UserManagement(currentUserPID);
-      RegUser regUser = userMgnt.GetUserDeails();
+      RegUser regUser=  userMgnt.GetUserDeails();
       return regUser;
     }
 
@@ -214,7 +214,7 @@ namespace TradeBulk_Web.Controllers.WebApi
       IEnumerable<RegUser> newUserRegistrationSupports = new List<RegUser>();
       UserManagement userMgnt = new UserManagement();
       newUserRegistrationSupports = userMgnt.UserList(currentUserPID, (UserView)id, pageNumber);
-      return newUserRegistrationSupports;
+      return newUserRegistrationSupports; 
     }
 
 

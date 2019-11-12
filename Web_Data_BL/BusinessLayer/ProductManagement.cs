@@ -10,6 +10,7 @@ using TradeBulk_Helper.Interfaces;
 using System.Linq.Expressions;
 using InlineTranscatType = TradeBulk_Helper.InlineTranscatType;
 using TradeBulk_Helper.WebAPIhelper;
+using System.Configuration;
 
 namespace TradeBulk_BusinessLayer
 {
@@ -30,13 +31,14 @@ namespace TradeBulk_BusinessLayer
     GenericRepository<AssignConvertRelation> AssignConvertRelationRepository;
     GenericRepository<SupportConverted> SupportConvertedRepository;
     GenericRepository<ProductConvertView> ProductConvertViewRepository;
+    int pageSize;
     // ITransactFactory transactFactory;
     #endregion
 
     #region constrator
     public ProductManagement()
     {
-
+      pageSize = Convert.ToInt32(ConfigurationManager.AppSettings["ItemsPerPage"]);
 
     }
     //public ProductManagement(ITransactFactory _transactFactory)
@@ -52,7 +54,7 @@ namespace TradeBulk_BusinessLayer
     /// </summary>
     /// <param name="currentUserID"></param>
     /// <returns></returns>
-    public List<ProductList> MyCreatedAssignedProduct(long currentUserID)
+    public List<ProductList> MyCreatedAssignedProduct(long currentUserID,int pageNumber)
     {
       using (UnitOfWork unitOfWork = new UnitOfWork())
       {
@@ -64,7 +66,7 @@ namespace TradeBulk_BusinessLayer
           IQueryable<ProductAssignment> lsProAss = ProductAssignmentRepository.Get(x => x.AssignedUserPid == currentUserID, null);
           List<ProductList> lsProResult = new List<ProductList>();
           //Created Products
-          foreach (var pro in lsPro)
+          foreach (var pro in lsPro.Skip(pageSize * (pageNumber - 1)).Take(pageSize))
           {
             ProductList proResult = new ProductList();
             proResult.ProductPID = pro.ProductPID;
@@ -427,16 +429,6 @@ namespace TradeBulk_BusinessLayer
           prdct.Quanity = Convert.ToInt32(product.lQuantity);
           prdct.RemQuantity = Convert.ToInt32(product.lQuantity);
           ProductRepository.Insert(prdct);
-          //if (product.Documents != null)
-          //  foreach (DocumentViewModel Dviewmodel in product.Documents)
-          //  {
-          //    Document dcment = new Document();
-          //    dcment.ServerPath = Dviewmodel.DocumentPath;
-          //    dcment.FileExtension = Dviewmodel.MIMEType;
-          //    dcment.DocumentType = DocumentTypeRepository.GetByID((long)EDocumentType.ProfilePhoto);
-          //    dcment.Products.Add(prdct);
-          //    DocumentRepository.Insert(dcment);
-          //  }
           unitOfWork.SaveChanges();
           //if (product.Price != null)
           //{

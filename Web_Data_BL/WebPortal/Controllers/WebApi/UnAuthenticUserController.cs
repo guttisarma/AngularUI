@@ -93,7 +93,6 @@ namespace TradeBulk_Web.Controllers.WebApi
     public HttpResponseMessage Authenticate([FromBody] LoginRequest login)
     {
       var loginResponse = new LoginResponse() { };
-
       IHttpActionResult response;
       bool isUsernamePasswordValid = false;
       UserManagement umgnt = new UserManagement();

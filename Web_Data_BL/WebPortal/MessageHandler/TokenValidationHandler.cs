@@ -1,6 +1,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
@@ -36,10 +37,11 @@ namespace TradeBulk_Web.MessageHandler
       HttpStatusCode statusCode;
       string token;
       List<string> ignoreURLAuthentication = new List<string>();
-      ignoreURLAuthentication.Add(@"/api/unauthenticuser/authenticate");
-      ignoreURLAuthentication.Add(@"/api/unauthenticuser/registration");
-      ignoreURLAuthentication.Add(@"/api/unauthenticuser/isuserexists");
-      ignoreURLAuthentication.Add(@"/api/unauthenticuser/resetpassword");
+      string instanceName = ConfigurationManager.AppSettings["InstanceName"];
+      ignoreURLAuthentication.Add(@instanceName+"/api/unauthenticuser/authenticate");
+      ignoreURLAuthentication.Add(@instanceName+"/api/unauthenticuser/registration");
+      ignoreURLAuthentication.Add(@instanceName+"/api/unauthenticuser/isuserexists");
+      ignoreURLAuthentication.Add(@instanceName+"/api/unauthenticuser/resetpassword");
       //determine whether a jwt exists or not
       if (!TryRetrieveToken(request, out token))
       {

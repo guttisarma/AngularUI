@@ -12,6 +12,7 @@ using TradeBulk_Helper.WebAPIhelper;
 using Newtonsoft.Json;
 using System.Text;
 using System.IO;
+using System.Configuration;
 
 namespace TradeBulk_BusinessLayer
 {
@@ -31,15 +32,18 @@ namespace TradeBulk_BusinessLayer
     GenericRepository<UserDetailEmail> UserDetailEmailRepository;
     IExchangeUserInfo UserProfileInfo;
     long CurrentUserPID;
+    int pageSize;
+
     #endregion
 
     #region Constractor
     public UserManagement()
     {
-
+      pageSize = Convert.ToInt32(ConfigurationManager.AppSettings["ItemsPerPage"]);
     }
     public UserManagement(long currentUserPID)
     {
+      pageSize = Convert.ToInt32(ConfigurationManager.AppSettings["ItemsPerPage"]);
       this.CurrentUserPID = currentUserPID;
     }
     public UserManagement(IExchangeUserInfo userInfo, long currentUserPID)
@@ -282,8 +286,8 @@ namespace TradeBulk_BusinessLayer
           regUser.strDob = ((DateTime)userDetail.DateofBirth).ToString("MM/dd/yyyy");
           regUser.UserCode = userDetail.UserCode;
           regUser.UserTypePID = userDetail.UserTypePID == null ? 3 : (int)userDetail.UserTypePID;
-          regUser.PhoneNumber = ExtractPhoneNumber(unitOfWork, userDetail.UserdetailPID);
-          regUser.Email = ExtractEmailID(unitOfWork, userDetail.UserdetailPID);
+          regUser.PhoneNumber = ExtractPhoneNumber( userDetail.UserdetailPID);
+          regUser.Email = ExtractEmailID( userDetail.UserdetailPID);
           regUser.strRelativePicUrl = userDetail.PicPath + userDetail.PicIMGType;
           return regUser;
         }
@@ -296,28 +300,34 @@ namespace TradeBulk_BusinessLayer
 
     }
 
-    private string ExtractPhoneNumber(UnitOfWork unitOfWork, long UserdetailPID)
+    private string ExtractPhoneNumber( long UserdetailPID)
     {
-      UserDetailPhoneRepository = unitOfWork.GetRepoInstance<UserDetailPhone>();
-      Expression<Func<UserDetailPhone, object>> parameter1 = v => v.Phone;
-      Expression<Func<UserDetailPhone, object>>[] parameterArray = new Expression<Func<UserDetailPhone, object>>[] { parameter1, /*parameter2, parameter3, parameter4 */};
-      IEnumerable<UserDetailPhone> userDetailPhones = UserDetailPhoneRepository.GetAllExpressions(x => x.UserDetailPID == UserdetailPID && x.IsActive == true, null, parameterArray);
-      if (userDetailPhones != null && userDetailPhones.Count<UserDetailPhone>() > 0)
-        return userDetailPhones.FirstOrDefault<UserDetailPhone>().Phone.Number;
-      else
-        return string.Empty;
+      using (UnitOfWork unitOfWork=new UnitOfWork())
+      {
+        UserDetailPhoneRepository = unitOfWork.GetRepoInstance<UserDetailPhone>();
+        Expression<Func<UserDetailPhone, object>> parameter1 = v => v.Phone;
+        Expression<Func<UserDetailPhone, object>>[] parameterArray = new Expression<Func<UserDetailPhone, object>>[] { parameter1, /*parameter2, parameter3, parameter4 */};
+        IEnumerable<UserDetailPhone> userDetailPhones = UserDetailPhoneRepository.GetAllExpressions(x => x.UserDetailPID == UserdetailPID && x.IsActive == true, null, parameterArray);
+        if (userDetailPhones != null && userDetailPhones.Count<UserDetailPhone>() > 0)
+          return userDetailPhones.FirstOrDefault<UserDetailPhone>().Phone.Number;
+        else
+          return string.Empty;
+      }
     }
 
-    private string ExtractEmailID(UnitOfWork unitOfWork, long UserdetailPID)
+    private string ExtractEmailID( long UserdetailPID)
     {
-      UserDetailEmailRepository = unitOfWork.GetRepoInstance<UserDetailEmail>();
-      Expression<Func<UserDetailEmail, object>> parameter1 = v => v.Email;
-      Expression<Func<UserDetailEmail, object>>[] parameterArray = new Expression<Func<UserDetailEmail, object>>[] { parameter1, /*parameter2, parameter3, parameter4 */};
-      IEnumerable<UserDetailEmail> userDetailEmails = UserDetailEmailRepository.GetAllExpressions(x => x.UserDetailPID == UserdetailPID && x.IsActive == true, null, parameterArray);
-      if (userDetailEmails != null && userDetailEmails.Count<UserDetailEmail>() > 0)
-        return userDetailEmails.FirstOrDefault<UserDetailEmail>().Email.ID;
-      else
-        return string.Empty;
+      using (UnitOfWork unitOfWork=new UnitOfWork())
+      {
+        UserDetailEmailRepository = unitOfWork.GetRepoInstance<UserDetailEmail>();
+        Expression<Func<UserDetailEmail, object>> parameter1 = v => v.Email;
+        Expression<Func<UserDetailEmail, object>>[] parameterArray = new Expression<Func<UserDetailEmail, object>>[] { parameter1, /*parameter2, parameter3, parameter4 */};
+        IEnumerable<UserDetailEmail> userDetailEmails = UserDetailEmailRepository.GetAllExpressions(x => x.UserDetailPID == UserdetailPID && x.IsActive == true, null, parameterArray);
+        if (userDetailEmails != null && userDetailEmails.Count<UserDetailEmail>() > 0)
+          return userDetailEmails.FirstOrDefault<UserDetailEmail>().Email.ID;
+        else
+          return string.Empty;
+      }      
     }
 
     private bool ChechUserExistsbyCode(string userGCode)
@@ -548,21 +558,6 @@ namespace TradeBulk_BusinessLayer
             break;
         }
 
-        //if (isUnApproved)
-        //{
-        //  if (IsAdmin(CurrentUser))
-        //    pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false), null, null);
-        //  else
-        //    //Need to do it for Other users
-        //    pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == null || x.IsApproved == false), null, null);
-        //}
-        //else
-        //{
-        //  pendingList = UserDetailRepository.GetAllExpressions(x => (x.IsApproved == true), null, null);
-        //}
-        int pageSize = 10;
-        
-
         if (pendingList != null)
           // IQueryable<UserDetail> userDetails= pendingList.Skip(pageSize * pageNumber).Take(pageSize);
           foreach (var item in pendingList.Skip(pageSize * (pageNumber-1)).Take(pageSize))
@@ -573,8 +568,8 @@ namespace TradeBulk_BusinessLayer
             regUser.strLastName = item.LastName;
             regUser.strDob = item.DateofBirth.ToString();
             regUser.UserCode = item.UserCode;
-            regUser.PhoneNumber = ExtractPhoneNumber(unitOfWork, item.UserdetailPID);
-            regUser.Email = ExtractEmailID(unitOfWork, item.UserdetailPID);
+            regUser.PhoneNumber = ExtractPhoneNumber( item.UserdetailPID);
+            regUser.Email = ExtractEmailID( item.UserdetailPID);
             regUser.strCreatedOn = item.CreatedOn == null ? "" : ((DateTime)item.CreatedOn).ToString("yyyy/MM/dd");
             lsregUsers.Add(regUser);
           }

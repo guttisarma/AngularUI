@@ -48,9 +48,9 @@ namespace TradeBulk_Web.Controllers.WebApi
 
     [HttpGet]
     [ActionName("GetProdbyCode")]
-    public ProductDetails GetProduct(string ProCode)
+    public ProductDetails GetProduct(string id)
     {
-      ProductDetails product = ipromngmt.GetProductbyCode(ProCode, currentUserID);
+      ProductDetails product = ipromngmt.GetProductbyCode(id, currentUserID);
       return product;
     }
 

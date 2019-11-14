@@ -55,7 +55,7 @@ export class ProductService {
 
   public getProdbyCode(proCode: string): Observable<Product> {
     console.log('Product Serice entered here' + proCode);
-    return this.http.get<Product>(this.baseURL + '/Product/GetProdbyCode?proCode:' + proCode);
+    return this.http.get<Product>(this.baseURL + '/Product/GetProdbyCode/id:' + proCode);
   }
   public getProductList(pageNumber: number): Observable<ProductList[]> {
     console.log(this.baseURL + '/Product/CreatedAssigneeProduct');
